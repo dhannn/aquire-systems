@@ -1,18 +1,29 @@
+import { config } from 'dotenv';
+import express from 'express';
+import { DBConnection } from './DBConnection.js';
+
 class App {
-    static port = 3000;
-
+    static port = process.env.PORT || 3000;
     app = null;
-
-    constructor(express) {
+    
+    constructor(express, dbConnection) {
         this.app = express;
-    }
+        this.dbConnection = dbConnection;
 
+        this.loadEnv()
+        this.initializeViews;
+        this.initializeUsers();
+    }
+    
     start() {
-
+        this.dbConnection.initialize();
     }
 
+    loadEnv() {
+        config();
+    }
+    
     initializeViews() {
-
     }
 
     initializeUsers() {
@@ -20,5 +31,5 @@ class App {
     }
 }
 
-const app = new App();
+const app = new App(express(), new DBConnection());
 app.start();

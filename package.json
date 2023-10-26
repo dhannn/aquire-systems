@@ -4,6 +4,7 @@
   "description": "A central electronic repository for student records in Aquinas School",
   "main": "App.js",
   "scripts": {
+    "start": "nodemon src/App.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -15,5 +16,15 @@
   "bugs": {
     "url": "https://github.com/dhannn/aquire-systems/issues"
   },
-  "homepage": "https://github.com/dhannn/aquire-systems#readme"
+  "homepage": "https://github.com/dhannn/aquire-systems#readme",
+  "dependencies": {
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "mysql2": "^3.6.2",
+    "sequelize": "^6.33.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  },
+  "type": "module"
 }
