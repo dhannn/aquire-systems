@@ -25,6 +25,10 @@ export class UserController {
         }
     }
 
+    bindModel(model) {
+        this.model = model;
+    }
+
     bindToApp(app) {
         if (!this.startingRoute) {
             throw new Error('Fill in the starting route in the constructor');
