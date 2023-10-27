@@ -14,6 +14,7 @@ class App {
 
         this.loadEnv()
         this.initializeViews;
+        this.initializeUsers();
     }
     
     start() {
@@ -28,25 +29,15 @@ class App {
     }
     
     initializeViews() {
-        this.app.use(bodyParser.urlencoded({extended: true}));
         
-        const __filename = fileURLToPath(import.meta.url);
-        const __dirname = path.dirname(__filename);
-        
-        this.app.engine('hbs', hbs.express4({partialsDir: __dirname + '/views/partials'}));
-        this.app.set('view engine', 'hbs');
-        this.app.set('views', (__dirname) + '/views/layouts');
-        
-        this.app.use(express.static(__dirname + "/public"));
     }
 
-    addUserModelController(model, controller) {
-        controller.bindModel(model);
-        controller.bindToApp(this.app);
+    initializeUsers() {
+        const adminModel = new AdminModel();
+        const adminController = new AdminContoller(adminModel);
+        adminController.bindToApp(this.app);
     }
 }
 
 const app = new App(express(), new DBConnection());
-
-app.addUserModelController(new AdminModel(), new AdminContoller())
 app.start();
