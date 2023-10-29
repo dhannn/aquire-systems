@@ -1,3 +1,8 @@
+import bcrypt from "bcrypt"
+import {User} from "../../schema/user.js"
+import { v4 as uuidv4 } from 'uuid'
+
+
 export class AdminModel {
     /**
      * Inserts the user to the database
@@ -6,6 +11,31 @@ export class AdminModel {
      * @param {string} type 
      */
     addUser(username, password, type) {
+
+        async function insertUser() {
+
+            const saltRounds = 10; 
+            const hashedPassword = await bcrypt.hash(password, saltRounds);
+  
+            //create uuid
+          const uuid = uuidv4();
+            try {
+              const newUser = await User.create({
+                userId: uuid,
+                userName: username,
+                userPassword : hashedPassword,
+                userType: type
+              
+              });
+              console.log('User inserted successfully:', newUser);
+              return newUser;
+  
+            } catch (error) {
+              console.error('Error inserting user:', error);
+              return null;
+            }
+          }
+          return insertUser();
       
     }
 

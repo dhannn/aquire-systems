@@ -1,4 +1,8 @@
+
+import { User } from "../../schema/user.js";
+import { AdminModel } from "./AdminModel.js";
 import { UserController } from "../UserController.js";
+
 
 export class AdminContoller extends UserController {
     startingRoute = '/admin';
@@ -7,6 +11,7 @@ export class AdminContoller extends UserController {
         this.createRoute('GET', '/', this.viewStudents);
         this.createRoute('GET', '/students',this.viewStudents);
         this.createRoute('POST', '/student', this.addStudent);
+        this.createRoute('POST', '/user', this.addUser);
         this.createRoute('GET', '/users', this.viewUsers);
     }
 
@@ -20,12 +25,24 @@ export class AdminContoller extends UserController {
         res.send('<h1>hello</h1>');
     } 
 
+    addUser(req, res) {
+        const newUser = this.model.addUser(req.body.userName, req.body.userPassword, req.body.userType);
+        if (!newUser) {
+            res.render('Admin');
+        }else{
+            res.render('Admin');
+        }
+    } 
+
+
     viewStudents(_, res) {
-        res.send('<h1>hello</h1>');
+        res.render('Admin');
     }
 
     viewUsers(_, res) {
-        res.send('<h1>hello</h1>');
+        res.render('Admin');
     }
+
+
 
 }
