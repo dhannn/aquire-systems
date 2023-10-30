@@ -1,0 +1,43 @@
+#navbar {
+    background-color: #ffd966;
+}
+
+#topbar-links li a{
+    color: #FAFAFA;
+}
+
+#topbar-links li a:hover{
+    color: #0A0A0A;
+    cursor: pointer;
+}
+
+#aside {
+    
+}
+
+#sidebar-links li{
+    background-color: #d9d9d9;
+}
+
+#sidebar-links li a{
+    color: #FAFAFA;
+    font-weight: 450;
+}
+
+
+#sidebar-links li:hover{
+    background-color: #ffd966;
+}
+
+.input-group :placeholder-shown{
+    font-size: 11px;
+}
+
+#data-table {
+    border-color: #d9d9d9;
+}
+
+#data-table span {
+    font-size: 11px;
+    color: #7f7f7f;
+}
