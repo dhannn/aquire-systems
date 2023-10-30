@@ -1,8 +1,10 @@
 
-import { User } from "../../schema/user.js";
+
 import { AdminModel } from "./AdminModel.js";
 import { UserController } from "../UserController.js";
-
+import { User } from "../../schema/user.js";
+import {Student} from "../../schema/student.js"
+import { Enrolls } from "../../schema/enrolls.js"
 
 export class AdminContoller extends UserController {
     startingRoute = '/admin';
@@ -22,7 +24,12 @@ export class AdminContoller extends UserController {
      * @param {Response} res 
      */
     addStudent(req, res) {
-        res.send('<h1>hello</h1>');
+        const newStudent = this.model.addStudent(req.body.student_id, req.body.firstName, req.body.middleInitial,req.body.lastName, req.body.grade, req.body.section);
+        if (!newStudent) {
+            res.render('Admin');
+        }else{
+            res.render('Admin');
+        }
     } 
 
     addUser(req, res) {
@@ -33,7 +40,6 @@ export class AdminContoller extends UserController {
             res.render('Admin');
         }
     } 
-
 
     viewStudents(_, res) {
         res.render('Admin');

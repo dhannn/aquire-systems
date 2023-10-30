@@ -1,14 +1,21 @@
 import { config } from 'dotenv';
 import express from 'express';
 import { sequelize } from './DBConnection.js';
+//Models
 import {User}  from'./schema/user.js';
+import {Enrolls} from './schema/enrolls.js'
+import {Student} from './schema/student.js'
+//Relationship
+import './schema/relationship.js';
+//Routing
 import { AdminModel } from './user/admin/AdminModel.js';
 import { AdminContoller } from './user/admin/AdminController.js';
+//Dependencies
 import bodyParser from "body-parser";
 import  hbs from 'express-hbs';
-
 import path from 'path';
 import { fileURLToPath } from 'url';
+
 
 class App {
     static port = process.env.PORT || 3000;
@@ -22,7 +29,7 @@ class App {
     }
     
     start() {
-        //this.initializeDatabase();
+        this.initializeDatabase();
         this.initializeViews();
         this.app.listen(App.port, () => {
             console.log(`App listening on port ${App.port}`);

@@ -1,6 +1,9 @@
 import bcrypt from "bcrypt"
 import {User} from "../../schema/user.js"
+import { Student } from "../../schema/student.js";
+import {Enrolls } from "../../schema/enrolls.js"
 import { v4 as uuidv4 } from 'uuid'
+import { sequelize } from "../../DBConnection.js";
 
 
 export class AdminModel {
@@ -14,10 +17,8 @@ export class AdminModel {
 
         async function insertUser() {
 
-            const saltRounds = 10; 
-            const hashedPassword = await bcrypt.hash(password, saltRounds);
-  
-            //create uuid
+          const saltRounds = 10; 
+          const hashedPassword = await bcrypt.hash(password, saltRounds);
           const uuid = uuidv4();
             try {
               const newUser = await User.create({
@@ -56,6 +57,29 @@ export class AdminModel {
      * @param {string} section 
      */
     addStudent(id, firstName, middleName, lastName, grade, section) {
-        
+          return sequelize.transaction(async (t) => {
+            try {
+                const newStudent = await Student.create({
+                    student_id: id,
+                    firstName: firstName,
+                    middleInitial: middleName,
+                    lastName: lastName
+                }, { transaction: t });  
+
+                await newStudent.createEnroll({   
+                    student_id: id,  
+                    schoolYear: new Date().getFullYear().toString(),  
+                    grade: grade,
+                    section: section
+                }, { transaction: t });  
+
+                console.log('Student and enrollment inserted successfully');
+                return newStudent;
+
+            } catch (error) {
+                console.error('Error inserting student and/or enrollment:', error);
+                throw error;  
+            }
+        });        
     }
 }
