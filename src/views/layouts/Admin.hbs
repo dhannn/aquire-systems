@@ -11,34 +11,7 @@
     <link href="/css/styles.css" rel="stylesheet" type="text/css">
 
 
-
-
-        <script>
-        function showAddUser() {
-            const addUserForm = document.getElementById("add-user-form");
-            addUserForm.showModal();
-            console.log(addUserForm);
-        }
-
-        function hideAddUser() {
-            const addUserForm = document.getElementById("add-user-form");
-            addUserForm.close();
-            console.log(addUserForm);
-        }
-
-        function showAddStudent() {
-            const addStudentForm = document.getElementById("add-student-form");
-            addStudentForm.showModal();
-            console.log(addStudentForm);
-        }
-
-        function hideAddStudent(e) {
-            e.preventDefault();
-            const addStudentForm = document.getElementById("add-student-form");
-            addStudentForm.close();
-            console.log(addStudentForm);
-        }
-    </script>
+      
 </head>
 
 <body id="add-user-body">
@@ -68,6 +41,18 @@
                             </div>
                     </div>
                 </div>
+
+            {{#if successMessage}}
+                <div class="alert alert-success" role="alert" id="successAlert">
+                    {{successMessage}}
+                </div>
+            {{/if}}
+            {{#if errorMessage}}
+                <div class="alert alert-danger" role="alert" id="errorAlert">
+                    {{errorMessage}}
+                </div>
+            {{/if}}
+
                 <dialog id="add-user-form">
                     <form action="admin/user" method="POST">
                         <h1>Add User</h1>
@@ -134,4 +119,53 @@
         </div>
 
     </div>
+    <footer>
+        <script>
+        function showAddUser() {
+            const addUserForm = document.getElementById("add-user-form");
+            addUserForm.showModal();
+            console.log(addUserForm);
+        }
+
+        function hideAddUser() {
+            const addUserForm = document.getElementById("add-user-form");
+            addUserForm.close();
+            console.log(addUserForm);
+        }
+
+        function showAddStudent() {
+            const addStudentForm = document.getElementById("add-student-form");
+            addStudentForm.showModal();
+            console.log(addStudentForm);
+        }
+
+        function hideAddStudent(e) {
+            e.preventDefault();
+            const addStudentForm = document.getElementById("add-student-form");
+            addStudentForm.close();
+            console.log(addStudentForm);
+        }
+
+        document.addEventListener("DOMContentLoaded", function() {
+   
+            let successAlert = document.getElementById("successAlert");
+            if (successAlert) {
+                setTimeout(() => {
+                    successAlert.style.display = "none";
+                }, 3000); // Hide after 3 seconds
+            }
+
+            // Target the error message
+            let errorAlert = document.getElementById("errorAlert");
+            if (errorAlert) {
+                setTimeout(() => {
+                    errorAlert.style.display = "none";
+                }, 3000); // Hide after 3 seconds
+            }
+        });
+
+    </script>
+
+        
+    </footer>
 </body>

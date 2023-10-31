@@ -22,7 +22,7 @@ class App {
     }
     
     start() {
-        //this.initializeDatabase();
+        this.initializeDatabase();
         this.initializeViews();
         this.app.listen(App.port, () => {
             console.log(`App listening on port ${App.port}`);
