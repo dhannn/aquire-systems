@@ -19,7 +19,6 @@
 </head>
 
 <body>
-
     <nav id="navbar" class="navbar p-3 mb-5">
         <div class="container-fluid">
             <a class="navbar-brand fw-bolder fs-2" href="#">Admin</a>
@@ -31,181 +30,101 @@
                     <a class="nav-link px-4">Users</a>
                 </li>
             </ul>
-
-
         </div>
     </nav>
 
-    <div class="container-fluid">
-        <div class="row mx-5">
-            <aside id="aside" class="col-2">
-                <p class="fw-bold fs-4 mb-0">Enrolled Students</p>
-                <p>SY 2023 - 2024</p>
-                <ul id="sidebar-links" class="nav flex-column">
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">Kinder</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Senior Kinder</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Grade 1</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Grade 2</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Grade 3</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Grade 4</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Grade 5</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Grade 1</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Grade 6</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Grade 7</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Grade 8</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Grade 9</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Grade 10</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Grade 11</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Grade 12</a>
-                    </li>
-                </ul>
-            </aside>
-
-            <section class="flex-column col-6 p-0">
-
-                <div class="row my-3">
-                    <div class="d-flex justify-content-end">
-                        <button type="button" class="btn rounded-0 btn-outline-dark mx-3">Start new school year</button>
-                        <button type="button" class="btn rounded-0 btn-outline-dark">Bulk enroll</button>
-                    </div>
+    <section class="flex-column col-6 m-5">
+        <div class="row my-3">
+            <span class="fw-bolder fs-3">System Users</span>
+        </div>
+        <div id="table-header" class="container-fluid">
+            <div class="row my-3">
+                <div class="col-3 border border-white p-2">
+                    <span>Username</span>
                 </div>
-                <div class="row my-3">
-                    <form class="d-flex" role="search">
-                        <input class="form-control me-2 rounded-0" type="search" placeholder="Search"
-                            aria-label="Search">
-                        <button class="btn btn-outline-success rounded-0 pt-1" type="submit"><i
-                                class="bi bi-search"></i></button>
-                    </form>
+                <div class="col-9 border border-white p-2">
+                    <span>Role</span>
                 </div>
-
-                <div class="container-fluid">
-                    <div class="row my-3">
-                        <div class="col-2 border p-2">
-                            <span>Student ID</span>
-                        </div>
-                        <div class="col-2 border p-2">
-                            <span>Last Name</span>
-                        </div>
-                        <div class="col-2 border p-2">
-                            <span>First Name</span>
-                        </div>
-                        <div class="col-2 border p-2">
-                            <span>MI</span>
-                        </div>
-                        <div class="col-4 border p-2">
-                            <span>Section</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="input-group">
-                    <input type="text" class="form-control col-2 rounded-0" placeholder="New Student ID" />
-                    <input type="text" class="form-control col-2 rounded-0" placeholder="Last Name" />
-                    <input type="text" class="form-control col-2 rounded-0" placeholder="First Name" />
-                    <input type="text" class="form-control col-2 rounded-0" placeholder="MI" />
-                    <input type="text" class="form-control col-2 rounded-0" placeholder="Section" />
-                    <div class="col-2">
-                        <button type="submit" class="btn col-12 rounded-0"><i class="bi bi-plus"></i></button>
-                    </div>
-                </div>
-
-                <div id="data-table" class="container-fluid my-3">
-                    <div class="row">
-                        <div class="col-2 border p-2">
-                            <span>23-00001</span>
-                        </div>
-                        <div class="col-2 border p-2">
-                            <span>Gutierrez</span>
-                        </div>
-                        <div class="col-2 border p-2">
-                            <span>James</span>
-                        </div>
-                        <div class="col-2 border p-2">
-                            <span>Z</span>
-                        </div>
-                        <div class="col-2 border p-2">
-                            <span>Justice</span>
-                        </div>
-                        <div class="col-2">
-                            <button type="submit" class="btn col-12 rounded-0"><i class="bi bi-pencil-fill"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-2 border p-2">
-                            <span>23-00012</span>
-                        </div>
-                        <div class="col-2 border p-2">
-                            <span>De La Cruz</span>
-                        </div>
-                        <div class="col-2 border p-2">
-                            <span>Samantha</span>
-                        </div>
-                        <div class="col-2 border p-2">
-                            <span>D</span>
-                        </div>
-                        <div class="col-2 border p-2">
-                            <span>Justice</span>
-                        </div>
-                        <div class="col-2">
-                            <button type="submit" class="btn col-12 rounded-0"><i class="bi bi-pencil-fill"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-2 border p-2">
-                            <span>23-00003</span>
-                        </div>
-                        <div class="col-2 border p-2">
-                            <span>Chan</span>
-                        </div>
-                        <div class="col-2 border p-2">
-                            <span>Ling</span>
-                        </div>
-                        <div class="col-2 border p-2">
-                            <span>JS</span>
-                        </div>
-                        <div class="col-2 border p-2">
-                            <span>Justice</span>
-                        </div>
-                        <div class="col-2">
-                            <button type="submit" class="btn col-12 rounded-0"><i class="bi bi-pencil-fill"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
+            </div>
         </div>
 
-        </section>
+        <div class="input-group">
+            <input type="text" class="form-control col-3 rounded-0" placeholder="New Username" />
+            <input type="text" class="form-control col-3 rounded-0" placeholder="New Role" />
+            <input type="password" class="form-control col-3 rounded-0" placeholder="Password" />
+            <div class="col-3">
+                <button type="button" class="btn col-12 rounded-0"><i class="bi bi-plus"></i></button>
+            </div>
+        </div>
+
+        <div id="data-table" class="container-fluid my-3">
+            <div class="row">
+                <div class="col-2 border p-2">
+                    <span>23-00001</span>
+                </div>
+                <div class="col-2 border p-2">
+                    <span>Gutierrez</span>
+                </div>
+                <div class="col-2 border p-2">
+                    <span>James</span>
+                </div>
+                <div class="col-2 border p-2">
+                    <span>Z</span>
+                </div>
+                <div class="col-2 border p-2">
+                    <span>Justice</span>
+                </div>
+                <div class="col-2">
+                    <button type="submit" class="btn col-12 rounded-0"><i class="bi bi-pencil-fill"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-2 border p-2">
+                    <span>23-00012</span>
+                </div>
+                <div class="col-2 border p-2">
+                    <span>De La Cruz</span>
+                </div>
+                <div class="col-2 border p-2">
+                    <span>Samantha</span>
+                </div>
+                <div class="col-2 border p-2">
+                    <span>D</span>
+                </div>
+                <div class="col-2 border p-2">
+                    <span>Justice</span>
+                </div>
+                <div class="col-2">
+                    <button type="submit" class="btn col-12 rounded-0"><i class="bi bi-pencil-fill"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-2 border p-2">
+                    <span>23-00003</span>
+                </div>
+                <div class="col-2 border p-2">
+                    <span>Chan</span>
+                </div>
+                <div class="col-2 border p-2">
+                    <span>Ling</span>
+                </div>
+                <div class="col-2 border p-2">
+                    <span>JS</span>
+                </div>
+                <div class="col-2 border p-2">
+                    <span>Justice</span>
+                </div>
+                <div class="col-2">
+                    <button type="submit" class="btn col-12 rounded-0"><i class="bi bi-pencil-fill"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        </div>
+
+    </section>
 
     </div>
 

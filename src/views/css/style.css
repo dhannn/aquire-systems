@@ -11,10 +11,6 @@
     cursor: pointer;
 }
 
-#aside {
-    
-}
-
 #sidebar-links li{
     background-color: #d9d9d9;
 }
@@ -37,7 +33,31 @@
     border-color: #d9d9d9;
 }
 
+#table-header {
+    background-color: #ffd966;
+    color: #FAFAFA;
+}
+
 #data-table span {
     font-size: 11px;
     color: #7f7f7f;
 }
+
+.input-group input{
+    background-color: #d9d9d9;
+}
+
+.input-group::placeholder{
+    color: #d9d9d9;
+}
+
+.form-control:focus {
+    background-color: #d9d9d9;
+    font-size: 11px;
+}
+
+.form-control:focus::placeholder {
+    color: #7f7f7f;
+}
+
+  
