@@ -1,12 +1,12 @@
 import { UserController } from "../UserController";
-import { GuidanceModel } from "./guidanceModel";
+import { GuidanceModel } from "./GuidanceModel";
 
 export class GuidanceController extends UserController {
     startingRoute = '/guidance';
 
     initializeRoutes() {
         this.createRoute('GET', '/', this.viewStudentRecords);
-        this.createRoute('POST', '/', this.ModifyStudentRecords)
+        this.createRoute('POST', '/', this.addStudentRecord);
     }
 
     /**
@@ -14,12 +14,13 @@ export class GuidanceController extends UserController {
      * @param {Request} req 
      * @param {Response} res 
      */
-    ModifyStudentRecords(req, res) {
-        res.render('Guidance')
+    addStudentRecord(req, res) {
+        GuidanceModel.addStudentRecord(req.body.studentId, req.body.recordType);
+        res.render('Guidance');
     }
 
     viewStudentRecords(_, res) {
-        
+        GuidanceModel.initializeRecordTypes();
         res.render('Guidance');
     }
 }

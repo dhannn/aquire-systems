@@ -7,9 +7,8 @@ export class GuidanceModel {
     /**
      * Initializes the record types
      */
-    initializeRecordTypes(){
+    static initializeRecordTypes(){
         async function initializeTypes() {
-
             record = [
                 {recordType:'MC', recordName:'Medical Certificate'},
                 {recordType:'RF', recordName:'Recommendation Form'},
@@ -30,5 +29,19 @@ export class GuidanceModel {
         initializeTypes();
     }
 
-
+    static addStudentRecord(id, recordType){
+        async function addStudentRecord() {
+            try{
+                const record = await Record.create({
+                    studentId: id,
+                    schoolYear: 1111,
+                    recordId: recordType
+                });
+                console.log('Record inserted successfully', record);
+            } catch(error) {
+                console.error('Error inserting record', error);
+            }
+        }
+        addStudentRecord();
+    }
 }
