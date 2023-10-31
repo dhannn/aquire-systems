@@ -14,26 +14,22 @@ export class AdminModel {
 
         async function insertUser() {
 
-            const saltRounds = 10; 
-            const hashedPassword = await bcrypt.hash(password, saltRounds);
-  
-            //create uuid
+          const saltRounds = 10; 
+          const hashedPassword = await bcrypt.hash(password, saltRounds);
           const uuid = uuidv4();
-            try {
-              const newUser = await User.create({
-                userId: uuid,
-                userName: username,
-                userPassword : hashedPassword,
-                userType: type
-              
-              });
-              console.log('User inserted successfully:', newUser);
-              return newUser;
-  
-            } catch (error) {
-              console.error('Error inserting user:', error);
-              return null;
-            }
+          try {
+            const newUser = await User.create({
+              userId: uuid,
+              userName: username,
+              userPassword: hashedPassword,
+              userType: type
+            });
+            return { user: newUser, error: null };
+          } catch (error) {
+            console.error('Error inserting user:', error);
+            return { user: null, error: error.message };
+          }
+          
           }
           return insertUser();
       
