@@ -1,4 +1,5 @@
 import { UserController } from "../UserController";
+import { GuidanceModel } from "./guidanceModel";
 
 export class GuidanceController extends UserController {
     startingRoute = '/guidance';
@@ -18,6 +19,7 @@ export class GuidanceController extends UserController {
     }
 
     viewStudentRecords(_, res) {
+        
         res.render('Guidance');
     }
 }
