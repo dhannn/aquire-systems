@@ -1,41 +1,27 @@
-#navbar {
+.navbar {
     position: sticky;
     top: 0;
     background-color: #ffd966;
 }
 
-#topbar-links li a{
+.topbar-links li a{
     color: #FAFAFA;
 }
 
-#topbar-links li a:hover{
+.topbar-links li a:hover{
     color: #0A0A0A;
     cursor: pointer;
-}
-
-#sidebar-links li{
-    background-color: #d9d9d9;
-}
-
-#sidebar-links li a{
-    color: #FAFAFA;
-    font-weight: 450;
-}
-
-
-#sidebar-links li:hover{
-    background-color: #ffd966;
 }
 
 .input-group :placeholder-shown{
     font-size: 11px;
 }
 
-#data-table {
+.data-table {
     border-color: #d9d9d9;
 }
 
-#table-header {
+.table-header {
     background-color: #ffd966;
     color: #FAFAFA;
 }
@@ -47,6 +33,7 @@
 
 .input-group input{
     background-color: #d9d9d9;
+    font-size: 11px;
 
     &::placeholder{
         color: #7f7f7f;
@@ -56,11 +43,11 @@
         background-color: #d9d9d9;
         font-size: 11px;
     }
+
     
     &:focus::placeholder {
         color: #7f7f7f;
     }
-
 }
 
 #form-button-add {
@@ -81,7 +68,9 @@
     }
 }
 
-#edit-button {
+  
+  .edit-button-div {
+    display: none;
     padding: .5em .75em;
     color: #7f7f7f;
     border-radius: 6px;
@@ -91,9 +80,12 @@
     &:hover {
         opacity: 0.5;
     }
-  
+
     &:active {
-    opacity: 1;
-      color: #ffd966;
+        opacity: 0.75;
     }
-}
+  }
+  
+  .list-div:hover .edit-button-div {
+    display: block; 
+  }
