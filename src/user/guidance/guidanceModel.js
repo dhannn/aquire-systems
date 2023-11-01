@@ -32,7 +32,7 @@ export class GuidanceModel {
     static addStudentRecord(id, recordType){
         async function addStudentRecord() {
             try{
-                const record = await Record.create({
+                const record = await AdmissionRecord.create({
                     studentId: id,
                     schoolYear: 1111,
                     recordId: recordType
