@@ -10,12 +10,12 @@ export class GuidanceModel {
     static initializeRecordTypes(){
         async function initializeTypes() {
             record = [
-                {recordType:'MC', recordName:'Medical Certificate'},
-                {recordType:'RF', recordName:'Recommendation Form'},
-                {recordType:'SRF', recordName:'Scholastic Record Form'},
-                {recordType:'BEF', recordName:'Basic Education Form'},
-                {recordType:'SHSF', recordName:'Senior High School Form'},
-                {recordType:'IS', recordName:'Information Sheet'},
+                {recordId:'MC', recordName:'Medical Certificate'},
+                {recordId:'RF', recordName:'Recommendation Form'},
+                {recordId:'SRF', recordName:'Scholastic Record Form'},
+                {recordId:'BEF', recordName:'Basic Education Form'},
+                {recordId:'SHSF', recordName:'Senior High School Form'},
+                {recordId:'IS', recordName:'Information Sheet'},
             ];
 
             Record.bulkCreate(record, {

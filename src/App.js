@@ -31,6 +31,7 @@ class App {
     }
     
     start() {
+        this.guidanceRelationships();
         this.initializeDatabase();
         this.initializeViews();
         this.app.listen(App.port, () => {
@@ -62,6 +63,11 @@ class App {
           } catch (error) {
             console.error('Error syncing database:', error);
           }
+    }
+
+    async guidanceRelationships(){
+        AdmissionRecord.belongsTo(Record, {foreignKey: 'recordId', targetKey: 'recordId'});
+        Record.hasMany(GuidanceInfo, {foreignKey:'recordId'});
     }
 
     addUserModelController(model, controller) {
