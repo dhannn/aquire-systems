@@ -11,8 +11,6 @@
     <link href="/css/styles.css" rel="stylesheet" type="text/css">
 
 
-
-
         <script>
         function showAddUser() {
             const addUserForm = document.getElementById("add-user-form");
@@ -43,7 +41,9 @@
 
 <body id="add-user-body">
 
-    {{> Header title='Admin'}}
+    {{> header title='Admin'}}
+
+
 
     <div class="container-fluid">
         
@@ -51,7 +51,7 @@
             <div class="col-6 m-auto">
                 
 
-                {{> student/StudentRow}}
+                {{> student/StudentRow}} 
 
                 <div class="container-fluid">
                     <div class="row">
