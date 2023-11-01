@@ -1,4 +1,6 @@
 #navbar {
+    position: sticky;
+    top: 0;
     background-color: #ffd966;
 }
 
@@ -45,19 +47,53 @@
 
 .input-group input{
     background-color: #d9d9d9;
+
+    &::placeholder{
+        color: #7f7f7f;
+    }
+
+    &:focus {
+        background-color: #d9d9d9;
+        font-size: 11px;
+    }
+    
+    &:focus::placeholder {
+        color: #7f7f7f;
+    }
+
 }
 
-.input-group::placeholder{
-    color: #d9d9d9;
-}
-
-.form-control:focus {
-    background-color: #d9d9d9;
-    font-size: 11px;
-}
-
-.form-control:focus::placeholder {
-    color: #7f7f7f;
-}
-
+#form-button-add {
+    padding: .5em .75em;
+    background: #ffd966;
+    color: #FAFAFA;
+    border-radius: 6px;
+    cursor: pointer;
+    user-select: none;
   
+    &:hover {
+        opacity: 0.5;    
+    }
+  
+    &:active {
+        opacity: 1;
+      background-color: #d9d9d9;
+    }
+}
+
+#edit-button {
+    padding: .5em .75em;
+    color: #7f7f7f;
+    border-radius: 6px;
+    cursor: pointer;
+    user-select: none;
+  
+    &:hover {
+        opacity: 0.5;
+    }
+  
+    &:active {
+    opacity: 1;
+      color: #ffd966;
+    }
+}
