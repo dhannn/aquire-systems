@@ -50,10 +50,12 @@ export class AdminModel {
    */
   addStudent(id, firstName, middleName, lastName, grade, section) {
     return sequelize.transaction(async (t) => {
+
+    
       if (middleName.length > 2) {
         throw new Error("Middle initial should be at most two characters");
-      }
-
+      } 
+      
       const existingStudent = await Enrolls.findOne({
         where: {
           student_id: id,
@@ -66,7 +68,7 @@ export class AdminModel {
         throw new Error(
           "Student with the same ID already exists for the current school year"
         );
-      }
+      } 
       try {
         const newStudent = await Student.create(
           {
