@@ -25,11 +25,9 @@ export class AdminContoller extends UserController {
      */
     async addStudent(req, res) {
         try {
-            console.log("This is the body" + req.body.student_id);
-
             const newStudent = await this.model.addStudent(req.body.student_id, req.body.firstName, req.body.middleInitial, req.body.lastName, req.body.grade, req.body.section);
-          
             res.render('Admin', { successMessage: "Student added successfully!" });
+            
         } catch (error) {
             console.error(error.message);
             res.render('Admin', { errorMessage: error.message });
