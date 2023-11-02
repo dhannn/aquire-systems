@@ -1,137 +1,113 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    {{!-- Store title variable --}}
-    {{!-- <title>{{{pagetitle}}}</title> --}}
-    <title>Admin View | AquiRe</title>
+    <title>Admin Add Users</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <link href="/css/styles.css" rel="stylesheet" type="text/css">
-
-
-        <script>
-        function showAddUser() {
-            const addUserForm = document.getElementById("add-user-form");
-            addUserForm.showModal();
-            console.log(addUserForm);
-        }
-
-        function hideAddUser() {
-            const addUserForm = document.getElementById("add-user-form");
-            addUserForm.close();
-            console.log(addUserForm);
-        }
-
-        function showAddStudent() {
-            const addStudentForm = document.getElementById("add-student-form");
-            addStudentForm.showModal();
-            console.log(addStudentForm);
-        }
-
-        function hideAddStudent(e) {
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
+        integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
+        crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/84cb3b7f2b.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+    {{!-- <link rel="stylesheet" type="text/css" href="./style.css"> --}}
+    
+    <script>
+        function submitForm(e) {
             e.preventDefault();
-            const addStudentForm = document.getElementById("add-student-form");
-            addStudentForm.close();
-            console.log(addStudentForm);
         }
     </script>
 </head>
 
-<body id="add-user-body">
+<body>
+    <nav class="navbar p-3 mb-5">
+        <div class="container-fluid">
+            <a class="navbar-brand fw-bolder fs-2" href="#">Admin</a>
+            <ul class="topbar-links nav">
+                <li class="nav-item">
+                    <a class="nav-link px-4">Students</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link px-4">Users</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
 
-    {{> header title='Admin'}}
-
-
-
-    <div class="container-fluid">
-        
-        <div class="row">
-            <div class="col-6 m-auto">
-                
-
-                {{> student/StudentRow}} 
-
-                <div class="container-fluid">
-                    <div class="row">
-                            <div class="mb-3 row d-flex justify-content-center">
-                                <button onclick="showAddUser()" class="btn btn-primary col-2"><i class="fa-solid fa-plus"></i>Add User</button>
-                            </div>
-                    </div>
+    <section class="flex-column col-6 m-5">
+        <div class="row my-3">
+            <span class="fw-bolder fs-3">System Users</span>
+        </div>
+        <div class="table-header container-fluid">
+            <div class="row my-3">
+                <div class="col-3 border border-white p-2">
+                    <span>Username</span>
                 </div>
-
-                <div class="container-fluid">
-                    <div class="row">
-                            <div class="mb-3 row d-flex justify-content-center">
-                                <button onclick="showAddStudent()" class="btn btn-primary col-2">Add Student</button>
-                            </div>
-                    </div>
+                <div class="col-9 border border-white p-2">
+                    <span>Role</span>
                 </div>
-                <dialog id="add-user-form">
-                    <form action="admin/user" method="POST">
-                        <h1>Add User</h1>
-                        <div class="mb-3 row">
-                            <label for="userName" class="form-label col-4">Username</label>
-                            <input type="text" class="form-control col" id="userName" name="userName" required>
-                        </div>
-                        <div class="mb-3 row">
-                            <label for="userPassword" class="form-label col-4">Password</label>
-                            <input type="password" class="form-control col" id="userPassword" name="userPassword" required>
-                        </div>
-
-                        <select id="userType" name="userType" required>
-                            <option value="A">Admin</option>
-                            <option value="G">Guidance</option>
-                            <option value="D">Dental</option>
-                        </select><br><br>
-                        
-                        <div class="mb-3 row d-flex justify-content-center">
-                            <input class="btn btn-primary col-2" type="submit" value="Submit"  onclick="hideAddUser()">
-                        </div>
-
-                    </form>
-                </dialog>
-
-                <br><br>
-
-                <dialog id="add-student-form">
-
-                    <form action="admin/student" method="POST" onsubmit="hideAddStudent()">
-                        <h1>Add Student</h1>
-                        <div class="mb-3 row">
-                            <label for="student_id" class="form-label col-4">Student ID</label>
-                            <input type="text" class="form-control col" id="student_id" name="student_id" required>
-                        </div>
-                        <div class="mb-3 row">
-                            <label for="firstName" class="form-label col-4">First Name</label>
-                            <input type="text" class="form-control col" id="firstName" name="firstName" required>
-                        </div>
-                        <div class="mb-3 row">
-                            <label for="middleInitial" class="form-label col-4">Middle Initial</label>
-                            <input type="text" class="form-control col" id="middleInitial" name="middleInitial">
-                        </div>
-                        <div class="mb-3 row">
-                            <label for="lastName" class="form-label col-4">Last Name</label>
-                            <input type="text" class="form-control col" id="lastName" name="lastName" required>
-                        </div>
-                        <div class="mb-3 row">
-                            <label for="grade" class="form-label col-4">Grade</label>
-                            <input type="text" class="form-control col" id="grade" name="grade" required>
-                        </div>
-                        <div class="mb-3 row">
-                            <label for="section" class="form-label col-4">Section</label>
-                            <input type="text" class="form-control col" id="section" name="section" required>
-                        </div>
-                        <div class="mb-3 row d-flex justify-content-center">
-                            <input class="btn btn-primary col-2" type="submit" value="Submit">
-                        </div>
-
-                    </form>
-                
-                </dialog>
             </div>
         </div>
 
-    </div>
+
+        <form id="add-user-form" role="form" method="POST" action="/admin/user" onsubmit="submitForm(event)">
+            <div class="input-group">
+                <input name="userName" type="text" class="form-control col-3 rounded-0" placeholder="New Username" />
+                <input name="userType" type="text" class="form-control col-3 rounded-0" placeholder="New Role" />
+                <input name="userPassword" type="password" class="form-control col-3 rounded-0" placeholder="Password" />
+                <div class="col-3 text-center rounded-0" role="button" tabindex="0" id="form-button-add" value="Submit">
+                    <input class="col-3" type="submit" value="" style="position: absolute; background-color: transparent; height: 100%; right: 0; top: 0; padding: 0px 2px; border: none;"/>
+                    <i class="fa-solid fa-plus"></i>
+                </div>
+            </div>
+        </form>
+
+        <div id="data-table" class="container-fluid my-3">
+            <div class="row list-div">
+                <div class="col-3 border p-2">
+                    <span>nyubunyi</span>
+                </div>
+                <div class="col-6 border p-2">
+                    <span>Admin</span>
+                </div>
+                <div class="edit-button-div col-3 text-center rounded-0" role="button" tabindex="0">
+                    <i class="fa-solid fa-pen"></i>
+                </div>
+            </div>
+            <div class="row list-div">
+                <div class="col-3 border p-2">
+                    <span>giebautista</span>
+                </div>
+                <div class="col-6 border p-2">
+                    <span>Guidance</span>
+                </div>
+                <div class="edit-button-div col-3 text-center rounded-0" role="button" tabindex="0">
+                    <i class="fa-solid fa-pen"></i>
+                </div>
+            </div>
+            <div class="row list-div">
+                <div class="col-3 border p-2">
+                    <span>nrangel</span>
+                </div>
+                <div class="col-6 border p-2">
+                    <span>Medical</span>
+                </div>
+                <div class="edit-button-div col-3 text-center rounded-0" role="button" tabindex="0">
+                    <i class="fa-solid fa-pen"></i>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Include Bootstrap JS (optional, for dropdown menus) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
+
 </body>
+
+</html>
