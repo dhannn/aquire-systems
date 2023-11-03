@@ -23,13 +23,12 @@ export class PortalContoller extends UserController {
             const loginStatus = UserController.checkifloggedIn(req);
 
             if (loginStatus) {
-                
+                res.redirect('/');
             } else {
                 res.cookie('id', userToLogin);
                 res.status(200);
+                res.redirect('/');
             }
-            res.redirect('/');
-
             // UserController.verifyUserPermission(userToLogin, res);
         } else {
             res.render('Portal')
