@@ -77,4 +77,94 @@
     box-shadow: none;
   }
 
+  .navbar {
+    position: sticky;
+    top: 0;
+    background-color: #ffd966;
+}
+
+.topbar-links li a{
+    color: #FAFAFA;
+}
+
+.topbar-links li a:hover{
+    color: #0A0A0A;
+    cursor: pointer;
+}
+
+.input-group :placeholder-shown{
+    font-size: 11px;
+}
+
+.data-table {
+    border-color: #d9d9d9;
+}
+
+.table-header {
+    background-color: #ffd966;
+    color: #FAFAFA;
+}
+
+#data-table span {
+    font-size: 11px;
+    color: #7f7f7f;
+}
+
+.input-group input{
+    background-color: #d9d9d9;
+    font-size: 11px;
+
+    &::placeholder{
+        color: #7f7f7f;
+    }
+
+    &:focus {
+        background-color: #d9d9d9;
+        font-size: 11px;
+    }
+
+    
+    &:focus::placeholder {
+        color: #7f7f7f;
+    }
+}
+
+#form-button-add {
+    padding: .5em .75em;
+    background: #ffd966;
+    color: #FAFAFA;
+    border-radius: 6px;
+    cursor: pointer;
+    user-select: none;
   
+    &:hover {
+        opacity: 0.5;    
+    }
+  
+    &:active {
+        opacity: 1;
+      background-color: #d9d9d9;
+    }
+}
+
+  
+  .edit-button-div {
+    display: none;
+    padding: .5em .75em;
+    color: #7f7f7f;
+    border-radius: 6px;
+    cursor: pointer;
+    user-select: none;
+  
+    &:hover {
+        opacity: 0.5;
+    }
+
+    &:active {
+        opacity: 0.75;
+    }
+  }
+  
+  .list-div:hover .edit-button-div {
+    display: block; 
+  }
