@@ -14,7 +14,51 @@
         integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
         crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
-    {{!-- <link rel="stylesheet" type="text/css" href="./style.css"> --}}
+    <link rel="stylesheet" type="text/css" href="./style.css"> 
+
+     <script>
+        function submitForm(e) {
+            e.preventDefault();
+            const form = document.getElementById('add-student-form');
+            const formData = {
+                student_id: form.student_id.value,
+                lastName: form.lastName.value,
+                firstName: form.firstName.value, 
+                middleInitial: form.middleInitial.value,
+                grade: form.grade.value,
+                section: form.section.value
+            };
+
+                 form.student_id.value = ''
+                 form.lastName.value = ''
+                 form.firstName.value = ''
+                 form.middleInitial.value = ''
+                 form.grade.value = ''
+                 form.section.value = ''
+
+           
+
+            fetch(form.action, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData),
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Success:', data);
+                // Handle success - perhaps update the UI to show the new user
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+                // Handle errors here
+            });
+            
+            
+          
+        }
+    </script>
 
 
 </head>
@@ -128,7 +172,7 @@
                     </div>
                 </div>
 
-                <form action="/admin/student" method="POST">
+                <form id="add-student-form" role="form" method="POST" action="/admin/student" onsubmit="submitForm(event)">
                     <div class="input-group">
                         <input name="student_id" type="text" class="form-control col-2 rounded-0" placeholder="New Student ID" />
                         <input name="lastName"   type="text" class="form-control col-2 rounded-0" placeholder="Last Name" />
@@ -136,12 +180,12 @@
                         <input name="middleInitial" type="text" class="form-control col-2 rounded-0" placeholder="MI" />
                         <input name="grade" type="text" class="form-control col-2 rounded-0" placeholder="Grade" />
                         <input name="section" type="text" class="form-control col-2 rounded-0" placeholder="Section" />
-                        <div class="mb-3 row d-flex justify-content-center">
-                            <input class="btn" type="submit" value="Submit"  onclick="hideAddUser()">
+                        <div class="col-3 text-center rounded-0" role="button" tabindex="0" id="form-button-add" value="Submit">
+                            <input class="col-3" type="submit" value="" style="position: absolute; background-color: transparent; height: 100%; right: 0; top: 0; padding: 0px 2px; border: none;"/>
+                            <i class="fa-solid fa-plus"></i>
                         </div>
                     </div>
                 </form>
-
 
 
                 <div id="data-table" class="container-fluid my-3">
