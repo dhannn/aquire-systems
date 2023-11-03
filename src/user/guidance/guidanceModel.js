@@ -1,6 +1,7 @@
 import { Record } from "../../schema/record";
 import { AdmissionRecord } from "../../schema/admissionrecord";
 import { Record } from "../../schema/record";
+import { Enrolls } from "../../schema/enrolls";
 
 export class GuidanceModel {
     
@@ -32,9 +33,30 @@ export class GuidanceModel {
     static addStudentRecord(id, recordType){
         async function addStudentRecord() {
             try{
+                Enrolls.findOne({
+                    where: {
+                        studentId: id
+                    },
+                    include: [
+                        {
+                            model: Enrolls,
+                            as: 'schoolYear',
+                            attributes:['schoolYear']
+                        }
+                    ]
+                }).then(record => {
+                    if(record) {
+                        const schoolYear = record.schoolYear.schoolYear;
+                        console.log('School Year found', schoolYear);
+                    } else {
+                        console.log('School Year not found');
+                    }
+                }).catch(record => {
+                    console.error('Error retrieving School Year', error);
+                });
                 const record = await AdmissionRecord.create({
                     studentId: id,
-                    schoolYear: 1111,
+                    schoolYear: schoolYear,
                     recordId: recordType
                 });
                 console.log('Record inserted successfully', record);
