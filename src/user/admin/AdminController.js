@@ -23,15 +23,20 @@ export class AdminContoller extends UserController {
      * @param {Request} req 
      * @param {Response} res 
      */
+
+    
     async addStudent(req, res) {
         try {
             const newStudent = await this.model.addStudent(req.body.student_id, req.body.firstName, req.body.middleInitial, req.body.lastName, req.body.grade, req.body.section);
             res.render('Admin', { successMessage: "Student added successfully!" });
+            console.log(newStudent);
         } catch (error) {
             console.error(error.message);
             res.render('Admin', { errorMessage: error.message });
         }
     }
+
+ 
     
     /**
      * TODO: Fix redirection
