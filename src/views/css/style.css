@@ -25,10 +25,6 @@
     background-color: #ffd966;
 }
 
-.input-group :placeholder-shown{
-    font-size: 11px;
-}
-
 #data-table {
     border-color: #d9d9d9;
 }
@@ -43,14 +39,6 @@
     color: #7f7f7f;
 }
 
-.input-group input{
-    background-color: #d9d9d9;
-}
-
-.input-group::placeholder{
-    color: #d9d9d9;
-}
-
 .form-control:focus {
     background-color: #d9d9d9;
     font-size: 11px;
@@ -61,18 +49,17 @@
 }
 
 .btn {
-    background-color: #ffd966; /* Change the background color to white */
-    color: #FAFAFA; /* Change the text color to black */
+    background-color: #ffd966; 
+    color: #FAFAFA; 
   }
 
-  /* CSS for the button icon in its normal state */
   .btn i {
-    color: #FAFAFA; /* Change the color of the icon to white */
+    color: #FAFAFA; 
   }
 
 .btn:focus, .btn:active {
-    background-color: #ffd966; /* Keep the background color white */
-    color: #FAFAFA; /* Keep the text color black */
+    background-color: #ffd966; 
+    color: #FAFAFA;
     outline: none;
     box-shadow: none;
   }
@@ -92,10 +79,6 @@
     cursor: pointer;
 }
 
-.input-group :placeholder-shown{
-    font-size: 11px;
-}
-
 .data-table {
     border-color: #d9d9d9;
 }
@@ -110,7 +93,44 @@
     color: #7f7f7f;
 }
 
-.input-group input{
+.input-group {
+    &:placeholder-shown{
+        font-size: 11px;
+    }
+
+    &::placeholder{
+        color: #d9d9d9;
+    }
+
+    &:placeholder-shown{
+        font-size: 11px;
+    }
+}
+
+.input-group button{
+    background-color: #7f7f7f;
+    color: #FAFAFA;
+
+    &:hover {
+        opacity: 0.5;    
+    }
+  
+    &:active {
+        opacity: 1;
+        background-color: #d9d9d9;
+    }
+
+    &:active {
+        background-color: #d9d9d9;
+    }
+    
+}
+
+.dropdown-button {
+    background-color: #7f7f7f;
+}
+
+.student-form input{
     background-color: #d9d9d9;
     font-size: 11px;
 
@@ -122,8 +142,25 @@
         background-color: #d9d9d9;
         font-size: 11px;
     }
+ 
+    &:focus::placeholder {
+        color: #7f7f7f;
+    }
+}
 
-    
+.search-form input{
+    background-color: #FAFAFA;
+    font-size: 11px;
+
+    &::placeholder{
+        color: #7f7f7f;
+    }
+
+    &:focus {
+        background-color: #FAFAFA;
+        font-size: 11px;
+    }
+ 
     &:focus::placeholder {
         color: #7f7f7f;
     }
@@ -147,7 +184,29 @@
     }
 }
 
+.checkbox-dropdown {
+    background-color: #d9d9d9 !important;
+    border: 0;
   
+    &:hover {
+        opacity: 0.5;    
+    }
+  
+    &:active {
+        background-color: #d9d9d9 !important;
+    }
+
+    &:focus {
+      background-color: #d9d9d9;
+      border: none;
+    }
+
+    &:visited {
+        background-color: #d9d9d9;
+        border: none;
+      }
+}
+
   .edit-button-div {
     display: none;
     padding: .5em .75em;
@@ -168,3 +227,15 @@
   .list-div:hover .edit-button-div {
     display: block; 
   }
+
+  .add-admission-button {
+    font-size: 11px;
+  }
+
+  .form-check-label {
+    font-size: 11px;
+  }
+
+
+
+  
