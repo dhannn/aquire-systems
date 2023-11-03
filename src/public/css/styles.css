@@ -86,6 +86,12 @@ background-color: #FAFAFA;
     font-size: 4.5rem;
 }
 
+#login-button{
+    color: black;
+    background-color: #FFD700;
+    border-color: #FFD700;
+}
+
 dialog {
     padding: 15vh 10vw;
     width: 45vw;
