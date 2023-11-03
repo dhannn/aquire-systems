@@ -1,25 +1,27 @@
 import { Sequelize, DataTypes } from 'sequelize';
 import {sequelize} from '../DBConnection.js';
 import { Record } from './record.js';
+import { Student } from './student.js';
+import { Enrolls } from './enrolls.js';
 
 export const AdmissionRecord = sequelize.define('admissionRecord', {
     studentId: {
         type: DataTypes.STRING,
-        /*
+        allowNull: false,
+        primaryKey: true,
         references: {
             model: Student,
-            key: 'studentId'
+            key: 'studentId', 
         }
-        uncomment when other schemas prepared*/
     },
     schoolYear: {
         type: DataTypes.INTEGER,
-        /*
+        allowNull: false,
+        primaryKey: true,
         references: {
-            model: Student,
-            key: 'schoolYear'
+            model: Enrolls,
+            key: 'schoolYear',
         }
-        uncomment when other schemas prepared*/
     },
     recordId: {
         type: DataTypes.CHAR,
