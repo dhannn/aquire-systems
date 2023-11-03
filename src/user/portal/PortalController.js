@@ -17,6 +17,7 @@ export class PortalContoller extends UserController {
      * @param {Response} res 
      */
     async loginUser(req, res) {
+        const { cookies } = req;
         const userToLogin = await this.model.confirmUserByUsername(req.body.userName, req.body.userPassword);
         
         if (userToLogin != null) {
@@ -46,9 +47,9 @@ export class PortalContoller extends UserController {
             const type = user[0].userType;
             if (type == 'A') {
                 res.redirect('/admin');
-            } else if (type = 'M'){
+            } else if (type == 'M'){
                 res.redirect('/medical');
-            } else if (type = 'G') {
+            } else if (type == 'G') {
                 res.redirect('/guidance');
             }
         } else  {

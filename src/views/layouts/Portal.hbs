@@ -1,1 +1,32 @@
-<h1>Portal</h1>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    {{!-- Store title variable --}}
+    {{!-- <title>{{{pagetitle}}}</title> --}}
+    <title>Student Information Form</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link href="/css/styles.css" rel="stylesheet" type="text/css">
+
+    <script>
+        //functions here
+    </script>
+</head>
+<body>
+    <form action="/portal/login" method="POST">
+    <div class="mb-3 row">
+        <label for="userName" class="form-label col-4">Username</label>
+        <input type="text" class="form-control col" id="userName" name="userName" required>
+     </div>
+    <div class="mb-3 row">
+        <label for="userPassword" class="form-label col-4">Password</label>
+        <input type="text" class="form-control col" id="userPassword" name="userPassword" required>
+    </div>
+                        
+    <div class="mb-3 row d-flex justify-content-center">
+        <input class="btn btn-primary col-2" type="submit" value="Submit"  onclick="hideAddUser()">
+    </div>
+</body>
+</html>

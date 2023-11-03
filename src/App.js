@@ -4,8 +4,11 @@ import { sequelize } from './DBConnection.js';
 import {User}  from'./schema/user.js';
 import { AdminModel } from './user/admin/AdminModel.js';
 import { AdminContoller } from './user/admin/AdminController.js';
+import { PortalModel } from './user/portal/PortalModel.js';
+import { PortalContoller } from './user/portal/PortalController.js';
 import bodyParser from "body-parser";
 import  hbs from 'express-hbs';
+import cookieParser from 'cookie-parser';
 
 import path from 'path';
 import { fileURLToPath } from 'url';
@@ -15,7 +18,7 @@ class App {
     app = null;
     
     constructor(express) {
-        this.app = express;
+        this.app = express; 
     
         this.loadEnv();
         this.initializeViews();
@@ -35,6 +38,7 @@ class App {
     
     async initializeViews() {
         this.app.use(bodyParser.urlencoded({extended: true}));
+        this.app.use(cookieParser());
         
         const __filename = fileURLToPath(import.meta.url);
         const __dirname = path.dirname(__filename);
@@ -64,4 +68,5 @@ class App {
 const app = new App(express());
 
 app.addUserModelController(new AdminModel(), new AdminContoller())
+app.addUserModelController(new PortalModel(), new PortalContoller())
 app.start();

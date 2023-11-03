@@ -2,17 +2,21 @@
 import { User } from "../../schema/user.js";
 import { AdminModel } from "./AdminModel.js";
 import { UserController } from "../UserController.js";
+import { NIL } from "uuid";
 
 
 export class AdminContoller extends UserController {
     startingRoute = '/admin';
+    alloweduserType = 'A';
 
     initializeRoutes() {
+        this.createRoute('GET', '', this.viewStudents);
         this.createRoute('GET', '/', this.viewStudents);
+        this.createRoute('GET', '/users', this.viewUsers);
         this.createRoute('GET', '/students',this.viewStudents);
         this.createRoute('POST', '/student', this.addStudent);
         this.createRoute('POST', '/user', this.addUser);
-        this.createRoute('GET', '/users', this.viewUsers);
+        
     }
 
     /**
@@ -29,14 +33,24 @@ export class AdminContoller extends UserController {
         const newUser = this.model.addUser(req.body.userName, req.body.userPassword, req.body.userType);
         if (!newUser) {
             res.render('Admin');
-        }else{
+        }else{  
             res.render('Admin');
         }
     } 
 
 
-    viewStudents(_, res) {
-        res.render('Admin');
+    async viewStudents(_, res) {
+        const { cookies } = _;
+        const allowed = await UserController.verifyUserPermission(this.alloweduserType, cookies.id);
+        const loggedIn = UserController.checkifloggedIn(_);
+
+        if (allowed != null) {
+            if (loggedIn && allowed) {
+                res.render('Admin');
+            }
+        } else {
+            res.redirect('/portal');
+        }
     }
 
     viewUsers(_, res) {
