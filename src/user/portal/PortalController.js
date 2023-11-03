@@ -2,11 +2,10 @@ import { User } from "../../schema/user.js";
 import { UserController } from "../UserController.js";
 
 export class PortalContoller extends UserController {
-    startingRoute = '/portal';
+    startingRoute = '/';
 
     initializeRoutes() {
         this.createRoute('GET', '', this.viewPortal);
-        this.createRoute('GET', '/', this.viewPortal);
         this.createRoute('GET', '/login',this.viewPortal);
         this.createRoute('POST', '/login', this.loginUser);
     }
@@ -29,7 +28,7 @@ export class PortalContoller extends UserController {
                 res.cookie('id', userToLogin);
                 res.status(200);
             }
-            res.redirect('/portal');
+            res.redirect('/');
 
             // UserController.verifyUserPermission(userToLogin, res);
         } else {

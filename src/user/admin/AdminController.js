@@ -49,7 +49,7 @@ export class AdminContoller extends UserController {
                 res.render('Admin');
             }
         } else {
-            res.redirect('/portal');
+            res.redirect('/');
         }
     }
 
