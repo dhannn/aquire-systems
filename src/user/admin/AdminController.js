@@ -10,10 +10,10 @@ export class AdminContoller extends UserController {
     startingRoute = '/admin';
 
     initializeRoutes() {
-        this.createRoute('GET', '/', this.viewStudents);
+        this.createRoute('GET', '/', (_, res) => res.redirect('/admin/students'));
         this.createRoute('GET', '/students',this.viewStudents);
-        this.createRoute('POST', '/student', this.addStudent);
-        this.createRoute('POST', '/user', this.addUser);
+        this.createRoute('POST', '/students', this.addStudent);
+        this.createRoute('POST', '/users', this.addUser);
         this.createRoute('GET', '/users', this.viewUsers);
     }
 
@@ -26,11 +26,11 @@ export class AdminContoller extends UserController {
     async addStudent(req, res) {
         try {
             const newStudent = await this.model.addStudent(req.body.student_id, req.body.firstName, req.body.middleInitial, req.body.lastName, req.body.grade, req.body.section);
-            res.render('Admin', { successMessage: "Student added successfully!" });
+            res.render('Admin_Student', { message: { isSuccess: true, content: 'Student added sucessfully!' } });
             console.log("Student Added")
         } catch (error) {
             console.error(error.message);
-            res.render('Admin', { errorMessage: error.message });
+            res.render('Admin_Student', { message: { content: error.message } });
         }
     }
     
@@ -45,11 +45,11 @@ export class AdminContoller extends UserController {
     } 
 
     viewStudents(_, res) {
-        res.render('Admin');
+        res.render('Admin_Student');
     }
 
     viewUsers(_, res) {
-        res.render('Admin');
+        res.render('Admin_Student');
     }
 
 
