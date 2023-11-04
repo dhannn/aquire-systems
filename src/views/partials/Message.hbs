@@ -1,0 +1,12 @@
+{{#if message.isSuccess }}
+<div class="alert">
+    <h4 class="alert-heading">Success</h4>
+    {{ message.content }}
+</div>
+
+{{else}}
+<div class="alert">
+    <h4 class="alert-heading">Error</h4>
+    {{ message.content }}
+</div>
+{{/if}}

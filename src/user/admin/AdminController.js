@@ -10,10 +10,10 @@ export class AdminContoller extends UserController {
     startingRoute = '/admin';
 
     initializeRoutes() {
-        this.createRoute('GET', '/', this.viewStudents);
+        this.createRoute('GET', '/', (req, res) => res.redirect('admin/users'));
         this.createRoute('GET', '/students',this.viewStudents);
-        this.createRoute('POST', '/student', this.addStudent);
-        this.createRoute('POST', '/user', this.addUser);
+        this.createRoute('POST', '/students', this.addStudent);
+        this.createRoute('POST', '/users', this.addUser);
         this.createRoute('GET', '/users', this.viewUsers);
     }
 
@@ -43,19 +43,21 @@ export class AdminContoller extends UserController {
      */
     async addUser(req, res) {
         const result = await this.model.addUser(req.body.userName, req.body.userPassword, req.body.userType);
+
         if (result.error) {
             if (result.error.includes("duplicate key error")) {
-                res.render('Admin', { errorMessage: "Username already exists!" });
+                res.render('Admin', { message: { content: "Username already exists!" } });
             } else {
-                res.render('Admin', { errorMessage: "Username already exists!" });
+                res.render('Admin', { message: { content: "Username already exists!" }  });
             }
         } else {
-            res.render('Admin', { successMessage: "User added successfully!" });
+            res.render('Admin', { message: { isSuccess: true, content: "User added successfully!" } });
         }
     }
      
     viewStudents(_, res) {
         res.render('Admin');
+        // res.render('Admin', { message: { type: "success", content: "User added successfully!" }  });
     }
 
     viewUsers(_, res) {

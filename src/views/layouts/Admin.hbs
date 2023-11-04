@@ -15,48 +15,16 @@
         crossorigin="anonymous"></script>
     <script src="https://kit.fontawesome.com/84cb3b7f2b.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
-    <link rel="stylesheet" type="text/css" href="./style.css"> 
+    <link rel="stylesheet" type="text/css" href="/style.css"> 
     
-    <script>
-        function submitForm(e) {
-            e.preventDefault();
-            const form = document.getElementById('add-user-form');
-            const formData = {
-                userName: form.userName.value,
-                userPassword: form.userPassword.value,
-                userType: form.userType.value
-            };
-
-            form.userName.value = '';
-            form.userPassword.value = '';
-            form.userType.value = '';
-
-            fetch(form.action, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(formData),
-            })
-            .then(response => response.json())
-            .then(data => {
-                console.log('Success:', data);
-                // Handle success - perhaps update the UI to show the new user
-            })
-            .catch((error) => {
-                console.error('Error:', error);
-                // Handle errors here
-            });
-            
-
-            
-            
-          
-        }
-    </script>
 </head>
 
 <body>
+
+    {{#if message}}
+        {{> Message message=message}}
+    {{/if}}
+
     <nav class="navbar p-3 mb-5">
         <div class="container-fluid">
             <a class="navbar-brand fw-bolder fs-2" href="#">Admin</a>
@@ -87,20 +55,17 @@
         </div>
 
 
-     <form id="add-user-form" role="form" method="POST" action="/admin/user" onsubmit="submitForm(event)">
-            <div class="input-group">
-                <input name="userName" type="text" class="form-control col-3 rounded-0" placeholder="New Username" />
-                <input name="userType" type="text" class="form-control col-3 rounded-0" placeholder="New Role" />
-                <input name="userPassword" type="password" class="form-control col-3 rounded-0" placeholder="Password" />
-                <div class="col-3 text-center rounded-0" role="button" tabindex="0" id="form-button-add" value="Submit">
-                    <input class="col-3" type="submit" value="" style="position: absolute; background-color: transparent; height: 100%; right: 0; top: 0; padding: 0px 2px; border: none;"/>
-                    <i class="fa-solid fa-plus"></i>
-                </div>
+     <form id="add-user-form" role="form" method="POST" action="/admin/users">
+        <div class="input-group">
+            <input required name="userName" type="text" class="form-control col-3 rounded-0" placeholder="New Username" />
+            <input required name="userType" type="text" class="form-control col-3 rounded-0" placeholder="New Role" />
+            <input required name="userPassword" type="password" class="form-control col-3 rounded-0" placeholder="Password" />
+            <div class="col-3 text-center rounded-0" role="button" tabindex="0" id="form-button-add" value="Submit">
+                <input class="col-3" type="submit" value="" style="position: absolute; background-color: transparent; height: 100%; right: 0; top: 0; padding: 0px 2px; border: none;"/>
+                <i class="fa-solid fa-plus"></i>
             </div>
-        </form>
-
-        
-
+        </div>
+    </form>
         <div id="data-table" class="container-fluid my-3">
             <div class="row list-div">
                 <div class="col-3 border p-2">
