@@ -11,6 +11,29 @@ html,body {
     color: #FAFAFA;
 }
 
+.alert {
+    position: absolute;
+    right: 10vw;
+    bottom: 10vh;
+    width: 20vw;
+    background-color: #FCFCFC;
+    border: 1px solid #847979;
+    animation-name: dismiss-alert;
+    animation-delay: 2s;
+    animation-duration: 0.2s;
+    animation-fill-mode: forwards;
+}
+
+@keyframes dismiss-alert {
+    from {
+        opacity: 1;
+    }
+
+    to {
+        opacity: 0;
+    }
+}
+
 #logo {
     filter: invert(94%) sepia(0%) saturate(7484%) hue-rotate(85deg) brightness(101%) contrast(99%);
 }

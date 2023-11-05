@@ -36,9 +36,9 @@ export class PortalContoller extends UserController {
                 res.status(200);
                 res.redirect('/');
             }
-            // UserController.verifyUserPermission(userToLogin, res);
+            
         } else {
-            res.render('Portal')
+            res.render('Portal', { message: { content: 'Invalid credentials. Please try again.' } })
         }
     }
 
