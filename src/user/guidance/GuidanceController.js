@@ -10,7 +10,7 @@ export class GuidanceController extends UserController {
     }
 
     /**
-     * 
+     * uses Admin model to add student records into the database
      * @param {Request} req 
      * @param {Response} res 
      */
@@ -19,6 +19,11 @@ export class GuidanceController extends UserController {
         res.render('Guidance');
     }
 
+    /**
+     * Creates the view for the guidance student records and initializes all record types
+     * @param {Request} _ 
+     * @param {Response} res 
+     */
     viewStudentRecords(_, res) {
         GuidanceModel.initializeRecordTypes();
         res.render('Guidance');
