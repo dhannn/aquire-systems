@@ -2,18 +2,17 @@
 
 import { AdminModel } from "./AdminModel.js";
 import { UserController } from "../UserController.js";
-import { User } from "../../schema/user.js";
-import {Student} from "../../schema/student.js"
-import { Enrolls } from "../../schema/enrolls.js"
+
 
 export class AdminContoller extends UserController {
     startingRoute = '/admin';
+    alloweduserType = 'A';
 
     initializeRoutes() {
-        this.createRoute('GET', '/', (_, res) => res.redirect('/admin/students'));
+        this.createRoute('GET', '/', this.viewStudents);
         this.createRoute('GET', '/students',this.viewStudents);
-        this.createRoute('POST', '/students', this.addStudent);
-        this.createRoute('POST', '/users', this.addUser);
+        this.createRoute('POST', '/student', this.addStudent);
+        this.createRoute('POST', '/user', this.addUser);
         this.createRoute('GET', '/users', this.viewUsers);
     }
 
@@ -39,13 +38,13 @@ export class AdminContoller extends UserController {
         const newUser = this.model.addUser(req.body.userName, req.body.userPassword, req.body.userType);
         if (!newUser) {
             res.render('Admin');
-        }else{
+        }else{  
             res.render('Admin');
         }
     } 
 
     viewStudents(_, res) {
-        res.render('Admin_Student');
+        res.render('Admin');
     }
 
     viewUsers(_, res) {

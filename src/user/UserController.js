@@ -1,4 +1,5 @@
-import { Router } from "express";
+import e, { Router } from "express";
+import { User } from "./../schema/user.js";
 
 export class UserController {
     startingRoute = null;
@@ -44,5 +45,32 @@ export class UserController {
 
     initializeModel() {
         throw new Error('Implement initializeModel');
+    }
+
+    static verifyUserPermission(allowedUser, userId) {
+        async function allowed() {
+            try {
+                const user = await User.findAll({where: { userId: userId}});
+
+                if (user[0].userType == allowedUser) {
+                    return true;
+                } else {
+                    return false;
+                }
+            } catch (error) {
+                console.error(error);
+            }
+        }
+        return allowed();
+    }
+
+    static checkifloggedIn(userId) {
+        const { cookies } = userId;
+        if (cookies.id == null) {
+            return false;
+        } else {
+            console.log('User is already logged in');
+            return true;
+        }
     }
 }
