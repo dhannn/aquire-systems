@@ -1,5 +1,5 @@
 import { UserController } from "../UserController";
-import { GuidanceModel } from "./GuidanceModel";
+import { GuidanceModel } from "./guidanceModel";
 
 export class GuidanceController extends UserController {
     startingRoute = '/guidance';
