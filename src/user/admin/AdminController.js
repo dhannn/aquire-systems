@@ -1,12 +1,19 @@
+
+
+import { AdminModel } from "./AdminModel.js";
 import { UserController } from "../UserController.js";
+import { User } from "../../schema/user.js";
+import {Student} from "../../schema/student.js"
+import { Enrolls } from "../../schema/enrolls.js"
 
 export class AdminContoller extends UserController {
     startingRoute = '/admin';
 
     initializeRoutes() {
-        this.createRoute('GET', '/', this.viewStudents);
+        this.createRoute('GET', '/', (req, res) => res.redirect('admin/users'));
         this.createRoute('GET', '/students',this.viewStudents);
-        this.createRoute('POST', '/student', this.addStudent);
+        this.createRoute('POST', '/students', this.addStudent);
+        this.createRoute('POST', '/users', this.addUser);
         this.createRoute('GET', '/users', this.viewUsers);
     }
 
@@ -16,16 +23,47 @@ export class AdminContoller extends UserController {
      * @param {Request} req 
      * @param {Response} res 
      */
-    addStudent(req, res) {
-        res.send('<h1>hello</h1>');
-    } 
 
+    
+    async addStudent(req, res) {
+        try {
+            const newStudent = await this.model.addStudent(req.body.student_id, req.body.firstName, req.body.middleInitial, req.body.lastName, req.body.grade, req.body.section);
+            res.render('Admin', { successMessage: "Student added successfully!" });
+            console.log(newStudent);
+        } catch (error) {
+            console.error(error.message);
+            res.render('Admin', { errorMessage: error.message });
+        }
+    }
+
+ 
+    
+    /**
+     * TODO: Fix redirection
+     */
+    async addUser(req, res) {
+        const result = await this.model.addUser(req.body.userName, req.body.userPassword, req.body.userType);
+
+        if (result.error) {
+            if (result.error.includes("duplicate key error")) {
+                res.render('Admin', { message: { content: "Username already exists!" } });
+            } else {
+                res.render('Admin', { message: { content: "Username already exists!" }  });
+            }
+        } else {
+            res.render('Admin', { message: { isSuccess: true, content: "User added successfully!" } });
+        }
+    }
+     
     viewStudents(_, res) {
-        res.send('<h1>hello</h1>');
+        res.render('Admin');
+        // res.render('Admin', { message: { type: "success", content: "User added successfully!" }  });
     }
 
     viewUsers(_, res) {
-        res.send('<h1>hello</h1>');
+        res.render('Admin');
     }
+
+
 
 }

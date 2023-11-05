@@ -1,23 +1,36 @@
 import { config } from 'dotenv';
 import express from 'express';
-import { DBConnection } from './DBConnection.js';
+import { sequelize } from './DBConnection.js';
+//Models
+import {User}  from'./schema/user.js';
+import {Enrolls} from './schema/enrolls.js'
+import {Student} from './schema/student.js'
+//Relationship
+import './schema/relationship.js';
+//Routing
 import { AdminModel } from './user/admin/AdminModel.js';
 import { AdminContoller } from './user/admin/AdminController.js';
+//Dependencies
+import bodyParser from "body-parser";
+import  hbs from 'express-hbs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
 
 class App {
     static port = process.env.PORT || 3000;
     app = null;
     
-    constructor(express, dbConnection) {
+    constructor(express) {
         this.app = express;
-        this.dbConnection = dbConnection;
-
-        this.loadEnv()
-        this.initializeViews;
+    
+        this.loadEnv();
+        this.initializeViews();
     }
     
     start() {
-        this.dbConnection.initialize();
+        this.initializeDatabase();
+        this.initializeViews();
         this.app.listen(App.port, () => {
             console.log(`App listening on port ${App.port}`);
             this.app
@@ -27,7 +40,7 @@ class App {
     loadEnv() {
     }
     
-    initializeViews() {
+    async initializeViews() {
         this.app.use(bodyParser.urlencoded({extended: true}));
         
         const __filename = fileURLToPath(import.meta.url);
@@ -36,8 +49,20 @@ class App {
         this.app.engine('hbs', hbs.express4({partialsDir: __dirname + '/views/partials'}));
         this.app.set('view engine', 'hbs');
         this.app.set('views', (__dirname) + '/views/layouts');
+
+        this.app.use(express.json());
+
         
         this.app.use(express.static(__dirname + "/public"));
+    }
+
+    async initializeDatabase(){
+        try {
+            await sequelize.sync();
+            console.log('Database synced successfully');
+          } catch (error) {
+            console.error('Error syncing database:', error);
+          }
     }
 
     addUserModelController(model, controller) {
@@ -46,7 +71,7 @@ class App {
     }
 }
 
-const app = new App(express(), new DBConnection());
+const app = new App(express());
 
 app.addUserModelController(new AdminModel(), new AdminContoller())
 app.start();
