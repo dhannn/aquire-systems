@@ -56,7 +56,7 @@ export class AdminContoller extends UserController {
     }
      
     viewStudents(_, res) {
-        res.render('Admin');
+        res.render('Admin_Student');
         // res.render('Admin', { message: { type: "success", content: "User added successfully!" }  });
     }
 
