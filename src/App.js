@@ -18,17 +18,24 @@ import cookieParser from 'cookie-parser';
 
 import path from 'path';
 import { fileURLToPath } from 'url';
+import { GuidanceController } from './user/guidance/GuidanceController.js';
+import { GuidanceModel } from './user/guidance/GuidanceModel.js';
 
 
 class App {
     static port = process.env.PORT || 3000;
     app = null;
+    userObjects = [];
     
     constructor(express) {
         this.app = express; 
-    
-        this.loadEnv();
+
         this.initializeViews();
+
+        this.portalModel = new PortalModel(); 
+        this.portalContoller = new PortalContoller();
+        this.portalContoller.bindModel(this.portalModel);
+        this.portalContoller.bindToApp(this.app);
     }
     
     start() {
@@ -38,9 +45,6 @@ class App {
             console.log(`App listening on port ${App.port}`);
             this.app
         });
-    }
-
-    loadEnv() {
     }
     
     async initializeViews() {
@@ -73,11 +77,12 @@ class App {
     addUserModelController(model, controller) {
         controller.bindModel(model);
         controller.bindToApp(this.app);
+        this.portalContoller.addUserRoute(controller);
     }
 }
 
 const app = new App(express());
 
-app.addUserModelController(new AdminModel(), new AdminContoller())
-app.addUserModelController(new PortalModel(), new PortalContoller())
+app.addUserModelController(new AdminModel(), new AdminContoller());
+app.addUserModelController(new GuidanceModel(), new GuidanceController());
 app.start();

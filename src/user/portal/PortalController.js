@@ -3,12 +3,19 @@ import { UserController } from "../UserController.js";
 
 export class PortalContoller extends UserController {
     startingRoute = '/';
+    allowedUserType = '-';
+    routes = {}
 
     initializeRoutes() {
         this.createRoute('GET', '', this.viewPortal);
         this.createRoute('GET', '/login',this.viewPortal);
         this.createRoute('POST', '/login', this.loginUser);
     }
+
+    addUserRoute(route) {
+        this.routes[route.allowedUserType] = route;
+    }
+
     /**
      * Uses the Admin model to add a student based on the request body 
      * and re-renders the page to reflect the change
@@ -35,20 +42,16 @@ export class PortalContoller extends UserController {
         }
     }
 
-    async viewPortal(_, res) {
-        const { cookies } = _;
-        const loginStatus = UserController.checkifloggedIn(_);
+    async viewPortal(req, res) {
+        const { cookies } = req;
+        const loginStatus = UserController.checkifloggedIn(req);
         if (loginStatus) {
             //redirect
             const user = await User.findAll({where: { userId: cookies.id}});
             const type = user[0].userType;
-            if (type == 'A') {
-                res.redirect('/admin');
-            } else if (type == 'M') {
-                res.redirect('/medical');
-            } else if (type == 'G') {
-                res.redirect('/guidance');
-            }
+            
+            const startingRoute = this.routes[type].startingRoute;
+            res.redirect(startingRoute);
         } else  {
             res.render('Portal');
         }

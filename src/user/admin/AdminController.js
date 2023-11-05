@@ -6,7 +6,7 @@ import { UserController } from "../UserController.js";
 
 export class AdminContoller extends UserController {
     startingRoute = '/admin';
-    alloweduserType = 'A';
+    allowedUserType = 'A';
 
     initializeRoutes() {
         this.createRoute('GET', '/', this.viewStudents);

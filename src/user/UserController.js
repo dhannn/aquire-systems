@@ -1,10 +1,11 @@
-import e, { Router } from "express";
+import { Router } from "express";
 import { User } from "./../schema/user.js";
 
 export class UserController {
     startingRoute = null;
     router = null;
     model = null;
+    allowedUserType = null;
     
     constructor(model) {
         this.router = new Router();
@@ -32,10 +33,13 @@ export class UserController {
 
     bindToApp(app) {
         if (!this.startingRoute) {
-            throw new Error('Fill in the starting route in the constructor');
+            throw new Error('Fill in the starting route in the class implementation');
+        }
+        
+        if (!this.allowedUserType) {
+            throw new Error('Fill in the value for allowed user type in the class implementation');
         }
 
-        console.log(this.startingRoute);
         app.use(this.startingRoute, this.router);
     }
 
