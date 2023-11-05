@@ -50,9 +50,8 @@ class App {
         this.app.set('view engine', 'hbs');
         this.app.set('views', (__dirname) + '/views/layouts');
 
-        
         this.app.use(express.json());
-       
+
         
         this.app.use(express.static(__dirname + "/public"));
     }
