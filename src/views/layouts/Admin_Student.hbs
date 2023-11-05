@@ -16,51 +16,6 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
     <link rel="stylesheet" type="text/css" href="/style.css"> 
 
-     <script>
-        function submitForm(e) {
-            e.preventDefault();
-            const form = document.getElementById('add-student-form');
-            const formData = {
-                student_id: form.student_id.value,
-                lastName: form.lastName.value,
-                firstName: form.firstName.value, 
-                middleInitial: form.middleInitial.value,
-                grade: form.grade.value,
-                section: form.section.value
-            };
-
-                 form.student_id.value = ''
-                 form.lastName.value = ''
-                 form.firstName.value = ''
-                 form.middleInitial.value = ''
-                 form.grade.value = ''
-                 form.section.value = ''
-
-           
-
-            fetch(form.action, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(formData),
-            })
-            .then(response => response.json())
-            .then(data => {
-                console.log('Success:', data);
-                // Handle success - perhaps update the UI to show the new user
-            })
-            .catch((error) => {
-                console.error('Error:', error);
-                // Handle errors here
-            });
-            
-            
-          
-        }
-    </script>
-
-
 </head>
 
 <body>
@@ -74,10 +29,10 @@
             <a class="navbar-brand fw-bolder fs-2" href="#">Admin</a>
             <ul id="topbar-links" class="nav">
                 <li class="nav-item">
-                    <a class="nav-link px-4">Students</a>
+                    <a href="/admin/students" class="nav-link px-4">Students</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link px-4">Users</a>
+                    <a href="/admin/users" class="nav-link px-4">Users</a>
                 </li>
             </ul>
 

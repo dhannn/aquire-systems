@@ -12,11 +12,9 @@ export class AdminContoller extends UserController {
     initializeRoutes() {
         this.createRoute('GET', '/', (_, res) => res.redirect('/admin/students'));
         this.createRoute('GET', '/students',this.viewStudents);
-        this.createRoute('POST', '/students', this.addStudent);
-        this.createRoute('POST', '/users', this.addUser);
-        this.createRoute('POST', '/students', this.addStudent);
-        this.createRoute('POST', '/users', this.addUser);
         this.createRoute('GET', '/users', this.viewUsers);
+        this.createRoute('POST', '/students', this.addStudent);
+        this.createRoute('POST', '/users', this.addUser);
     }
 
     /**
@@ -62,9 +60,7 @@ export class AdminContoller extends UserController {
     }
 
     viewUsers(_, res) {
-        res.render('Admin_Student');
+        res.render('Admin_User');
     }
-
-
 
 }
