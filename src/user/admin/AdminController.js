@@ -2,6 +2,7 @@
 
 import { AdminModel } from "./AdminModel.js";
 import { UserController } from "../UserController.js";
+import { User } from "../../schema/user.js";
 
 
 export class AdminContoller extends UserController {
@@ -49,12 +50,34 @@ export class AdminContoller extends UserController {
         }
     }
      
-    viewStudents(_, res) {
-        res.render('Admin_Student');
+    async viewStudents(_, res) {
+        const allowed = await UserController.verifyUserPermission(this.allowedUserType, _)
+        const loggedIn = UserController.checkifloggedIn(_);
+        
+        if (loggedIn) {
+            if (allowed) {
+                res.render('Admin_Student');
+            } else {
+                res.redirect('/');
+            }
+        } else {
+            res.redirect('/');
+        }
     }
 
-    viewUsers(_, res) {
-        res.render('Admin_User');
+    async viewUsers(_, res) {
+        const allowed = await UserController.verifyUserPermission(this.allowedUserType, _)
+        const loggedIn = UserController.checkifloggedIn(_);
+        
+        if (loggedIn) {
+            if (allowed) {
+                res.render('Admin_User');
+            } else {
+                res.redirect('/');
+            }
+        } else {
+            res.redirect('/');
+        }
     }
 
 }

@@ -51,16 +51,13 @@ export class UserController {
         throw new Error('Implement initializeModel');
     }
 
-    static verifyUserPermission(allowedUser, userId) {
+    static verifyUserPermission(allowedUser, _) {
         async function allowed() {
             try {
-                const user = await User.findAll({where: { userId: userId}});
+                const { cookies } = _;
+                const user = await User.findAll({where: { userId: cookies.id}});
 
-                if (user[0].userType == allowedUser) {
-                    return true;
-                } else {
-                    return false;
-                }
+                return (user[0].userType == allowedUser || user[0].userType == 'A') 
             } catch (error) {
                 console.error(error);
             }
