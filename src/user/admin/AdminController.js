@@ -73,6 +73,17 @@ export class AdminContoller extends UserController {
             attributes: ['userName', 'userType'],
             raw: true
         });
+
+        for (let i = 0; i < users.length; i++) {
+            //apply changes to make things human readable
+            if (users[i].userType == 'A') {
+                users[i].userType = 'Admin';
+            } else if (users[i].userType == 'G') {
+                users[i].userType = 'Guidance'
+            } else {
+                console.log("Database Error: No usertype.");
+            }
+        }
         
         if (loggedIn) {
             if (allowed) {
