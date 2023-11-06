@@ -1,0 +1,122 @@
+html,body {
+    height:100%;
+}
+
+#login-form{
+    width:35%;
+}
+
+#navbar {
+    background-color: #1A1A1A;
+    color: #FAFAFA;
+}
+
+.alert {
+    position: absolute;
+    right: 10vw;
+    bottom: 10vh;
+    width: 20vw;
+    background-color: #FCFCFC;
+    border: 1px solid #847979;
+    animation-name: dismiss-alert;
+    animation-delay: 2s;
+    animation-duration: 0.2s;
+    animation-fill-mode: forwards;
+}
+
+@keyframes dismiss-alert {
+    from {
+        opacity: 1;
+    }
+
+    to {
+        opacity: 0;
+    }
+}
+
+#logo {
+    filter: invert(94%) sepia(0%) saturate(7484%) hue-rotate(85deg) brightness(101%) contrast(99%);
+}
+
+.login-page {
+    background-image: url(../imgs/background.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.login-container{
+    background-color: rgba(211, 211, 211, 0.7);
+}
+
+#login-box {
+    border-radius: 10px;
+    border: 0px solid #000;
+    background: rgba(26, 26, 26, 0.60);  
+    box-shadow: 0px -5px 60px 0px rgba(0, 0, 0, 0.50);
+}
+
+.fill-out {
+    background-color: #1A1A1A;
+}
+
+.fill-out::placeholder{
+    color: #FAFAFA;
+    font-weight: lighter;
+}
+
+#login-submit {
+    background-color: #FFD700;
+    color: #FAFAFA;
+    font-weight: 500;
+}
+
+#forgot-password {
+    color: #FAFAFA;
+    font-weight: lighter;
+    font-size: .80rem;
+}
+
+#forgot-password:hover {
+    color: #FFD700;
+    font-weight: lighter;
+    font-size: .80rem;
+}
+
+#wordmark {
+    font-size: 1.25rem;
+    font-weight: 700;
+}
+
+#aqui {
+    color: #FFD700;
+}
+
+#re {
+    color: #FCFCFC;
+}
+
+#add-user-body {
+background-color: #FAFAFA;
+}
+
+#add-user-header {
+    background-color: #FFD700;
+}
+
+#add-user-header h1 {
+    color: #FAFAFA;
+    font-weight: 700;
+    font-size: 4.5rem;
+}
+
+#login-button{
+    color: black;
+    background-color: #FFD700;
+    border-color: #FFD700;
+}
+
+dialog {
+    padding: 15vh 10vw;
+    width: 45vw;
+}
+

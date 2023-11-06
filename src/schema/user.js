@@ -11,7 +11,7 @@ export const User = sequelize.define('User', {
     userName: {
         allowNull: false,
         type: DataTypes.STRING,
-        unique: true,
+        unique: true
     },
     userPassword:{
         allowNull: false,
@@ -20,7 +20,6 @@ export const User = sequelize.define('User', {
     userType:{
         allowNull: false,
         type: DataTypes.CHAR,
-    },
-
+    }
 });
 
