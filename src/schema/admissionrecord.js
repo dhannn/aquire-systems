@@ -15,7 +15,7 @@ export const AdmissionRecord = sequelize.define('admissionRecord', {
         }
     },
     schoolYear: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.STRING,
         allowNull: false,
         primaryKey: true,
         references: {
