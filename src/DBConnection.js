@@ -1,11 +1,11 @@
-
-import { config } from 'dotenv';
+import { config } from "dotenv";
 import { Sequelize }  from 'sequelize';
-
 
 config();
 
-export const sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USERNAME, process.env.DB_PASSWORD, {
+const { DB_NAME, DB_USERNAME, DB_PASSWORD } = process.env;
+
+export const sequelize = new Sequelize(DB_NAME, DB_USERNAME, DB_PASSWORD, {
   host: 'localhost',
   dialect: 'mysql',
 });
