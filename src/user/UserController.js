@@ -57,11 +57,7 @@ export class UserController {
                 const { cookies } = _;
                 const user = await User.findAll({where: { userId: cookies.id}});
 
-                if (user[0].userType == allowedUser || user[0].userType == 'A') {
-                    return true;
-                } else {
-                    return false;
-                }
+                return (user[0].userType == allowedUser || user[0].userType == 'A') 
             } catch (error) {
                 console.error(error);
             }
