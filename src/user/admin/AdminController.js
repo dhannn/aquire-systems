@@ -54,6 +54,7 @@ export class AdminContoller extends UserController {
         const allowed = await UserController.verifyUserPermission(this.allowedUserType, _)
         const loggedIn = UserController.checkifloggedIn(_);
         
+        
         if (loggedIn) {
             if (allowed) {
                 res.render('Admin_Student');
@@ -68,10 +69,14 @@ export class AdminContoller extends UserController {
     async viewUsers(_, res) {
         const allowed = await UserController.verifyUserPermission(this.allowedUserType, _)
         const loggedIn = UserController.checkifloggedIn(_);
+        const users = await User.findAll({
+            attributes: ['userName', 'userType'],
+            raw: true
+        });
         
         if (loggedIn) {
             if (allowed) {
-                res.render('Admin_User');
+                res.render('Admin_User', { users });
             } else {
                 res.redirect('/');
             }
