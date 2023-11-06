@@ -20,7 +20,6 @@ export const User = sequelize.define('User', {
     userType:{
         allowNull: false,
         type: DataTypes.CHAR,
-    },
-
+    }
 });
 

@@ -35,27 +35,22 @@ export class AdminContoller extends UserController {
         }
     }
 
- 
-    
-    /**
-     * TODO: Fix redirection
-     */
     async addUser(req, res) {
         const result = await this.model.addUser(req.body.userName, req.body.userPassword, req.body.userType);
 
         if (result.error) {
             if (result.error.includes("duplicate key error")) {
-                res.render('Admin', { message: { content: "Username already exists!" } });
+                res.render('Admin_User', { message: { content: "Username already exists!" } });
             } else {
-                res.render('Admin', { message: { content: "Username already exists!" }  });
+                res.render('Admin_User', { message: { content: "Username already exists!" }  });
             }
         } else {
-            res.render('Admin', { message: { isSuccess: true, content: "User added successfully!" } });
+            res.render('Admin_User', { message: { isSuccess: true, content: "User added successfully!" } });
         }
     }
      
     viewStudents(_, res) {
-        res.render('Admin');
+        res.render('Admin_Student');
     }
 
     viewUsers(_, res) {
