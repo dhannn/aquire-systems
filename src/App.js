@@ -19,7 +19,7 @@ import cookieParser from 'cookie-parser';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { GuidanceController } from './user/guidance/GuidanceController.js';
-import { GuidanceModel } from './user/guidance/guidanceModel.js';
+import { GuidanceModel } from './user/guidance/GuidanceModel.js';
 
 
 class App {
