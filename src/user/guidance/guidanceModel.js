@@ -56,7 +56,7 @@ export class GuidanceModel {
                     } else {
                         console.log('School Year not found');
                     }
-                }).catch(record => {
+                }).catch(error => {
                     console.error('Error retrieving School Year', error);
                 });
                 const newRecords = recordType.map(type => ({
