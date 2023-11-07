@@ -46,13 +46,35 @@ export class AdminContoller extends UserController {
                 res.render('Admin_User', { message: { content: "Username already exists!" }  });
             }
         } else {
-            res.render('Admin_User', { message: { isSuccess: true, content: "User added successfully!" } });
+            //repeatable section start---
+            const users = await User.findAll({
+                attributes: ['userName', 'userType'],
+                raw: true
+            });
+    
+            for (let i = 0; i < users.length; i++) {
+                //apply changes to make things human readable
+                if (users[i].userType == 'A') {
+                    users[i].userType = 'Admin';
+                } else if (users[i].userType == 'G') {
+                    users[i].userType = 'Guidance'
+                } else {
+                    console.log("Database Error: No usertype.");
+                }
+            }
+            //repeatable section end---
+
+            res.render('Admin_User', { 
+                message: { isSuccess: true, content: "User added successfully!" },
+                users: users
+            });
         }
     }
      
     async viewStudents(_, res) {
         const allowed = await UserController.verifyUserPermission(this.allowedUserType, _)
         const loggedIn = UserController.checkifloggedIn(_);
+        
         
         if (loggedIn) {
             if (allowed) {
@@ -68,10 +90,25 @@ export class AdminContoller extends UserController {
     async viewUsers(_, res) {
         const allowed = await UserController.verifyUserPermission(this.allowedUserType, _)
         const loggedIn = UserController.checkifloggedIn(_);
+        const users = await User.findAll({
+            attributes: ['userName', 'userType'],
+            raw: true
+        });
+
+        for (let i = 0; i < users.length; i++) {
+            //apply changes to make things human readable
+            if (users[i].userType == 'A') {
+                users[i].userType = 'Admin';
+            } else if (users[i].userType == 'G') {
+                users[i].userType = 'Guidance'
+            } else {
+                console.log("Database Error: No usertype.");
+            }
+        }
         
         if (loggedIn) {
             if (allowed) {
-                res.render('Admin_User');
+                res.render('Admin_User', { users: users });
             } else {
                 res.redirect('/');
             }

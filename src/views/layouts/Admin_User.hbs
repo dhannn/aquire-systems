@@ -66,40 +66,20 @@
             </div>
         </div>
     </form>
-        {{!-- <div id="data-table" class="container-fluid my-3">
-            <div class="row list-div">
-                <div class="col-3 border p-2">
-                    <span>nyubunyi</span>
+        <div id="data-table" class="container-fluid my-3">
+            {{#each users}} 
+                <div class="row list-div">
+                    <div class="col-3 border p-2">
+                        <span>{{userName}}</span>
+                    </div>
+                    <div class="col-6 border p-2">
+                        <span>{{userType}}</span>
+                    </div>
+                    <div class="edit-button-div col-3 text-center rounded-0" role="button" tabindex="0">
+                        <i class="fa-solid fa-pen"></i>
+                    </div>
                 </div>
-                <div class="col-6 border p-2">
-                    <span>Admin</span>
-                </div>
-                <div class="edit-button-div col-3 text-center rounded-0" role="button" tabindex="0">
-                    <i class="fa-solid fa-pen"></i>
-                </div>
-            </div>
-            <div class="row list-div">
-                <div class="col-3 border p-2">
-                    <span>giebautista</span>
-                </div>
-                <div class="col-6 border p-2">
-                    <span>Guidance</span>
-                </div>
-                <div class="edit-button-div col-3 text-center rounded-0" role="button" tabindex="0">
-                    <i class="fa-solid fa-pen"></i>
-                </div>
-            </div>
-            <div class="row list-div">
-                <div class="col-3 border p-2">
-                    <span>nrangel</span>
-                </div>
-                <div class="col-6 border p-2">
-                    <span>Medical</span>
-                </div>
-                <div class="edit-button-div col-3 text-center rounded-0" role="button" tabindex="0">
-                    <i class="fa-solid fa-pen"></i>
-                </div>
-            </div> --}}
+            {{/each}}
         </div>
     </section>
     <!-- Include Bootstrap JS (optional, for dropdown menus) -->
