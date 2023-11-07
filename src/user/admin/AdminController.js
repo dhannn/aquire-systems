@@ -3,6 +3,7 @@
 import { AdminModel } from "./AdminModel.js";
 import { UserController } from "../UserController.js";
 import { User } from "../../schema/user.js";
+import { Student } from "../../schema/student.js";
 
 
 export class AdminContoller extends UserController {
@@ -53,6 +54,11 @@ export class AdminContoller extends UserController {
     async viewStudents(_, res) {
         const allowed = await UserController.verifyUserPermission(this.allowedUserType, _)
         const loggedIn = UserController.checkifloggedIn(_);
+
+        const students = await Student.findAll({
+            attributes: ['userName', 'userType'],
+            raw: true
+        });
         
         if (loggedIn) {
             if (allowed) {
