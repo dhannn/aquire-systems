@@ -26,17 +26,37 @@ export class AdminContoller extends UserController {
      * @param {Response} res 
      */
 
-    
     async addStudent(req, res) {
         try {
-            const newStudent = await this.model.addStudent(req.body.student_id, req.body.firstName, req.body.middleInitial, req.body.lastName, req.body.grade, req.body.section);
-            res.render('Admin_Student', { message: { isSuccess: true, content: 'Student added sucessfully!' } });
-            console.log("Student Added")
+            await this.model.addStudent(req.body.student_id, req.body.firstName, req.body.middleInitial, req.body.lastName, req.body.grade, req.body.section);
+            console.log("Student Added");
+    
+            const students = await Student.findAll({
+                attributes: ['student_id', 'firstName', 'middleInitial', 'lastName'],
+                include: [{
+                    model: Enrolls,
+                    attributes: ['schoolYear', 'section'],
+                    where: {
+                        schoolYear: '2023'
+                    },
+                    required: false
+                }],
+                raw: true
+            });
+    
+            res.render('Admin_Student', { 
+                message: { isSuccess: true, content: 'Student added successfully!' },
+                students: students 
+            });
         } catch (error) {
             console.error(error.message);
-            res.render('Admin_Student', { message: { content: error.message } });
+            res.render('Admin_Student', { 
+                message: { content: error.message },
+                students: [] 
+            });
         }
     }
+    
 
     async addUser(req, res) {
         const result = await this.model.addUser(req.body.userName, req.body.userPassword, req.body.userType);
