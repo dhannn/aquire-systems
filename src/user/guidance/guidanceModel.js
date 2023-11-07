@@ -60,6 +60,7 @@ export class GuidanceModel {
                     recordId: recordType
                 });
                 console.log('Record inserted successfully', record);
+                return record;
             } catch(error) {
                 console.error('Error inserting record', error);
             }

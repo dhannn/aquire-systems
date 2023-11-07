@@ -3,6 +3,7 @@ import { GuidanceModel } from "./guidanceModel";
 
 export class GuidanceController extends UserController {
     startingRoute = '/guidance';
+    allowedUserType = 'G';
 
     initializeRoutes() {
         this.createRoute('GET', '/', this.viewStudentRecords);
@@ -14,9 +15,14 @@ export class GuidanceController extends UserController {
      * @param {Request} req 
      * @param {Response} res 
      */
-    addStudentRecord(req, res) {
-        GuidanceModel.addStudentRecord(req.body.studentId, req.body.recordType);
-        res.render('Guidance');
+    async addStudentRecord(req, res) {
+        try {
+            const newRecord = await GuidanceModel.addStudentRecord(req.body.studentId, req.body.recordType);
+            res.render('Guidance', {message: { isSucess: true, content: 'Record added Successfully!'}});
+            console.log('Record Added');
+        } catch (error) {
+            res.render('Guidance', {message: {content: error.message}});
+        }
     }
 
     /**
@@ -24,8 +30,18 @@ export class GuidanceController extends UserController {
      * @param {Request} _ 
      * @param {Response} res 
      */
-    viewStudentRecords(_, res) {
+    async viewGuidancePage(_, res) {
         GuidanceModel.initializeRecordTypes();
-        res.render('Guidance');
+        const allowed = await UserController.verifyUserPermission(this.allowedUserType, req)
+        const loggedIn = UserController.checkifloggedIn(req);
+        if (loggedIn) {
+            if (allowed) {
+                res.render('Guidance');
+            } else {
+                res.redirect('/');
+            }
+        } else {
+            res.redirect('/');
+        }  
     }
 }
