@@ -4,6 +4,7 @@ import { AdminModel } from "./AdminModel.js";
 import { UserController } from "../UserController.js";
 import { User } from "../../schema/user.js";
 import { Student } from "../../schema/student.js";
+import { Enrolls } from "../../schema/enrolls.js";
 
 
 export class AdminContoller extends UserController {
@@ -50,26 +51,56 @@ export class AdminContoller extends UserController {
             res.render('Admin_User', { message: { isSuccess: true, content: "User added successfully!" } });
         }
     }
-     
+
+
     async viewStudents(_, res) {
+
         const allowed = await UserController.verifyUserPermission(this.allowedUserType, _)
         const loggedIn = UserController.checkifloggedIn(_);
-
-        const students = await Student.findAll({
-            attributes: ['userName', 'userType'],
-            raw: true
-        });
         
-        if (loggedIn) {
-            if (allowed) {
-                res.render('Admin_Student');
-            } else {
-                res.redirect('/');
+        
+
+    
+        if (!loggedIn) {
+            return res.redirect('/');
+        }
+    
+        if (!allowed) {
+            return res.redirect('/');
+        }
+    
+        try {
+            
+            const students = await Student.findAll({
+                attributes: ['student_id', 'firstName', 'middleInitial', 'lastName'],
+                include: [{
+                    model: Enrolls,
+                    attributes: ['schoolYear', 'section'],
+                    where: {
+                        schoolYear: '2023' 
+                    },
+                    required: false 
+                }],
+                raw: true
+            });
+
+            console.log(students);
+    
+            if (!students || students.length === 0) {
+                
+                return res.render('Admin_Student', { students: [], message: 'No students found for the current school year.'});
             }
-        } else {
-            res.redirect('/');
+            
+            res.render('Admin_Student', { students });
+        } catch (error) {
+          
+            console.error("Error fetching students:", error);
+            res.status(500).render('error', { error: "An error occurred while fetching the students." });
         }
     }
+    
+     
+   
 
     async viewUsers(_, res) {
         const allowed = await UserController.verifyUserPermission(this.allowedUserType, _)

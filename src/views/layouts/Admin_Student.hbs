@@ -146,6 +146,46 @@
                     </div>
                 </form>
 
+                <div id="data-table" class="container-fluid my-3">
+                {{#if students.length}}
+                    {{#each students}} 
+                        <div class="row list-div">
+                            <!-- Displaying student information -->
+                            <div class="col-2 border p-2">
+                                <span>{{this.student_id}}</span>
+                            </div>
+                            <div class="col-2 border p-2">
+                                <span> {{this.lastName}}</span>
+                            </div>
+                             <div class="col-2 border p-2">
+                                <span>{{this.firstName}} </span>
+                            </div>
+                             <div class="col-1 border p-2">
+                                <span>{{this.middleInitial}}</span>
+                            </div><div class="col-2 border p-2">
+                            <span>{{lookup this 'Enrolls.schoolYear'}}</span>
+                            </div>
+                            <div class="col-2 border p-2">
+                                <span>{{lookup this 'Enrolls.section'}}</span>
+                            </div>
+                            
+                        
+                            <!-- Edit button -->
+                            <div class="edit-button-div col-2 text-center rounded-0" role="button" tabindex="0">
+                                <i class="fa-solid fa-pen"></i>
+                            </div>
+                        </div>
+                    {{/each}}
+                {{else}}
+                    <div class="row">
+                        <div class="col-12 text-center">
+                            <span>No students found.</span>
+                        </div>
+                    </div>
+                {{/if}}
+            </div>
+
+
 
                 {{!-- <div id="data-table" class="container-fluid my-3">
                     <div class="row">
