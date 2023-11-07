@@ -30,6 +30,11 @@ export class GuidanceModel {
         initializeTypes();
     }
 
+    /**
+     * adds a record for a student.
+     * @param {String} id 
+     * @param {String} recordType 
+     */
     static addStudentRecord(id, recordType){
         async function addStudentRecord() {
             try{
@@ -54,11 +59,12 @@ export class GuidanceModel {
                 }).catch(record => {
                     console.error('Error retrieving School Year', error);
                 });
-                const record = await AdmissionRecord.create({
+                const newRecords = recordType.map(type => ({
                     studentId: id,
                     schoolYear: schoolYear,
-                    recordId: recordType
-                });
+                    recordId: type
+                }));
+                const record = await AdmissionRecord.bulkCreate(newRecords);
                 console.log('Record inserted successfully', record);
                 return record;
             } catch(error) {
