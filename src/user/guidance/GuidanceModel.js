@@ -31,7 +31,9 @@ export class GuidanceModel {
     }
 
     /**
-     * Adds a record in the schema for a student.
+     * adds a record for a student.
+     * @param {String} id 
+     * @param {String} recordType 
      */
     static addStudentRecord(id, recordType){
         async function addStudentRecord() {
@@ -54,14 +56,15 @@ export class GuidanceModel {
                     } else {
                         console.log('School Year not found');
                     }
-                }).catch(record => {
+                }).catch(error => {
                     console.error('Error retrieving School Year', error);
                 });
-                const record = await AdmissionRecord.create({
+                const newRecords = recordType.map(type => ({
                     studentId: id,
                     schoolYear: schoolYear,
-                    recordId: recordType
-                });
+                    recordId: type
+                }));
+                const record = await AdmissionRecord.bulkCreate(newRecords);
                 console.log('Record inserted successfully', record);
                 return record;
             } catch(error) {
@@ -70,6 +73,4 @@ export class GuidanceModel {
         }
         addStudentRecord();
     }
-
-    static 
 }
