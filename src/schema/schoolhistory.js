@@ -1,11 +1,10 @@
 import { Sequelize, DataTypes } from 'sequelize';
 import {sequelize} from '../DBConnection.js';
-import { Record } from './record.js';
 import { Student } from './student.js';
 import { Enrolls } from './enrolls.js';
 
-export const AdmissionRecord = sequelize.define('admissionRecord', {
-    student_id: {
+export const SchoolHistory = sequelize.define('schoolhistory', {
+    studentId: {
         type: DataTypes.STRING,
         allowNull: false,
         primaryKey: true,
@@ -14,7 +13,14 @@ export const AdmissionRecord = sequelize.define('admissionRecord', {
             key: 'student_id', 
         }
     },
-    schoolYear: {
+    enteredFrom: {
+        type: DataTypes.STRING,
+    },
+    gradeLevelEntered: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    schoolYearAdmitted: {
         type: DataTypes.STRING,
         allowNull: false,
         primaryKey: true,
@@ -23,11 +29,16 @@ export const AdmissionRecord = sequelize.define('admissionRecord', {
             key: 'schoolYear',
         }
     },
-    recordId: {
-        type: DataTypes.CHAR,
-        references: {
-            model: Record,
-            key: 'recordType',
-        }
+    otherSchoolName: {
+        type: DataTypes.STRING,
+        allowNull: true
+    },
+    otherSchoolGradeLevel: {
+        type: DataTypes.STRING,
+        allowNull: true,
+    },
+    otherSchoolSY: {
+        type: DataTypes.STRING,
+        allowNull: true
     }
-});
+})

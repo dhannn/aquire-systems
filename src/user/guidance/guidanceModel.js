@@ -40,7 +40,7 @@ export class GuidanceModel {
             try{
                 Enrolls.findOne({
                     where: {
-                        studentId: id
+                        student_id: id
                     },
                     include: [
                         {
@@ -60,7 +60,7 @@ export class GuidanceModel {
                     console.error('Error retrieving School Year', error);
                 });
                 const newRecords = recordType.map(type => ({
-                    studentId: id,
+                    student_id: id,
                     schoolYear: schoolYear,
                     recordId: type
                 }));

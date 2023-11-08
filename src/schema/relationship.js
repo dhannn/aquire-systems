@@ -4,18 +4,18 @@ import { Record } from './record.js';
 import { AdmissionRecord } from './admissionrecord.js';
 
 Student.hasMany(Enrolls, {
-    foreignKey: 'studentID',
+    foreignKey: 'student_id',
     sourceKey: 'student_id',
     onDelete: 'CASCADE',
 });
 
 Enrolls.belongsTo(Student, {
-    foreignKey: 'studentID',
+    foreignKey: 'student_id',
     targetKey: 'student_id'
 });
 
 AdmissionRecord.belongsTo(Student, {
-    foreignKey: 'studentId',
+    foreignKey: 'student_id',
     targetKey: 'student_id'
 });
 
@@ -31,7 +31,7 @@ AdmissionRecord.belongsTo(Record, {
 Record.hasMany(GuidanceInfo, {foreignKey:'recordId'});
 
 AdmissionRecord.hasMany(Student, {
-    foreignKey: 'studentId',
+    foreignKey: 'student_id',
     targetKey: 'student_id'
 })
 
