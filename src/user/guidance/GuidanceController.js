@@ -8,7 +8,18 @@ export class GuidanceController extends UserController {
         this.createRoute('GET', '/', this.viewGuidancePage);
     }
 
-    viewGuidancePage(req, res) {
-        res.render('Guidance');
+    async viewGuidancePage(req, res) {
+        const allowed = await UserController.verifyUserPermission(this.allowedUserType, req)
+        const loggedIn = UserController.checkifloggedIn(req);
+        
+        if (loggedIn) {
+            if (allowed) {
+                res.render('Guidance');
+            } else {
+                res.redirect('/');
+            }
+        } else {
+            res.redirect('/');
+        }
     }
 }
