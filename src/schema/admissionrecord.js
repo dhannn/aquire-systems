@@ -5,13 +5,13 @@ import { Student } from './student.js';
 import { Enrolls } from './enrolls.js';
 
 export const AdmissionRecord = sequelize.define('admissionRecord', {
-    studentId: {
+    student_id: {
         type: DataTypes.STRING,
         allowNull: false,
         primaryKey: true,
         references: {
             model: Student,
-            key: 'studentId', 
+            key: 'student_id', 
         }
     },
     schoolYear: {

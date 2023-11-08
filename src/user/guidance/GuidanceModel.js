@@ -60,7 +60,7 @@ export class GuidanceModel {
                     console.error('Error retrieving School Year', error);
                 });
                 const newRecords = recordType.map(type => ({
-                    studentId: id,
+                    student_id: id,
                     schoolYear: schoolYear,
                     recordId: type
                 }));
@@ -72,5 +72,9 @@ export class GuidanceModel {
             }
         }
         addStudentRecord();
+    }
+
+    static addStudentSchoolHistory() {
+        
     }
 }
