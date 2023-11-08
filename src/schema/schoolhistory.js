@@ -18,11 +18,27 @@ export const SchoolHistory = sequelize.define('schoolhistory', {
     },
     gradeLevelEntered: {
         type: DataTypes.STRING,
+        allowNull: false
+    },
+    schoolYearAdmitted: {
+        type: DataTypes.STRING,
         allowNull: false,
         primaryKey: true,
         references: {
             model: Enrolls,
             key: 'schoolYear',
         }
+    },
+    otherSchoolName: {
+        type: DataTypes.STRING,
+        allowNull: true
+    },
+    otherSchoolGradeLevel: {
+        type: DataTypes.STRING,
+        allowNull: true,
+    },
+    otherSchoolSY: {
+        type: DataTypes.STRING,
+        allowNull: true
     }
 })
