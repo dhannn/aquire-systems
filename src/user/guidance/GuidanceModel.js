@@ -40,7 +40,7 @@ export class GuidanceModel {
             try{
                 Enrolls.findOne({
                     where: {
-                        studentId: id
+                        student_id: id
                     },
                     include: [
                         {
