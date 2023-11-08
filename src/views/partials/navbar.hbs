@@ -1,7 +1,22 @@
-{{!-- <nav class="navbar navbar-expand-lg navbar-light bg-warning">
+{{!-- Navbar Partial for Admin_Student, Admin_User--}}
+
+<nav id="navbar" class="navbar p-3 mb-5">
         <div class="container-fluid">
-          <a class="navbar-brand fw-bold" href="#">{{title}}</a> --}}
-<nav class="navbar navbar-expand-lg navbar-light p-3 mb-5">
+            <a class="navbar-brand fw-bolder fs-2" href="#">Admin</a>
+            <ul id="topbar-links" class="nav">
+                <li class="nav-item">
+                    <a href="/admin/students" class="nav-link px-4">Students</a>
+                </li>
+                <li class="nav-item">
+                    <a href="/admin/users" class="nav-link px-4">Users</a>
+                </li>
+            </ul>
+
+
+        </div>
+    </nav>
+
+{{!-- <nav class="navbar navbar-expand-lg navbar-light p-3 mb-5">
         <div class="container-fluid">
           <a class="navbar-brand fw-bolder fs-2" href="#">{{title}}</a>
           <button class="navbar-toggler bg-light" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" 
@@ -15,13 +30,4 @@
             </div>
           </div>
         </div>
-</nav>
-
-
-{{!-- <div id={{id}} class="row m-auto w-100 px-4 py-5 mb-5">
-        <h1>{{name}}</h1>
-</div>
-
-<div class="page-header row m-auto w-100 px-4 py-5 mb-5">
-    <h1>{{title}}</h1>
-</div> --}}
+</nav> --}}

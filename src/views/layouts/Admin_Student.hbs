@@ -13,6 +13,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
         integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
         crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/84cb3b7f2b.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
     <link rel="stylesheet" type="text/css" href="/style.css"> 
 
@@ -20,25 +21,13 @@
 
 <body>
 
+    {{!-- MESSAGE PARTIAL --}}
     {{#if message}}
         {{> Message message=message}}
     {{/if}}
-    
-    <nav id="navbar" class="navbar p-3 mb-5">
-        <div class="container-fluid">
-            <a class="navbar-brand fw-bolder fs-2" href="#">Admin</a>
-            <ul id="topbar-links" class="nav">
-                <li class="nav-item">
-                    <a href="/admin/students" class="nav-link px-4">Students</a>
-                </li>
-                <li class="nav-item">
-                    <a href="/admin/users" class="nav-link px-4">Users</a>
-                </li>
-            </ul>
 
-
-        </div>
-    </nav>
+    {{!-- NAVBAR PARTIAL --}}
+    {{> navbar}}
 
     <div class="container-fluid">
         <div class="row mx-5">
@@ -46,55 +35,25 @@
                 <p class="fw-bold fs-4 mb-0">Enrolled Students</p>
                 <p>SY 2023 - 2024</p>
                 <ul id="sidebar-links" class="nav flex-column">
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">Kinder</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Senior Kinder</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Grade 1</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Grade 2</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Grade 3</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Grade 4</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Grade 5</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Grade 1</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Grade 6</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Grade 7</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Grade 8</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Grade 9</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Grade 10</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Grade 11</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Grade 12</a>
-                    </li>
+                    {{!-- GRADELIST PARTIAL --}}
+                    {{> grade_list label="Kinder" current="true"}}
+                    {{> grade_list label="Senior Kinder" current=""}}
+                    {{> grade_list label="Grade 1" current=""}}
+                    {{> grade_list label="Grade 2" current=""}}
+                    {{> grade_list label="Grade 3" current=""}}
+                    {{> grade_list label="Grade 4" current=""}}
+                    {{> grade_list label="Grade 5" current=""}}
+                    {{> grade_list label="Grade 6" current=""}}
+                    {{> grade_list label="Grade 7" current=""}}
+                    {{> grade_list label="Grade 8" current=""}}
+                    {{> grade_list label="Grade 9" current=""}}
+                    {{> grade_list label="Grade 10" current=""}}
+                    {{> grade_list label="Grade 11" current=""}}
+                    {{> grade_list label="Grade 12" current=""}}
                 </ul>
             </aside>
 
-            <section class="flex-column col-6 p-0">
+            <section class="container flex-column col-10 p-3">
 
                 <div class="row my-3">
                     <div class="d-flex justify-content-end">
@@ -111,7 +70,7 @@
                     </form>
                 </div>
 
-                <div class="container-fluid">
+                <div class="table-header container-fluid">
                     <div class="row my-3">
                         <div class="col-2 border p-2">
                             <span>Student ID</span>
@@ -122,10 +81,10 @@
                         <div class="col-2 border p-2">
                             <span>First Name</span>
                         </div>
-                        <div class="col-2 border p-2">
+                        <div class="col-1 border p-2">
                             <span>MI</span>
                         </div>
-                        <div class="col-4 border p-2">
+                        <div class="col-5 border p-2">
                             <span>Section</span>
                         </div>
                     </div>
@@ -133,14 +92,23 @@
 
                 <form id="add-student-form" role="form" method="POST" action="/admin/students">
                     <div class="input-group">
-                        <input required name="student_id" type="text" class="form-control col-3 rounded-0" placeholder="New Student ID" />
-                        <input required name="lastName"   type="text" class="form-control col-3 rounded-0" placeholder="Last Name" />
-                        <input required name="firstName" type="text" class="form-control col-3 rounded-0" placeholder="First Name" />
-                        <input name="middleInitial" type="text" class="form-control col-2 rounded-0" placeholder="MI" />
-                        <input required name="grade" type="text" class="form-control col-2 rounded-0" placeholder="Grade" />
-                        <input required name="section" type="text" class="form-control col-2 rounded-0" placeholder="Section" />
-                        <div class="col text-center rounded-0" role="button" tabindex="0" id="form-button-add" value="Submit">
-                            <input class="col-3" type="submit" value="" style="position: absolute; background-color: transparent; height: 100%; right: 0; top: 0; padding: 0px 2px; border: none;"/>
+                        {{!-- TEXT INPUT PARTIAL --}}
+                        {{!-- {{> text_input name="student_id" label="New Student" size_large="" required="true"}}
+                        {{> text_input name="lastName" label="Last Name" size_large="" required="true"}}
+                        {{> text_input name="firstName" label="First Name" size_large="" required="true"}}
+                        {{> text_input name="middleInitial" label="MI" size_large="" required=""}}
+                        {{> text_input name="grade" label="Grade" size_large="" required="true"}}
+                        {{> text_input name="section" label="Section" size_large="" required="true"}} --}}
+
+                        <input required name="student_id" type="text" class="col-2 border p-2" placeholder="New Student ID" />
+                        <input required name="lastName"   type="text" class="col-2 border p-2" placeholder="Last Name" />
+                        <input required name="firstName" type="text" class="col-2 border p-2" placeholder="First Name" />
+                        <input name="middleInitial" type="text" class="col-1 border p-2" placeholder="MI" />
+                        <input required name="grade" type="text" class="col-2 border p-2" placeholder="Grade" />
+                        <input required name="section" type="text" class="col-2 border p-2" placeholder="Section" />
+
+                        <div class="col-1 text-center rounded-0" role="button" tabindex="0" id="form-button-add" value="Submit">
+                            <input class="col-1" type="submit" value="" style="position: absolute; background-color: transparent; height: 100%; right: 0; top: 0; padding: 0px 2px; border: none;"/>
                             <i class="fa-solid fa-plus"></i>
                         </div>
                     </div>
@@ -148,33 +116,9 @@
 
                 <div id="data-table" class="container-fluid my-3">
                 {{#if students.length}}
-                    {{#each students}} 
-                        <div class="row list-div">
-                            <!-- Displaying student information -->
-                            <div class="col-2 border p-2">
-                                <span>{{this.student_id}}</span>
-                            </div>
-                            <div class="col-2 border p-2">
-                                <span> {{this.lastName}}</span>
-                            </div>
-                             <div class="col-2 border p-2">
-                                <span>{{this.firstName}} </span>
-                            </div>
-                             <div class="col-1 border p-2">
-                                <span>{{this.middleInitial}}</span>
-                            </div><div class="col-2 border p-2">
-                            <span>{{lookup this 'Enrolls.schoolYear'}}</span>
-                            </div>
-                            <div class="col-2 border p-2">
-                                <span>{{lookup this 'Enrolls.section'}}</span>
-                            </div>
-                            
-                        
-                            <!-- Edit button -->
-                            <div class="edit-button-div col-2 text-center rounded-0" role="button" tabindex="0">
-                                <i class="fa-solid fa-pen"></i>
-                            </div>
-                        </div>
+                    {{#each students}}
+                        {{!-- STUDENT INFO PARTIAL --}}
+                        {{> student_info}}
                     {{/each}}
                 {{else}}
                     <div class="row">

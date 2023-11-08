@@ -20,24 +20,13 @@
 </head>
 
 <body>
-
+    {{!-- MESSAGE PARTIAL --}}
     {{#if message}}
         {{> Message message=message}}
     {{/if}}
 
-    <nav class="navbar p-3 mb-5">
-        <div class="container-fluid">
-            <a class="navbar-brand fw-bolder fs-2" href="#">Admin</a>
-            <ul class="topbar-links nav">
-                <li class="nav-item">
-                    <a href="/admin/students" class="nav-link px-4">Students</a>
-                </li>
-                <li class="nav-item">
-                    <a href="/admin/users" class="nav-link px-4">Users</a>
-                </li>
-            </ul>
-        </div>
-    </nav>
+    {{!-- NAVBAR PARTIAL --}}
+    {{> navbar}}
 
     <section class="flex-column col-6 m-5">
         <div class="row my-3">
@@ -45,11 +34,11 @@
         </div>
         <div class="table-header container-fluid">
             <div class="row my-3">
-                <div class="col-3 border border-white p-2">
-                    <span>Username</span>
+                <div class="col-3 border border-white p-2 pt-3">
+                    <h5>Username</h5>
                 </div>
-                <div class="col-9 border border-white p-2">
-                    <span>Role</span>
+                <div class="col-9 border border-white p-2 pt-3">
+                    <h5>Role</h5>
                 </div>
             </div>
         </div>
@@ -57,9 +46,13 @@
 
      <form id="add-user-form" role="form" method="POST" action="/admin/users">
         <div class="input-group">
-            <input required name="userName" type="text" class="form-control col-3 rounded-0" placeholder="New Username" />
+            {{> text_input name="userName" label="New Username" size_large="true" required="true"}}
+            {{> text_input name="userType" label="New Role" size_large="true" required="true"}}
+            {{> text_input name="userPassword" label="Password" size_large="true" required="true"}}
+
+            {{!-- <input required name="userName" type="text" class="form-control col-3 rounded-0" placeholder="New Username" />
             <input required name="userType" type="text" class="form-control col-3 rounded-0" placeholder="New Role" />
-            <input required name="userPassword" type="password" class="form-control col-3 rounded-0" placeholder="Password" />
+            <input required name="userPassword" type="password" class="form-control col-3 rounded-0" placeholder="Password" /> --}}
             <div class="col-3 text-center rounded-0" role="button" tabindex="0" id="form-button-add" value="Submit">
                 <input class="col-3" type="submit" value="" style="position: absolute; background-color: transparent; height: 100%; right: 0; top: 0; padding: 0px 2px; border: none;"/>
                 <i class="fa-solid fa-plus"></i>
