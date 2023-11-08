@@ -88,7 +88,7 @@
                 </ul>
             </aside>
 
-            <section class="flex-column col-6 mx-5 my-5">
+            <section class="flex-column col-6 p-0">
 
                 <div class="row my-3">
                     <form class="d-flex" role="search">
@@ -119,13 +119,16 @@
                     </div>
                 </div>
 
-                <form id="add-user-form" role="form" method="POST" action="/guidance/" onsubmit="submitForm(event)">
-                    <div class="input-group student-form">
-                        <input name="userStudentID" type="text" class="form-control col-4 rounded-0"
-                            placeholder="Student ID" />
-                        <div class="btn-group col-4 mx-2">
-                            <button class="checkbox-dropdown btn dropdown-toggle rounded-0" type="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <form id="add-student-form" role="form" method="POST" action="/admin/students"
+                    class="input-group-custom">
+                    <div class="row mx-half">
+                        <div class="col-4 px-0">
+                            <input required name="student_id" type="text"
+                                class="form-control rounded-0 border border-white" placeholder="New Student ID" />
+                        </div>
+                        <div class="dropdown-custom student-form btn-group col-4 px-0">
+                            <button class="checkbox-dropdown btn dropdown-toggle rounded-0 border border-white"
+                                type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             </button>
                             <div class="dropdown-menu col-12 rounded-0">
                                 <div class="form-check d-flex align-item">
@@ -172,17 +175,21 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-4 text-center rounded-0" role="button" tabindex="0" id="form-button-add"
-                            value="Submit">
-                            <span class="add-admission-button">Add Admission Record</span>
+                        <div class="col-4 px-0">
+                            <div class="form-button-add text-center rounded-0 border border-white" role="button"
+                                tabindex="0" value="Submit">
+                                <input class="add-button" type="submit" value="" />
+                                <span>Add Admission Record</span>
+                            </div>
                         </div>
                     </div>
                 </form>
 
-                <div id="data-table" class="container-fluid my-3">
+
+                <div class="data-table container-fluid my-3">
                     <div class="row list-div">
                         <div class="col-2 border p-2">
-                            <span>23-0001</span>
+                            <span>23-00001</span>
                         </div>
                         <div class="col-2 border p-2">
                             <span>Gutierrez</span>
@@ -193,11 +200,18 @@
                         <div class="col-2 border p-2">
                             <span>Z</span>
                         </div>
-                        <div class="col-2 border p-2">
-                            <span>Justice</span>
-                        </div>
-                        <div class="edit-button-div col-2 text-center rounded-0" role="button" tabindex="0">
-                            <i class="fa-solid fa-pen"></i>
+                        <div class="col-4">
+                            <div class="row">
+                                <div class="col-8 border p-2">
+                                    <span>Justice</span>
+                                </div>
+                                <div class="col-4 p-0">
+                                    <div class="edit-button-div col-12 text-center rounded-0" role="button"
+                                        tabindex="0">
+                                        <i class="fa-solid fa-pen"></i>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="row list-div">
@@ -205,7 +219,7 @@
                             <span>23-00012</span>
                         </div>
                         <div class="col-2 border p-2">
-                            <span>de la Cruz</span>
+                            <span>De La Cruz</span>
                         </div>
                         <div class="col-2 border p-2">
                             <span>Samantha</span>
@@ -213,16 +227,23 @@
                         <div class="col-2 border p-2">
                             <span>D</span>
                         </div>
-                        <div class="col-2 border p-2">
-                            <span>Justice</span>
-                        </div>
-                        <div class="edit-button-div col-2 text-center rounded-0" role="button" tabindex="0">
-                            <i class="fa-solid fa-pen"></i>
+                        <div class="col-4">
+                            <div class="row">
+                                <div class="col-8 border p-2">
+                                    <span>Justice</span>
+                                </div>
+                                <div class="col-4 p-0">
+                                    <div class="edit-button-div col-12 text-center rounded-0" role="button"
+                                        tabindex="0">
+                                        <i class="fa-solid fa-pen"></i>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="row list-div">
                         <div class="col-2 border p-2">
-                            <span>23-00002</span>
+                            <span>23-00003</span>
                         </div>
                         <div class="col-2 border p-2">
                             <span>Chan</span>
@@ -233,34 +254,22 @@
                         <div class="col-2 border p-2">
                             <span>JS</span>
                         </div>
-                        <div class="col-2 border p-2">
-                            <span>Justice</span>
-                        </div>
-                        <div class="edit-button-div col-2 text-center rounded-0" role="button" tabindex="0">
-                            <i class="fa-solid fa-pen"></i>
+                        <div class="col-4">
+                            <div class="row">
+                                <div class="col-8 border p-2 me-0">
+                                    <span>Justice</span>
+                                </div>
+                                <div class="col-4 p-0">
+                                    <div class="edit-button-div col-12 text-center rounded-0" role="button"
+                                        tabindex="0">
+                                        <i class="fa-solid fa-pen"></i>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </section>
-        </div>
-
-        <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-            <label class="form-check-label" for="defaultCheck1">
-                Medical Certificate
-            </label>
-        </div>
-        <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-            <label class="form-check-label" for="defaultCheck1">
-                Scholastic Form
-            </label>
-        </div>
-        <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-            <label class="form-check-label" for="defaultCheck1">
-                Information Sheet
-            </label>
         </div>
 
         <!-- Include Bootstrap JS (optional, for dropdown menus) -->
