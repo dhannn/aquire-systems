@@ -21,10 +21,10 @@
 
 <body>
 
-    <nav id="navbar" class="navbar p-3 mb-5">
+    <nav class="navbar p-3 mb-5">
         <div class="container-fluid">
             <a class="navbar-brand fw-bolder fs-2" href="#">Guidance</a>
-            <ul id="topbar-links" class="nav">
+            <ul class="topbar-links nav">
                 <li class="nav-item">
                     <a class="nav-link px-4">Students</a>
                 </li>
@@ -39,10 +39,10 @@
 
     <div class="container-fluid">
         <div class="row mx-5">
-            <aside id="aside" class="col-2">
+            <aside class="aside col-2">
                 <p class="fw-bold fs-4 mb-0">Enrolled Students</p>
                 <p>SY 2023 - 2024</p>
-                <ul id="sidebar-links" class="nav flex-column">
+                <ul class="sidebar-links nav flex-column">
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="#">Kinder</a>
                     </li>
@@ -89,16 +89,15 @@
             </aside>
 
             <section class="flex-column col-6 mx-5 my-5">
-                <form class="form-inline my-2 my-lg-0">
-                    <div class="input-group search-form">
-                        <input class="form-control col-2 rounded-0" type="search"
+
+                <div class="row my-3">
+                    <form class="d-flex" role="search">
+                        <input class="form-control rounded-0 mx-0" type="search"
                             placeholder="Search by ID or Last Name, First Name..." aria-label="Search">
-                        <div class="col-2 text-center rounded-0" role="button" tabindex="0" id="form-button-add"
-                            value="Submit" type="submit">
-                            <i class="fas fa-search"></i>
-                        </div>
-                    </div>
-                </form>
+                        <button class="button-yellow btn rounded-0 custom-width-12 pt-1 mx-0 border-0" type="submit"><i
+                                class="bi bi-search"></i></button>
+                    </form>
+                </div>
 
                 <div class="table-header container-fluid">
                     <div class="row my-3">
