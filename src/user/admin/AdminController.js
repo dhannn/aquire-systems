@@ -5,6 +5,7 @@ import { UserController } from "../UserController.js";
 import { User } from "../../schema/user.js";
 import { Student } from "../../schema/student.js";
 import { Enrolls } from "../../schema/enrolls.js";
+import { CurrentSchoolYear } from "../../schema/currentschoolyear.js"; 
 
 
 export class AdminContoller extends UserController {
@@ -25,6 +26,27 @@ export class AdminContoller extends UserController {
      * @param {Request} req 
      * @param {Response} res 
      */
+
+    async startNewSchoolYear(req, res) {
+        const fromYear = (new Date().getFullYear()).toString();
+        const toYear = (new Date().getFullYear() + 1).toString();
+
+        try {
+            //  update the current school year range
+            const updatedSchoolYear = await this.model.updateCurrentSchoolYear(fromYear, toYear);
+            res.render('Admin_Student', { 
+                message: { isSuccess: true, content: 'New school year started successfully!' },
+                schoolYear: updatedSchoolYear.toYear,  // can display the "toYear" as the current school year idk
+            });
+        } catch (error) {
+            console.error(error.message);
+            res.render('Admin_Student', { 
+                message: { content: error.message },
+            });
+        }
+    }
+
+
 
     async addStudent(req, res) {
         try {
