@@ -11,7 +11,7 @@
 ```bash
 npm install
 ```
-3. Create a MySQL connection.
+3. Create a MySQL connection in MySQL Workbench or through MySQL CLI.
 4. Create an .env file with the following fields:
 ```
 PORT=[port of the network application | default is 3000]
