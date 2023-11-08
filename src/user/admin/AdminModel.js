@@ -1,4 +1,4 @@
-// import bcrypt from "bcrypt";
+import bcrypt from "bcrypt";
 import { User } from "../../schema/user.js";
 import { Student } from "../../schema/student.js";
 import { Enrolls } from "../../schema/enrolls.js";
