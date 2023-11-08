@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Admin</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
+        integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
+        crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/418d66f709.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" type="text/css" href="../../public/style.css">
+
+    <script>
+        function submitForm(e) {
+            e.preventDefault();
+            const form = document.getElementById('add-student-form');
+            const formData = {
+                student_id: form.student_id.value,
+                lastName: form.lastName.value,
+                firstName: form.firstName.value,
+                middleInitial: form.middleInitial.value,
+                grade: form.grade.value,
+                section: form.section.value
+            };
+
+            form.student_id.value = ''
+            form.lastName.value = ''
+            form.firstName.value = ''
+            form.middleInitial.value = ''
+            form.grade.value = ''
+            form.section.value = ''
+
+
+
+            fetch(form.action, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData),
+            })
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Success:', data);
+                    // Handle success - perhaps update the UI to show the new user
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                    // Handle errors here
+                });
+
+
+
+        }
+    </script>
+
+
+</head>
+
+<body>
+
+    <nav class="navbar p-3 mb-5">
+        <div class="container-fluid">
+            <a class="navbar-brand fw-bolder fs-2" href="#">Admin</a>
+            <ul class="topbar-links nav">
+                <li class="nav-item">
+                    <a class="nav-link px-4">Students</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link px-4">Users</a>
+                </li>
+            </ul>
+
+
+        </div>
+    </nav>
+
+    <div class="container-fluid">
+        <div class="row mx-5">
+            <aside class="col-2">
+                <p class="fw-bold fs-4 mb-0">Enrolled Students</p>
+                <p>SY 2023 - 2024</p>
+                <ul class="sidebar-links nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#">Kinder</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Senior Kinder</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Grade 1</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Grade 2</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Grade 3</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Grade 4</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Grade 5</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Grade 1</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Grade 6</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Grade 7</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Grade 8</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Grade 9</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Grade 10</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Grade 11</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Grade 12</a>
+                    </li>
+                </ul>
+            </aside>
+
+            <section class="flex-column col-6 p-0">
+
+                <div class="row my-3">
+                    <div class="d-flex justify-content-end">
+                        <button type="button" class="button-yellow btn rounded-0 mx-3 border-0">Start new school
+                            year</button>
+                        <button type="button" class="button-gray btn rounded-0 border-0">Bulk enroll</button>
+                    </div>
+                </div>
+                <div class="row my-3">
+                    <form class="d-flex" role="search">
+                        <input class="form-control rounded-0 mx-0" type="search" placeholder="Search"
+                            aria-label="Search">
+                        <button class="button-yellow btn rounded-0 custom-width-12 pt-1 mx-0 border-0" type="submit"><i
+                                class="bi bi-search"></i></button>
+                    </form>
+                </div>
+
+                <div class="container-fluid">
+                    <div class="row my-3">
+                        <div class="col-2 border p-2">
+                            <span>Student ID</span>
+                        </div>
+                        <div class="col-2 border p-2">
+                            <span>Last Name</span>
+                        </div>
+                        <div class="col-2 border p-2">
+                            <span>First Name</span>
+                        </div>
+                        <div class="col-2 border p-2">
+                            <span>MI</span>
+                        </div>
+                        <div class="col-4 border p-2">
+                            <span>Section</span>
+                        </div>
+                    </div>
+                </div>
+
+                <form id="add-student-form" role="form" method="POST" action="/admin/students" class="input-group">
+                    <div class="row mx-half">
+                        <div class="col-2 px-0">
+                            <input required name="student_id" type="text" class="form-control rounded-0"
+                                placeholder="New Student ID" />
+                        </div>
+                        <div class="col-2 px-0">
+                            <input required name="lastName" type="text" class="form-control rounded-0"
+                                placeholder="Last Name" />
+                        </div>
+                        <div class="col-2 px-0">
+                            <input required name="firstName" type="text" class="form-control rounded-0"
+                                placeholder="First Name" />
+                        </div>
+                        <div class="col-2 px-0">
+                            <input name="middleInitial" type="text" class="form-control rounded-0" placeholder="MI" />
+                        </div>
+                        <div class="col px-0">
+                            <input required name="grade" type="text" class="form-control rounded-0"
+                                placeholder="Grade" />
+                        </div>
+                        <div class="col px-0">
+                            <input required name="section" type="text" class="form-control rounded-0"
+                                placeholder="Section" />
+                        </div>
+                        <div class="col px-0">
+                            <div class="form-button-add text-center rounded-0" role="button" tabindex="0"
+                                value="Submit">
+                                <input class="add-button" type="submit" value="" />
+                                <i class="fa-solid fa-plus"></i>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+
+
+                <div class="data-table container-fluid my-3">
+                    <div class="row">
+                        <div class="col-2 border p-2">
+                            <span>23-00001</span>
+                        </div>
+                        <div class="col-2 border p-2">
+                            <span>Gutierrez</span>
+                        </div>
+                        <div class="col-2 border p-2">
+                            <span>James</span>
+                        </div>
+                        <div class="col-2 border p-2">
+                            <span>Z</span>
+                        </div>
+                        <div class="col-4">
+                            <div class="row">
+                                <div class="col-8 border p-2">
+                                    <span>Justice</span>
+                                </div>
+                                <div class="col-4 p-0">
+                                    <button type="submit" class="btn col-12 rounded-0 w-100 h-100"><i
+                                            class="bi bi-pencil-fill"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-2 border p-2">
+                            <span>23-00012</span>
+                        </div>
+                        <div class="col-2 border p-2">
+                            <span>De La Cruz</span>
+                        </div>
+                        <div class="col-2 border p-2">
+                            <span>Samantha</span>
+                        </div>
+                        <div class="col-2 border p-2">
+                            <span>D</span>
+                        </div>
+                        <div class="col-4">
+                            <div class="row">
+                                <div class="col-8 border p-2">
+                                    <span>Justice</span>
+                                </div>
+                                <div class="col-4 p-0">
+                                    <button type="submit" class="btn col-12 rounded-0 w-100 h-100"><i
+                                            class="bi bi-pencil-fill"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-2 border p-2">
+                            <span>23-00003</span>
+                        </div>
+                        <div class="col-2 border p-2">
+                            <span>Chan</span>
+                        </div>
+                        <div class="col-2 border p-2">
+                            <span>Ling</span>
+                        </div>
+                        <div class="col-2 border p-2">
+                            <span>JS</span>
+                        </div>
+                        <div class="col-4">
+                            <div class="row">
+                                <div class="col-8 border p-2 me-0">
+                                    <span>Justice</span>
+                                </div>
+                                <div class="col-4 p-0">
+                                    <button type="submit" class="btn col-12 rounded-0 w-100 h-100"><i
+                                            class="bi bi-pencil-fill"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </div>
+
+        </section>
+
+    </div>
+
+
+    <!-- Include Bootstrap JS (optional, for dropdown menus) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
+
+
+
+</body>
+
+
+</html>
