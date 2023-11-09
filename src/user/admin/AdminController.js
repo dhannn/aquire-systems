@@ -95,16 +95,14 @@ export class AdminContoller extends UserController {
                 attributes: ['student_id', 'firstName', 'middleInitial', 'lastName'],
                 include: [{
                     model: Enrolls,
-                    attributes: ['schoolYear', 'section'],
+                    attributes: ['grade', 'section'],
                     where: {
                         schoolYear: '2023' 
                     },
-                    required: false 
+                    required: true
                 }],
                 raw: true
             });
-
-            console.log(students);
     
             if (!students || students.length === 0) {
                 
