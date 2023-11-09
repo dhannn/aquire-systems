@@ -35,7 +35,7 @@ export class AdminContoller extends UserController {
                 attributes: ['student_id', 'firstName', 'middleInitial', 'lastName'],
                 include: [{
                     model: Enrolls,
-                    attributes: ['schoolYear', 'section'],
+                    attributes: ['grade', 'section'],
                     where: {
                         schoolYear: '2023'
                     },
@@ -78,8 +78,6 @@ export class AdminContoller extends UserController {
         const allowed = await UserController.verifyUserPermission(this.allowedUserType, _)
         const loggedIn = UserController.checkifloggedIn(_);
         
-        
-
     
         if (!loggedIn) {
             return res.redirect('/');
