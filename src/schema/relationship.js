@@ -17,28 +17,17 @@ Enrolls.belongsTo(Student, {
 
 AdmissionRecord.belongsTo(Student, {
     foreignKey: 'student_id',
-    targetKey: 'student_id'
+    targetKey: 'student_id',
 });
 
-AdmissionRecord.belongsTo(Enrolls, {
-    foreignKey: 'schoolYear',
-    targetKey: 'schoolYear'
+Record.hasMany(AdmissionRecord, {
+    foreignKey:'recordId',
+    sourceKey: 'recordId',
 });
 
 AdmissionRecord.belongsTo(Record, {
     foreignKey: 'recordId', 
-    targetKey: 'recordId'});
-
-Record.hasMany(AdmissionRecord, {foreignKey:'recordId'});
-
-AdmissionRecord.hasMany(Student, {
-    foreignKey: 'student_id',
-    targetKey: 'student_id'
-});
-
-AdmissionRecord.hasMany(Enrolls, {
-    foreignKey: 'schoolYear',
-    targetKey: 'schoolYear'
+    targetKey: 'recordId',
 });
 
 SchoolHistory.belongsTo(Student, {

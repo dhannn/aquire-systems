@@ -10,7 +10,7 @@ export const AdmissionRecord = sequelize.define('admissionRecord', {
         allowNull: false,
         primaryKey: true,
         references: {
-            model: Student,
+            model: 'Students',
             key: 'student_id', 
         }
     },
@@ -18,16 +18,14 @@ export const AdmissionRecord = sequelize.define('admissionRecord', {
         type: DataTypes.STRING,
         allowNull: false,
         primaryKey: true,
-        references: {
-            model: Enrolls,
-            key: 'schoolYear',
-        }
     },
     recordId: {
         type: DataTypes.CHAR,
+        allowNull: false,
+        primaryKey: true,
         references: {
-            model: Record,
-            key: 'recordType',
+            model: 'records',
+            key: 'recordId',
         }
     }
 });

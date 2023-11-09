@@ -10,7 +10,7 @@ export class GuidanceModel {
      */
     static initializeRecordTypes(){
         async function initializeTypes() {
-            record = [
+            const record = [
                 {recordId:'MC', recordName:'Medical Certificate'},
                 {recordId:'RF', recordName:'Recommendation Form'},
                 {recordId:'SRF', recordName:'Scholastic Record Form'},
