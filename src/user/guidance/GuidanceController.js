@@ -34,18 +34,20 @@ export class GuidanceController extends UserController {
      * @param {Response} res 
      */
     async viewGuidancePage(_, res) {
-        GuidanceModel.initializeRecordTypes();
-        const allowed = await UserController.verifyUserPermission(this.allowedUserType, req)
-        const loggedIn = UserController.checkifloggedIn(req);
-        if (loggedIn) {
-            if (allowed) {
-                res.render('Guidance');
-            } else {
-                res.redirect('/');
-            }
-        } else {
-            res.redirect('/');
-        }  
+        res.render('Guidance');
+
+        // GuidanceModel.initializeRecordTypes();
+        // const allowed = await UserController.verifyUserPermission(this.allowedUserType, req)
+        // const loggedIn = UserController.checkifloggedIn(req);
+        // if (loggedIn) {
+        //     if (allowed) {
+        //         res.render('Guidance');
+        //     } else {
+        //         res.redirect('/');
+        //     }
+        // } else {
+        //     res.redirect('/');
+        // }  
     }
 
     async viewStudentSchoolHistory(_, res) {
