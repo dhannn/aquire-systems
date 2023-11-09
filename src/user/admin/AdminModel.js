@@ -2,6 +2,7 @@ import bcrypt from "bcrypt";
 import { User } from "../../schema/user.js";
 import { Student } from "../../schema/student.js";
 import { Enrolls } from "../../schema/enrolls.js";
+import { CurrentSchoolYear } from "../../schema/currentschoolyear.js";
 import { v4 as uuidv4 } from "uuid";
 import { sequelize } from "../../DBConnection.js";
 
@@ -58,11 +59,21 @@ export class AdminModel {
       if (middleName.length > 2) {
         throw new Error("Middle initial should be at most two characters");
       } 
-      
+
+      const currentSchoolYear = await CurrentSchoolYear.findOne({
+        order: [['createdAt', 'DESC']], 
+      });
+
+      if (!currentSchoolYear) {
+        throw new Error("Current school year is not set");
+      }
+
+      const schoolYear = `${currentSchoolYear.fromYear}-${currentSchoolYear.toYear}`;
+
       const existingStudent = await Enrolls.findOne({
         where: {
           student_id: id,
-          schoolYear: new Date().getFullYear().toString(),
+          schoolYear: schoolYear,
         },
         transaction: t,
       });
@@ -72,6 +83,7 @@ export class AdminModel {
           "Student with the same ID already exists for the current school year"
         );
       } 
+
       try {
         const newStudent = await Student.create(
           {
@@ -86,7 +98,7 @@ export class AdminModel {
         await newStudent.createEnroll(
           {
             student_id: id,
-            schoolYear: new Date().getFullYear().toString(),
+            schoolYear: schoolYear,
             grade: grade,
             section: section,
           },

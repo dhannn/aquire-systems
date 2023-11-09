@@ -3,6 +3,7 @@
 import { AdminModel } from "./AdminModel.js";
 import { UserController } from "../UserController.js";
 import { User } from "../../schema/user.js";
+import { CurrentSchoolYear } from "../../schema/currentschoolyear.js";
 import { Student } from "../../schema/student.js";
 import { Enrolls } from "../../schema/enrolls.js";
 
@@ -30,19 +31,31 @@ export class AdminContoller extends UserController {
         try {
             await this.model.addStudent(req.body.student_id, req.body.firstName, req.body.middleInitial, req.body.lastName, req.body.grade, req.body.section);
             console.log("Student Added");
+
+            const currentSchoolYear = await CurrentSchoolYear.findOne({
+                order: [['createdAt', 'DESC']], 
+              });
     
-            const students = await Student.findAll({
-                attributes: ['student_id', 'firstName', 'middleInitial', 'lastName'],
-                include: [{
-                    model: Enrolls,
-                    attributes: ['grade', 'section'],
-                    where: {
-                        schoolYear: '2023'
-                    },
-                    required: false
-                }],
-                raw: true
-            });
+              if (!currentSchoolYear) {
+                throw new Error("Current school year is not set");
+              }
+    
+              const schoolYear = `${currentSchoolYear.fromYear}-${currentSchoolYear.toYear}`;
+    
+              const students = await Student.findAll({
+                  attributes: ['student_id', 'firstName', 'middleInitial', 'lastName'],
+                  include: [{
+                      model: Enrolls,
+                      attributes: ['grade', 'section'],
+                      where: {
+                          schoolYear: schoolYear
+                      },
+                      required: true
+                  }],
+                  raw: true
+              });
+    
+            
     
             res.render('Admin_Student', { 
                 message: { isSuccess: true, content: 'Student added successfully!' },
@@ -75,32 +88,41 @@ export class AdminContoller extends UserController {
 
     async viewStudents(_, res) {
 
-        const allowed = await UserController.verifyUserPermission(this.allowedUserType, _)
-        const loggedIn = UserController.checkifloggedIn(_);
-        
+    const allowed = await UserController.verifyUserPermission(this.allowedUserType, _)
+    const loggedIn = UserController.checkifloggedIn(_);
     
-        if (!loggedIn) {
-            return res.redirect('/');
-        }
-    
-        if (!allowed) {
-            return res.redirect('/');
-        }
-    
-        try {
-            
-            const students = await Student.findAll({
-                attributes: ['student_id', 'firstName', 'middleInitial', 'lastName'],
-                include: [{
-                    model: Enrolls,
-                    attributes: ['grade', 'section'],
-                    where: {
-                        schoolYear: '2023' 
-                    },
-                    required: true
-                }],
-                raw: true
-            });
+    if (!loggedIn) {
+        return res.redirect('/');
+    }
+
+    if (!allowed) {
+        return res.redirect('/');
+    }
+
+    try {
+      
+      const currentSchoolYear = await CurrentSchoolYear.findOne({
+        order: [['createdAt', 'DESC']], 
+      });
+
+      if (!currentSchoolYear) {
+        throw new Error("Current school year is not set");
+      }
+
+      const schoolYear = `${currentSchoolYear.fromYear}-${currentSchoolYear.toYear}`;
+
+      const students = await Student.findAll({
+          attributes: ['student_id', 'firstName', 'middleInitial', 'lastName'],
+          include: [{
+              model: Enrolls,
+              attributes: ['grade', 'section'],
+              where: {
+                  schoolYear: schoolYear 
+              },
+              required: true
+          }],
+          raw: true
+      });
     
             if (!students || students.length === 0) {
                 
@@ -116,7 +138,6 @@ export class AdminContoller extends UserController {
     }
     
      
-   
 
     async viewUsers(_, res) {
         const allowed = await UserController.verifyUserPermission(this.allowedUserType, _)
