@@ -1,1 +1,287 @@
-<h1>Guidance</h1>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Guidance</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
+        integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
+        crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/84cb3b7f2b.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" type="text/css" href="/style.css">
+
+</head>
+
+<body>
+    <nav class="navbar p-3 mb-5">
+        <div class="container-fluid">
+            <a class="navbar-brand fw-bolder fs-2" href="#">Guidance</a>
+            <ul class="topbar-links nav">
+                <li class="nav-item">
+                    <a class="nav-link px-4">Students</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link px-4">Users</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container-fluid">
+        <div class="row mx-5">
+            <aside class="aside col-2">
+                <p class="fw-bold fs-4 mb-0">Enrolled Students</p>
+                <p>SY 2023 - 2024</p>
+                <ul class="sidebar-links nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#">Kinder</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Senior Kinder</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Grade 1</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Grade 2</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Grade 3</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Grade 4</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Grade 5</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Grade 6</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Grade 7</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Grade 8</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Grade 9</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Grade 10</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Grade 11</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Grade 12</a>
+                    </li>
+                </ul>
+            </aside>
+
+            <section class="flex-column col-6 p-0">
+
+                <div class="row my-3">
+                    <form class="d-flex" role="search">
+                        <input class="form-control rounded-0 mx-0" type="search"
+                            placeholder="Search by ID or Last Name, First Name..." aria-label="Search">
+                        <button class="button-yellow btn rounded-0 custom-width-12 pt-1 mx-0 border-0" type="submit"><i
+                                class="bi bi-search"></i></button>
+                    </form>
+                </div>
+
+                <div class="table-header container-fluid">
+                    <div class="row my-3">
+                        <div class="col-2 border border-white p-2">
+                            <span>Student ID</span>
+                        </div>
+                        <div class="col-2 border border-white p-2">
+                            <span>Last Name</span>
+                        </div>
+                        <div class="col-2 border border-white p-2">
+                            <span>First Name</span>
+                        </div>
+                        <div class="col-2 border border-white p-2">
+                            <span>MI</span>
+                        </div>
+                        <div class="col-4 border border-white p-2">
+                            <span>Section</span>
+                        </div>
+                    </div>
+                </div>
+
+                <form id="add-student-form" role="form" method="POST" action="/admin/students"
+                    class="input-group-custom">
+                    <div class="row mx-half">
+                        <div class="col-4 px-0">
+                            <input required name="student_id" type="text"
+                                class="form-control rounded-0 border border-white" placeholder="New Student ID" />
+                        </div>
+                        <div class="dropdown-custom student-form btn-group col-4 px-0">
+                            <button class="checkbox-dropdown btn dropdown-toggle rounded-0 border border-white"
+                                type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            </button>
+                            <div class="dropdown-menu col-12 rounded-0">
+                                <div class="form-check d-flex align-item">
+                                    <input class="form-check-input me-2 mb-2" type="checkbox" value="MC"
+                                        id="defaultCheck1">
+                                    <label class="form-check-label" for="defaultCheck1">
+                                        Medical Certificate
+                                    </label>
+                                </div>
+                                <div class="form-check d-flex align-item">
+                                    <input class="form-check-input me-2 mb-2" type="checkbox" value="SRF"
+                                        id="defaultCheck1">
+                                    <label class="form-check-label" for="defaultCheck1">
+                                        Scholastic Record Form
+                                    </label>
+                                </div>
+                                <div class="form-check d-flex align-item">
+                                    <input class="form-check-input me-2 mb-2" type="checkbox" value="IS"
+                                        id="defaultCheck1">
+                                    <label class="form-check-label" for="defaultCheck1">
+                                        Information Sheet
+                                    </label>
+                                </div>
+                                <div class="form-check d-flex align-item">
+                                    <input class="form-check-input me-2 mb-2" type="checkbox" value="BEF"
+                                        id="defaultCheck1">
+                                    <label class="form-check-label" for="defaultCheck1">
+                                        Basic Education Form
+                                    </label>
+                                </div>
+                                <div class="form-check d-flex align-item">
+                                    <input class="form-check-input me-2 mb-2" type="checkbox" value="SHSF"
+                                        id="defaultCheck1">
+                                    <label class="form-check-label" for="defaultCheck1">
+                                        Senior High School Form
+                                    </label>
+                                </div>
+                                <div class="form-check d-flex align-item">
+                                    <input class="form-check-input me-2 mb-2" type="checkbox" value="RF"
+                                        id="defaultCheck1">
+                                    <label class="form-check-label" for="defaultCheck1">
+                                        Recommendation Form
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-4 px-0">
+                            <div class="form-button-add text-center rounded-0 border border-white" role="button"
+                                tabindex="0" value="Submit">
+                                <input class="add-button" type="submit" value="" />
+                                <span>Add Admission Record</span>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+
+                <div class="data-table container-fluid my-3">
+                    <div class="row list-div">
+                        <div class="col-2 border p-2">
+                            <span>23-00001</span>
+                        </div>
+                        <div class="col-2 border p-2">
+                            <span>Gutierrez</span>
+                        </div>
+                        <div class="col-2 border p-2">
+                            <span>James</span>
+                        </div>
+                        <div class="col-2 border p-2">
+                            <span>Z</span>
+                        </div>
+                        <div class="col-4">
+                            <div class="row">
+                                <div class="col-8 border p-2">
+                                    <span>Justice</span>
+                                </div>
+                                <div class="col-4 p-0">
+                                    <div class="edit-button-div col-12 text-center rounded-0" role="button"
+                                        tabindex="0">
+                                        <i class="fa-solid fa-pen"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row list-div">
+                        <div class="col-2 border p-2">
+                            <span>23-00012</span>
+                        </div>
+                        <div class="col-2 border p-2">
+                            <span>De La Cruz</span>
+                        </div>
+                        <div class="col-2 border p-2">
+                            <span>Samantha</span>
+                        </div>
+                        <div class="col-2 border p-2">
+                            <span>D</span>
+                        </div>
+                        <div class="col-4">
+                            <div class="row">
+                                <div class="col-8 border p-2">
+                                    <span>Justice</span>
+                                </div>
+                                <div class="col-4 p-0">
+                                    <div class="edit-button-div col-12 text-center rounded-0" role="button"
+                                        tabindex="0">
+                                        <i class="fa-solid fa-pen"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row list-div">
+                        <div class="col-2 border p-2">
+                            <span>23-00003</span>
+                        </div>
+                        <div class="col-2 border p-2">
+                            <span>Chan</span>
+                        </div>
+                        <div class="col-2 border p-2">
+                            <span>Ling</span>
+                        </div>
+                        <div class="col-2 border p-2">
+                            <span>JS</span>
+                        </div>
+                        <div class="col-4">
+                            <div class="row">
+                                <div class="col-8 border p-2 me-0">
+                                    <span>Justice</span>
+                                </div>
+                                <div class="col-4 p-0">
+                                    <div class="edit-button-div col-12 text-center rounded-0" role="button"
+                                        tabindex="0">
+                                        <i class="fa-solid fa-pen"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Include Bootstrap JS (optional, for dropdown menus) -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+            crossorigin="anonymous"></script>
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+            integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+            crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+            crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+            crossorigin="anonymous"></script>
+</body>
+
+</html>
