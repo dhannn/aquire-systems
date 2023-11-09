@@ -1,8 +1,7 @@
-import { Record } from "../../schema/record";
-import { AdmissionRecord } from "../../schema/admissionrecord";
-import { Record } from "../../schema/record";
-import { Enrolls } from "../../schema/enrolls";
-import { SchoolHistory } from "../../schema/schoolhistory";
+import { AdmissionRecord } from "../../schema/admissionrecord.js";
+import { Record } from "../../schema/record.js";
+import { Enrolls } from "../../schema/enrolls.js";
+import { SchoolHistory } from "../../schema/schoolhistory.js";
 
 export class GuidanceModel {
     

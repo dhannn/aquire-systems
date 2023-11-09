@@ -29,7 +29,7 @@ AdmissionRecord.belongsTo(Record, {
     foreignKey: 'recordId', 
     targetKey: 'recordId'});
 
-Record.hasMany(GuidanceInfo, {foreignKey:'recordId'});
+Record.hasMany(AdmissionRecord, {foreignKey:'recordId'});
 
 AdmissionRecord.hasMany(Student, {
     foreignKey: 'student_id',
