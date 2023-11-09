@@ -2,6 +2,7 @@ import { Record } from "../../schema/record";
 import { AdmissionRecord } from "../../schema/admissionrecord";
 import { Record } from "../../schema/record";
 import { Enrolls } from "../../schema/enrolls";
+import { SchoolHistory } from "../../schema/schoolhistory";
 
 export class GuidanceModel {
     
@@ -66,7 +67,6 @@ export class GuidanceModel {
                 }));
                 const record = await AdmissionRecord.bulkCreate(newRecords);
                 console.log('Record inserted successfully', record);
-                return record;
             } catch(error) {
                 console.error('Error inserting record', error);
             }
@@ -74,7 +74,29 @@ export class GuidanceModel {
         addStudentRecord();
     }
 
-    static addStudentSchoolHistory() {
-        
+    /**
+     * Adds school history of a student
+     * @param {String} id 
+     * @param {String} enteredFrom 
+     * @param {String} gradeLevelEntered 
+     * @param {String} schoolYearAdmitted 
+     * @param {String} otherSchoolsAttended 
+     */
+    static addStudentSchoolHistory(id, enteredFrom, gradeLevelEntered, schoolYearAdmitted, otherSchoolsAttended) {
+        async function addStudentSchoolHistory() {
+            try{
+                const newStudentSchoolHistory = await SchoolHistory.create({
+                    student_id: id,
+                    enteredFrom: enteredFrom,
+                    gradeLevelEntered: gradeLevelEntered,
+                    schoolYearAdmitted: schoolYearAdmitted,
+                    otherSchoolsAttended: otherSchoolsAttended
+                })
+                console.log('Student school history successfully created', newStudentSchoolHistory);
+            } catch (error) {
+                console.error('Error creating student school history', error);
+            }
+        }
+        addStudentSchoolHistory();
     }
 }

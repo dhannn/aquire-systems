@@ -4,40 +4,28 @@ import { Student } from './student.js';
 import { Enrolls } from './enrolls.js';
 
 export const SchoolHistory = sequelize.define('schoolhistory', {
-    studentId: {
+    student_id: {
         type: DataTypes.STRING,
         allowNull: false,
         primaryKey: true,
         references: {
             model: Student,
-            key: 'studentId', 
+            key: 'student_id', 
         }
     },
     enteredFrom: {
         type: DataTypes.STRING,
+        allowNull: true,
     },
     gradeLevelEntered: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: true
     },
     schoolYearAdmitted: {
         type: DataTypes.STRING,
-        allowNull: false,
-        primaryKey: true,
-        references: {
-            model: Enrolls,
-            key: 'schoolYear',
-        }
-    },
-    otherSchoolName: {
-        type: DataTypes.STRING,
-        allowNull: true
-    },
-    otherSchoolGradeLevel: {
-        type: DataTypes.STRING,
         allowNull: true,
     },
-    otherSchoolSY: {
+    otherSchoolsAttended: {
         type: DataTypes.STRING,
         allowNull: true
     }

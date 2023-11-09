@@ -6,8 +6,10 @@ export class GuidanceController extends UserController {
     allowedUserType = 'G';
 
     initializeRoutes() {
-        this.createRoute('GET', '/', this.viewStudentRecords);
+        this.createRoute('GET', '/', this.viewGuidancePage);
         this.createRoute('POST', '/', this.addStudentRecord);
+        this.createRoute('GET', '/history', this.viewStudentSchoolHistory);
+        this.createRoute('POST', '/history', this.addStudentSchoolHistory);
     }
 
     /**
@@ -19,7 +21,7 @@ export class GuidanceController extends UserController {
         try {
             const {userStudentID, recordTypes} = req.body;
             const newRecord = await GuidanceModel.addStudentRecord(userStudentID, recordTypes);
-            res.render('Guidance', {message: { isSucess: true, content: 'Record added Successfully!'}});
+            res.render('Guidance', {message: { isSuccess: true, content: 'Record added successfully!'}});
             console.log('Record Added');
         } catch (error) {
             res.render('Guidance', {message: {content: error.message}});
@@ -44,5 +46,30 @@ export class GuidanceController extends UserController {
         } else {
             res.redirect('/');
         }  
+    }
+
+    async viewStudentSchoolHistory(_, res) {
+        GuidanceModel.initializeRecordTypes();
+        const allowed = await UserController.verifyUserPermission(this.allowedUserType, req)
+        const loggedIn = UserController.checkifloggedIn(req);
+        if (loggedIn) {
+            if (allowed) {
+                res.render('Guidance');
+            } else {
+                res.redirect('/');
+            }
+        } else {
+            res.redirect('/');
+        }  
+    }
+
+    async addStudentSchoolHistory(req, res) {
+        try {
+            const newSchoolHistory = await GuidanceModel.addStudentSchoolHistory(req.body.student_id, req.body.enteredFrom, req.body.gradeLevelEntered, req.body.schoolYearAdmitted, req.body.otherSchoolsAttended);
+            res.render('Guidance', {message: { isSuccess: true, content: 'School History added successfully!'}});
+            console.log('School History Added');
+        } catch (error) {
+            res.render('Guidance', {message: {content: error.message}});
+        }
     }
 }
