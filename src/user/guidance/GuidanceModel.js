@@ -41,8 +41,15 @@ export class GuidanceModel {
                 const year = await Enrolls.findOne({
                     where: {student_id: id},
                     attributes: ['schoolYear']
-                });        
-                const newRecords = recordType.map(type => ({
+                });
+                const existingRecords = await AdmissionRecord.findAll({
+                    where: {student_id: id},
+                    attributes: ['recordId']
+                });
+                const existingRecordIds = existingRecords.map(record => record.recordId);
+                const uniqueRecordIds = recordType.filter(id => !existingRecordIds.includes(id));
+
+                const newRecords = uniqueRecordIds.map(type => ({
                     student_id: id,
                     schoolYear: year.schoolYear.toString(),
                     recordId: type

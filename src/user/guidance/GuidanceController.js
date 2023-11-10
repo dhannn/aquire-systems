@@ -22,6 +22,7 @@ export class GuidanceController extends UserController {
         try {
             console.log('entered function');
             const {student_id, recordTypes} = req.body;
+            console.log(recordTypes);
             const newRecord = await GuidanceModel.addStudentRecord(student_id, recordTypes);
             //res.render('Guidance', {message: { isSuccess: true, content: 'Record added successfully!'}});
             res.render('Guidance');
