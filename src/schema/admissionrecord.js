@@ -28,4 +28,11 @@ export const AdmissionRecord = sequelize.define('admissionRecord', {
             key: 'recordId',
         }
     }
+}, {
+    indexes: [
+        {
+            unique: true,
+            fields: ['student_id', 'recordId']
+        }
+    ]
 });
