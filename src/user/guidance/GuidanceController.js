@@ -35,8 +35,8 @@ export class GuidanceController extends UserController {
      */
     async viewGuidancePage(_, res) {
         GuidanceModel.initializeRecordTypes();
-        const allowed = await UserController.verifyUserPermission(this.allowedUserType, req)
-        const loggedIn = UserController.checkifloggedIn(req);
+        const allowed = await UserController.verifyUserPermission(this.allowedUserType, _)
+        const loggedIn = UserController.checkifloggedIn(_);
         if (loggedIn) {
             if (allowed) {
                 res.render('Guidance');
