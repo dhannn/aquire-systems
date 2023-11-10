@@ -1,6 +1,5 @@
 import { Record } from "../../schema/record";
 import { AdmissionRecord } from "../../schema/admissionrecord";
-import { Record } from "../../schema/record";
 import { Enrolls } from "../../schema/enrolls";
 
 export class GuidanceModel {
