@@ -1,3 +1,4 @@
+import { AdmissionRecord } from "../../schema/admissionrecord.js";
 import { UserController } from "../UserController.js";
 import { GuidanceModel } from "./GuidanceModel.js";
 
@@ -44,9 +45,31 @@ export class GuidanceController extends UserController {
         GuidanceModel.initializeRecordTypes();
         const allowed = await UserController.verifyUserPermission(this.allowedUserType, _)
         const loggedIn = UserController.checkifloggedIn(_);
+
+        const studentRecords = await AdmissionRecord.findAll({
+            attributes: ['student_id', 'recordId'],
+            raw: true
+        });
+        for(let i = 0; i < studentRecords.length; i++){
+            if(studentRecords[i].recordId == 'MC') {
+                studentRecords[i].recordId == 'Medical Cerificate';
+            } else if(studentRecords[i].recordId == 'RF') {
+                studentRecords[i].recordId == 'Recommendation Form';
+            } else if(studentRecords[i].recordId == 'SRF') {
+                studentRecords[i].recordId == 'Scholastic Record Form';
+            } else if(studentRecords[i].recordId == 'BEF') {
+                studentRecords[i].recordId == 'Basic Education Form';
+            } else if(studentRecords[i].recordId == 'SHSF') {
+                studentRecords[i].recordId == 'Senior High Shool Form';
+            } else if(studentRecords[i].recordId == 'IS') {
+                studentRecords[i].recordId == 'Information Sheet';
+            } else {
+                console.log('Database error: Record Id does not exist');
+            }
+        }
         if (loggedIn) {
             if (allowed) {
-                res.render('Guidance');
+                res.render('Guidance', {studentRecords: studentRecords});
             } else {
                 res.redirect('/');
             }
