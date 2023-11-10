@@ -1,20 +1,39 @@
+html,body {
+    height:100%;
+}
+
 body{
     background-color: #fdfdfd;
+}
+
+#login-form{
+    width:35%;
+}
+
+#user-view{
+    width:50%;
 }
 
 .navbar {
     position: sticky;
     top: 0;
     background-color: #ffd966;
-}
-
-.topbar-links li a{
-    color: #FAFAFA;
-}
-
-.topbar-links li a:hover{
     color: #0A0A0A;
+}
+
+#topbar-links li a{
+    color: #0A0A0A;
+    font-weight: bolder;
+}
+
+#sidebar-links li a{
+    color: #5e5e5e;
+    font-weight: bold;
+}
+
+#topbar-links li a:hover, #sidebar-links li a:hover{
     cursor: pointer;
+    color: #0a58ca;
 }
 
 .input-group :placeholder-shown{
@@ -36,7 +55,10 @@ body{
     color: #7f7f7f;
 }
 
-.input-group input{
+option{
+    color: #7f7f7f;
+}
+.input-group input, .input-group select{
     background-color: #d9d9d9;
     font-size: 1rem;
 
@@ -119,3 +141,24 @@ body{
   .list-div:hover .edit-button-div {
     display: block; 
   }
+
+  #login-button{
+    color: black;
+    background-color: #FFD700;
+
+    border-radius: 6px;
+    cursor: pointer;
+    user-select: none;
+    transition: 0.2s;
+    font-weight: bold; 
+  
+    &:hover {
+        opacity: 0.5;
+        transition: 0.2s; 
+    }
+    
+    &:active {
+        opacity: 1;
+        background-color: #d9d9d9;
+    }
+}

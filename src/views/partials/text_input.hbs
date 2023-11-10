@@ -3,16 +3,16 @@
 {{!-- INPUT IS REQUIRED --}}
 {{#if required }}
     {{#if size_large}}  {{!-- MAKE INPUT FIELD LARGER --}}  
-        <input required name={{name}} type="text" class="form-control col-3 rounded-0" placeholder="{{label}}" />
+        <input required name={{name}} type="text" class="col-2 border p-2" placeholder="{{label}}" />
         {{else}}
-            <input required name={{name}} type="text" class="form-control col-2 rounded-0" placeholder="{{label}}" />
+            <input required name={{name}} type="text" class="col-1 border p-2" placeholder="{{label}}" />
     {{/if}}
 
 {{!-- INPUT IS NOT REQUIRED --}}
     {{else}}
         {{#if size_large}}
-            <input name={{name}} type="text" class="form-control col-3 rounded-0" placeholder="{{label}}" />
+            <input name={{name}} type="text" class="col-2 border p-2" placeholder="{{label}}" />
             {{else}}
-                <input name={{name}} type="text" class="form-control col-2 rounded-0" placeholder="{{label}}" />
+                <input name={{name}} type="text" class="col-1 border p-2" placeholder="{{label}}" />
         {{/if}}
 {{/if}}

@@ -32,7 +32,7 @@
     <div class="container-fluid">
         <div class="row mx-5">
             <aside id="aside" class="col-2">
-                <p class="fw-bold fs-4 mb-0">Enrolled Students</p>
+                <p class="fw-bold fs-3 mb-0">Enrolled Students</p>
                 <p>SY 2023 - 2024</p>
                 <ul id="sidebar-links" class="nav flex-column">
                     {{!-- GRADELIST PARTIAL --}}
@@ -93,19 +93,19 @@
                 <form id="add-student-form" role="form" method="POST" action="/admin/students">
                     <div class="input-group">
                         {{!-- TEXT INPUT PARTIAL --}}
-                        {{!-- {{> text_input name="student_id" label="New Student" size_large="" required="true"}}
-                        {{> text_input name="lastName" label="Last Name" size_large="" required="true"}}
-                        {{> text_input name="firstName" label="First Name" size_large="" required="true"}}
+                        {{> text_input name="student_id" label="New Student" size_large="true" required="true"}}
+                        {{> text_input name="lastName" label="Last Name" size_large="true" required="true"}}
+                        {{> text_input name="firstName" label="First Name" size_large="true" required="true"}}
                         {{> text_input name="middleInitial" label="MI" size_large="" required=""}}
-                        {{> text_input name="grade" label="Grade" size_large="" required="true"}}
-                        {{> text_input name="section" label="Section" size_large="" required="true"}} --}}
+                        {{> text_input name="grade" label="Grade" size_large="true" required="true"}}
+                        {{> text_input name="section" label="Section" size_large="true" required="true"}}
 
-                        <input required name="student_id" type="text" class="col-2 border p-2" placeholder="New Student ID" />
+                        {{!-- <input required name="student_id" type="text" class="col-2 border p-2" placeholder="New Student ID" />
                         <input required name="lastName"   type="text" class="col-2 border p-2" placeholder="Last Name" />
                         <input required name="firstName" type="text" class="col-2 border p-2" placeholder="First Name" />
                         <input name="middleInitial" type="text" class="col-1 border p-2" placeholder="MI" />
                         <input required name="grade" type="text" class="col-2 border p-2" placeholder="Grade" />
-                        <input required name="section" type="text" class="col-2 border p-2" placeholder="Section" />
+                        <input required name="section" type="text" class="col-2 border p-2" placeholder="Section" /> --}}
 
                         <div class="col-1 text-center rounded-0" role="button" tabindex="0" id="form-button-add" value="Submit">
                             <input class="col-1" type="submit" value="" style="position: absolute; background-color: transparent; height: 100%; right: 0; top: 0; padding: 0px 2px; border: none;"/>
