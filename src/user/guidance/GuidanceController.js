@@ -7,7 +7,8 @@ export class GuidanceController extends UserController {
 
     initializeRoutes() {
         this.createRoute('GET', '/', this.viewGuidancePage);
-        this.createRoute('POST', '/', this.addStudentRecord);
+        this.createRoute('GET', '/records', this.viewGuidancePage)
+        this.createRoute('POST', '/records', this.addStudentRecord);
         this.createRoute('GET', '/history', this.viewStudentSchoolHistory);
         this.createRoute('POST', '/history', this.addStudentSchoolHistory);
     }
@@ -19,12 +20,16 @@ export class GuidanceController extends UserController {
      */
     async addStudentRecord(req, res) {
         try {
-            const {userStudentID, recordTypes} = req.body;
-            const newRecord = await GuidanceModel.addStudentRecord(userStudentID, recordTypes);
-            res.render('Guidance', {message: { isSuccess: true, content: 'Record added successfully!'}});
+            console.log('entered function');
+            const {student_id, recordTypes} = req.body;
+            const newRecord = await GuidanceModel.addStudentRecord(student_id, recordTypes);
+            //res.render('Guidance', {message: { isSuccess: true, content: 'Record added successfully!'}});
+            res.render('Guidance');
             console.log('Record Added');
         } catch (error) {
-            res.render('Guidance', {message: {content: error.message}});
+            console.log('error', error);
+            res.render('Guidance');
+            //res.render('Guidance', {message: {content: error.message}});
         }
     }
 
