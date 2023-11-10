@@ -38,30 +38,13 @@ export class GuidanceModel {
     static addStudentRecord(id, recordType){
         async function addStudentRecord() {
             try{
-                Enrolls.findOne({
-                    where: {
-                        student_id: id
-                    },
-                    include: [
-                        {
-                            model: Enrolls,
-                            as: 'schoolYear',
-                            attributes:['schoolYear']
-                        }
-                    ]
-                }).then(record => {
-                    if(record) {
-                        const schoolYear = record.schoolYear.schoolYear;
-                        console.log('School Year found', schoolYear);
-                    } else {
-                        console.log('School Year not found');
-                    }
-                }).catch(error => {
-                    console.error('Error retrieving School Year', error);
-                });
+                const year = await Enrolls.findOne({
+                    where: {student_id: id},
+                    attributes: ['schoolYear']
+                });        
                 const newRecords = recordType.map(type => ({
                     student_id: id,
-                    schoolYear: schoolYear,
+                    schoolYear: year.schoolYear.toString(),
                     recordId: type
                 }));
                 const record = await AdmissionRecord.bulkCreate(newRecords);
