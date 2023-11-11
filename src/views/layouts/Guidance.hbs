@@ -55,16 +55,7 @@
                             <span>Student ID</span>
                         </div>
                         <div class="col-2 border border-white p-2">
-                            <span>Last Name</span>
-                        </div>
-                        <div class="col-2 border border-white p-2">
-                            <span>First Name</span>
-                        </div>
-                        <div class="col-2 border border-white p-2">
-                            <span>MI</span>
-                        </div>
-                        <div class="col-4 border border-white p-2">
-                            <span>Section</span>
+                            <span>Record</span>
                         </div>
                     </div>
                 </div>
@@ -98,11 +89,20 @@
                         </div>
                     </div>
                 </form>
-
-                <div class="data-table container-fluid my-3">
-                     {{> DataTableRow studentId="23-00001" lastName="Gutierrez" firstName="James" middleInitial="Z" course="Justice"}} 
-                     {{> DataTableRow studentId="23-00012" lastName="De La Cruz" firstName="Samantha" middleInitial="D" course="Justice"}} 
-                     {{> DataTableRow studentId="23-00003" lastName="Chan" firstName="JaLingmes" middleInitial="JS" course="Justice"}} 
+                <div id="data-table" class="data-table container-fluid my-3">
+                    {{#each studentRecords}}
+                        <div class="row list-div">
+                            <div class="col-3 border p-2">
+                                <span>{{student_id}}</span>
+                            </div>
+                            <div class="col-6 border p-2">
+                                <span>{{recordId}}</span>
+                            </div>
+                            <div class="edit-button-div col-3 text-center rounded-0" role="button" tabindex="0">
+                                <i class="fa-solid fa-pen"></i>
+                            </div>
+                        </div>
+                    {{/each}}
                 </div>
             </section>
         </div>

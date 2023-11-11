@@ -2,6 +2,7 @@ import { Student } from './student.js';
 import { Enrolls } from './enrolls.js';
 import { Record } from './record.js';
 import { AdmissionRecord } from './admissionrecord.js';
+import { SchoolHistory } from './schoolhistory.js';
 
 Student.hasMany(Enrolls, {
     foreignKey: 'student_id',
@@ -16,26 +17,20 @@ Enrolls.belongsTo(Student, {
 
 AdmissionRecord.belongsTo(Student, {
     foreignKey: 'student_id',
-    targetKey: 'student_id'
+    targetKey: 'student_id',
 });
 
-AdmissionRecord.belongsTo(Enrolls, {
-    foreignKey: 'schoolYear',
-    targetKey: 'schoolYear'
-})
+Record.hasMany(AdmissionRecord, {
+    foreignKey:'recordId',
+    sourceKey: 'recordId',
+});
 
 AdmissionRecord.belongsTo(Record, {
     foreignKey: 'recordId', 
-    targetKey: 'recordId'});
+    targetKey: 'recordId',
+});
 
-Record.hasMany(GuidanceInfo, {foreignKey:'recordId'});
-
-AdmissionRecord.hasMany(Student, {
+SchoolHistory.belongsTo(Student, {
     foreignKey: 'student_id',
     targetKey: 'student_id'
-})
-
-AdmissionRecord.hasMany(Enrolls, {
-    foreignKey: 'schoolYear',
-    targetKey: 'schoolYear'
-})
+});
