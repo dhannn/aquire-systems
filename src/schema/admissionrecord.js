@@ -18,6 +18,7 @@ export const AdmissionRecord = sequelize.define('admissionRecord', {
         type: DataTypes.STRING,
         allowNull: false,
         primaryKey: true,
+
     },
     recordId: {
         type: DataTypes.CHAR,

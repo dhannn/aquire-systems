@@ -34,4 +34,3 @@ SchoolHistory.belongsTo(Student, {
     foreignKey: 'student_id',
     targetKey: 'student_id'
 });
-

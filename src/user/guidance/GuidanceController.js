@@ -7,6 +7,7 @@ export class GuidanceController extends UserController {
     allowedUserType = 'G';
 
     initializeRoutes() {
+
         this.createRoute('GET', '/', this.viewGuidancePage);
         this.createRoute('GET', '/records', this.viewGuidancePage)
         this.createRoute('POST', '/records', this.addStudentRecord);
@@ -93,6 +94,7 @@ export class GuidanceController extends UserController {
             res.redirect('/');
         }  
     }
+
 
     async addStudentSchoolHistory(req, res) {
         try {
