@@ -57,7 +57,7 @@
 
                 <div class="row my-3">
                     <div class="d-flex justify-content-end">
-                        <button type="button" class="btn rounded-0 btn-outline-dark mx-3">Start new school year</button>
+                        <button id="startNewSchoolYearBtn" type="button" class="btn rounded-0 btn-outline-dark mx-3">Start new school year</button>
                         <button type="button" class="btn rounded-0 btn-outline-dark">Bulk enroll</button>
                     </div>
                 </div>
@@ -209,7 +209,28 @@
         crossorigin="anonymous"></script>
 
 
-
+   <script>
+    document.getElementById('startNewSchoolYearBtn').addEventListener('click', function () {
+        // Trigger the start new school year functionality
+        fetch('/admin/startNewSchoolYear', { method: 'POST' })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`Failed to start new school year. Status: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(data => {
+                
+                console.log('Success:', data);
+                
+            })
+            .catch(error => {
+                
+                console.error('Error starting new school year:', error.message);
+               
+            });
+    });
+    </script>
 </body>
 
 

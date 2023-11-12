@@ -121,17 +121,19 @@ export class AdminModel {
         const fromYear = currentYear.toString();
         const toYear = (currentYear + 1).toString();
 
-        const [updatedRows, [updatedSchoolYear]] = await CurrentSchoolYear.update(
+        const [updatedRows] = await CurrentSchoolYear.update(
             { fromYear, toYear },
-            {
-                returning: true,
-                plain: true,
-                where: {},
-            }
+            { where: {} }
         );
 
         if (updatedRows === 0) {
             throw new Error('Failed to update the current school year');
+        }
+
+        const updatedSchoolYear = await CurrentSchoolYear.findOne();
+
+        if (!updatedSchoolYear) {
+            throw new Error('Failed to fetch the updated school year');
         }
 
         return updatedSchoolYear;
@@ -139,5 +141,5 @@ export class AdminModel {
         console.error('Error starting new school year:', error);
         throw error;
     }
- }
+  }
 }
