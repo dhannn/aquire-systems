@@ -16,6 +16,7 @@ export class AdminContoller extends UserController {
     this.createRoute("GET", "/users", this.viewUsers);
     this.createRoute("POST", "/students", this.addStudent);
     this.createRoute("POST", "/users", this.addUser);
+    this.createRoute('POST', '/startNewSchoolYear', this.startNewSchoolYear);
   }
 
   /**
@@ -173,4 +174,33 @@ export class AdminContoller extends UserController {
       res.redirect("/");
     }
   }
+
+
+
+
+   /**
+     * Starts a new school year
+     * @param {Request} req
+     * @param {Response} res
+     */
+
+   async startNewSchoolYear(req, res) {
+    try {
+        const updatedSchoolYear = await this.model.startNewSchoolYear();
+        res.render('Admin_Student', {
+            message: { isSuccess: true, content: 'New school year started successfully!' },
+            schoolYear: `${updatedSchoolYear.fromYear} - ${updatedSchoolYear.toYear}`,
+        });
+    } catch (error) {
+        console.error(error.message);
+        res.render('Admin_Student', {
+            message: { content: error.message },
+        });
+    }
+  }
+
+
+
+
+
 }

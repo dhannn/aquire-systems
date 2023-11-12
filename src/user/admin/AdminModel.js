@@ -113,4 +113,31 @@ export class AdminModel {
       }
     });
   }
+
+
+  async startNewSchoolYear() {
+    try {
+        const currentYear = new Date().getFullYear();
+        const fromYear = currentYear.toString();
+        const toYear = (currentYear + 1).toString();
+
+        const [updatedRows, [updatedSchoolYear]] = await CurrentSchoolYear.update(
+            { fromYear, toYear },
+            {
+                returning: true,
+                plain: true,
+                where: {},
+            }
+        );
+
+        if (updatedRows === 0) {
+            throw new Error('Failed to update the current school year');
+        }
+
+        return updatedSchoolYear;
+    } catch (error) {
+        console.error('Error starting new school year:', error);
+        throw error;
+    }
+ }
 }
