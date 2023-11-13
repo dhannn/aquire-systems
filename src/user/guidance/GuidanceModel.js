@@ -36,28 +36,35 @@ export class GuidanceModel {
      * @param {String} recordType 
      */
     static addStudentRecord(id, recordType){
-        async function addStudentRecord() {
+         function addStudentRecord() {
             try{
-                const year = await Enrolls.findOne({
+                if(recordType === undefined){
+                    throw new Error('No unique record types selected');
+                }
+                const year =  Enrolls.findOne({
                     where: {student_id: id},
                     attributes: ['schoolYear']
                 });
-                const existingRecords = await AdmissionRecord.findAll({
+                const existingRecords = AdmissionRecord.findAll({
                     where: {student_id: id},
                     attributes: ['recordId']
                 });
                 const existingRecordIds = existingRecords.map(record => record.recordId);
                 const uniqueRecordIds = recordType.filter(id => !existingRecordIds.includes(id));
-
+                if(uniqueRecordIds.length == 0) {
+                    throw new Error('No unique record types selected');
+                }
                 const newRecords = uniqueRecordIds.map(type => ({
                     student_id: id,
                     schoolYear: year.schoolYear.toString(),
                     recordId: type
                 }));
-                const record = await AdmissionRecord.bulkCreate(newRecords);
+                const record = AdmissionRecord.bulkCreate(newRecords);
                 console.log('Record inserted successfully', record);
+                return {record: record}
             } catch(error) {
                 console.error('Error inserting record', error);
+                return error;
             }
         }
         addStudentRecord();
