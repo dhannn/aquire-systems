@@ -25,19 +25,7 @@
         {{> Message message=message}}
     {{/if}}
 
-    <nav class="navbar p-3 mb-5">
-        <div class="container-fluid">
-            <a class="navbar-brand fw-bolder fs-2" href="#">Admin</a>
-            <ul class="topbar-links nav">
-                <li class="nav-item">
-                    <a href="/admin/students" class="nav-link px-4">Students</a>
-                </li>
-                <li class="nav-item">
-                    <a href="/admin/users" class="nav-link px-4">Users</a>
-                </li>
-            </ul>
-        </div>
-    </nav>
+    {{> navbar user_page="true"}}
 
     <section class="flex-column col-6 m-5">
         <div class="row my-3">

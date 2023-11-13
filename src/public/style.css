@@ -4,6 +4,14 @@
     background-color: #ffd966;
 }
 
+#logout-link {
+    color: #ff2222;
+}
+
+#student-link, #user-link{
+    color: #0A0A0A;
+}
+
 .topbar-links li a{
     color: #FAFAFA;
 }

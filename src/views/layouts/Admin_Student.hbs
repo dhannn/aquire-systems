@@ -24,21 +24,7 @@
         {{> Message message=message}}
     {{/if}}
     
-    <nav id="navbar" class="navbar p-3 mb-5">
-        <div class="container-fluid">
-            <a class="navbar-brand fw-bolder fs-2" href="#">Admin</a>
-            <ul id="topbar-links" class="nav">
-                <li class="nav-item">
-                    <a href="/admin/students" class="nav-link px-4">Students</a>
-                </li>
-                <li class="nav-item">
-                    <a href="/admin/users" class="nav-link px-4">Users</a>
-                </li>
-            </ul>
-
-
-        </div>
-    </nav>
+    {{> navbar student_page="true"}}
 
     <div class="container-fluid">
         <div class="row mx-5">
