@@ -76,30 +76,6 @@ export class AdminContoller extends UserController {
     }
   }
 
-  async addUser(req, res) {
-    const result = await this.model.addUser(
-      req.body.userName,
-      req.body.userPassword,
-      req.body.userType
-    );
-
-    if (result.error) {
-      if (result.error.includes("duplicate key error")) {
-        res.render("Admin_User", {
-          message: { content: "Username already exists!" },
-        });
-      } else {
-        res.render("Admin_User", {
-          message: { content: "Username already exists!" },
-        });
-      }
-    } else {
-      res.render("Admin_User", {
-        message: { isSuccess: true, content: "User added successfully!" },
-      });
-    }
-  }
-
   async viewStudents(_, res) {
     const allowed = await UserController.verifyUserPermission(
       this.allowedUserType,
@@ -114,7 +90,6 @@ export class AdminContoller extends UserController {
     if (!allowed) {
       return res.redirect("/");
     }
-
     try {
       const currentSchoolYear = await CurrentSchoolYear.findOne({
         order: [["createdAt", "DESC"]],
@@ -156,28 +131,45 @@ export class AdminContoller extends UserController {
       });
     }
   }
+  
+  async addUser(req, res) {
+        const result = await this.model.addUser(req.body.userName, req.body.userPassword, req.body.userType);
 
-  async viewUsers(_, res) {
-    const allowed = await UserController.verifyUserPermission(
-      this.allowedUserType,
-      _
-    );
-    const loggedIn = UserController.checkifloggedIn(_);
+        //repeatable section start---
+        const users = await User.findAll({
+            attributes: ['userName', 'userType'],
+            raw: true
+        });
 
-    if (loggedIn) {
-      if (allowed) {
-        res.render("Admin_User");
-      } else {
-        res.redirect("/");
-      }
-    } else {
-      res.redirect("/");
+        for (let i = 0; i < users.length; i++) {
+            //apply changes to make things human readable
+            if (users[i].userType == 'A') {
+                users[i].userType = 'Admin';
+            } else if (users[i].userType == 'G') {
+                users[i].userType = 'Guidance'
+            } else {
+                console.log("Database Error: No usertype.");
+            }
+        }
+        //repeatable section end--
+
+        if (result.error) {
+            if (result.error.includes("duplicate key error")) {
+                res.render('Admin_User', {
+                    users: users, 
+                    message: { content: "Username already exists!" } });
+            } else {
+                res.render('Admin_User', { 
+                    users: users,
+                    message: { content: "Username already exists!" }  });
+            }
+        } else {
+            res.render('Admin_User', { 
+                message: { isSuccess: true, content: "User added successfully!" },
+                users: users
+            });
+        }
     }
-  }
-
-
-
-
    /**
      * Starts a new school year
      * @param {Request} req
@@ -196,6 +188,35 @@ export class AdminContoller extends UserController {
         res.render('Admin_Student', {
             message: { content: error.message },
         });
+
+    async viewUsers(_, res) {
+        const allowed = await UserController.verifyUserPermission(this.allowedUserType, _)
+        const loggedIn = UserController.checkifloggedIn(_);
+        const users = await User.findAll({
+            attributes: ['userName', 'userType'],
+            raw: true
+        });
+
+        for (let i = 0; i < users.length; i++) {
+            //apply changes to make things human readable
+            if (users[i].userType == 'A') {
+                users[i].userType = 'Admin';
+            } else if (users[i].userType == 'G') {
+                users[i].userType = 'Guidance'
+            } else {
+                console.log("Database Error: No usertype.");
+            }
+        }
+        
+        if (loggedIn) {
+            if (allowed) {
+                res.render('Admin_User', { users: users });
+            } else {
+                res.redirect('/');
+            }
+        } else {
+            res.redirect('/');
+        }
     }
   }
 
