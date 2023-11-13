@@ -5,6 +5,7 @@ import { Enrolls } from "../../schema/enrolls.js";
 import { CurrentSchoolYear } from "../../schema/currentschoolyear.js";
 import { v4 as uuidv4 } from "uuid";
 import { sequelize } from "../../DBConnection.js";
+import { CurrentSchoolYear } from "../../schema/currentschoolyear.js"; 
 
 export class AdminModel {
     /**
@@ -14,34 +15,42 @@ export class AdminModel {
      * @param {string} type 
      */
     addUser(username, password, type) {
-
         async function insertUser() {
-
-          const saltRounds = 10; 
-          const hashedPassword = await bcrypt.hash(password, saltRounds);
-          const uuid = uuidv4();
-          try {
-            const newUser = await User.create({
-              userId: uuid,
-              userName: username,
-              userPassword: hashedPassword,
-              userType: type
-            });
-            return { user: newUser, error: null };
-          } catch (error) {
-            console.error('Error inserting user:', error);
-            return { user: null, error: error.message };
-          }
-          
-          }
-          return insertUser();
-      
+            const saltRounds = 10;
+            const hashedPassword = await bcrypt.hash(password, saltRounds);
+            const uuid = uuidv4();
+            try {
+                const newUser = await User.create({
+                    userId: uuid,
+                    userName: username,
+                    userPassword: hashedPassword,
+                    userType: type,
+                });
+                return { user: newUser, error: null };
+            } catch (error) {
+                console.error('Error inserting user:', error);
+                return { user: null, error: error.message };
+            }
+        }
+        return insertUser();
     }
 
-  /**
-   * Inserts the user to the database
-   */
-  viewUsers() {}
+    // updateCurrentSchoolYear method
+    async updateCurrentSchoolYear(fromYear, toYear) {
+        try {
+            // Update the current school year range in the CurrentSchoolYear table
+            await CurrentSchoolYear.create({ fromYear, toYear }, { upsert: true });
+            return { fromYear, toYear };
+        } catch (error) {
+            console.error('Error updating the current school year:', error);
+            throw error;
+        }
+    }
+
+    /**
+     * Inserts the user to the database
+     */
+    viewUsers() {}
 
   /**
    * Inserts the student to the database
