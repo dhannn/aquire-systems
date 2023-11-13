@@ -4,13 +4,33 @@
         <div class="container-fluid">
             <a class="navbar-brand fw-bolder fs-2" href="#">Admin</a>
             <ul id="topbar-links" class="nav">
+
+              {{#if student_page}}
                 <li class="nav-item">
-                    <a href="/admin/students" 
-                    class="nav-link fs-5 px-4 border border-3 border-end-0 border-top-0 border-bottom-0">Students</a>
+                    <a href="/admin/students" id="student-link"
+                    class="nav-link fs-5 px-4 border border-3 border-end-0 border-top-0 border-bottom-0 fw-bold"><u>Students</u></a>
                 </li>
+                {{else}}
+                  <li class="nav-item">
+                    <a href="/admin/students" id="student-link"
+                    class="nav-link fs-5 px-4 border border-3 border-end-0 border-top-0 border-bottom-0">Students</a>
+                  </li>
+                {{/if}}
+
+              {{#if user_page}}
                 <li class="nav-item">
-                    <a href="/admin/users" 
+                    <a href="/admin/users" id="user-link"
+                    class="nav-link fs-5 px-4 border border-3 border-end-0 border-top-0 border-bottom-0 fw-bold"><u>Users</u></a>
+                </li>
+                {{else}}
+                <li class="nav-item">
+                    <a href="/admin/users" id="user-link"
                     class="nav-link fs-5 px-4 border border-3 border-end-0 border-top-0 border-bottom-0">Users</a>
+                </li>
+                {{/if}}
+                <li class="nav-item">
+                    <a href="/login" id="logout-link" 
+                    class="nav-link fs-5 px-4 border border-3 border-end-0 border-top-0 border-bottom-0 fw-bold">Logout</a>
                 </li>
             </ul>
 
