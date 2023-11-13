@@ -36,35 +36,34 @@ export class GuidanceModel {
      * @param {String} recordType 
      */
     static addStudentRecord(id, recordType){
-         function addStudentRecord() {
+        async function addStudentRecord() {
             try{
-                if(recordType === undefined){
-                    throw new Error('No unique record types selected');
-                }
-                const year =  Enrolls.findOne({
+                // if(recordType === undefined){
+                //     throw new Error('No unique record types selected');
+                // }
+                const year = await Enrolls.findOne({
                     where: {student_id: id},
                     attributes: ['schoolYear']
                 });
-                const existingRecords = AdmissionRecord.findAll({
+                const existingRecords = await AdmissionRecord.findAll({
                     where: {student_id: id},
                     attributes: ['recordId']
                 });
                 const existingRecordIds = existingRecords.map(record => record.recordId);
                 const uniqueRecordIds = recordType.filter(id => !existingRecordIds.includes(id));
-                if(uniqueRecordIds.length == 0) {
-                    throw new Error('No unique record types selected');
-                }
+                // if(uniqueRecordIds.length == 0) {
+                //     throw new Error('No unique record types selected');
+                // }
                 const newRecords = uniqueRecordIds.map(type => ({
                     student_id: id,
                     schoolYear: year.schoolYear.toString(),
                     recordId: type
                 }));
-                const record = AdmissionRecord.bulkCreate(newRecords);
+                const record = await AdmissionRecord.bulkCreate(newRecords);
                 console.log('Record inserted successfully', record);
                 return {record: record}
             } catch(error) {
-                console.error('Error inserting record', error);
-                return error;
+                throw error;
             }
         }
         addStudentRecord();

@@ -9,6 +9,7 @@ export class GuidanceController extends UserController {
     initializeRoutes() {
 
         this.createRoute('GET', '/', this.viewGuidancePage);
+        this.createRoute('POST', '/', this.getStudentRecords);
         this.createRoute('GET', '/records', this.viewGuidancePage)
         this.createRoute('POST', '/records', this.addStudentRecord);
         this.createRoute('GET', '/history', this.viewStudentSchoolHistory);
@@ -48,7 +49,6 @@ export class GuidanceController extends UserController {
                     console.log('Database error: Record Id does not exist');
                 }
             }
-            console.log('wawawawawa', result);
             if(result) {
                 res.render('Guidance', {message: {content: result}, studentRecords: studentRecords});
             } else {
@@ -127,6 +127,24 @@ export class GuidanceController extends UserController {
             console.log('School History Added');
         } catch (error) {
             res.render('Guidance', {message: {content: error.message}});
+        }
+    }
+
+    async getStudentRecords(req, res) {
+        const studentId = req.body.textData;
+        try {
+            // Query the database to find records for the student
+            const records = await AdmissionRecord.findAll({
+                where: { student_id: studentId },
+                attributes: ['recordId']
+            });
+    
+            // Convert to a format suitable for the frontend to process
+            const recordIds = records.map(r => r.recordId);
+            res.json({ recordIds });
+        } catch (error) {
+            console.error('Error fetching student records:', error);
+            res.status(500).send('Error processing request');
         }
     }
 }

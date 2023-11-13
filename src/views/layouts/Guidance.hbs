@@ -69,8 +69,47 @@
                     class="input-group-custom">
                     <div class="row mx-half">
                         <div class="col-4 px-0">
-                            <input required name="student_id" type="text"
+                            <input required name="student_id" type="text" id="studentId"
                                 class="form-control rounded-0 border border-white" placeholder="New Student ID" />
+                            <script>
+                                document.addEventListener('DOMContentLoaded', function() {
+                                    var timeout = null;
+
+                                    document.getElementById('studentId').addEventListener('keyup', function () {
+                                        clearTimeout(timeout);
+                                        timeout = setTimeout(function() {
+                                            var textvalue = document.getElementById('studentId').value;
+                                            var xhr = new XMLHttpRequest();
+                                            xhr.open('POST', '/guidance', true);
+                                            xhr.setRequestHeader('Content-Type', 'application/json');
+                                            xhr.onload = function() {
+                                                if(xhr.status === 200) {
+                                                    if (xhr.status === 200) {
+                                                        var response = JSON.parse(xhr.responseText);
+                                                        var recordIds = response.recordIds;
+
+                                                        // Update checkboxes
+                                                        var checkboxes = document.querySelectorAll('[name="recordTypes[]"]');
+                                                        checkboxes.forEach(function(checkbox) {
+                                                            if (recordIds.includes(checkbox.value)) {
+                                                                checkbox.checked = true;
+                                                                checkbox.classList.add('greyed-out');
+                                                            } else {
+                                                                checkbox.checked = false;
+                                                                checkbox.classList.remove('greyed-out');
+                                                            }
+                                                        });
+                                                    }
+                                                }
+                                            };
+                                            xhr.onerror = function() {
+                                                console.error('Request Error...');
+                                            };
+                                            xhr.send(JSON.stringify({textData: textvalue}));
+                                        }, 500);
+                                    });
+                                });
+                            </script>
                         </div>
                         <div class="dropdown-custom student-form btn-group col-4 px-0">
                             <button class="checkbox-dropdown btn dropdown-toggle rounded-0 border border-white"
