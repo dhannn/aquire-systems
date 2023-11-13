@@ -52,7 +52,38 @@
 
 
         }
+
+         // Function to handle "Start new school year" button click
+    function handleStartNewSchoolYear() {
+        
+        const modal = new bootstrap.Modal(document.getElementById('exampleModal'));
+
+        
+        const confirmButton = document.getElementById('confirmStartNewYear');
+        confirmButton.addEventListener('click', () => {
+            
+            fetch('/admin/startNewSchoolYear', {
+                method: 'POST',
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Success:', data);
+               
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+                
+            });
+
+            
+            modal.hide();
+        });
+
+     
+        modal.show();
+    }
     </script>
+    
 </head>
 
 <body>
@@ -129,9 +160,7 @@
 
                 <div class="row my-3">
                     <div class="d-flex justify-content-end">
-                        <button type="button" class="button-yellow btn rounded-0 mx-3 border-0" data-bs-toggle="modal"
-                            data-bs-target="#exampleModal">Start new school
-                            year</button>
+                        <button type="button" class="button-yellow btn rounded-0 mx-3 border-0" onclick="handleStartNewSchoolYear()">Start new school year</button>
 
                         <!-- Modal -->
                         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
@@ -151,7 +180,7 @@
                                         </div>
                                     </div>
                                     <div class="modal-footer border-0 justify-content-center">
-                                        <button type="button"
+                                        <button type="button"  id="confirmStartNewYear"
                                             class="button-yellow btn rounded-0 mx-3 border-0y">Confirm</button>
                                         <button type="button" class="button-gray btn rounded-0 border-0"
                                             data-bs-dismiss="modal">Cancel</button>

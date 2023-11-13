@@ -133,11 +133,15 @@ export class AdminModel {
             throw new Error('Current school year is not set');
         }
 
+        console.log('Starting new school year. Current school year:', currentSchoolYear);
+
         const fromYear = parseInt(currentSchoolYear.fromYear) + 1;
         const toYear = parseInt(currentSchoolYear.toYear) + 1;
 
         await this.updateCurrentSchoolYear(fromYear.toString(), toYear.toString());
 
+        console.log('New school year started successfully.');
+        
         const updatedSchoolYear = await CurrentSchoolYear.findOne();
 
         if (!updatedSchoolYear) {
