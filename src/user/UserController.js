@@ -1,9 +1,11 @@
 import { Router } from "express";
+import { User } from "./../schema/user.js";
 
 export class UserController {
     startingRoute = null;
     router = null;
     model = null;
+    allowedUserType = null;
     
     constructor(model) {
         this.router = new Router();
@@ -31,10 +33,13 @@ export class UserController {
 
     bindToApp(app) {
         if (!this.startingRoute) {
-            throw new Error('Fill in the starting route in the constructor');
+            throw new Error('Fill in the starting route in the class implementation');
+        }
+        
+        if (!this.allowedUserType) {
+            throw new Error('Fill in the value for allowed user type in the class implementation');
         }
 
-        console.log(this.startingRoute);
         app.use(this.startingRoute, this.router);
     }
 
@@ -44,5 +49,29 @@ export class UserController {
 
     initializeModel() {
         throw new Error('Implement initializeModel');
+    }
+
+    static verifyUserPermission(allowedUser, _) {
+        async function allowed() {
+            try {
+                const { cookies } = _;
+                const user = await User.findAll({where: { userId: cookies.id}});
+
+                return (user[0].userType == allowedUser || user[0].userType == 'A') 
+            } catch (error) {
+                console.error(error);
+            }
+        }
+        return allowed();
+    }
+
+    static checkifloggedIn(userId) {
+        const { cookies } = userId;
+        if (cookies.id == null) {
+            return false;
+        } else {
+            console.log('User is already logged in');
+            return true;
+        }
     }
 }

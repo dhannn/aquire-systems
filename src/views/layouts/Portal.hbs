@@ -1,1 +1,43 @@
-<h1>Portal</h1>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>Login View | AquiRe</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link href="/style.css" rel="stylesheet" type="text/css">
+
+    <script>
+        //functions here
+    </script>
+</head>
+<body>
+
+    {{#if message}}
+        {{> Message message=message}}
+    {{/if}}
+    
+    <div class="d-flex flex-column h-100 w-100 justify-content-center align-item-center">
+        <form id="login-form" action="/login" method="POST" class="p-5 border bg-light mx-auto">
+            <h2 class="fw-bolder fs-2 text-center"> AquiRe</h2>
+            <h6 class="text-center">Aquinian Records</h6>
+                <div class= "mb-3">
+                    <label for="userName" class="form-label">Username</label>
+                    <input type="text" class="form-control" id="userName" name="userName" required>
+                 </div>
+
+                <div class="mb-3">
+                    <label for="userPassword" class="form-label">Password</label>
+                    <input type="password" class="form-control" id="userPassword" name="userPassword" required>
+                </div>
+                
+                <div class="d-grid gap-2">
+                    <input id="login-button" class="btn btn-md btn-primary" type="submit" value="Log In"  onclick="hideAddUser()">
+                </div>
+        </form>
+    </div>
+
+</body>
+</html>
