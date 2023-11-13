@@ -5,6 +5,7 @@ import { sequelize } from './DBConnection.js';
 import {User}  from'./schema/user.js';
 import {Enrolls} from './schema/enrolls.js'
 import {Student} from './schema/student.js'
+import { CurrentSchoolYear } from './schema/currentschoolyear.js';
 //Relationship
 import './schema/relationship.js';
 //Routing
