@@ -188,7 +188,8 @@ export class AdminContoller extends UserController {
         res.render('Admin_Student', {
             message: { content: error.message },
         });
-
+    }
+  }
     async viewUsers(_, res) {
         const allowed = await UserController.verifyUserPermission(this.allowedUserType, _)
         const loggedIn = UserController.checkifloggedIn(_);
@@ -219,9 +220,3 @@ export class AdminContoller extends UserController {
         }
     }
   }
-
-
-
-
-
-}
