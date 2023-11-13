@@ -4,8 +4,6 @@ import { User } from "../../schema/user.js";
 import { CurrentSchoolYear } from "../../schema/currentschoolyear.js";
 import { Student } from "../../schema/student.js";
 import { Enrolls } from "../../schema/enrolls.js";
-import { CurrentSchoolYear } from "../../schema/currentschoolyear.js"; 
-
 
 export class AdminContoller extends UserController {
   startingRoute = "/admin";

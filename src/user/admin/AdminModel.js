@@ -5,7 +5,6 @@ import { Enrolls } from "../../schema/enrolls.js";
 import { CurrentSchoolYear } from "../../schema/currentschoolyear.js";
 import { v4 as uuidv4 } from "uuid";
 import { sequelize } from "../../DBConnection.js";
-import { CurrentSchoolYear } from "../../schema/currentschoolyear.js"; 
 
 export class AdminModel {
     /**
