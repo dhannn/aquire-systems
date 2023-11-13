@@ -177,10 +177,10 @@ export class AdminContoller extends UserController {
 
    async startNewSchoolYear(req, res) {
     try {
-        const updatedSchoolYear = await this.model.startNewSchoolYear();
+        await this.model.startNewSchoolYear();
+
         res.render('Admin_Student', {
             message: { isSuccess: true, content: 'New school year started successfully!' },
-            schoolYear: `${updatedSchoolYear.fromYear} - ${updatedSchoolYear.toYear}`,
         });
     } catch (error) {
         console.error(error.message);
@@ -188,7 +188,7 @@ export class AdminContoller extends UserController {
             message: { content: error.message },
         });
     }
-  }
+}
 
     async viewUsers(_, res) {
         const allowed = await UserController.verifyUserPermission(this.allowedUserType, _)
