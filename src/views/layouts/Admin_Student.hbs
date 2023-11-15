@@ -88,19 +88,13 @@
 
 <body>
 
-    <nav class="navbar p-3 mb-5">
-        <div class="container-fluid">
-            <a class="navbar-brand fw-bolder fs-2" href="#">Admin</a>
-            <ul class="topbar-links nav">
-                <li class="nav-item">
-                    <a class="nav-link px-4">Students</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link px-4">Users</a>
-                </li>
-            </ul>
-        </div>
-    </nav>
+    {{!-- MESSAGE PARTIAL --}}
+    {{#if message}}
+    {{> Message message=message}}
+    {{/if}}
+
+    {{!-- NAVBAR PARTIAL --}}
+    {{> navbar}}
 
     <div class="container-fluid">
         <div class="row mx-5">
@@ -108,51 +102,21 @@
                 <p class="fw-bold fs-4 mb-0">Enrolled Students</p>
                 <p>SY 2023 - 2024</p>
                 <ul class="sidebar-links nav flex-column">
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">Kinder</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Senior Kinder</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Grade 1</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Grade 2</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Grade 3</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Grade 4</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Grade 5</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Grade 1</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Grade 6</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Grade 7</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Grade 8</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Grade 9</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Grade 10</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Grade 11</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Grade 12</a>
-                    </li>
+                    {{!-- GRADELIST PARTIAL --}}
+                    {{> grade_list label="Kinder" current="true"}}
+                    {{> grade_list label="Senior Kinder" current=""}}
+                    {{> grade_list label="Grade 1" current=""}}
+                    {{> grade_list label="Grade 2" current=""}}
+                    {{> grade_list label="Grade 3" current=""}}
+                    {{> grade_list label="Grade 4" current=""}}
+                    {{> grade_list label="Grade 5" current=""}}
+                    {{> grade_list label="Grade 6" current=""}}
+                    {{> grade_list label="Grade 7" current=""}}
+                    {{> grade_list label="Grade 8" current=""}}
+                    {{> grade_list label="Grade 9" current=""}}
+                    {{> grade_list label="Grade 10" current=""}}
+                    {{> grade_list label="Grade 11" current=""}}
+                    {{> grade_list label="Grade 12" current=""}}
                 </ul>
             </aside>
 
@@ -221,7 +185,7 @@
                     </div>
                 </div>
 
-                <form id="add-student-form" role="form" method="POST" action="/admin/students" class="input-group">
+                                <form id="add-student-form" role="form" method="POST" action="/admin/students" class="input-group">
                     <div class="row mx-half">
                         <div class="col-2 px-0">
                             <input required name="student_id" type="text"
@@ -366,8 +330,49 @@
         integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
         crossorigin="anonymous"></script>
     <script src="https://kit.fontawesome.com/84cb3b7f2b.js" crossorigin="anonymous"></script>
+    
+    <script>
+            document.getElementById('startNewSchoolYearBtn').addEventListener('click', function () {
+                // Show the overlay
+                document.getElementById('overlay').style.display = 'block';
 
+                // Trigger the start new school year modal
+                var myModal = new bootstrap.Modal(document.getElementById('startNewSchoolYearModal'));
 
+                // Show the modal
+                myModal.show();
+            });
+
+            document.getElementById('confirmStartNewSchoolYear').addEventListener('click', function () {
+                // Trigger the start new school year functionality
+                fetch('/admin/startNewSchoolYear', { method: 'POST' })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error(`Failed to start new school year. Status: ${response.status}`);
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        console.log('Success:', data);
+
+                        // Display a message (replace this with your actual logic)
+                        alert('New school year started successfully!');
+                    })
+                    .catch(error => {
+                        console.error('Error starting new school year:', error.message);
+
+                        // Display an error message (replace this with your actual error handling logic)
+                        alert('Failed to start new school year. Please try again.');
+                    })
+                    .finally(() => {
+                        // Hide the modal and overlay
+                        var myModal = new bootstrap.Modal(document.getElementById('startNewSchoolYearModal'));
+                        myModal.hide();
+                        document.getElementById('overlay').style.display = 'none';
+                    });
+            });
+
+        </script>
 
 </body>
 
