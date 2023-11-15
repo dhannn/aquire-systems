@@ -63,7 +63,7 @@ export class GuidanceModel {
                 console.log('Record inserted successfully', record);
                 return {record: record}
             } catch(error) {
-                throw error;
+                return {error: error};
             }
         }
         addStudentRecord();
