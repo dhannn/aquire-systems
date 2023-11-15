@@ -23,7 +23,6 @@ export class GuidanceController extends UserController {
      */
     async addStudentRecord(req, res) {
         try {
-            console.log('entered function');
             const {student_id, recordTypes} = req.body;
             console.log(recordTypes);
             const result = await GuidanceModel.addStudentRecord(student_id, recordTypes);
@@ -49,8 +48,12 @@ export class GuidanceController extends UserController {
                     console.log('Database error: Record Id does not exist');
                 }
             }
-            res.render('Guidance', {message: { isSuccess: true, content: 'Record added successfully!'}, studentRecords: studentRecords});
-            console.log('Record Added');
+            if(result.error){
+                res.render('Guidance', {message: {content: 'Error adding Record'}, studentRecords: studentRecords});
+            } else {
+                res.render('Guidance', {message: { isSuccess: true, content: 'Record added successfully!'}, studentRecords: studentRecords});
+                console.log('Record Added');
+            }
         } catch (error) {
             const studentRecords = await AdmissionRecord.findAll({
                 attributes: ['student_id', 'recordId'],
@@ -74,7 +77,6 @@ export class GuidanceController extends UserController {
                     console.log('Database error: Record Id does not exist');
                 }
             }
-            console.log('error', error);
             res.render('Guidance', {message: {content: 'Error adding Record'}, studentRecords: studentRecords});
         }
     }
