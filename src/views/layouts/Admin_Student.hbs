@@ -185,7 +185,7 @@
                     </div>
                 </div>
 
-                                <form id="add-student-form" role="form" method="POST" action="/admin/students" class="input-group">
+                <form id="add-student-form" role="form" method="POST" action="/admin/students" class="input-group">
                     <div class="row mx-half">
                         <div class="col-2 px-0">
                             <input required name="student_id" type="text"
@@ -221,89 +221,19 @@
                     </div>
                 </form>
 
-
-                <div class="data-table container-fluid my-3">
-                    <div class="row list-div">
-                        <div class="col-2 border p-2">
-                            <span>23-00001</span>
-                        </div>
-                        <div class="col-2 border p-2">
-                            <span>Gutierrez</span>
-                        </div>
-                        <div class="col-2 border p-2">
-                            <span>James</span>
-                        </div>
-                        <div class="col-2 border p-2">
-                            <span>Z</span>
-                        </div>
-                        <div class="col-4">
-                            <div class="row">
-                                <div class="col-8 border p-2">
-                                    <span>Justice</span>
-                                </div>
-                                <div class="col-4 p-0">
-                                    <div class="edit-button-div col-12 text-center rounded-0" role="button"
-                                        tabindex="0">
-                                        <i class="fa-solid fa-pen"></i>
-                                    </div>
-                                </div>
-                            </div>
+                <div id="data-table" class="container-fluid my-3">
+                    {{#if students.length}}
+                    {{#each students}}
+                    {{!-- STUDENT INFO PARTIAL --}}
+                    {{> student_info}}
+                    {{/each}}
+                    {{else}}
+                    <div class="row">
+                        <div class="col-12 text-center">
+                            <span>No students found.</span>
                         </div>
                     </div>
-                    <div class="row list-div">
-                        <div class="col-2 border p-2">
-                            <span>23-00012</span>
-                        </div>
-                        <div class="col-2 border p-2">
-                            <span>De La Cruz</span>
-                        </div>
-                        <div class="col-2 border p-2">
-                            <span>Samantha</span>
-                        </div>
-                        <div class="col-2 border p-2">
-                            <span>D</span>
-                        </div>
-                        <div class="col-4">
-                            <div class="row">
-                                <div class="col-8 border p-2">
-                                    <span>Justice</span>
-                                </div>
-                                <div class="col-4 p-0">
-                                    <div class="edit-button-div col-12 text-center rounded-0" role="button"
-                                        tabindex="0">
-                                        <i class="fa-solid fa-pen"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row list-div">
-                        <div class="col-2 border p-2">
-                            <span>23-00003</span>
-                        </div>
-                        <div class="col-2 border p-2">
-                            <span>Chan</span>
-                        </div>
-                        <div class="col-2 border p-2">
-                            <span>Ling</span>
-                        </div>
-                        <div class="col-2 border p-2">
-                            <span>JS</span>
-                        </div>
-                        <div class="col-4">
-                            <div class="row">
-                                <div class="col-8 border p-2 me-0">
-                                    <span>Justice</span>
-                                </div>
-                                <div class="col-4 p-0">
-                                    <div class="edit-button-div col-12 text-center rounded-0" role="button"
-                                        tabindex="0">
-                                        <i class="fa-solid fa-pen"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    {{/if}}
                 </div>
         </div>
 
