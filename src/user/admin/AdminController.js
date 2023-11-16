@@ -26,7 +26,9 @@ export class AdminContoller extends UserController {
    */
 
   async addStudent(req, res) {
+    let message;
     try {
+      
       await this.model.addStudent(
         req.body.student_id,
         req.body.firstName,
@@ -36,17 +38,23 @@ export class AdminContoller extends UserController {
         req.body.section
       );
       console.log("Student Added");
-
+      message = { isSuccess: true, content: "Student added successfully!" };
+    } catch (error) {
+      console.error(error.message);
+      message = { content: error.message };
+    }
+  
+    try {
       const currentSchoolYear = await CurrentSchoolYear.findOne({
         order: [["createdAt", "DESC"]],
       });
-
+  
       if (!currentSchoolYear) {
         throw new Error("Current school year is not set");
       }
-
+  
       const schoolYear = `${currentSchoolYear.fromYear}-${currentSchoolYear.toYear}`;
-
+  
       const students = await Student.findAll({
         attributes: ["student_id", "firstName", "middleInitial", "lastName"],
         include: [
@@ -61,19 +69,20 @@ export class AdminContoller extends UserController {
         ],
         raw: true,
       });
-
+  
       res.render("Admin_Student", {
-        message: { isSuccess: true, content: "Student added successfully!" },
+        message: message,
         students: students,
       });
     } catch (error) {
       console.error(error.message);
       res.render("Admin_Student", {
-        message: { content: error.message },
+        message: { content: "Failed to fetch students: " + error.message },
         students: [],
       });
     }
   }
+  
 
   async addUser(req, res) {
     const result = await this.model.addUser(
