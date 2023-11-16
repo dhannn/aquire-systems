@@ -67,12 +67,14 @@ export class AdminContoller extends UserController {
       res.render("Admin_Student", {
         message: { isSuccess: true, content: "Student added successfully!" },
         students: students,
+        schoolyear: schoolYear
       });
     } catch (error) {
       console.error(error.message);
       res.render("Admin_Student", {
         message: { content: error.message },
         students: students,
+        schoolyear: schoolYear
       });
     }
   }
@@ -91,44 +93,49 @@ export class AdminContoller extends UserController {
     if (!allowed) {
       return res.redirect("/");
     }
-    try {
-      const currentSchoolYear = await CurrentSchoolYear.findOne({
-        order: [["createdAt", "DESC"]],
-      });
+    
+    const currentSchoolYear = await CurrentSchoolYear.findOne({
+      order: [["createdAt", "DESC"]],
+    });
+    const schoolYear = `${currentSchoolYear.fromYear}-${currentSchoolYear.toYear}`;
 
+    const students = await Student.findAll({
+      attributes: ["student_id", "firstName", "middleInitial", "lastName"],
+      include: [
+        {
+          model: Enrolls,
+          attributes: ["grade", "section"],
+          where: {
+            schoolYear: schoolYear,
+          },
+          required: true,
+        },
+      ],
+      raw: true,
+    });
+
+    try {
       if (!currentSchoolYear) {
         throw new Error("Current school year is not set");
       }
-
-      const schoolYear = `${currentSchoolYear.fromYear}-${currentSchoolYear.toYear}`;
-
-      const students = await Student.findAll({
-        attributes: ["student_id", "firstName", "middleInitial", "lastName"],
-        include: [
-          {
-            model: Enrolls,
-            attributes: ["grade", "section"],
-            where: {
-              schoolYear: schoolYear,
-            },
-            required: true,
-          },
-        ],
-        raw: true,
-      });
 
       if (!students || students.length === 0) {
         return res.render("Admin_Student", {
           students: [],
           message: "No students found for the current school year.",
+          schoolyear: schoolYear
         });
       }
 
-      res.render("Admin_Student", { students });
+      res.render("Admin_Student", { 
+        students: students,
+        schoolyear: schoolYear
+       });
     } catch (error) {
       console.error("Error fetching students:", error);
       res.status(500).render("error", {
         error: "An error occurred while fetching the students.",
+        schoolyear: schoolYear
       });
     }
   }
