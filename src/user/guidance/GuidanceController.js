@@ -150,6 +150,11 @@ export class GuidanceController extends UserController {
         }
     }
 
+    /**
+     * Updates the checklist of student records whenever a Student ID is entered in the textbox
+     * @param {Request} req 
+     * @param {Response} res 
+     */
     async getStudentRecords(req, res) {
         const studentId = req.body.textData;
         try {
