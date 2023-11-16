@@ -38,6 +38,10 @@ export class AdminContoller extends UserController {
     }
 
     const schoolYear = `${currentSchoolYear.fromYear}-${currentSchoolYear.toYear}`;
+    
+    const nextfromYear = parseInt(currentSchoolYear.fromYear) + 1;
+    const nexttoYear = parseInt(currentSchoolYear.toYear) + 1;
+    const nextschoolyear = `${nextfromYear}-${nexttoYear}`;
 
     const students = await Student.findAll({
       attributes: ["student_id", "firstName", "middleInitial", "lastName"],
@@ -63,18 +67,35 @@ export class AdminContoller extends UserController {
         req.body.grade,
         req.body.section
       );
+      const students = await Student.findAll({
+        attributes: ["student_id", "firstName", "middleInitial", "lastName"],
+        include: [
+          {
+            model: Enrolls,
+            attributes: ["grade", "section"],
+            where: {
+              schoolYear: schoolYear,
+            },
+            required: true,
+          },
+        ],
+        raw: true,
+      });
+      
       console.log("Student Added");
       res.render("Admin_Student", {
         message: { isSuccess: true, content: "Student added successfully!" },
         students: students,
-        schoolyear: schoolYear
+        schoolyear: schoolYear,
+        nextschoolyear: nextschoolyear
       });
     } catch (error) {
       console.error(error.message);
       res.render("Admin_Student", {
         message: { content: error.message },
         students: students,
-        schoolyear: schoolYear
+        schoolyear: schoolYear,
+        nextschoolyear: nextschoolyear
       });
     }
   }
@@ -98,6 +119,11 @@ export class AdminContoller extends UserController {
       order: [["createdAt", "DESC"]],
     });
     const schoolYear = `${currentSchoolYear.fromYear}-${currentSchoolYear.toYear}`;
+    
+    const nextfromYear = parseInt(currentSchoolYear.fromYear) + 1;
+    const nexttoYear = parseInt(currentSchoolYear.toYear) + 1;
+    const nextschoolyear = `${nextfromYear}-${nexttoYear}`;
+
 
     const students = await Student.findAll({
       attributes: ["student_id", "firstName", "middleInitial", "lastName"],
@@ -123,19 +149,23 @@ export class AdminContoller extends UserController {
         return res.render("Admin_Student", {
           students: [],
           message: "No students found for the current school year.",
-          schoolyear: schoolYear
+          schoolyear: schoolYear,
+          nextschoolyear: nextschoolyear
         });
       }
 
       res.render("Admin_Student", { 
         students: students,
-        schoolyear: schoolYear
+        schoolyear: schoolYear,
+        nextschoolyear: nextschoolyear
        });
     } catch (error) {
       console.error("Error fetching students:", error);
       res.status(500).render("error", {
+        students: students,
         error: "An error occurred while fetching the students.",
-        schoolyear: schoolYear
+        schoolyear: schoolYear,
+        nextschoolyear: nextschoolyear
       });
     }
   }

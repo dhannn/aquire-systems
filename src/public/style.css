@@ -65,6 +65,7 @@ body{
 option{
     color: #7f7f7f;
 }
+
 .input-group input, .input-group select{
     background-color: #d9d9d9;
     font-size: 1rem;
@@ -107,6 +108,40 @@ option{
     }
 }
 
+.button-yellow {
+    color: #0A0A0A;
+    background-color: #ffd966;
+
+    &:hover {
+        background-color: #ffd966;
+        opacity: 0.5;
+        color: #FAFAFA;
+    }
+
+    &:active {
+        opacity: 1;
+        background-color: #d9d9d9 !important;
+        color: #FAFAFA !important;
+    }
+}
+
+.button-gray {
+    color: #FAFAFA;
+    background-color: #d9d9d9;
+
+    &:hover {
+        background-color: #d9d9d9;
+        opacity: 0.5;
+        color: #FAFAFA;
+    }
+
+    &:active {
+        opacity: 1;
+        background-color: #7f7f7f !important;
+        color: #FAFAFA !important;
+    }
+}
+
 #form-button-add {
     padding: .5em .75em;
     background: #ffd966;
@@ -128,7 +163,7 @@ option{
 }
 
   
-  .edit-button-div {
+.edit-button-div {
     /* display: none; */
     padding: .5em .75em;
     color: #7f7f7f;
@@ -143,7 +178,7 @@ option{
     &:active {
         opacity: 0.75;
     }
-  }
+}
   
   .list-div:hover .edit-button-div {
     display: block; 
@@ -168,6 +203,5 @@ option{
         opacity: 1;
         background-color: #d9d9d9;
     }
-
-    
 }
+
