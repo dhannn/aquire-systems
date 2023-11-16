@@ -27,6 +27,33 @@ export class AdminContoller extends UserController {
    */
 
   async addStudent(req, res) {
+    
+
+    const currentSchoolYear = await CurrentSchoolYear.findOne({
+      order: [["createdAt", "DESC"]],
+    });
+
+    if (!currentSchoolYear) {
+      throw new Error("Current school year is not set");
+    }
+
+    const schoolYear = `${currentSchoolYear.fromYear}-${currentSchoolYear.toYear}`;
+
+    const students = await Student.findAll({
+      attributes: ["student_id", "firstName", "middleInitial", "lastName"],
+      include: [
+        {
+          model: Enrolls,
+          attributes: ["grade", "section"],
+          where: {
+            schoolYear: schoolYear,
+          },
+          required: true,
+        },
+      ],
+      raw: true,
+    });
+
     try {
       await this.model.addStudent(
         req.body.student_id,
@@ -37,32 +64,6 @@ export class AdminContoller extends UserController {
         req.body.section
       );
       console.log("Student Added");
-
-      const currentSchoolYear = await CurrentSchoolYear.findOne({
-        order: [["createdAt", "DESC"]],
-      });
-
-      if (!currentSchoolYear) {
-        throw new Error("Current school year is not set");
-      }
-
-      const schoolYear = `${currentSchoolYear.fromYear}-${currentSchoolYear.toYear}`;
-
-      const students = await Student.findAll({
-        attributes: ["student_id", "firstName", "middleInitial", "lastName"],
-        include: [
-          {
-            model: Enrolls,
-            attributes: ["grade", "section"],
-            where: {
-              schoolYear: schoolYear,
-            },
-            required: true,
-          },
-        ],
-        raw: true,
-      });
-
       res.render("Admin_Student", {
         message: { isSuccess: true, content: "Student added successfully!" },
         students: students,
@@ -71,7 +72,7 @@ export class AdminContoller extends UserController {
       console.error(error.message);
       res.render("Admin_Student", {
         message: { content: error.message },
-        students: [],
+        students: students,
       });
     }
   }
