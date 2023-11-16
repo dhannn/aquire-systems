@@ -48,7 +48,9 @@ export class GuidanceModel {
                 });
                 const existingRecordIds = existingRecords.map(record => record.recordId);
                 const uniqueRecordIds = recordType.filter(id => !existingRecordIds.includes(id));
-
+                 if(uniqueRecordIds.length == 0) {
+                     throw new Error('No unique record types selected');
+                 }
                 const newRecords = uniqueRecordIds.map(type => ({
                     student_id: id,
                     schoolYear: year.schoolYear.toString(),
@@ -56,11 +58,13 @@ export class GuidanceModel {
                 }));
                 const record = await AdmissionRecord.bulkCreate(newRecords);
                 console.log('Record inserted successfully', record);
+                return {record: record};
             } catch(error) {
-                console.error('Error inserting record', error);
+                console.log('Error in Model', error);
+                return {error: error};
             }
         }
-        addStudentRecord();
+        return addStudentRecord();
     }
 
     /**

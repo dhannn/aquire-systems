@@ -9,6 +9,7 @@ export class GuidanceController extends UserController {
     initializeRoutes() {
 
         this.createRoute('GET', '/', this.viewGuidancePage);
+        this.createRoute('POST', '/', this.getStudentRecords);
         this.createRoute('GET', '/records', this.viewGuidancePage)
         this.createRoute('POST', '/records', this.addStudentRecord);
         this.createRoute('GET', '/history', this.viewStudentSchoolHistory);
@@ -22,18 +23,61 @@ export class GuidanceController extends UserController {
      */
     async addStudentRecord(req, res) {
         try {
-            console.log('entered function');
             const {student_id, recordTypes} = req.body;
             console.log(recordTypes);
-            const newRecord = await GuidanceModel.addStudentRecord(student_id, recordTypes);
-            //res.render('Guidance', {message: { isSuccess: true, content: 'Record added successfully!'}});
-            res.render('Guidance');
-            res.redirect('/');
-            console.log('Record Added');
+            const result = await GuidanceModel.addStudentRecord(student_id, recordTypes);
+            const studentRecords = await AdmissionRecord.findAll({
+                attributes: ['student_id', 'recordId'],
+                order: [['student_id', 'ASC']],
+                raw: true
+            });
+            for(let i = 0; i < studentRecords.length; i++){
+                if(studentRecords[i].recordId == 'MC') {
+                    studentRecords[i].recordId = 'Medical Cerificate';
+                } else if(studentRecords[i].recordId == 'RF') {
+                    studentRecords[i].recordId = 'Recommendation Form';
+                } else if(studentRecords[i].recordId == 'SRF') {
+                    studentRecords[i].recordId = 'Scholastic Record Form';
+                } else if(studentRecords[i].recordId == 'BEF') {
+                    studentRecords[i].recordId = 'Basic Education Form';
+                } else if(studentRecords[i].recordId == 'SHSF') {
+                    studentRecords[i].recordId ='Senior High Shool Form';
+                } else if(studentRecords[i].recordId == 'IS') {
+                    studentRecords[i].recordId = 'Information Sheet';
+                } else {
+                    console.log('Database error: Record Id does not exist');
+                }
+            }
+            if(result.error){
+                res.render('Guidance', {message: {content: 'Error adding Record'}, studentRecords: studentRecords});
+            } else {
+                res.render('Guidance', {message: { isSuccess: true, content: 'Record added successfully!'}, studentRecords: studentRecords});
+                console.log('Record Added');
+            }
         } catch (error) {
-            console.log('error', error);
-            res.render('Guidance');
-            //res.render('Guidance', {message: {content: error.message}});
+            const studentRecords = await AdmissionRecord.findAll({
+                attributes: ['student_id', 'recordId'],
+                order: [['student_id', 'ASC']],
+                raw: true
+            });
+            for(let i = 0; i < studentRecords.length; i++){
+                if(studentRecords[i].recordId == 'MC') {
+                    studentRecords[i].recordId = 'Medical Cerificate';
+                } else if(studentRecords[i].recordId == 'RF') {
+                    studentRecords[i].recordId = 'Recommendation Form';
+                } else if(studentRecords[i].recordId == 'SRF') {
+                    studentRecords[i].recordId = 'Scholastic Record Form';
+                } else if(studentRecords[i].recordId == 'BEF') {
+                    studentRecords[i].recordId = 'Basic Education Form';
+                } else if(studentRecords[i].recordId == 'SHSF') {
+                    studentRecords[i].recordId ='Senior High Shool Form';
+                } else if(studentRecords[i].recordId == 'IS') {
+                    studentRecords[i].recordId = 'Information Sheet';
+                } else {
+                    console.log('Database error: Record Id does not exist');
+                }
+            }
+            res.render('Guidance', {message: {content: 'Error adding Record'}, studentRecords: studentRecords});
         }
     }
 
@@ -103,6 +147,24 @@ export class GuidanceController extends UserController {
             console.log('School History Added');
         } catch (error) {
             res.render('Guidance', {message: {content: error.message}});
+        }
+    }
+
+    async getStudentRecords(req, res) {
+        const studentId = req.body.textData;
+        try {
+            // Query the database to find records for the student
+            const records = await AdmissionRecord.findAll({
+                where: { student_id: studentId },
+                attributes: ['recordId']
+            });
+    
+            // Convert to a format suitable for the frontend to process
+            const recordIds = records.map(r => r.recordId);
+            res.json({ recordIds });
+        } catch (error) {
+            console.error('Error fetching student records:', error);
+            res.status(500).send('Error processing request');
         }
     }
 }
