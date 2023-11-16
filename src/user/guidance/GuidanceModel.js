@@ -1,7 +1,7 @@
 import { AdmissionRecord } from "../../schema/admissionrecord.js";
 import { Record } from "../../schema/record.js";
 import { Enrolls } from "../../schema/enrolls.js";
-import { SchoolHistory } from "../../schema/schoolhistory.js";
+import { SchoolHistory, SchoolHistory } from "../../schema/schoolhistory.js";
 
 export class GuidanceModel {
     
@@ -68,28 +68,46 @@ export class GuidanceModel {
     }
 
     /**
-     * Adds school history of a student
+     * updates school history of a student
      * @param {String} id 
      * @param {String} enteredFrom 
      * @param {String} gradeLevelEntered 
      * @param {String} schoolYearAdmitted 
      * @param {String} otherSchoolsAttended 
      */
-    static addStudentSchoolHistory(id, enteredFrom, gradeLevelEntered, schoolYearAdmitted, otherSchoolsAttended) {
+    static updateStudentSchoolHistory(id, enteredFrom, gradeLevelEntered, schoolYearAdmitted, otherSchoolsAttended) {
         async function addStudentSchoolHistory() {
             try{
-                const newStudentSchoolHistory = await SchoolHistory.create({
-                    student_id: id,
-                    enteredFrom: enteredFrom,
-                    gradeLevelEntered: gradeLevelEntered,
-                    schoolYearAdmitted: schoolYearAdmitted,
-                    otherSchoolsAttended: otherSchoolsAttended
-                })
-                console.log('Student school history successfully created', newStudentSchoolHistory);
+                const existingSchoolHistory = await SchoolHistory.findOne({student_id: id});
+                if(existingSchoolHistory) {
+                    const schoolHistory = await SchoolHistory.update({
+                        enteredFrom: enteredFrom,
+                        gradeLevelEntered: gradeLevelEntered,
+                        schoolYearAdmitted: schoolYearAdmitted,
+                        otherSchoolsAttended: otherSchoolsAttended
+                    },{
+                        where: {
+                            student_id: id
+                        }
+                    });
+                    console.log('School History updated Successfully', schoolHistory);
+                    return {schoolHistory: schoolHistory};
+                } else {
+                    const newStudentSchoolHistory = await SchoolHistory.create({
+                        student_id: id,
+                        enteredFrom: enteredFrom,
+                        gradeLevelEntered: gradeLevelEntered,
+                        schoolYearAdmitted: schoolYearAdmitted,
+                        otherSchoolsAttended: otherSchoolsAttended
+                    })
+                    console.log('School History added Successfully', schoolHistory);
+                    return {schoolHistory: newStudentSchoolHistory};
+                }
             } catch (error) {
                 console.error('Error creating student school history', error);
+                return {error: error};
             }
         }
-        addStudentSchoolHistory();
+        return addStudentSchoolHistory();
     }
 }
