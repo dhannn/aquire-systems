@@ -9,7 +9,7 @@ export const SchoolHistory = sequelize.define('schoolhistory', {
         allowNull: false,
         primaryKey: true,
         references: {
-            model: 'Student',
+            model: 'Students',
             key: 'student_id', 
         }
     },
