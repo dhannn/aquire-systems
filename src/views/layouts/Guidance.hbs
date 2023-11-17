@@ -40,6 +40,36 @@
 
             <section class="flex-column col-6 p-0 mx-5">
 
+
+                
+                <form id="cummilative-anectodal-form" class="input-group-custom">
+                    <div class="row mx-half">
+                        <div class="col-5 px-0">
+                            <input required name="student_id" type="text"
+                                class="form-control rounded-0 border border-white" placeholder="Student ID" />  
+                        </div>
+
+                        <div class="col-3 px-0 m-button">
+                            <div class="form-button-add text-center rounded-0 border border-white" role="button"
+                                tabindex="0">
+                                <label for="add_anecdotal_record">Add Anecdotal Record</label>
+                                <input class="add-button" type="submit" value="" id="add_anecdotal_record"/>
+                            </div>
+                        </div>
+
+                        <div class="col-3 px-0 m-button">
+                            <div class="form-button-add text-center rounded-0 border border-white" role="button" tabindex="0">
+                                <label for="edit_cummulative_record">Edit Cummulative Record</label>
+                                <input class="add-button" type="button" data-bs-toggle="modal" data-bs-target="#exampleModalScrollable"  id="edit_cummulative_record"/>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </form>
+
+                
+
                 <div class="row my-3">
                     <form class="d-flex" role="search">
                         <input class="form-control rounded-0 mx-0" type="search"
@@ -65,7 +95,7 @@
                     <div class="row mx-half">
                         <div class="col-4 px-0">
                             <input required name="student_id" type="text"
-                                class="form-control rounded-0 border border-white" placeholder="New Student ID" />
+                                class="form-control rounded-0 border border-white" placeholder="Student ID" />
                                  <script>
                                 document.addEventListener('DOMContentLoaded', function() {
                                     var timeout = null;
@@ -146,6 +176,70 @@
             </section>
         </div>
     </div>
+
+
+    <div class="modal fade" id="exampleModalScrollable" tabindex="-1" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable modal-xl">
+        <!-- Modal content goes here -->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalScrollableTitle">Edit Cummulative Record</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+         
+            <div class="modal-body">
+                <div class = "school-history">
+                 <p>III. SCHOOL HISTORY</p>
+                  <form id="school-history-form">
+                        <div class="form-row-cr">
+                            <div class="form-group-cr">
+                                <label for="enteredFrom">Entered from:</label>
+                                <input class= "SH" type="text" id="enteredFrom" name="enteredFrom" required>
+                            </div>
+                            
+                            <div class="form-group-cr">
+                                <label for="admittedInSchoolYear">Admitted in Aquinas School SY:</label>
+                                <input class= "SH" type="text" id="admittedInSchoolYear" name="admittedInSchoolYear" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group-cr">
+                            <label for="gradeLevelEntered">Grade Level Entered:</label>
+                            <input  class= "SH" type="text" id="gradeLevelEntered" name="gradeLevelEntered" required>
+                        </div>
+                                                
+                        <div class="form-group-cr">
+                            <label for="otherSchoolAttended">Other School Attended:</label>
+                            <input  class= "SH long"type="text" id="otherScoolAttended" name="gradeLevelEntered" required>
+                        </div>
+                                                
+                        <div class="form-group-cr">
+                            <label for="Name">(Name of School, Grade Level and SY)</label>
+                            <input class= "SH long"type="text" id="etc" name="Name" required>
+                        </div>
+                    </form>
+                </div>
+                
+
+
+
+
+
+
+                <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+                <p>This content should appear at the bottom after you scroll.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary btn-yellow">Save changes</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+        
+        </div>
+    </div>
+
+
+
         <!-- Include Bootstrap JS (optional, for dropdown menus) -->
         <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
             integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
@@ -163,6 +257,12 @@
             integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
             crossorigin="anonymous"></script>
         <script src="https://kit.fontawesome.com/84cb3b7f2b.js" crossorigin="anonymous"></script>
+
+
+
+
+
+        
 </body>
 
 </html>
