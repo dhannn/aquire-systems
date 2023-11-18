@@ -11,48 +11,6 @@
     <link rel="stylesheet" type="text/css" href="/style.css">
 
     <script>
-        function submitForm(e) {
-            e.preventDefault();
-            const form = document.getElementById('add-student-form');
-            const formData = {
-                student_id: form.student_id.value,
-                lastName: form.lastName.value,
-                firstName: form.firstName.value,
-                middleInitial: form.middleInitial.value,
-                grade: form.grade.value,
-                section: form.section.value
-            };
-
-            form.student_id.value = ''
-            form.lastName.value = ''
-            form.firstName.value = ''
-            form.middleInitial.value = ''
-            form.grade.value = ''
-            form.section.value = ''
-
-
-
-            fetch(form.action, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(formData),
-            })
-                .then(response => response.json())
-                .then(data => {
-                    console.log('Success:', data);
-                    // Handle success - perhaps update the UI to show the new user
-                })
-                .catch((error) => {
-                    console.error('Error:', error);
-                    // Handle errors here
-                });
-
-
-
-        }
-
         // Function to handle "Start new school year" button click
         function handleStartNewSchoolYear() {
             
@@ -128,14 +86,6 @@
                         <button type="button" class="btn rounded-0 btn-outline-dark">Bulk enroll</button>
                     </div>
                 </div>
-                <div class="row my-3">
-                    <form class="d-flex" role="search">
-                        <input class="form-control me-2 rounded-0" type="search" placeholder="Search"
-                            aria-label="Search">
-                        <button class="btn btn-outline-success rounded-0 pt-1" type="submit"><i
-                                class="bi bi-search"></i></button>
-                    </form>
-                </div>
 
 
                 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
@@ -168,13 +118,13 @@
                     <form class="d-flex" role="search">
                         <input class="form-control rounded-0 mx-0" type="search" placeholder="Search"
                             aria-label="Search">
-                        <button class="button-yellow btn rounded-0 custom-width-12 pt-1 mx-0 border-0" type="submit"><i
+                        <button class="button-yellow btn rounded-0 custom-width-9 pt-1 mx-0 border-0" type="submit"><i
                                 class="bi bi-search"></i></button>
                     </form>
                 </div>
 
                 <div class="container-fluid">
-                    <div class="table-header row my-3">
+                    <div class="row my-3 table-header">
                         <div class="col-2 border border-white p-2">
                             <span>Student ID</span>
                         </div>
@@ -184,16 +134,19 @@
                         <div class="col-2 border border-white p-2">
                             <span>First Name</span>
                         </div>
-                        <div class="col-2 border border-white p-2">
+                        <div class="col border border-white p-2">
                             <span>MI</span>
                         </div>
-                        <div class="col-4 border border-white p-2">
+                        <div class="col border border-white p-2">
+                            <span>Grade</span>
+                        </div>
+                        <div class="col-3 border border-white p-2">
                             <span>Section</span>
                         </div>
                     </div>
                 </div>
 
-                <form id="add-student-form" role="form" method="POST" action="/admin/students" class="input-group">
+                <form id="add-student-form" role="form" method="POST" action="/admin/students" class="input-group-custom">
                     <div class="row mx-half">
                         <div class="col-2 px-0">
                             <input required name="student_id" type="text"
@@ -207,7 +160,7 @@
                             <input required name="firstName" type="text"
                                 class="form-control rounded-0 border border-white" placeholder="First Name" />
                         </div>
-                        <div class="col-2 px-0">
+                        <div class="col px-0">
                             <input name="middleInitial" type="text" class="form-control rounded-0 border border-white"
                                 placeholder="MI" />
                         </div>
@@ -215,19 +168,22 @@
                             <input required name="grade" type="text" class="form-control rounded-0 border border-white"
                                 placeholder="Grade" />
                         </div>
-                        <div class="col px-0">
-                            <input required name="section" type="text"
-                                class="form-control rounded-0 border border-white" placeholder="Section" />
-                        </div>
-                        <div class="col px-0">
-                            <div class="form-button-add text-center rounded-0 border border-white" role="button"
-                                tabindex="0" value="Submit">
-                                <input class="add-button" type="submit" value="" />
-                                <label for="submitButton" aria-hidden="true"><i class="fa-solid fa-plus"></i></label>
+                        <div class="col-3">
+                            <div class="row">
+                                <div class="col-8 px-0">
+                                    <input required name="section" type="text"
+                                        class="form-control rounded-0 border border-white" placeholder="Section" />
+                                </div>
+                                <div class="col-4 px-0">
+                                    <button type="submit" class="form-button-add text-center rounded-0 border border-white w-100 display-block">
+                                        <i class="fa-solid fa-plus"></i>
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </form>
+
 
                 <div id="data-table" class="container-fluid my-3">
                     {{#if students.length}}
