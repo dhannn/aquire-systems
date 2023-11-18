@@ -42,10 +42,10 @@
 
 
                 
-                <form id="cummilative-anectodal-form" class="input-group-custom">
+                <form id="cummilative-anectodal-form" class="input-group-custom" method="GET" action="guidance/cummulative">
                     <div class="row mx-half">
                         <div class="col-5 px-0">
-                            <input required name="student_id" type="text"
+                            <input required name="student_id" type="text" id="studentId-cummilative-anecdotal"
                                 class="form-control rounded-0 border border-white" placeholder="Student ID" />  
                         </div>
 
@@ -60,7 +60,7 @@
                         <div class="col-3 px-0 m-button">
                             <div class="form-button-add text-center rounded-0 border border-white" role="button" tabindex="0">
                                 <label for="edit_cummulative_record">Edit Cummulative Record</label>
-                                <input class="add-button" type="button" data-bs-toggle="modal" data-bs-target="#exampleModalScrollable"  id="edit_cummulative_record"/>
+                                <input class="add-button" type="submit" value="" data-bs-toggle="modal" data-bs-target="#exampleModalScrollable"  id="edit_cummulative_record"/>
                             </div>
                         </div>
 
@@ -94,47 +94,8 @@
                     class="input-group-custom">
                     <div class="row mx-half">
                         <div class="col-4 px-0">
-                            <input required name="student_id" type="text"
+                            <input required name="student_id" type="text" id="studentId"
                                 class="form-control rounded-0 border border-white" placeholder="Student ID" />
-                                 <script>
-                                document.addEventListener('DOMContentLoaded', function() {
-                                    var timeout = null;
-
-                                    document.getElementById('studentId').addEventListener('keyup', function () {
-                                        clearTimeout(timeout);
-                                        timeout = setTimeout(function() {
-                                            var textvalue = document.getElementById('studentId').value;
-                                            var xhr = new XMLHttpRequest();
-                                            xhr.open('POST', '/guidance', true);
-                                            xhr.setRequestHeader('Content-Type', 'application/json');
-                                            xhr.onload = function() {
-                                                if(xhr.status === 200) {
-                                                    if (xhr.status === 200) {
-                                                        var response = JSON.parse(xhr.responseText);
-                                                        var recordIds = response.recordIds;
-
-                                                        // Update checkboxes
-                                                        var checkboxes = document.querySelectorAll('[name="recordTypes[]"]');
-                                                        checkboxes.forEach(function(checkbox) {
-                                                            if (recordIds.includes(checkbox.value)) {
-                                                                checkbox.checked = true;
-                                                                checkbox.classList.add('greyed-out');
-                                                            } else {
-                                                                checkbox.checked = false;
-                                                                checkbox.classList.remove('greyed-out');
-                                                            }
-                                                        });
-                                                    }
-                                                }
-                                            };
-                                            xhr.onerror = function() {
-                                                console.error('Request Error...');
-                                            };
-                                            xhr.send(JSON.stringify({textData: textvalue}));
-                                        }, 500);
-                                    });
-                                });
-                            </script>
                         </div>
                         <div class="dropdown-custom student-form btn-group col-4 px-0">
                             <button class="checkbox-dropdown btn dropdown-toggle rounded-0 border border-white"
@@ -188,38 +149,38 @@
             </div>
          
             <div class="modal-body">
+                <form id="cummulative-form" method="POST" action="/guidance/cummulative">
+                <input type="hidden" name="student_id" id="studentIdField">
                 <div class = "school-history">
                  <p>III. SCHOOL HISTORY</p>
-                  <form id="school-history-form">
                         <div class="form-row-cr">
                             <div class="form-group-cr">
                                 <label for="enteredFrom">Entered from:</label>
-                                <input class= "SH" type="text" id="enteredFrom" name="enteredFrom" required>
+                                <input class= "SH" type="text" id="enteredFrom" name="enteredFrom"  value="" required>
                             </div>
                             
                             <div class="form-group-cr">
                                 <label for="admittedInSchoolYear">Admitted in Aquinas School SY:</label>
-                                <input class= "SH" type="text" id="admittedInSchoolYear" name="admittedInSchoolYear" required>
+                                <input class= "SH" type="text" id="schoolYearAdmitted" name="schoolYearAdmitted" value="" required>
                             </div>
                         </div>
                         
                         <div class="form-group-cr">
                             <label for="gradeLevelEntered">Grade Level Entered:</label>
-                            <input  class= "SH" type="text" id="gradeLevelEntered" name="gradeLevelEntered" required>
+                            <input  class= "SH" type="text" id="gradeLevelEntered" name="gradeLevelEntered" value="" required>
                         </div>
                                                 
                         <div class="form-group-cr">
                             <label for="otherSchoolAttended">Other School Attended:</label>
-                            <input  class= "SH long"type="text" id="otherScoolAttended" name="gradeLevelEntered" required>
+                            <input  class= "SH long"type="text" id="otherSchoolsAttended" name="otherSchoolsAttended" value="" required>
                         </div>
-                                                
+                        <!--                        
                         <div class="form-group-cr">
                             <label for="Name">(Name of School, Grade Level and SY)</label>
                             <input class= "SH long"type="text" id="etc" name="Name" required>
                         </div>
-                    </form>
+                        -->
                 </div>
-                
 
 
 
@@ -230,11 +191,11 @@
                 <p>This content should appear at the bottom after you scroll.</p>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary btn-yellow">Save changes</button>
+                <input type="submit" class="btn btn-primary btn-yellow">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
             </div>
         </div>
-        
+        </form>
         </div>
     </div>
 
@@ -261,7 +222,76 @@
 
 
 
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var timeout = null;
+        document.getElementById('studentId').addEventListener('keyup', function () {
+            clearTimeout(timeout);
+            timeout = setTimeout(function() {
+                var textvalue = document.getElementById('studentId').value;
+                var xhr = new XMLHttpRequest();
+                xhr.open('POST', '/guidance', true);
+                xhr.setRequestHeader('Content-Type', 'application/json');
+                xhr.onload = function() {
+                    if(xhr.status === 200) {
+                        if (xhr.status === 200) {
+                            var response = JSON.parse(xhr.responseText);
+                            var recordIds = response.recordIds;
 
+                            // Update checkboxes
+                            var checkboxes = document.querySelectorAll('[name="recordTypes[]"]');
+                            checkboxes.forEach(function(checkbox) {
+                                if (recordIds.includes(checkbox.value)) {
+                                    checkbox.checked = true;
+                                    checkbox.classList.add('greyed-out');
+                                } else {
+                                    checkbox.checked = false;
+                                    checkbox.classList.remove('greyed-out');
+                                }
+                            });
+                        }
+                    }
+                };
+                xhr.onerror = function() {
+                    console.error('Request Error...');
+                };
+                xhr.send(JSON.stringify({textData: textvalue}));
+            }, 500);
+        });
+        //FIX THIS
+        document.getElementById('studentId-cummilative-anecdotal').addEventListener('keyup', function () {
+            clearTimeout(timeout);
+            timeout = setTimeout(function() {
+                var baseStudentId = document.getElementById('studentId-cummilative-anecdotal').value;
+                var xhr = new XMLHttpRequest();
+                xhr.open('POST', '/guidance/cummulative-get', true);
+                xhr.setRequestHeader('Content-Type', 'application/json');
+                xhr.onload = function() {
+                    if (xhr.status === 200) {
+                        var response = JSON.parse(xhr.responseText);
+                        var schoolHistory = response.formattedSchoolHistory;
+                        document.querySelector('[name="enteredFrom"]').value = schoolHistory.enteredFrom;
+                        document.querySelector('[name="schoolYearAdmitted"]').value = schoolHistory.schoolYearAdmitted;
+                        document.querySelector('[name="gradeLevelEntered"]').value = schoolHistory.gradeLevelEntered;
+                        document.querySelector('[name="otherSchoolsAttended"]').value = schoolHistory.otherSchoolsAttended;
+                    } else {
+                        console.error('Request failed with status:', xhr.status);
+                    }
+                };
+                xhr.onerror = function() {
+                    console.error('Request Error...');
+                };
+                xhr.send(JSON.stringify({textData: baseStudentId}));
+            }, 500);
+        });
+    });
+
+     document.getElementById('edit_cummulative_record').addEventListener('click', function () {
+        event.preventDefault();
+        const baseStudentId = document.getElementById('studentId-cummilative-anecdotal').value;
+        document.getElementById('studentIdField').value = baseStudentId;
+     });
+    </script>
         
 </body>
 

@@ -13,6 +13,10 @@ export class GuidanceController extends UserController {
         this.createRoute('POST', '/', this.getStudentRecords);
         this.createRoute('GET', '/records', this.viewGuidancePage)
         this.createRoute('POST', '/records', this.addStudentRecord);
+        this.createRoute('GET', '/cummulative', this.viewGuidancePage);
+        this.createRoute('POST', '/cummulative', this.updateStudentSchoolHistory);
+        this.createRoute('POST', '/cummulative-get', this.getStudentSchoolHistory);
+
     }
 
     /**
@@ -25,28 +29,7 @@ export class GuidanceController extends UserController {
             const {student_id, recordTypes} = req.body;
             console.log(recordTypes);
             const result = await GuidanceModel.addStudentRecord(student_id, recordTypes);
-            const studentRecords = await AdmissionRecord.findAll({
-                attributes: ['student_id', 'recordId'],
-                order: [['student_id', 'ASC']],
-                raw: true
-            });
-            for(let i = 0; i < studentRecords.length; i++){
-                if(studentRecords[i].recordId == 'MC') {
-                    studentRecords[i].recordId = 'Medical Cerificate';
-                } else if(studentRecords[i].recordId == 'RF') {
-                    studentRecords[i].recordId = 'Recommendation Form';
-                } else if(studentRecords[i].recordId == 'SRF') {
-                    studentRecords[i].recordId = 'Scholastic Record Form';
-                } else if(studentRecords[i].recordId == 'BEF') {
-                    studentRecords[i].recordId = 'Basic Education Form';
-                } else if(studentRecords[i].recordId == 'SHSF') {
-                    studentRecords[i].recordId ='Senior High Shool Form';
-                } else if(studentRecords[i].recordId == 'IS') {
-                    studentRecords[i].recordId = 'Information Sheet';
-                } else {
-                    console.log('Database error: Record Id does not exist');
-                }
-            }
+            const studentRecords = await GuidanceModel.StudentRecords();
             if(result.error){
                 res.render('Guidance', {message: {content: 'Error adding Record'}, studentRecords: studentRecords});
             } else {
@@ -54,28 +37,7 @@ export class GuidanceController extends UserController {
                 console.log('Record Added');
             }
         } catch (error) {
-            const studentRecords = await AdmissionRecord.findAll({
-                attributes: ['student_id', 'recordId'],
-                order: [['student_id', 'ASC']],
-                raw: true
-            });
-            for(let i = 0; i < studentRecords.length; i++){
-                if(studentRecords[i].recordId == 'MC') {
-                    studentRecords[i].recordId = 'Medical Cerificate';
-                } else if(studentRecords[i].recordId == 'RF') {
-                    studentRecords[i].recordId = 'Recommendation Form';
-                } else if(studentRecords[i].recordId == 'SRF') {
-                    studentRecords[i].recordId = 'Scholastic Record Form';
-                } else if(studentRecords[i].recordId == 'BEF') {
-                    studentRecords[i].recordId = 'Basic Education Form';
-                } else if(studentRecords[i].recordId == 'SHSF') {
-                    studentRecords[i].recordId ='Senior High Shool Form';
-                } else if(studentRecords[i].recordId == 'IS') {
-                    studentRecords[i].recordId = 'Information Sheet';
-                } else {
-                    console.log('Database error: Record Id does not exist');
-                }
-            }
+            const studentRecords = await GuidanceModel.StudentRecords();
             res.render('Guidance', {message: {content: 'Error adding Record'}, studentRecords: studentRecords});
         }
     }
@@ -90,28 +52,7 @@ export class GuidanceController extends UserController {
         const allowed = await UserController.verifyUserPermission(this.allowedUserType, _)
         const loggedIn = UserController.checkifloggedIn(_);
 
-        const studentRecords = await AdmissionRecord.findAll({
-            attributes: ['student_id', 'recordId'],
-            order: [['student_id', 'ASC']],
-            raw: true
-        });
-        for(let i = 0; i < studentRecords.length; i++){
-            if(studentRecords[i].recordId == 'MC') {
-                studentRecords[i].recordId = 'Medical Cerificate';
-            } else if(studentRecords[i].recordId == 'RF') {
-                studentRecords[i].recordId = 'Recommendation Form';
-            } else if(studentRecords[i].recordId == 'SRF') {
-                studentRecords[i].recordId = 'Scholastic Record Form';
-            } else if(studentRecords[i].recordId == 'BEF') {
-                studentRecords[i].recordId = 'Basic Education Form';
-            } else if(studentRecords[i].recordId == 'SHSF') {
-                studentRecords[i].recordId ='Senior High Shool Form';
-            } else if(studentRecords[i].recordId == 'IS') {
-                studentRecords[i].recordId = 'Information Sheet';
-            } else {
-                console.log('Database error: Record Id does not exist');
-            }
-        }
+        const studentRecords = await GuidanceModel.StudentRecords();
         if (loggedIn) {
             if (allowed) {
                 res.render('Guidance', {studentRecords: studentRecords});
@@ -143,16 +84,19 @@ export class GuidanceController extends UserController {
 
     async updateStudentSchoolHistory(req, res) {
         try {
-            const newSchoolHistory = await GuidanceModel.addStudentSchoolHistory(req.body.student_id, req.body.enteredFrom, req.body.gradeLevelEntered, req.body.schoolYearAdmitted, req.body.otherSchoolsAttended);
+            console.log(req.body);
+            const newSchoolHistory = await GuidanceModel.updateStudentSchoolHistory(req.body.student_id, req.body.enteredFrom, req.body.gradeLevelEntered, req.body.schoolYearAdmitted, req.body.otherSchoolsAttended);
             console.log('School History Added');
-            res.render('Guidance', {message: {content: 'Student School History Successfully updated!'}})
+            const studentRecords = await GuidanceModel.StudentRecords();
+            res.render('Guidance', {message: {content: 'Student School History Successfully updated!'}, studentRecords: studentRecords})
         } catch (error) {
-            res.render('Guidance', {message: {content: error.message}});
+            const studentRecords = await GuidanceModel.StudentRecords();
+            res.render('Guidance', {message: {content: error.message}, studentRecords: studentRecords});
         }
     }
 
     async getStudentSchoolHistory(req, res) {
-        const studentId = req.body.student_id;
+        const studentId = req.body.textData;
         try {
             
             const schoolHistory = await SchoolHistory.findOne({
@@ -169,14 +113,14 @@ export class GuidanceController extends UserController {
                 console.log('Successfully fetched student school history: ', schoolHistory);
                 res.json({formattedSchoolHistory});
             } else {
-                const emptySchoolHistory = {
+                const formattedSchoolHistory = {
                     enteredFrom: '',
                     gradeLevelEntered: '',
                     schoolYearAdmitted: '',
                     otherSchoolsAttended: ''
                 }
                 console.log('Student School history not found');
-                res.json({ emptySchoolHistory });
+                res.json({ formattedSchoolHistory });
             }
         } catch(error) {
             console.error('Error fetching school history: ', error);
