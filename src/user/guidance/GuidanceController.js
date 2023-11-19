@@ -88,7 +88,12 @@ export class GuidanceController extends UserController {
             const newSchoolHistory = await GuidanceModel.updateStudentSchoolHistory(req.body.student_id, req.body.enteredFrom, req.body.gradeLevelEntered, req.body.schoolYearAdmitted, req.body.otherSchoolsAttended);
             console.log('School History Added');
             const studentRecords = await GuidanceModel.StudentRecords();
-            res.render('Guidance', {message: {content: 'Student School History Successfully updated!'}, studentRecords: studentRecords})
+            if(newSchoolHistory.error){
+                res.render('Guidance', {message: {content: 'Error updating School History'}, studentRecords: studentRecords});
+            } else {
+                res.render('Guidance', {message: {isSuccess: true, content: 'Student School History Successfully updated!'}, studentRecords: studentRecords})
+                console.log('Record Added');
+            }
         } catch (error) {
             const studentRecords = await GuidanceModel.StudentRecords();
             res.render('Guidance', {message: {content: error.message}, studentRecords: studentRecords});

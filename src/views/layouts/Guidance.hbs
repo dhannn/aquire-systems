@@ -15,6 +15,10 @@
 <body>
     {{> Navbar userRole='Guidance'}}
 
+    {{#if message}}
+        {{> Message message=message}}
+    {{/if}}
+
     <div class="container-fluid">
         <div class="row mx-5">
             <aside class="aside col-2">
@@ -258,7 +262,6 @@
                 xhr.send(JSON.stringify({textData: textvalue}));
             }, 500);
         });
-        //FIX THIS
         document.getElementById('studentId-cummilative-anecdotal').addEventListener('keyup', function () {
             clearTimeout(timeout);
             timeout = setTimeout(function() {

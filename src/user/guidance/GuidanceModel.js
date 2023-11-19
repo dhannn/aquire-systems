@@ -78,7 +78,9 @@ export class GuidanceModel {
     static updateStudentSchoolHistory(id, enteredFrom, gradeLevelEntered, schoolYearAdmitted, otherSchoolsAttended) {
         async function addStudentSchoolHistory() {
             try{
-                const existingSchoolHistory = await SchoolHistory.findOne({student_id: id});
+                const existingSchoolHistory = await SchoolHistory.findOne({
+                    where: {student_id: id}
+                });
                 if(existingSchoolHistory) {
                     const schoolHistory = await SchoolHistory.update({
                         enteredFrom: enteredFrom,
