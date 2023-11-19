@@ -14,7 +14,7 @@ export class GuidanceController extends UserController {
         this.createRoute('GET', '/records', this.viewGuidancePage)
         this.createRoute('POST', '/records', this.addStudentRecord);
         this.createRoute('GET', '/cummulative', this.viewGuidancePage);
-        this.createRoute('POST', '/cummulative', this.updateStudentSchoolHistory);
+        this.createRoute('POST', '/cummulative', this.updateStudentCummulativeRecord);
         this.createRoute('POST', '/cummulative-get', this.getStudentSchoolHistory);
 
     }
@@ -82,13 +82,23 @@ export class GuidanceController extends UserController {
         }
     }
 
+    async updateStudentCummulativeRecord(req, res) {
+        try{
+            this.updateStudentSchoolHistory(req, res);
+            const studentRecords = await GuidanceModel.StudentRecords();
+            res.render('Guidance', {message: {content: 'Student Cummulative Record updated!'}, studentRecords: studentRecords})
+        } catch (error) {
+            const studentRecords = await GuidanceModel.StudentRecords();
+            res.render('Guidance', {message: {content: 'Error updating Cummulative Record'}, studentRecords: studentRecords})
+        }
+    }
+
     async updateStudentSchoolHistory(req, res) {
         try {
             console.log(req.body);
             const newSchoolHistory = await GuidanceModel.updateStudentSchoolHistory(req.body.student_id, req.body.enteredFrom, req.body.gradeLevelEntered, req.body.schoolYearAdmitted, req.body.otherSchoolsAttended);
             console.log('School History Added');
             const studentRecords = await GuidanceModel.StudentRecords();
-            res.render('Guidance', {message: {content: 'Student School History Successfully updated!'}, studentRecords: studentRecords})
         } catch (error) {
             const studentRecords = await GuidanceModel.StudentRecords();
             res.render('Guidance', {message: {content: error.message}, studentRecords: studentRecords});
@@ -126,5 +136,9 @@ export class GuidanceController extends UserController {
             console.error('Error fetching school history: ', error);
             res.status(500).send('Error processing request');
         }
+    }
+
+    async updateStudentHealthRecord(req, res){
+        
     }
 }

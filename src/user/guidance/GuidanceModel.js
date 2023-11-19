@@ -111,6 +111,10 @@ export class GuidanceModel {
         return addStudentSchoolHistory();
     }
 
+    static updateStudentHealthRecord(){
+        
+    }
+
     static async StudentRecords() {
             const studentRecords = await AdmissionRecord.findAll({
                 attributes: ['student_id', 'recordId'],
