@@ -123,31 +123,8 @@
                     </form>
                 </div>
 
-                <div class="container-fluid">
-                    <div class="row my-3 table-header">
-                        <div class="col-2 border border-white p-2">
-                            <span>Student ID</span>
-                        </div>
-                        <div class="col-2 border border-white p-2">
-                            <span>Last Name</span>
-                        </div>
-                        <div class="col-2 border border-white p-2">
-                            <span>First Name</span>
-                        </div>
-                        <div class="col border border-white p-2">
-                            <span>MI</span>
-                        </div>
-                        <div class="col border border-white p-2">
-                            <span>Grade</span>
-                        </div>
-                        <div class="col-3 border border-white p-2">
-                            <span>Section</span>
-                        </div>
-                    </div>
-                </div>
-
                 <form id="add-student-form" role="form" method="POST" action="/admin/students" class="input-group-custom">
-                    <div class="row mx-half">
+                    <div class="row mx-half mb-0">
                         <div class="col-2 px-0">
                             <input required name="student_id" type="text"
                                 class="form-control rounded-0 border border-white" placeholder="New Student ID" />
@@ -168,24 +145,45 @@
                             <input required name="grade" type="text" class="form-control rounded-0 border border-white"
                                 placeholder="Grade" />
                         </div>
-                        <div class="col-3">
-                            <div class="row">
-                                <div class="col-8 px-0">
-                                    <input required name="section" type="text"
-                                        class="form-control rounded-0 border border-white" placeholder="Section" />
-                                </div>
-                                <div class="col-4 px-0">
-                                    <button type="submit" class="form-button-add text-center rounded-0 border border-white w-100 display-block">
-                                        <i class="fa-solid fa-plus"></i>
-                                    </button>
-                                </div>
-                            </div>
+                        <div class="col-2 px-0">
+                            <input required name="section" type="text"
+                                class="form-control rounded-0 border border-white" placeholder="Section" />
+                        </div>
+                        <div class="col px-0">
+                            <button type="submit" class="form-button-add text-center rounded-0 border border-white w-100 display-block">
+                                <i class="fa-solid fa-plus"></i>
+                            </button>
                         </div>
                     </div>
                 </form>
 
+                <div class="container-fluid">
+                    <div class="row mt-3 table-header">
+                        <div class="col-2 border border-white p-2">
+                            <span>Student ID</span>
+                        </div>
+                        <div class="col-2 border border-white p-2">
+                            <span>Last Name</span>
+                        </div>
+                        <div class="col-2 border border-white p-2">
+                            <span>First Name</span>
+                        </div>
+                        <div class="col border border-white p-2">
+                            <span>MI</span>
+                        </div>
+                        <div class="col border border-white p-2">
+                            <span>Grade</span>
+                        </div>
+                        <div class="col-2 border border-white p-2">
+                            <span>Section</span>
+                        </div>
+                        <div class="col border border-white p-2">
+                            <span>Edit</span>
+                        </div>
+                    </div>
+                </div>
 
-                <div id="data-table" class="container-fluid my-3">
+                <div class="data-table container-fluid">
                     {{#if students.length}}
                     {{#each students}}
                     {{!-- STUDENT INFO PARTIAL --}}
