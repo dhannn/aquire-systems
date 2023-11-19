@@ -54,10 +54,9 @@
                         </div>
 
                         <div class="col-3 px-0 m-button">
-                            <div class="form-button-add text-center rounded-0 border border-white" role="button"
-                                tabindex="0">
+                            <div class="form-button-add text-center rounded-0 border border-white" role="button" tabindex="0">
                                 <label for="add_anecdotal_record">Add Anecdotal Record</label>
-                                <input class="add-button" type="submit" value="" id="add_anecdotal_record"/>
+                                <input class="add-button" type="submit" value="" data-bs-toggle="modal" data-bs-target="#modal_anecdotal"  id="add_anecdotal_record"/>
                             </div>
                         </div>
 
@@ -139,6 +138,51 @@
                     {{/each}}
                 </div>
             </section>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modal_anecdotal" tabindex="-1" aria-labelledby="modal_anecdotal_title" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable modal-xl">
+        <!-- Modal content goes here -->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="modal_anecdotal_title">Add Anecdotal Record</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+         
+            <div class="modal-body">
+                <form id="anecdotal-form" method="POST" action="/guidance/anecdotal">
+                <input type="hidden" name="student_id" id="studentIdField">
+                <div class = "new-form p-4 bg-light">
+                 <h4>NEW FORM</h4>
+
+                 <div class="form-row-ar mt-4 mb-4">
+                    <div class="form-group-ar mt-4 mb-4">
+                        <label for="date">Date:</label>
+                        <input type="date" id="anecdotalDate" name="date">
+                    </div>
+
+                    <div class="form-group-ar mt-4 mb-4">
+                        <textarea class="form-control" id="anecdotalRecord" rows="6"></textarea>
+                    </div>   
+                 </div>
+                 
+                </div>
+
+
+
+
+
+
+                <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+                <p>This content should appear at the bottom after you scroll.</p>
+            </div>
+            <div class="modal-footer">
+                <input type="submit" class="btn btn-primary btn-yellow">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+        </form>
         </div>
     </div>
 
