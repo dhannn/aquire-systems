@@ -11,7 +11,7 @@ export const HealthRecord = sequelize.define('healthrecord', {
             key: 'student_id', 
         }
     },
-    schoolYear: {
+    grade: {
         type: DataTypes.STRING,
         allowNull: false,
         primaryKey: true,

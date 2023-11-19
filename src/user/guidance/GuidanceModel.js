@@ -2,6 +2,7 @@ import { AdmissionRecord } from "../../schema/admissionrecord.js";
 import { Record } from "../../schema/record.js";
 import { Enrolls } from "../../schema/enrolls.js";
 import { SchoolHistory } from "../../schema/schoolhistory.js";
+import { HealthRecord } from "../../schema/healthrecord.js";
 
 export class GuidanceModel {
     
@@ -60,7 +61,7 @@ export class GuidanceModel {
                 console.log('Record inserted successfully', record);
                 return {record: record};
             } catch(error) {
-                console.log('Error in Model', error);
+                console.log('Error inserting records', error);
                 return {error: error};
             }
         }
@@ -111,8 +112,42 @@ export class GuidanceModel {
         return addStudentSchoolHistory();
     }
 
-    static updateStudentHealthRecord(){
-        
+    static updateStudentHealthRecord(id, gradeLevel, vision, height, weight, specialCondition){
+        async function updateStudentHealthRecord(){
+                try{
+                    const existingHealthRecord = HealthRecord.findOne({student_id: id});
+                    if(existingHealthRecord){
+                        const studentHealthRecord = gradeLevel.map(level => ({
+                            student_id: id,
+                            grade: level,
+                            vision: vision,
+                            height: height,
+                            weight: weight,
+                            specialCondition: specialCondition
+                        }));
+                        const healthRecord = await HealthRecord.bulkCreate(studentHealthRecord, {
+                            updateOnDuplicate: ['student_id', 'grade']
+                        });
+                        return {healthRecord: healthRecord};
+                    } else {
+                        const studentHealthRecord = gradeLevel.map(level => ({
+                            student_id: id,
+                            grade: level,
+                            vision: vision,
+                            height: height,
+                            weight: weight,
+                            specialCondition: specialCondition
+                        }));
+                        const healthRecord = await HealthRecord.bulkCreate(studentHealthRecord);
+                        console.log('Health Record updated Successfully', healthRecord);
+                        return {healthRecord: healthRecord};
+                    }
+                } catch (error) {
+                    console.log('Error updating Health Record', error)
+                    return{error: error};
+                }
+        }
+        return updateStudentHealthRecord();
     }
 
     static async StudentRecords() {

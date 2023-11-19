@@ -15,6 +15,10 @@
 <body>
     {{> Navbar userRole='Guidance'}}
 
+    {{#if message}}
+        {{> Message message=message}}
+    {{/if}}
+    
     <div class="container-fluid">
         <div class="row mx-5">
             <aside class="aside col-2">

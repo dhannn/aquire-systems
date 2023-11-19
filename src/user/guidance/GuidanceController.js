@@ -98,10 +98,23 @@ export class GuidanceController extends UserController {
             console.log(req.body);
             const newSchoolHistory = await GuidanceModel.updateStudentSchoolHistory(req.body.student_id, req.body.enteredFrom, req.body.gradeLevelEntered, req.body.schoolYearAdmitted, req.body.otherSchoolsAttended);
             console.log('School History Added');
-            const studentRecords = await GuidanceModel.StudentRecords();
         } catch (error) {
             const studentRecords = await GuidanceModel.StudentRecords();
             res.render('Guidance', {message: {content: error.message}, studentRecords: studentRecords});
+        }
+    }
+
+    async updateStudentHealthRecord(req, res){
+        try{
+            const healthRecord = await GuidanceModel.updateStudentHealthRecord();
+        } catch (error) {
+
+        }
+    }
+
+    async getStudentCummulativeRecord(req, res){
+        const studentCummulativeRecord = {
+            schoolHistory
         }
     }
 
@@ -136,9 +149,5 @@ export class GuidanceController extends UserController {
             console.error('Error fetching school history: ', error);
             res.status(500).send('Error processing request');
         }
-    }
-
-    async updateStudentHealthRecord(req, res){
-        
     }
 }
