@@ -79,11 +79,11 @@
             </aside>
 
             <section class="flex-column col-10 p-2">
-                                <div class="row my-3">
+                <div class="row my-3">
                     <div class="d-flex justify-content-end">
                         <button type="button" class="button-yellow btn rounded-0 mx-3 border-0" onclick="handleStartNewSchoolYear()">Start new school year</button>
 
-                        <button type="button" class="btn rounded-0 btn-outline-dark">Bulk enroll</button>
+                        <button type="button" class="button-gray btn rounded-0">Bulk enroll</button>
                     </div>
                 </div>
 
@@ -118,7 +118,7 @@
                     <form class="d-flex" role="search">
                         <input class="form-control rounded-0 mx-0" type="search" placeholder="Search"
                             aria-label="Search">
-                        <button class="button-yellow btn rounded-0 custom-width-9 pt-1 mx-0 border-0" type="submit"><i
+                        <button class="button-yellow btn rounded-0 custom-width-12 pt-1 mx-0 border-0 h-100" type="submit"><i
                                 class="bi bi-search"></i></button>
                     </form>
                 </div>
@@ -127,30 +127,30 @@
                     <div class="row mx-half mb-0">
                         <div class="col-2 px-0">
                             <input required name="student_id" type="text"
-                                class="form-control rounded-0 border border-white" placeholder="New Student ID" />
+                                class="form-control rounded-0 border" placeholder="New Student ID" />
                         </div>
                         <div class="col-2 px-0">
                             <input required name="lastName" type="text"
-                                class="form-control rounded-0 border border-white" placeholder="Last Name" />
+                                class="form-control rounded-0 border" placeholder="Last Name" />
                         </div>
                         <div class="col-2 px-0">
                             <input required name="firstName" type="text"
-                                class="form-control rounded-0 border border-white" placeholder="First Name" />
+                                class="form-control rounded-0 border" placeholder="First Name" />
                         </div>
                         <div class="col px-0">
-                            <input name="middleInitial" type="text" class="form-control rounded-0 border border-white"
+                            <input name="middleInitial" type="text" class="form-control rounded-0 border"
                                 placeholder="MI" />
                         </div>
                         <div class="col px-0">
-                            <input required name="grade" type="text" class="form-control rounded-0 border border-white"
+                            <input required name="grade" type="text" class="form-control rounded-0 border"
                                 placeholder="Grade" />
                         </div>
                         <div class="col-2 px-0">
                             <input required name="section" type="text"
-                                class="form-control rounded-0 border border-white" placeholder="Section" />
+                                class="form-control rounded-0 border" placeholder="Section" />
                         </div>
                         <div class="col px-0">
-                            <button type="submit" class="form-button-add text-center rounded-0 border border-white w-100 display-block">
+                            <button type="submit" class="form-button-add text-center rounded-0 border w-100 display-block">
                                 <i class="fa-solid fa-plus"></i>
                             </button>
                         </div>
@@ -178,7 +178,7 @@
                             <span>Section</span>
                         </div>
                         <div class="col border border-white p-2">
-                            <span>Edit</span>
+                            <span></span>
                         </div>
                     </div>
                 </div>
@@ -190,7 +190,7 @@
                     {{> student_info}}
                     {{/each}}
                     {{else}}
-                    <div class="row">
+                    <div class="row mt-3">
                         <div class="col-12 text-center">
                             <span>No students found.</span>
                         </div>

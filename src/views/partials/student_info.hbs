@@ -1,26 +1,26 @@
 {{!-- Student Info Partial for Admin_Student --}}
     <div class="row list-div">
         <!-- Displaying student information -->
-        <div class="col-2 border p-2">
+        <div class="col-2 border border-white p-2">
             <span>{{this.student_id}}</span>
         </div>
-        <div class="col-2 border p-2">
+        <div class="col-2 border border-white p-2">
             <span>{{this.lastName}}</span>
         </div>
-        <div class="col-2 border p-2">
+        <div class="col-2 border border-white p-2">
             <span>{{this.firstName}}</span>
         </div>
-        <div class="col border p-2">
+        <div class="col border border-white p-2">
             <span>{{this.middleInitial}}</span>
         </div>
-        <div class="col border p-2">
+        <div class="col border border-white p-2">
                 <span>{{lookup this 'Enrolls.grade'}}</span>
         </div>
-        <div class="col-2 border p-2">
+        <div class="col-2 border border-white p-2">
             <span>{{lookup this 'Enrolls.section'}}</span>
         </div>
         <!-- Edit button -->
-        <div class="col border-0 p-2">
+        <div class="col border-0 border-white p-2">
             <div class="edit-button-div col-12 text-center rounded-0" role="button"
                 tabindex="0">
                 <i class="fa-solid fa-pen"></i>
