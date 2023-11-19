@@ -39,15 +39,14 @@
     {{#if message}}
         {{> Message message=message}}
     {{/if}}
-
-    {{!-- NAVBAR PARTIAL --}}
-    {{> navbar}}
+    
+    {{> navbar student_page="true"}}
 
     <div class="container-fluid">
         <div class="row mx-5">
             <aside id="aside" class="col-2">
                 <p class="fw-bold fs-3 mb-0">Enrolled Students</p>
-                <p>SY 2023 - 2024</p>
+                <p>SY {{schoolyear}}</p>
                 <ul id="sidebar-links" class="nav flex-column">
                     {{!-- GRADELIST PARTIAL --}}
                     {{> grade_list label="Kinder" current="true"}}
@@ -84,7 +83,31 @@
                                 class="bi bi-search"></i></button>
                     </form>
                 </div>
-
+                 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                            aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class=" modal-content p-5">
+                                    <div class="modal-body border-0">
+                                        <div class="container-fluid">
+                                            <h1 class="modal-title fs-5" id="exampleModalLabel">You are starting a
+                                                new school year</h1>
+                                            <h2 class="fw-light fs-5" id="exampleModalLabel">(SY {{nextschoolyear}})</h2>
+                                        </div>
+                                        <div class="container-fluid">
+                                            <p>All student records and data will be adjusted to reflect the new year.​
+                                            </p>
+                                            <p>Are you sure you want to begin the new school year?​​</p>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer border-0 justify-content-center">
+                                        <button type="button"  id="confirmStartNewYear"
+                                            class="button-yellow btn rounded-0 mx-3 border-0y">Confirm</button>
+                                        <button type="button" class="button-gray btn rounded-0 border-0"
+                                            data-bs-dismiss="modal">Cancel</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                 <div class="table-header container-fluid">
                     <div class="row my-3">
                         <div class="col-2 border p-2">
