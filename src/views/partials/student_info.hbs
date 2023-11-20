@@ -1,30 +1,38 @@
 {{!-- Student Info Partial for Admin_Student --}}
-    <div class="row list-div">
-        <!-- Displaying student information -->
-        <div class="col-2 border border-white p-2">
-            <span>{{this.student_id}}</span>
-        </div>
-        <div class="col-2 border border-white p-2">
-            <span>{{this.lastName}}</span>
-        </div>
-        <div class="col-2 border border-white p-2">
-            <span>{{this.firstName}}</span>
-        </div>
-        <div class="col border border-white p-2">
-            <span>{{this.middleInitial}}</span>
-        </div>
-        <div class="col border border-white p-2">
-                <span>{{lookup this 'Enrolls.grade'}}</span>
-        </div>
-        <div class="col-2 border border-white p-2">
-            <span>{{lookup this 'Enrolls.section'}}</span>
-        </div>
-        <!-- Edit button -->
-        <div class="col border-0 border-white p-2">
-            <div class="edit-button-div col-12 text-center rounded-0" role="button"
-                tabindex="0">
-                <i class="fa-solid fa-pen"></i>
+<div class="row list-div">
+    <!-- Displaying student information -->
+    <div class="col-11 px-0">
+        <div class="row mx-half mb-0 h-100">
+            <div class="col-2 border border-white p-2">
+                <span>{{this.student_id}}</span>
             </div>
-        </div>
+            <div class="col-2 border border-white p-2">
+                <span>{{this.lastName}}</span>
+            </div>
+            <div class="col-2 border border-white p-2">
+                <span>{{this.firstName}}</span>
+            </div>
+            <div class="col border border-white p-2">
+                <span>{{this.middleInitial}}</span>
+            </div>
+            <div class="col-3">
+                <div class="row h-100">
+                    <div class="col-4 border border-white p-2">
+                        <span>{{lookup this 'Enrolls.grade'}}</span>
+                    </div>
+                    <div class="col-8 border border-white p-2">
+                        <span>{{lookup this 'Enrolls.section'}}</span>
+                    </div>
+                </div>
+            </div>
 
+        </div>
     </div>
+    <!-- Edit button -->
+    <div class="col border-0 border-white p-2">
+        <div class="edit-button-div col-12 text-center rounded-0" role="button"
+            tabindex="0">
+            <i class="fa-solid fa-pen"></i>
+        </div>
+    </div>
+</div>

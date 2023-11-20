@@ -31,48 +31,53 @@
             <div class="row my-3">
                 <span class="fw-bolder fs-3">System Users</span>
             </div>
-            <div class="container-fluid">
-                <div class="table-header row my-3">
-                    <div class="col-3 border fs-4 fw-bold border-white p-2">
-                        <span>Username</span>
-                    </div>
-                    <div class="col-9 border fs-4 fw-bold border-white p-2">
-                        <span>Role</span>
-                    </div>
-                </div>
-            </div>
             <form id="add-student-form" role="form" method="POST" action="/admin/users" class="input-group-custom">
                     <div class="row mx-half">
                         <div class="col-3 px-0">
                             <input required name="userName" type="text"
-                                class="form-control rounded-0 border border-white" placeholder="New Username" />
+                                class="form-control rounded-0 border" placeholder="New Username" />
                         </div>
                         <div class="col-3 px-0">
                             <input required name="userType" type="text"
-                                class="form-control rounded-0 border border-white" placeholder="New Role" />
+                                class="form-control rounded-0 border" placeholder="New Role" />
                         </div>
                         <div class="col-3 px-0">
                             <input required name="userPassword" type="password"
-                                class="form-control rounded-0 border border-white" placeholder="Password" />
+                                class="form-control rounded-0 border" placeholder="Password" />
                         </div>
                         <div class="col-3 px-0">
-                            <button type="submit" class="form-button-add text-center rounded-0 border border-white w-100 display-block">
+                            <button type="submit" class="form-button-add text-center rounded-0 border w-100 display-block">
                                 <i class="fa-solid fa-plus"></i>
                             </button>
                         </div>
                     </div>
                 </form>
 
-        <div id="data-table" class="container-fluid my-3">
+            <div class="container-fluid">
+                <div class="table-header row mt-3">
+                    <div class="col-3 border fw-bold border-white p-2">
+                        <span>Username</span>
+                    </div>
+                    <div class="col-6 border fw-bold border-white p-2">
+                        <span>Role</span>
+                    </div>
+                    <div class="col-3 border fw-bold border-white p-2">
+                        <span></span>
+                    </div>
+                </div>
+            </div>
+            
+
+        <div id="data-table" class="container-fluid">
             {{#each users}} 
                 <div class="row list-div">
-                    <div class="col-3 border p-2">
+                    <div class="col-3 border p-2 border-white">
                         <span>{{userName}}</span>
                     </div>
-                    <div class="col-6 border p-2">
+                    <div class="col-6 border p-2 border-white">
                         <span>{{userType}}</span>
                     </div>
-                    <div class="edit-button-div col-3 text-center rounded-0" role="button" tabindex="0">
+                    <div class="edit-button-div col-3 text-center rounded-0 border border-white my-auto" role="button" tabindex="0">
                         <i class="fa-solid fa-trash-can"></i>
                     </div>
                 </div>

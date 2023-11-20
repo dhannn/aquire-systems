@@ -18,8 +18,9 @@
 }
 
 .topbar-links li a:hover{
-    color: var(--black);
+    color: var(--darkgray);
     cursor: pointer;
+    font-weight: 500;
 }
 
 
