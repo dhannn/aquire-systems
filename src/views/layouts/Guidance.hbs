@@ -151,31 +151,69 @@
             </div>
          
             <div class="modal-body">
-                <form id="anecdotal-form" method="POST" action="/guidance/anecdotal">
+                <form class="input-group-custom" id="anecdotal-form" method="POST" action="/guidance/anecdotal">
                 <input type="hidden" name="student_id" id="studentIdField">
-                <div class = "new-form p-4 bg-light">
-                 <h4>NEW FORM</h4>
 
-                 <div class="form-row-ar mt-4 mb-4">
-                    <div class="form-group-ar mt-4 mb-4">
-                        <label for="date">Date:</label>
-                        <input type="date" id="anecdotalDate" name="date">
+                <div class = "new-form p-4">
+                    
+                    <h4>NEW FORM</h4>
+
+                    <div class="form-row-ar mt-4 mb-4">
+
+                        <div class="form-group-ar mt-4 mb-4 col-4 px-0">
+                            <input required name="student_id" type="text" id="studentId"
+                                    class="form-control rounded-0 border border-white" placeholder="Student ID" />
+                        </div>
+
+                        <div class="form-group-ar mt-4 mb-4">
+                            <label for="date">Date:</label>
+                            <input required type="date" id="anecdotalDate" name="date">
+                        </div>
+
+
+                        <div class="form-group-ar mt-4 mb-4">
+                            <textarea required class="form-control" id="anecdotalRecord" placeholder="Add text here" rows="6"></textarea>
+                        </div>  
+
                     </div>
-
-                    <div class="form-group-ar mt-4 mb-4">
-                        <textarea class="form-control" id="anecdotalRecord" rows="6"></textarea>
-                    </div>   
-                 </div>
                  
                 </div>
 
+                <div class="view-form p-4 mt-4">
+                    <h4>VIEW FORM</h4>
 
+                    <div class="border p-4 mt-4 mb-4">
+                        <h3>16/11/23</h3>
+                        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                             Inventore, voluptas voluptatibus corrupti quaerat voluptates at laborum,
+                             incidunt voluptate atque praesentium id nesciunt tempora cum vel eius
+                             consectetur repellat eligendi natus.</p>
+                    </div>
 
+                    <div class="border p-4 mt-4 mb-4">
+                        <h3>15/11/23</h3>
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                            Laudantium, doloremque repudiandae. Quisquam harum
+                            accusantium praesentium molestiae. Blanditiis dolores,
+                            expedita dolorum aspernatur, corporis tempore odio suscipit
+                            facilis illum voluptatem consequuntur eveniet placeat
+                            eum consectetur asperiores veniam nulla quod amet cupiditate,
+                            sint eligendi. Facilis dolorem doloribus corporis voluptas
+                            reiciendis similique est voluptates molestias quas enim!
+                            Praesentium facilis ullam possimus expedita tenetur excepturi
+                            perferendis repellendus dolorem, officia, magni error officiis.
+                            Tenetur accusamus sit praesentium iure consequatur voluptates,
+                            illum nam totam consequuntur voluptatem ipsum labore id
+                            dignissimos eius in rerum magnam veritatis? Cumque ratione
+                            quod assumenda animi. Quidem dolorem voluptatem dolores,
+                            magni obcaecati aliquam.</p>
+                    </div>
 
-
-
-                <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-                <p>This content should appear at the bottom after you scroll.</p>
+                    <div class="border p-4 mt-4 mb-4">
+                        <h3>14/11/23</h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Culpa, expedita.</p>
+                    </div>
+                </div>
             </div>
             <div class="modal-footer">
                 <input type="submit" class="btn btn-primary btn-yellow">
