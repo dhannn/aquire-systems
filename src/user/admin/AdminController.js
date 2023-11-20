@@ -11,6 +11,7 @@ export class AdminContoller extends UserController {
   allowedUserType = "A";
 
   initializeRoutes() {
+    this.createRoute("GET", "", this.viewStudents);
     this.createRoute("GET", "/", this.viewStudents);
     this.createRoute("GET", "/students", this.viewStudents);
     this.createRoute("GET", "/users", this.viewUsers);
@@ -123,7 +124,13 @@ export class AdminContoller extends UserController {
     const nextfromYear = parseInt(currentSchoolYear.fromYear) + 1;
     const nexttoYear = parseInt(currentSchoolYear.toYear) + 1;
     const nextschoolyear = `${nextfromYear}-${nexttoYear}`;
-
+    
+    var gradefilter;
+    if (req.query.grade == null) {
+      gradefilter = 'Kinder';
+    } else {
+      gradefilter = req.query.grade;
+    }
 
     const students = await Student.findAll({
       attributes: ["student_id", "firstName", "middleInitial", "lastName"],
@@ -133,6 +140,7 @@ export class AdminContoller extends UserController {
           attributes: ["grade", "section"],
           where: {
             schoolYear: schoolYear,
+            grade: gradefilter,
           },
           required: true,
         },
