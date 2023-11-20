@@ -133,6 +133,7 @@ export class AdminContoller extends UserController {
           attributes: ["grade", "section"],
           where: {
             schoolYear: schoolYear,
+            grade: req.query.grade,
           },
           required: true,
         },
