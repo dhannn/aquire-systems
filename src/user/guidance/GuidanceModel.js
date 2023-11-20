@@ -2,7 +2,8 @@ import { AdmissionRecord } from "../../schema/admissionrecord.js";
 import { Record } from "../../schema/record.js";
 import { Enrolls } from "../../schema/enrolls.js";
 import { SchoolHistory } from "../../schema/schoolhistory.js";
-
+import { AnecdotalRecord } from "../../schema/AnecdotalRecord.js";
+import { Student } from "../../schema/student.js";
 export class GuidanceModel {
     
     /**
@@ -138,4 +139,37 @@ export class GuidanceModel {
             }
             return studentRecords;
         }
+
+        // ...
+
+        static async addAnecdotalRecord(id, date, anecdotalRecord) {
+            try {
+                console.log('Received Student ID:', id);
+        
+                // Check if the student_id exists in the Student table
+                const existingStudent = await Student.findOne({ where: { student_id: id } });
+        
+                if (!existingStudent) {
+                    // Handle case where the student_id doesn't exist
+                    console.error('Student ID does not exist');
+                    return { error: 'Student ID does not exist' };
+                }
+        
+                const newAnecdotalRecord = await AnecdotalRecord.create({
+                    student_id: id,
+                    date: date,
+                    anecdotalRecord: anecdotalRecord
+                });
+        
+                console.log('Anecdotal Record inserted successfully', newAnecdotalRecord);
+                return { success: true };
+            } catch (error) {
+                console.error('Error adding Anecdotal Record:', error);
+                return { error: error.message };
+            }
+        }
+        
+
+
+
 }

@@ -153,6 +153,7 @@
             <div class="modal-body">
                 <form class="input-group-custom" id="anecdotal-form" method="POST" action="/guidance/anecdotal">
                 <input type="hidden" name="student_id" id="studentIdField">
+                <input type="hidden" name="date" id="dateField">
 
                 <div class = "new-form p-4">
                     
@@ -160,11 +161,7 @@
 
                     <div class="form-row-ar mt-4 mb-4">
 
-                        <div class="form-group-ar mt-4 mb-4 col-4 px-0">
-                            <input required name="student_id" type="text" id="studentId"
-                                    class="form-control rounded-0 border border-white" placeholder="Student ID" />
-                        </div>
-
+                        
                         <div class="form-group-ar mt-4 mb-4">
                             <label for="date">Date:</label>
                             <input required type="date" id="anecdotalDate" name="date">
@@ -376,6 +373,35 @@
         const baseStudentId = document.getElementById('studentId-cummilative-anecdotal').value;
         document.getElementById('studentIdField').value = baseStudentId;
      });
+//_____________________________________________________________________
+     document.addEventListener('DOMContentLoaded', function() {
+            var timeout = null;
+
+            document.getElementById('studentId-cummilative-anecdotal').addEventListener('keyup', function () {
+                clearTimeout(timeout);
+                timeout = setTimeout(function() {
+                    var anecdotalModal = document.getElementById('modal_anecdotal');
+                    var modal = new bootstrap.Modal(anecdotalModal);
+                    modal.show();
+                }, 500);
+            });
+
+            document.getElementById('edit_cummulative_record').addEventListener('click', function () {
+                event.preventDefault();
+                const baseStudentId = document.getElementById('studentId-cummilative-anecdotal').value;
+                document.getElementById('studentIdField').value = baseStudentId;
+                document.getElementById('cummulative-form').submit();
+            });
+
+            document.getElementById('add_anecdotal_record').addEventListener('click', function () {
+                event.preventDefault();
+                const baseStudentId = document.getElementById('studentId-cummilative-anecdotal').value;
+                 const currentDate = new Date().toISOString().slice(0, 19).replace('T', ' '); // Get current date in YYYY-MM-DD HH:MM:SS format
+                document.getElementById('studentIdField').value = baseStudentId;
+                document.getElementById('dateField').value = currentDate;
+                document.getElementById('anecdotal-form').submit();
+            });
+        });
     </script>
         
 </body>

@@ -2,6 +2,8 @@ import { AdmissionRecord } from "../../schema/admissionrecord.js";
 import { SchoolHistory } from "../../schema/schoolhistory.js";
 import { UserController } from "../UserController.js";
 import { GuidanceModel } from "./GuidanceModel.js";
+import { AnecdotalRecord } from "../../schema/AnecdotalRecord.js";
+import { Student } from "../../schema/student.js";
 
 export class GuidanceController extends UserController {
     startingRoute = '/guidance';
@@ -16,6 +18,7 @@ export class GuidanceController extends UserController {
         this.createRoute('GET', '/cummulative', this.viewGuidancePage);
         this.createRoute('POST', '/cummulative', this.updateStudentSchoolHistory);
         this.createRoute('POST', '/cummulative-get', this.getStudentSchoolHistory);
+        this.createRoute('POST', '/anecdotal', this.addAnecdotalRecord);
 
     }
 
@@ -132,4 +135,24 @@ export class GuidanceController extends UserController {
             res.status(500).send('Error processing request');
         }
     }
+
+    async addAnecdotalRecord(req, res) {
+        try {
+            const { student_id, date, anecdotalRecord } = req.body;
+            console.log(student_id, date, anecdotalRecord);
+            const result = await GuidanceModel.addAnecdotalRecord(student_id, date, anecdotalRecord);
+            const studentRecords = await GuidanceModel.StudentRecords();
+            
+            if (result.error) {
+                res.render('Guidance', { message: { content: 'Error adding Anecdotal Record' }, studentRecords });
+            } else {
+                res.render('Guidance', { message: { isSuccess: true, content: 'Anecdotal Record added successfully!' }, studentRecords });
+                console.log('Anecdotal Record Added');
+            }
+        } catch (error) {
+            const studentRecords = await GuidanceModel.StudentRecords();
+            res.render('Guidance', { message: { content: 'Error adding Anecdotal Record' }, studentRecords });
+        }
+    }
+    
 }
