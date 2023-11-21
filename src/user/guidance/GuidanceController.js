@@ -1,4 +1,5 @@
 import { AdmissionRecord } from "../../schema/admissionrecord.js";
+import { HealthRecord } from "../../schema/healthrecord.js";
 import { SchoolHistory } from "../../schema/schoolhistory.js";
 import { UserController } from "../UserController.js";
 import { GuidanceModel } from "./GuidanceModel.js";
@@ -15,7 +16,7 @@ export class GuidanceController extends UserController {
         this.createRoute('POST', '/records', this.addStudentRecord);
         this.createRoute('GET', '/cummulative', this.viewGuidancePage);
         this.createRoute('POST', '/cummulative', this.updateStudentCummulativeRecord);
-        this.createRoute('POST', '/cummulative-get', this.getStudentSchoolHistory);
+        this.createRoute('POST', '/cummulative-get', this.getStudentCummulativeRecord);
 
     }
 
@@ -84,9 +85,11 @@ export class GuidanceController extends UserController {
 
     async updateStudentCummulativeRecord(req, res) {
         try{
+            console.log(req.body);
             this.updateStudentSchoolHistory(req, res);
+            this.updateStudentHealthRecord(req, res);
             const studentRecords = await GuidanceModel.StudentRecords();
-            res.render('Guidance', {message: {content: 'Student Cummulative Record updated!'}, studentRecords: studentRecords})
+            res.render('Guidance', {message: {isSuccess: true, content: 'Student Cummulative Record updated!'}, studentRecords: studentRecords})
         } catch (error) {
             const studentRecords = await GuidanceModel.StudentRecords();
             res.render('Guidance', {message: {content: 'Error updating Cummulative Record'}, studentRecords: studentRecords})
@@ -95,9 +98,7 @@ export class GuidanceController extends UserController {
 
     async updateStudentSchoolHistory(req, res) {
         try {
-            console.log(req.body);
             const newSchoolHistory = await GuidanceModel.updateStudentSchoolHistory(req.body.student_id, req.body.enteredFrom, req.body.gradeLevelEntered, req.body.schoolYearAdmitted, req.body.otherSchoolsAttended);
-            console.log('School History Added');
         } catch (error) {
             const studentRecords = await GuidanceModel.StudentRecords();
             res.render('Guidance', {message: {content: error.message}, studentRecords: studentRecords});
@@ -106,15 +107,26 @@ export class GuidanceController extends UserController {
 
     async updateStudentHealthRecord(req, res){
         try{
-            const healthRecord = await GuidanceModel.updateStudentHealthRecord();
+            const healthRecordGrade7 = await GuidanceModel.updateStudentHealthRecord(req.body.student_id, req.body.healthRecordGrade7, req.body.grade7Vision, req.body.grade7Height, req.body.grade7Weight, req.body.grade7SpecialCondition);
+            const healthRecordGrade8 = await GuidanceModel.updateStudentHealthRecord(req.body.student_id, req.body.healthRecordGrade8, req.body.grade8Vision, req.body.grade8Height, req.body.grade8Weight, req.body.grade8SpecialCondition);
+            const healthRecordGrade9 = await GuidanceModel.updateStudentHealthRecord(req.body.student_id, req.body.healthRecordGrade9, req.body.grade9Vision, req.body.grade9Height, req.body.grade9Weight, req.body.grade9SpecialCondition);
+            const healthRecordGrade10 = await GuidanceModel.updateStudentHealthRecord(req.body.student_id, req.body.healthRecordGrade10, req.body.grade10Vision, req.body.grade10Height, req.body.grade10Weight, req.body.grade10SpecialCondition);
+            const healthRecordGrade11 = await GuidanceModel.updateStudentHealthRecord(req.body.student_id, req.body.healthRecordGrade11, req.body.grade11Vision, req.body.grade11Height, req.body.grade11Weight, req.body.grade11SpecialCondition);
+            const healthRecordGrade12 = await GuidanceModel.updateStudentHealthRecord(req.body.student_id, req.body.healthRecordGrade12, req.body.grade12Vision, req.body.grade12Height, req.body.grade12Weight, req.body.grade12SpecialCondition);
         } catch (error) {
 
         }
     }
 
     async getStudentCummulativeRecord(req, res){
-        const studentCummulativeRecord = {
-            schoolHistory
+        try {
+            const cummulativeRecord = {
+                schoolHistory: await this.getStudentSchoolHistory(req, res),
+                healthRecord: await this.getStudentHealthRecord(req, res)
+            }
+            res.json(cummulativeRecord);
+        } catch (error) {
+
         }
     }
 
@@ -134,7 +146,7 @@ export class GuidanceController extends UserController {
                     otherSchoolsAttended: schoolHistory.otherSchoolsAttended
                 }
                 console.log('Successfully fetched student school history: ', schoolHistory);
-                res.json({formattedSchoolHistory});
+                return formattedSchoolHistory;
             } else {
                 const formattedSchoolHistory = {
                     enteredFrom: '',
@@ -143,11 +155,26 @@ export class GuidanceController extends UserController {
                     otherSchoolsAttended: ''
                 }
                 console.log('Student School history not found');
-                res.json({ formattedSchoolHistory });
+                return formattedSchoolHistory;
             }
         } catch(error) {
             console.error('Error fetching school history: ', error);
             res.status(500).send('Error processing request');
+        }
+    }
+
+    async getStudentHealthRecord(req, res) {
+        const studentId = req.body.textData;
+
+        const healthRecord = await HealthRecord.findAll({
+            where: {student_id: studentId}
+        });
+        if(healthRecord) {
+            const formattedHealthRecord = healthRecord.map(record => record.dataValues);
+            console.log(formattedHealthRecord);
+            return formattedHealthRecord;
+        } else {
+            console.log('Student Health Record not found');
         }
     }
 }
