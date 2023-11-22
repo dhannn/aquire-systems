@@ -86,10 +86,14 @@ export class GuidanceController extends UserController {
     async updateStudentCummulativeRecord(req, res) {
         try{
             console.log(req.body);
-            //this.updateStudentSchoolHistory(req, res);
-            this.updateStudentHealthRecord(req, res);
+            //const schoolHistoryError = this.updateStudentSchoolHistory(req, res);
+            const healthRecordError = await this.updateStudentHealthRecord(req, res);
             const studentRecords = await GuidanceModel.StudentRecords();
-            res.render('Guidance', {message: {isSuccess: true, content: 'Student Cummulative Record updated!'}, studentRecords: studentRecords})
+            if(healthRecordError.error /*|| schoolHistoryError.error*/ ){
+                res.render('Guidance', {message: {content: 'Error updating cummulative record updated'}, studentRecords: studentRecords});
+            } else{
+                res.render('Guidance', {message: {isSuccess: true, content: 'Student Cummulative Record updated!'}, studentRecords: studentRecords})
+            }
         } catch (error) {
             const studentRecords = await GuidanceModel.StudentRecords();
             res.render('Guidance', {message: {content: 'Error updating Cummulative Record'}, studentRecords: studentRecords})
@@ -99,6 +103,9 @@ export class GuidanceController extends UserController {
     async updateStudentSchoolHistory(req, res) {
         try {
             const newSchoolHistory = await GuidanceModel.updateStudentSchoolHistory(req.body.student_id, req.body.enteredFrom, req.body.gradeLevelEntered, req.body.schoolYearAdmitted, req.body.otherSchoolsAttended);
+            if(newSchoolHistory.error){
+                return {error: newSchoolHistory.error};
+            }
         } catch (error) {
             const studentRecords = await GuidanceModel.StudentRecords();
             res.render('Guidance', {message: {content: error.message}, studentRecords: studentRecords});
@@ -113,6 +120,21 @@ export class GuidanceController extends UserController {
             const healthRecordGrade10 = await GuidanceModel.updateStudentHealthRecord(req.body.student_id, req.body.healthRecordGrade10, req.body.grade10Vision, req.body.grade10Height, req.body.grade10Weight, req.body.grade10SpecialCondition);
             const healthRecordGrade11 = await GuidanceModel.updateStudentHealthRecord(req.body.student_id, req.body.healthRecordGrade11, req.body.grade11Vision, req.body.grade11Height, req.body.grade11Weight, req.body.grade11SpecialCondition);
             const healthRecordGrade12 = await GuidanceModel.updateStudentHealthRecord(req.body.student_id, req.body.healthRecordGrade12, req.body.grade12Vision, req.body.grade12Height, req.body.grade12Weight, req.body.grade12SpecialCondition);
+            if(healthRecordGrade7.error || healthRecordGrade8.error || healthRecordGrade9.error || healthRecordGrade10.error || healthRecordGrade11.error || healthRecordGrade12.error){
+                if(healthRecordGrade7.error){
+                    return {error: healthRecordGrade7.error}
+                } else if(healthRecordGrade8.error){
+                    return {error: healthRecordGrade8.error}
+                } else if(healthRecordGrade9.error){
+                    return {error: healthRecordGrade9.error}
+                } else if(healthRecordGrade10.error){
+                    return {error: healthRecordGrade10.error}
+                } else if(healthRecordGrade11.error){
+                    return {error: healthRecordGrade11.error}
+                } else if(healthRecordGrade12.error){
+                    return {error: healthRecordGrade12.error}
+                }
+            }
         } catch (error) {
 
         }
