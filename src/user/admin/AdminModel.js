@@ -187,5 +187,4 @@ export class AdminModel {
         throw error;
     }
     */
-  }
 }
