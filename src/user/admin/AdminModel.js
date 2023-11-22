@@ -129,7 +129,34 @@ export class AdminModel {
             throw error;
         }
     });
-}
+  }
 
 
+  async startNewSchoolYear() {
+    try {
+        const currentYear = new Date().getFullYear();
+        const fromYear = currentYear.toString();
+        const toYear = (currentYear + 1).toString();
+
+        const [updatedRows] = await CurrentSchoolYear.update(
+            { fromYear, toYear },
+            { where: {} }
+        );
+
+        if (updatedRows === 0) {
+            throw new Error('Failed to update the current school year');
+        }
+
+        const updatedSchoolYear = await CurrentSchoolYear.findOne();
+
+        if (!updatedSchoolYear) {
+            throw new Error('Failed to fetch the updated school year');
+        }
+
+        return updatedSchoolYear;
+    } catch (error) {
+        console.error('Error starting new school year:', error);
+        throw error;
+    }
+  }
 }

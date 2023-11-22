@@ -16,6 +16,7 @@ export class AdminContoller extends UserController {
     this.createRoute("GET", "/users", this.viewUsers);
     this.createRoute("POST", "/students", this.addStudent);
     this.createRoute("POST", "/users", this.addUser);
+    this.createRoute('POST', '/startNewSchoolYear', this.startNewSchoolYear);
   }
 
   /**
@@ -26,7 +27,36 @@ export class AdminContoller extends UserController {
    */
 
   async addStudent(req, res) {
-    let message;
+    
+
+    const currentSchoolYear = await CurrentSchoolYear.findOne({
+      order: [["createdAt", "DESC"]],
+    });
+
+    if (!currentSchoolYear) {
+      throw new Error("Current school year is not set");
+    }
+
+    const schoolYear = `${currentSchoolYear.fromYear}-${currentSchoolYear.toYear}`;
+    
+    const nextfromYear = parseInt(currentSchoolYear.fromYear) + 1;
+    const nexttoYear = parseInt(currentSchoolYear.toYear) + 1;
+    const nextschoolyear = `${nextfromYear}-${nexttoYear}`;
+
+    const students = await Student.findAll({
+      attributes: ["student_id", "firstName", "middleInitial", "lastName"],
+      include: [
+        {
+          model: Enrolls,
+          attributes: ["grade", "section"],
+          where: {
+            schoolYear: schoolYear,
+          },
+          required: true,
+        },
+      ],
+      raw: true,
+    });
     try {
       
       await this.model.addStudent(
@@ -54,7 +84,6 @@ export class AdminContoller extends UserController {
       }
   
       const schoolYear = `${currentSchoolYear.fromYear}-${currentSchoolYear.toYear}`;
-  
       const students = await Student.findAll({
         attributes: ["student_id", "firstName", "middleInitial", "lastName"],
         include: [
@@ -69,10 +98,12 @@ export class AdminContoller extends UserController {
         ],
         raw: true,
       });
-  
+      console.log("Student Added");
       res.render("Admin_Student", {
         message: message,
         students: students,
+        schoolyear: schoolYear,
+        nextschoolyear: nextschoolyear
       });
     } catch (error) {
       console.error(error.message);
@@ -104,6 +135,9 @@ export class AdminContoller extends UserController {
     } else {
       res.render("Admin_User", {
         message: { isSuccess: true, content: "User added successfully!" },
+        students: students,
+        schoolyear: schoolYear,
+        nextschoolyear: nextschoolyear
       });
     }
   }
@@ -122,64 +156,147 @@ export class AdminContoller extends UserController {
     if (!allowed) {
       return res.redirect("/");
     }
+    
+    const currentSchoolYear = await CurrentSchoolYear.findOne({
+      order: [["createdAt", "DESC"]],
+    });
+    const schoolYear = `${currentSchoolYear.fromYear}-${currentSchoolYear.toYear}`;
+    
+    const nextfromYear = parseInt(currentSchoolYear.fromYear) + 1;
+    const nexttoYear = parseInt(currentSchoolYear.toYear) + 1;
+    const nextschoolyear = `${nextfromYear}-${nexttoYear}`;
+
+
+    const students = await Student.findAll({
+      attributes: ["student_id", "firstName", "middleInitial", "lastName"],
+      include: [
+        {
+          model: Enrolls,
+          attributes: ["grade", "section"],
+          where: {
+            schoolYear: schoolYear,
+          },
+          required: true,
+        },
+      ],
+      raw: true,
+    });
 
     try {
-      const currentSchoolYear = await CurrentSchoolYear.findOne({
-        order: [["createdAt", "DESC"]],
-      });
-
       if (!currentSchoolYear) {
         throw new Error("Current school year is not set");
       }
-
-      const schoolYear = `${currentSchoolYear.fromYear}-${currentSchoolYear.toYear}`;
-
-      const students = await Student.findAll({
-        attributes: ["student_id", "firstName", "middleInitial", "lastName"],
-        include: [
-          {
-            model: Enrolls,
-            attributes: ["grade", "section"],
-            where: {
-              schoolYear: schoolYear,
-            },
-            required: true,
-          },
-        ],
-        raw: true,
-      });
 
       if (!students || students.length === 0) {
         return res.render("Admin_Student", {
           students: [],
           message: "No students found for the current school year.",
+          schoolyear: schoolYear,
+          nextschoolyear: nextschoolyear
         });
       }
 
-      res.render("Admin_Student", { students });
+      res.render("Admin_Student", { 
+        students: students,
+        schoolyear: schoolYear,
+        nextschoolyear: nextschoolyear
+       });
     } catch (error) {
       console.error("Error fetching students:", error);
       res.status(500).render("error", {
+        students: students,
         error: "An error occurred while fetching the students.",
+        schoolyear: schoolYear,
+        nextschoolyear: nextschoolyear
       });
     }
   }
+  
+  async addUser(req, res) {
+        const result = await this.model.addUser(req.body.userName, req.body.userPassword, req.body.userType);
 
-  async viewUsers(_, res) {
-    const allowed = await UserController.verifyUserPermission(
-      this.allowedUserType,
-      _
-    );
-    const loggedIn = UserController.checkifloggedIn(_);
+        //repeatable section start---
+        const users = await User.findAll({
+            attributes: ['userName', 'userType'],
+            raw: true
+        });
 
-    if (loggedIn) {
-      if (allowed) {
-        res.render("Admin_User");
-      } else {
-        res.redirect("/");
-      }
-    } else {
-      res.redirect("/");
+        for (let i = 0; i < users.length; i++) {
+            //apply changes to make things human readable
+            if (users[i].userType == 'A') {
+                users[i].userType = 'Admin';
+            } else if (users[i].userType == 'G') {
+                users[i].userType = 'Guidance'
+            } else {
+                console.log("Database Error: No usertype.");
+            }
+        }
+        //repeatable section end--
+
+        if (result.error) {
+            if (result.error.includes("duplicate key error")) {
+                res.render('Admin_User', {
+                    users: users, 
+                    message: { content: "Username already exists!" } });
+            } else {
+                res.render('Admin_User', { 
+                    users: users,
+                    message: { content: "Username already exists!" }  });
+            }
+        } else {
+            res.render('Admin_User', { 
+                message: { isSuccess: true, content: "User added successfully!" },
+                users: users
+            });
+        }
+    }
+   /**
+     * Starts a new school year
+     * @param {Request} req
+     * @param {Response} res
+     */
+
+   async startNewSchoolYear(req, res) {
+    try {
+        const updatedSchoolYear = await this.model.startNewSchoolYear();
+        res.render('Admin_Student', {
+            message: { isSuccess: true, content: 'New school year started successfully!' },
+            schoolYear: `${updatedSchoolYear.fromYear} - ${updatedSchoolYear.toYear}`,
+        });
+    } catch (error) {
+        console.error(error.message);
+        res.render('Admin_Student', {
+            message: { content: error.message },
+        });
     }
   }
-}
+    async viewUsers(_, res) {
+        const allowed = await UserController.verifyUserPermission(this.allowedUserType, _)
+        const loggedIn = UserController.checkifloggedIn(_);
+        const users = await User.findAll({
+            attributes: ['userName', 'userType'],
+            raw: true
+        });
+
+        for (let i = 0; i < users.length; i++) {
+            //apply changes to make things human readable
+            if (users[i].userType == 'A') {
+                users[i].userType = 'Admin';
+            } else if (users[i].userType == 'G') {
+                users[i].userType = 'Guidance'
+            } else {
+                console.log("Database Error: No usertype.");
+            }
+        }
+        
+        if (loggedIn) {
+            if (allowed) {
+                res.render('Admin_User', { users: users });
+            } else {
+                res.redirect('/');
+            }
+        } else {
+            res.redirect('/');
+        }
+    }
+  }
