@@ -2,6 +2,7 @@ import { AdmissionRecord } from "../../schema/admissionrecord.js";
 import { Record } from "../../schema/record.js";
 import { Enrolls } from "../../schema/enrolls.js";
 import { SchoolHistory } from "../../schema/schoolhistory.js";
+import { FamilyData } from "../../schema/familydata.js";
 
 export class GuidanceModel {
     
@@ -60,7 +61,7 @@ export class GuidanceModel {
                 console.log('Record inserted successfully', record);
                 return {record: record};
             } catch(error) {
-                console.log('Error in Model', error);
+                console.log('Error inserting records', error);
                 return {error: error};
             }
         }
@@ -78,9 +79,7 @@ export class GuidanceModel {
     static updateStudentSchoolHistory(id, enteredFrom, gradeLevelEntered, schoolYearAdmitted, otherSchoolsAttended) {
         async function addStudentSchoolHistory() {
             try{
-                const existingSchoolHistory = await SchoolHistory.findOne({
-                    where: {student_id: id}
-                });
+                const existingSchoolHistory = await SchoolHistory.findOne({student_id: id});
                 if(existingSchoolHistory) {
                     const schoolHistory = await SchoolHistory.update({
                         enteredFrom: enteredFrom,
@@ -137,5 +136,92 @@ export class GuidanceModel {
                 }
             }
             return studentRecords;
+        }
+
+        static updateStudentFamilyData(id, studentName, studentBirthday, studentCitizenship, studentAddress_TelOrCpNum, studentOccupation,
+                                        fatherName, fatherBirthday, fatherCitizenship, fatherAddress_TelOrCpNum, fatherOccupation, 
+                                        motherName, motherBirthday, motherCitizenship, motherAddress_TelOrCpNum, motherOccupation,
+                                        guardianName, guardianBirthday, guardianCitizenship, guardianAddress_TelOrCpNum, guardianOccupation,
+                                        totalNumberOfChildren, rankInTheFamily, languageSpokenAtHome, religion, martialStatusofParents) {
+            async function updateStudentFamilyData() {
+                try {
+                    const existingFamilyData = await FamilyData.findOne(
+                        {
+                            where: { student_id: id
+                            }
+                        });
+                    if(existingFamilyData){
+                        const familyData = await FamilyData.update({
+                            studentName: studentName,
+                            studentBirthday: studentBirthday,
+                            studentCitizenship: studentCitizenship,
+                            studentAddress_TelOrCpNum: studentAddress_TelOrCpNum,
+                            studentOccupation: studentOccupation,
+                            fatherName: fatherName,
+                            fatherBirthday: fatherBirthday,
+                            fatherCitizenship: fatherCitizenship,
+                            fatherAddress_TelOrCpNum: fatherAddress_TelOrCpNum,
+                            fatherOccupation: fatherOccupation,
+                            motherName: motherName,
+                            motherBirthday: motherBirthday,
+                            motherCitizenship: motherCitizenship,
+                            motherAddress_TelOrCpNum: motherAddress_TelOrCpNum,
+                            motherOccupation: motherOccupation,
+                            guardianName: guardianName,
+                            guardianBirthday: guardianBirthday,
+                            guardianCitizenship: guardianCitizenship,
+                            guardianAddress_TelOrCpNum: guardianAddress_TelOrCpNum,
+                            guardianOccupation: guardianOccupation,
+                            totalNumberOfChildren: totalNumberOfChildren,
+                            rankInTheFamily: rankInTheFamily,
+                            languageSpokenAtHome: languageSpokenAtHome,
+                            religion: religion,
+                            martialStatusofParents: martialStatusofParents,
+                        }, {
+                            where: {
+                                student_id: id
+                            }
+                        });
+                        console.log('Student family data successfully updated', familydata);
+                        return{familyData: familyData};
+                    } else {
+                        const familyData = await FamilyData.create({
+                            student_id: id,
+                            studentName: studentName,
+                            studentBirthday: studentBirthday,
+                            studentCitizenship: studentCitizenship,
+                            studentAddress_TelOrCpNum: studentAddress_TelOrCpNum,
+                            studentOccupation: studentOccupation,
+                            fatherName: fatherName,
+                            fatherBirthday: fatherBirthday,
+                            fatherCitizenship: fatherCitizenship,
+                            fatherAddress_TelOrCpNum: fatherAddress_TelOrCpNum,
+                            fatherOccupation: fatherOccupation,
+                            motherName: motherName,
+                            motherBirthday: motherBirthday,
+                            motherCitizenship: motherCitizenship,
+                            motherAddress_TelOrCpNum: motherAddress_TelOrCpNum,
+                            motherOccupation: motherOccupation,
+                            guardianName: guardianName,
+                            guardianBirthday: guardianBirthday,
+                            guardianCitizenship: guardianCitizenship,
+                            guardianAddress_TelOrCpNum: guardianAddress_TelOrCpNum,
+                            guardianOccupation: guardianOccupation,
+                            totalNumberOfChildren: totalNumberOfChildren,
+                            rankInTheFamily: rankInTheFamily,
+                            languageSpokenAtHome: languageSpokenAtHome,
+                            religion: religion,
+                            martialStatusofParents: martialStatusofParents,
+
+                        });
+                        console.log('Student family data successfully added', familyData);
+                        return{familyData: familyData};
+                    }
+                } catch (error) {
+                    console.log('Error updating/creating student family data', error);
+                    return{error: error};
+                }
+            }
+            return updateStudentFamilyData();
         }
 }
