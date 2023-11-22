@@ -1,89 +1,89 @@
-html,body {
-    height:100%;
+:root {
+    --yellow: #fdcc0a;
+    --black: #010101;
+    --white: #ffffff;
+    --lightergray: #f2f2f2;
+    --lightgray: #bcbcbc;
+    --darkgray: #797979;
 }
-
-body{
-    background-color: #fdfdfd;
-}
-
-#login-form{
-    width:35%;
-}
-
-#user-view{
-    width:50%;
-}
-
+  
 .navbar {
     position: sticky;
     top: 0;
-    background-color: #ffd966;
-    color: #0A0A0A;
+    background-color: var(--yellow);
 }
 
-#logout-link {
-    color: #ff2222;
+.topbar-links li a{
+    color: var(--white);
 }
 
-#student-link, #user-link{
-    color: #0A0A0A;
-
-#sidebar-links li a{
-    color: #5e5e5e;
-    font-weight: bold;
-}
-
-#topbar-links li a:hover, #sidebar-links li a:hover{
+.topbar-links li a:hover{
+    color: var(--darkgray);
     cursor: pointer;
-    color: #0a58ca;
+    font-weight: 500;
 }
+
 
 .sidebar-links {
-    background-color: #d9d9d9;
-
+    background-color: var(--lightgray);
     & li a {
-        color: #FAFAFA;
+        color: var(--white);
     }
 
     & li:hover {
-        background-color: #ffd966;
+        background-color: var(--yellow);
     }
 
     & li a:hover {
-        color: #FAFAFA;
+        color: var(--white);
+        font-weight: 500;
+    }
+
+    & li a:focus {
+        color: var(--darkgray);
         font-weight: 500;
     }
 }
 
+.nav-link.active {
+    font-weight: 500;
+    color: var(--darkgray);
+    text-decoration: none !important;
+}
+
 
 .data-table {
-    border-color: #d9d9d9;
+    border-color: var(--lightgray);
 }
 
 .table-header {
-    background-color: #ffd966;
-    color: #0A0A0A;
-    font-weight: bold;
+    background-color: var(--darkgray);
+    color: var(--white);
 }
+
 
 .data-table span {
     font-size: 1rem;
-    color: #7f7f7f;
+    color: var(--darkgray);
 }
 
-
 .custom-width-12 {
-    width: 12% !important;
+    width: 12.25% !important;
+}
+
+.data-table {
+    border-color: #d9d9d9;
+
 }
 
 .button-yellow {
-    color: #FAFAFA;
-    background-color: #ffd966;   
+    color: var(--white);
+    background-color: var(--yellow);   
     
     &:hover {
-        background-color: #ffd966;
+        background-color: var(--yellow);
         opacity: 0.5;
-        color: #FAFAFA;
+        color: var(--white);
     }
 
     &:active {
@@ -93,14 +93,15 @@ body{
     }
 }
 
+
 .button-gray {
-    color: #FAFAFA;
-    background-color: #d9d9d9;   
+    color: var(--white);
+    background-color: var(--lightgray);   
     
     &:hover {
-        background-color: #d9d9d9;
+        background-color: var(--lightgray);
         opacity: 0.5;
-        color: #FAFAFA;
+        color: var(--white);
     }
 
     &:active {
@@ -111,40 +112,43 @@ body{
 }
 
 .input-group input.form-control{
-    background-color: #d9d9d9;
+    background-color: var(--white);
     font-size: 1rem;
     height: 100%;
 
     &::placeholder{
-        color: #7f7f7f;
+        color: var(--lightgray);
     }
 
     &:focus {
-        background-color: #d9d9d9;
+        background-color: var(--white);
     }
 
     
     &:focus::placeholder {
-        color: #7f7f7f;
+        color: var(--lightgray);
     }
 }
 
+.input-group-custom input.form-control{
+    background-color: var(--white);
+    border-color: var(--darkgray);
 .input-group-custom input.form-control{
     background-color: #d9d9d9;
     font-size: 1rem;
     height: 100%;
 
     &::placeholder{
-        color: #7f7f7f;
+        color: var(--lightgray);
     }
 
     &:focus {
-        background-color: #d9d9d9;
+        background-color: var(--white);
     }
 
     
     &:focus::placeholder {
-        color: #7f7f7f;
+        color: var(--lightgray);
     }
 }
 
@@ -162,7 +166,7 @@ body{
     background-color: #FCFCFC;
     border: 1px solid #847979;
     animation-name: dismiss-alert;
-    animation-delay: 5s;
+    animation-delay: 2s;
     animation-duration: 0.2s;
     animation-fill-mode: forwards;
 }
@@ -177,44 +181,10 @@ body{
     }
 }
 
-.button-yellow {
-    color: #0A0A0A;
-    background-color: #ffd966;
-
-    &:hover {
-        background-color: #ffd966;
-        opacity: 0.5;
-        color: #FAFAFA;
-    }
-
-    &:active {
-        opacity: 1;
-        background-color: #d9d9d9 !important;
-        color: #FAFAFA !important;
-    }
-}
-
-.button-gray {
-    color: #FAFAFA;
-    background-color: #d9d9d9;
-
-    &:hover {
-        background-color: #d9d9d9;
-        opacity: 0.5;
-        color: #FAFAFA;
-    }
-
-    &:active {
-        opacity: 1;
-        background-color: #7f7f7f !important;
-        color: #FAFAFA !important;
-    }
-}
-
-#form-button-add {
+.form-button-add {
     padding: .5em .75em;
-    background: #ffd966;
-    color: #0A0A0A;
+    background: var(--yellow);
+    color: var(--white);
     border-radius: 6px;
     cursor: pointer;
     user-select: none;
@@ -227,15 +197,17 @@ body{
     
     &:active {
         opacity: 1;
-        background-color: #d9d9d9;
+        background-color: var(--lightgray);
     }
 }
 
   
 .edit-button-div {
     display: none;
-    padding: .5em .75em;
-    color: #7f7f7f;
+    padding: 0em .75em;
+    color: var(--darkgray);
+    border: none;
+
     border-radius: 6px;
     cursor: pointer;
     user-select: none;
@@ -253,6 +225,14 @@ body{
     display: block; 
 }
 
+
+.list-div:nth-child(even) {
+    background-color: var(--lightergray); /* Light gray background for even rows in the second column */
+}
+
+.list-div:nth-child(odd) {
+    background-color: var(--white); /* Default background color for odd rows in the second column */
+}
 .add-button {
     position: absolute; 
     background-color: transparent; 
@@ -260,69 +240,49 @@ body{
     border: none;
 }
 
-  .mx-half {
+.mx-half {
     padding-right: 0.75rem; 
     padding-left: 0.75rem; 
 }
 
 .dropdown-button {
-    background-color: #7f7f7f;
+    background-color: var(--darkgray);
 }
 
 .student-form input{
-    background-color: #d9d9d9;
+    background-color: var(--lightgray);
     font-size: 11px;
 
     &::placeholder{
-        color: #7f7f7f;
+        color: var(--darkgray);
     }
 
     &:focus {
-        background-color: #d9d9d9;
-        font-size: 11px;
-    }
+        background-color: var(--lightgray);
  
     &:focus::placeholder {
-        color: #7f7f7f;
+        color: var(--darkgray);
     }
 }
 
 .search-form input{
-    background-color: #FAFAFA;
+    background-color: var(--white);
     font-size: 11px;
 
     &::placeholder{
-        color: #7f7f7f;
+        color: var(--darkgray);
     }
 
     &:focus {
-        background-color: #FAFAFA;
+        background-color: var(--white);
         font-size: 11px;
     }
  
     &:focus::placeholder {
-        color: #7f7f7f;
+        color: var(--darkgray);
     }
 }
-
-#form-button-add {
-    padding: .5em .75em;
-    background: #ffd966;
-    color: #FAFAFA;
-    border-radius: 6px;
-    cursor: pointer;
-    user-select: none;
   
-    &:hover {
-        opacity: 0.5;    
-    }
-  
-    &:active {
-        opacity: 1;
-      background-color: #d9d9d9;
-    }
-}
-
 .checkbox-dropdown {
     background-color: #d9d9d9 !important;
     border: 0;
@@ -346,27 +306,60 @@ body{
       }
 }
 
-.greyed-out {
+#form-button-add {
+    padding: .5em .75em;
+    background: var(--yellow);
+    color: var(--white);
+    border-radius: 6px;
+    cursor: pointer;
+    user-select: none;
+  
+    &:hover {
+        opacity: 0.5;    
+    }
+  
+    &:active {
+        opacity: 1;
+      background-color: var(--lightgray);
+    }
+}
+
+.checkbox-dropdown {
+    background-color: #d9d9d9 !important;
+    border: 0;
+  
+    &:hover {
+        opacity: 0.5;    
+    }
+  
+    &:active {
+        background-color: #d9d9d9 !important;
+    }
+
+    &:focus {
+      background-color: var(--lightgray);
+      border: none;
+    }
+
+    &:visited {
+        background-color: var(--lightgray);
+        border: none;
+      }
+}
+
+  .add-admission-button {
+    font-size: 11px;
+  }
+
+  .form-check-label {
+    font-size: 11px;
+  }
+  
+  .greyed-out {
     opacity: 0.6; 
     pointer-events: none; 
 }
  #login-button{
     color: black;
     background-color: #FFD700;
-
-    border-radius: 6px;
-    cursor: pointer;
-    user-select: none;
-    transition: 0.2s;
-    font-weight: bold; 
-  
-    &:hover {
-        opacity: 0.5;
-        transition: 0.2s; 
-    }
-    
-    &:active {
-        opacity: 1;
-        background-color: #d9d9d9;
-    }
 }

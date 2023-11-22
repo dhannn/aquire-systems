@@ -14,34 +14,42 @@ export class AdminModel {
      * @param {string} type 
      */
     addUser(username, password, type) {
-
         async function insertUser() {
-
-          const saltRounds = 10; 
-          const hashedPassword = await bcrypt.hash(password, saltRounds);
-          const uuid = uuidv4();
-          try {
-            const newUser = await User.create({
-              userId: uuid,
-              userName: username,
-              userPassword: hashedPassword,
-              userType: type
-            });
-            return { user: newUser, error: null };
-          } catch (error) {
-            console.error('Error inserting user:', error);
-            return { user: null, error: error.message };
-          }
-          
-          }
-          return insertUser();
-      
+            const saltRounds = 10;
+            const hashedPassword = await bcrypt.hash(password, saltRounds);
+            const uuid = uuidv4();
+            try {
+                const newUser = await User.create({
+                    userId: uuid,
+                    userName: username,
+                    userPassword: hashedPassword,
+                    userType: type,
+                });
+                return { user: newUser, error: null };
+            } catch (error) {
+                console.error('Error inserting user:', error);
+                return { user: null, error: error.message };
+            }
+        }
+        return insertUser();
     }
 
-  /**
-   * Inserts the user to the database
-   */
-  viewUsers() {}
+    // updateCurrentSchoolYear method
+    async updateCurrentSchoolYear(fromYear, toYear) {
+        try {
+            // Update the current school year range in the CurrentSchoolYear table
+            await CurrentSchoolYear.create({ fromYear, toYear }, { upsert: true });
+            return { fromYear, toYear };
+        } catch (error) {
+            console.error('Error updating the current school year:', error);
+            throw error;
+        }
+    }
+
+    /**
+     * Inserts the user to the database
+     */
+    viewUsers() {}
 
   /**
    * Inserts the student to the database
@@ -158,5 +166,26 @@ export class AdminModel {
         console.error('Error starting new school year:', error);
         throw error;
     }
+ }
+
+/*
+  async updateCurrentSchoolYear(fromYear, toYear) {
+    try {
+        // Update the current school year range in the CurrentSchoolYear table
+        const [updatedRows] = await CurrentSchoolYear.update(
+            { fromYear, toYear },
+            { where: {} }
+        );
+
+        if (updatedRows === 0) {
+            throw new Error('Failed to update the current school year');
+        }
+
+        return { fromYear, toYear };
+    } catch (error) {
+        console.error('Error updating the current school year:', error);
+        throw error;
+    }
+    */
   }
 }

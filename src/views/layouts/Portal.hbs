@@ -19,8 +19,8 @@
         {{> Message message=message}}
     {{/if}}
     
-    <div class="d-flex flex-column h-100 w-100 justify-content-center align-item-center">
-        <form id="login-form" action="/login" method="POST" class="p-5 border bg-light mx-auto">
+    <div class="d-flex flex-column justify-content-center align-item-center vh-100">
+        <form id="login-form" action="/login" method="POST" class="p-5 w-25 border rounded-2 bg-light mx-auto">
             <h2 class="fw-bolder fs-2 text-center"> AquiRe</h2>
             <h6 class="text-center">Aquinian Records</h6>
                 <div class= "mb-3">
@@ -34,7 +34,7 @@
                 </div>
                 
                 <div class="d-grid gap-2">
-                    <input id="login-button" class="btn btn-md btn-primary" type="submit" value="Log In"  onclick="hideAddUser()">
+                    <input id="login-button" class="btn button-yellow" type="submit" value="Log In"  onclick="hideAddUser()">
                 </div>
         </form>
     </div>
