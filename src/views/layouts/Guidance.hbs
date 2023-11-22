@@ -156,7 +156,344 @@
                 <form id="cummulative-form" method="POST" action="/guidance/cummulative">
                 <input type="hidden" name="student_id" id="studentIdField">
                 <div class="health-record">
+                    {{!-- <div class = "family-data">
+                        <h5>I.FAMILY DATA</h5>
+                        <div class="container-fluid">
+                            <div class="row mt-3 table-header-cr">
+                                <div class="col-2 border border-gray p-2">
+                                    <span>NAME (Last, First, Middle, Ext)</span>
+                                </div>
+                                <div class="col-2 border border-gray p-2">
+                                    <span>Birthday (MM/DD/YYYY)</span>
+                                </div>
+                                <div class="col-2 border border-gray p-2">
+                                    <span>Citizenship</span>
+                                </div>
+                                <div class="col-4 border border-gray p-2">
+                                    <span>Address/Tel or Cp No.</span>
+                                </div>
+                                <div class="col-2 border border-gray p-2">
+                                    <span>Occupation</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mx-half mb-0 input-group-custom-cr">
+                            <div class="col-2 px-0">
+                                <input required name="student_name" type="text"
+                                    class="form-control rounded-0 border border-gray" placeholder="Student" />
+                            </div>
+                            <div class="col-2 px-0">
+                                <input required name="student_birthday" type="text"
+                                    class="form-control rounded-0 border border-gray" placeholder="" />
+                            </div>
+                            <div class="col-2 px-0">
+                                <input required name="student_citizenship" type="text"
+                                    class="form-control rounded-0 border border-gray" placeholder="" />
+                            </div>
+                            <div class="col-4 px-0">
+                                <input name="student_address" type="text" class="form-control rounded-0 border border-gray"
+                                    placeholder="" />
+                            </div>
+                            <div class="col-2 px-0">
+                                <input required name="student_occupation" type="text" class="form-control rounded-0 border border-gray"
+                                    placeholder="" />
+                            </div>
+                        </div>
+                        <div class="row mx-half mb-0 input-group-custom-cr">
+                            <div class="col-2 px-0">
+                                <input required name="father_name" type="text"
+                                    class="form-control rounded-0 border border-gray" placeholder="Father" />
+                            </div>
+                            <div class="col-2 px-0">
+                                <input required name="father_birthday" type="text"
+                                    class="form-control rounded-0 border border-gray" placeholder="" />
+                            </div>
+                            <div class="col-2 px-0">
+                                <input required name="father_citizenship" type="text"
+                                    class="form-control rounded-0 border border-gray" placeholder="" />
+                            </div>
+                            <div class="col-4 px-0">
+                                <input name="father_address" type="text" class="form-control rounded-0 border border-gray"
+                                    placeholder="" />
+                            </div>
+                            <div class="col-2 px-0">
+                                <input required name="father_occupation" type="text" class="form-control rounded-0 border border-gray"
+                                    placeholder="" />
+                            </div>
+                        </div>
+                        <div class="row mx-half mb-0 input-group-custom-cr">
+                            <div class="col-2 px-0">
+                                <input required name="mother_name" type="text"
+                                    class="form-control rounded-0 border border-gray" placeholder="Mother" />
+                            </div>
+                            <div class="col-2 px-0">
+                                <input required name="mother_birthday" type="text"
+                                    class="form-control rounded-0 border border-gray" placeholder="" />
+                            </div>
+                            <div class="col-2 px-0">
+                                <input required name="mother_citizenship" type="text"
+                                    class="form-control rounded-0 border border-gray" placeholder="" />
+                            </div>
+                            <div class="col-4 px-0">
+                                <input name="mother_address" type="text" class="form-control rounded-0 border border-gray"
+                                    placeholder="" />
+                            </div>
+                            <div class="col-2 px-0">
+                                <input required name="mother_occupation" type="text" class="form-control rounded-0 border border-gray"
+                                    placeholder="" />
+                            </div>
+                        </div>
+                        <div class="row mx-half mb-0 input-group-custom-cr">
+                            <div class="col-2 px-0">
+                                <input required name="guardian_name" type="text"
+                                    class="form-control rounded-0 border border-gray" placeholder="Guardian" />
+                            </div>
+                            <div class="col-2 px-0">
+                                <input required name="guardian_birthday" type="text"
+                                    class="form-control rounded-0 border border-gray" placeholder="" />
+                            </div>
+                            <div class="col-2 px-0">
+                                <input required name="guardian_citizenship" type="text"
+                                    class="form-control rounded-0 border border-gray" placeholder="" />
+                            </div>
+                            <div class="col-4 px-0">
+                                <input name="guardian_address" type="text" class="form-control rounded-0 border border-gray"
+                                    placeholder="" />
+                            </div>
+                            <div class="col-2 px-0">
+                                <input required name="guardian_occupation" type="text" class="form-control rounded-0 border border-gray"
+                                    placeholder="" />
+                            </div>
+                        </div>
+
+                        <div class="row my-3">
+                            <div class="col-4">
+                                <div class="form-group row">
+                                    <label for="totalChildren" class="col-7 col-form-label">Total Number of Children</label>
+                                    <div class="col-3">
+                                        <input type="number" class="form-control" id="totalChildren" value="">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="rankFamily" class="col-7 col-form-label">Rank in the Family</label>
+                                    <div class="col-3">
+                                        <input type="number" class="form-control" id="rankFamily" value="">
+                                    </div>
+                                </div>
+                            </div>
+                                <div class="col-4">
+                                <label>Language Spoken at Home</label>
+                                <div>
+                                    <label>
+                                        <input type="radio" name="spokenLanguage" value="tagalog">
+                                        Tagalog
+                                    </label>
+                                </div>
+                                <div>
+                                    <label>
+                                        <input type="radio" name="spokenLanguage" value="others">
+                                        Others
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <label>Religion</label>
+                                <div>
+                                    <label>
+                                        <input type="radio" name="religion" value="catholic">
+                                        Catholic
+                                    </label>
+                                </div>
+                                <div>
+                                    <label>
+                                        <input type="radio" name="religion" value="others">
+                                        Others
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="row my-3">
+                            <div class="col-4">
+                                <label class="">Martial Status of Parents</label>
+                                <div>
+                                    <label>
+                                        <input type="radio" name="parentStatus" value="married">
+                                        Married
+                                    </label>
+                                </div>
+                                <div>
+                                    <label>
+                                        <input type="radio" name="parentStatus" value="singleParent">
+                                        Single Parent
+                                    </label>
+                                </div>
+                                <div>
+                                    <label>
+                                        <input type="radio" name="parentStatus" value="separated">
+                                        Separated
+                                    </label>
+                                </div>
+                                <div>
+                                    <label>
+                                        <input type="radio" name="parentStatus" value="deceased">
+                                        Father/Mother Deceased
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>  --}}
+
                     <p>II. HEALTH RECORD</p>
+                        <div class="container-fluid">
+                                <div class="row mt-3 table-header-cr">
+                                    <div class="col border border-gray p-2">
+                                        <span></span>
+                                    </div>
+                                    <div class="col border border-gray p-2">
+                                        <span>Grade 7</span>
+                                    </div>
+                                    <div class="col border border-gray p-2">
+                                        <span>Grade 8</span>
+                                    </div>
+                                    <div class="col border border-gray p-2">
+                                        <span>Grade 9</span>
+                                    </div>
+                                    <div class="col border border-gray p-2">
+                                        <span>Grade 10</span>
+                                    </div>
+                                    <div class="col border border-gray p-2">
+                                        <span>Grade 11</span>
+                                    </div>
+                                    <div class="col border border-gray p-2">
+                                        <span>Grade 12</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mx-half mb-0 input-group-custom-cr">
+                                <div class="col px-0">
+                                    <input name="" type="text"
+                                        class="form-control rounded-0 border border-gray" placeholder="Vision" readonly="readonly"/>
+                                </div>
+                                <div class="col px-0">
+                                    <input name="grade7Vision" type="text"
+                                        class="form-control rounded-0 border border-gray" placeholder="" id="grade7Vision"/>
+                                </div>
+                                <div class="col px-0">
+                                    <input name="grade8Vision" type="text"
+                                        class="form-control rounded-0 border border-gray" placeholder="" id="grade8Vision"/>
+                                </div>
+                                <div class="col px-0">
+                                    <input name="grade9Vision" type="text"
+                                        class="form-control rounded-0 border border-gray" placeholder="" id="grade9Vision"/>
+                                </div>
+                                <div class="col px-0">
+                                    <input name="grade10Vision" type="text" class="form-control rounded-0 border border-gray"
+                                        placeholder="" id="grade10Vision"/>
+                                </div>
+                                <div class="col px-0">
+                                    <input name="grade11Vision" type="text" class="form-control rounded-0 border border-gray"
+                                        placeholder="" id="grade11Vision"/>
+                                </div>
+                                <div class="col px-0">
+                                    <input name="grade12Vision" type="text" class="form-control rounded-0 border border-gray"
+                                        placeholder="" id="grade12Vision"/>
+                                </div>
+                            </div>
+                            <div class="row mx-half mb-0 input-group-custom-cr">
+                                <div class="col px-0">
+                                    <input name="" type="text"
+                                        class="form-control rounded-0 border border-gray" placeholder="Height" readonly="readonly"/>
+                                </div>
+                                <div class="col px-0">
+                                    <input name="grade7Height" type="text"
+                                        class="form-control rounded-0 border border-gray" placeholder="" id="grade7Height"/>
+                                </div>
+                                <div class="col px-0">
+                                    <input name="grade8Height" type="text"
+                                        class="form-control rounded-0 border border-gray" placeholder="" id="grade8Height"/>
+                                </div>
+                                <div class="col px-0">
+                                    <input name="grade9Height" type="text"
+                                        class="form-control rounded-0 border border-gray" placeholder="" id="grade9Height"/>
+                                </div>
+                                <div class="col px-0">
+                                    <input name="grade10Height" type="text" class="form-control rounded-0 border border-gray"
+                                        placeholder="" id="grade10Height"/>
+                                </div>
+                                <div class="col px-0">
+                                    <input name="grade11Height" type="text" class="form-control rounded-0 border border-gray"
+                                        placeholder="" id="grade11Height"/>
+                                </div>
+                                <div class="col px-0">
+                                    <input name="grade12Height" type="text" class="form-control rounded-0 border border-gray"
+                                        placeholder="" id="grade12Height"/>
+                                </div>
+                            </div>
+                            <div class="row mx-half mb-0 input-group-custom-cr">
+                                <div class="col px-0">
+                                    <input name="" type="text"
+                                        class="form-control rounded-0 border border-gray" placeholder="Weight" readonly="readonly"/>
+                                </div>
+                                <div class="col px-0">
+                                    <input name="grade7Weight" type="text"
+                                        class="form-control rounded-0 border border-gray" placeholder="" id="grade7Weight"/>
+                                </div>
+                                <div class="col px-0">
+                                    <input name="grade8Weight" type="text"
+                                        class="form-control rounded-0 border border-gray" placeholder="" id="grade8Weight"/>
+                                </div>
+                                <div class="col px-0">
+                                    <input name="grade9Weight" type="text"
+                                        class="form-control rounded-0 border border-gray" placeholder="" id="grade9Weight"/>
+                                </div>
+                                <div class="col px-0">
+                                    <input name="grade10Weight" type="text" class="form-control rounded-0 border border-gray"
+                                        placeholder="" id="grade10Weight"/>
+                                </div>
+                                <div class="col px-0">
+                                    <input name="grade11Weight" type="text" class="form-control rounded-0 border border-gray"
+                                        placeholder="" id="grade11Weight"/>
+                                </div>
+                                <div class="col px-0">
+                                    <input name="grade12Weight" type="text" class="form-control rounded-0 border border-gray"
+                                        placeholder="" id="grade12Weight"/>
+                                </div>
+                            </div>
+                            <div class="row mx-half mb-0 input-group-custom-cr">
+                                <div class="col px-0">
+                                    <input name="" type="text"
+                                        class="form-control rounded-0 border border-gray" placeholder="Special Condition" readonly="readonly"/>
+                                </div>
+                                <div class="col px-0">
+                                    <input name="grade7SpecialCondition" type="text"
+                                        class="form-control rounded-0 border border-gray" placeholder="" id="grade7SpecialCondition"/>
+                                </div>
+                                <div class="col px-0">
+                                    <input name="grade8SpecialCondition" type="text"
+                                        class="form-control rounded-0 border border-gray" placeholder="" id="grade8SpecialCondition"/>
+                                </div>
+                                <div class="col px-0">
+                                    <input name="grade9SpecialCondition" type="text"
+                                        class="form-control rounded-0 border border-gray" placeholder="" id="grade9SpecialCondition"/>
+                                </div>
+                                <div class="col px-0">
+                                    <input name="grade10SpecialCondition" type="text" class="form-control rounded-0 border border-gray"
+                                        placeholder="" id="grade10SpecialCondition"/>
+                                </div>
+                                <div class="col px-0">
+                                    <input name="grade11SpecialCondition" type="text" class="form-control rounded-0 border border-gray"
+                                        placeholder="" id="grade11SpecialCondition"/>
+                                </div>
+                                <div class="col px-0">
+                                    <input name="grade12SpecialCondition" type="text" class="form-control rounded-0 border border-gray"
+                                        placeholder="" id="grade12SpecialCondition"/>
+                                </div>
+                            </div>
+
+
+
+{{!-- 
                     <p>II-a. Grade 7</p>
                     <div class="form-row-cr">
                         <input type="hidden" name="healthRecordGrade7" id="healthRecordGrade7" value="Grade 7">
@@ -277,8 +614,8 @@
                             <label for="grade12SpecialCondition">Special Condition:</label>
                             <input class= "SH long" type="text" id="grade12SpecialCondition" name="grade12SpecialCondition"  value="">
                         </div>
-                </div>
-                <div class = "school-history">
+                </div> --}}
+                {{!-- <div class = "school-history">
                     <p>III. SCHOOL HISTORY</p>
                         <div class="form-row-cr">
                             <div class="form-group-cr">
@@ -307,7 +644,7 @@
                             <input class= "SH long"type="text" id="etc" name="Name" required>
                         </div>
                         -->
-                </div>
+                </div> --}}
 
 
 
