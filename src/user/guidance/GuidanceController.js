@@ -86,8 +86,8 @@ export class GuidanceController extends UserController {
     async updateStudentCummulativeRecord(req, res) {
         try{
             console.log(req.body);
-            this.updateStudentSchoolHistory(req, res);
-            this.updateStudentFamilyData(req, res);
+            const schoolHistoryError = await this.updateStudentSchoolHistory(req, res);
+            const familyDataError = await this.updateStudentFamilyData(req, res);
             const studentRecords = await GuidanceModel.StudentRecords();
             res.render('Guidance', {message: {isSuccess: true, content: 'Student Cummulative Record updated!'}, studentRecords: studentRecords})
         } catch (error) {
@@ -99,6 +99,9 @@ export class GuidanceController extends UserController {
     async updateStudentSchoolHistory(req, res) {
         try {
             const newSchoolHistory = await GuidanceModel.updateStudentSchoolHistory(req.body.student_id, req.body.enteredFrom, req.body.gradeLevelEntered, req.body.schoolYearAdmitted, req.body.otherSchoolsAttended);
+            if(newSchoolHistory.error){
+                return {error: newSchoolHistory.error};
+            }
         } catch (error) {
             const studentRecords = await GuidanceModel.StudentRecords();
             res.render('Guidance', {message: {content: error.message}, studentRecords: studentRecords});
@@ -159,6 +162,9 @@ export class GuidanceController extends UserController {
                                                                                 req.body.guardian_name, req.body.guardian_birthday, req.body.guardian_citizenship, req.body.guardian_address,
                                                                                 req.body.guardian_occupation, req.body.totalChildren, req.body.rankFamily, req.body.spokenLanguage,
                                                                                 req.body.religion, req.body.parentStatus);
+            if(newFamilyData.error){
+                return {error: newFamilyData.error};
+            }
         } catch (error) {
             console.log('Error updating/creating student family data', error);
         }
