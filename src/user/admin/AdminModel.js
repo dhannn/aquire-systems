@@ -167,8 +167,6 @@ export class AdminModel {
         throw error;
     }
  }
-
-/*
   async updateCurrentSchoolYear(fromYear, toYear) {
     try {
         // Update the current school year range in the CurrentSchoolYear table
@@ -186,5 +184,5 @@ export class AdminModel {
         console.error('Error updating the current school year:', error);
         throw error;
     }
-    */
+  }
 }
