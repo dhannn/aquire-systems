@@ -12,7 +12,7 @@ export const AnecdotalRecord = sequelize.define('AnecdotalRecord', {
     },
     student_id: {
         type: DataTypes.STRING,
-        allowNull: true,
+        allowNull: false,
         references: {
             model: Student,
             key: 'student_id',
@@ -23,9 +23,9 @@ export const AnecdotalRecord = sequelize.define('AnecdotalRecord', {
         allowNull: true,
     },
     anecdotalRecord: {
-        type: DataTypes.STRING, // or any other data type
-        allowNull: true, // Allow null values
-        defaultValue: '' // Set a default value
+        type: DataTypes.STRING, 
+        allowNull: true, 
+        defaultValue: '' 
     },
 });
 

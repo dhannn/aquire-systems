@@ -142,23 +142,30 @@ export class GuidanceModel {
 
         // ...
 
-        static async addAnecdotalRecord(id, date, anecdotalRecord) {
+        static async addAnecdotalRecord(student_id, date, anecdotalRecord) {
             try {
-                console.log('Received Student ID:', id);
+                console.log('Received Student ID:', student_id);
+        
+                if (!student_id) {
+                    console.error('Student ID is empty or undefined');
+                    return { error: 'Student ID is empty or undefined' };
+                }
         
                 // Check if the student_id exists in the Student table
-                const existingStudent = await Student.findOne({ where: { student_id: id } });
+                const existingStudent = await Student.findOne({ where: { student_id } });
+                console.log('Existing Student:', existingStudent);
         
                 if (!existingStudent) {
                     // Handle case where the student_id doesn't exist
                     console.error('Student ID does not exist');
                     return { error: 'Student ID does not exist' };
                 }
-        
+                
+                console.log('Received Date:', date);
                 const newAnecdotalRecord = await AnecdotalRecord.create({
-                    student_id: id,
+                    student_id,
                     date: date,
-                    anecdotalRecord: anecdotalRecord
+                    anecdotalRecord
                 });
         
                 console.log('Anecdotal Record inserted successfully', newAnecdotalRecord);
@@ -168,6 +175,8 @@ export class GuidanceModel {
                 return { error: error.message };
             }
         }
+        
+        
         
 
 

@@ -169,7 +169,7 @@
 
 
                         <div class="form-group-ar mt-4 mb-4">
-                            <textarea required class="form-control" id="anecdotalRecord" placeholder="Add text here" rows="6"></textarea>
+                            <textarea required class="form-control" id="anecdotalRecord" name = "anecdotalRecord" placeholder="Add text here" rows="6"></textarea>
                         </div>  
 
                     </div>
@@ -363,6 +363,7 @@
                 xhr.onerror = function() {
                     console.error('Request Error...');
                 };
+                console.log('Base Student ID for Cumulative Records:', baseStudentId);
                 xhr.send(JSON.stringify({textData: baseStudentId}));
             }, 500);
         });
@@ -374,34 +375,41 @@
         document.getElementById('studentIdField').value = baseStudentId;
      });
 //_____________________________________________________________________
-     document.addEventListener('DOMContentLoaded', function() {
-            var timeout = null;
+    document.addEventListener('DOMContentLoaded', function() {
+    var timeout = null;
 
-            document.getElementById('studentId-cummilative-anecdotal').addEventListener('keyup', function () {
-                clearTimeout(timeout);
-                timeout = setTimeout(function() {
-                    var anecdotalModal = document.getElementById('modal_anecdotal');
-                    var modal = new bootstrap.Modal(anecdotalModal);
-                    modal.show();
-                }, 500);
-            });
+    document.getElementById('add_anecdotal_record').addEventListener('click', function(event) {
+        event.preventDefault();
 
-            document.getElementById('edit_cummulative_record').addEventListener('click', function () {
-                event.preventDefault();
-                const baseStudentId = document.getElementById('studentId-cummilative-anecdotal').value;
-                document.getElementById('studentIdField').value = baseStudentId;
-                document.getElementById('cummulative-form').submit();
-            });
+        const baseStudentId = document.getElementById('studentId-cummilative-anecdotal').value;
+        let currentDate = new Date().toISOString().slice(0, 19).replace('T', ' '); // Get current date in YYYY-MM-DD HH:MM:SS format
+        console.log('Base Student ID for Anecdotal Record:', baseStudentId);
+        console.log('Current Date:', currentDate);
 
-            document.getElementById('add_anecdotal_record').addEventListener('click', function () {
-                event.preventDefault();
-                const baseStudentId = document.getElementById('studentId-cummilative-anecdotal').value;
-                 const currentDate = new Date().toISOString().slice(0, 19).replace('T', ' '); // Get current date in YYYY-MM-DD HH:MM:SS format
-                document.getElementById('studentIdField').value = baseStudentId;
-                document.getElementById('dateField').value = currentDate;
-                document.getElementById('anecdotal-form').submit();
-            });
-        });
+        document.getElementById('studentIdField').value = baseStudentId;
+
+        // Check if currentDate is empty or invalid date format, and provide a default value if needed
+        if (!currentDate || currentDate.trim() === '' || !isValidDate(currentDate)) {
+            // Set a default date or handle this case according to your requirements
+            currentDate = new Date().toISOString().slice(0, 19).replace('T', ' ');
+        }
+
+        // Now, assign the validated currentDate value to the form field
+        document.getElementById('dateField').value = currentDate;
+
+
+        const anecdotalRecordText = document.getElementById('anecdotalRecord').value;
+        console.log('Anecdotal Record Text:', anecdotalRecordText);
+
+        // Assign the anecdotal record text to the form field
+        document.getElementById('anecdotalRecord').setAttribute('name', 'anecdotalRecord');
+        document.getElementById('anecdotalRecord').setAttribute('value', anecdotalRecordText);
+        document.getElementById('anecdotal-form').submit();
+    });
+});
+
+
+
     </script>
         
 </body>
