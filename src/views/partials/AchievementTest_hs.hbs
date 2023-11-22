@@ -1,0 +1,220 @@
+<div class="RecordOfTestResults_Achievement_Test_{{index}}">
+    <div class="row g-3">
+        <div class="col-sm-6">
+            <div class="row g-2">
+                <div class="col-auto">
+                    <label for="typeOfTestInput{{index}}" class="col-form-label">TYPE OF TEST:</label>
+                </div>
+                <div class="col">
+                    <input type="text" name="test_type_AI_test_{{index}}" class="form-control" id="typeOfTestInput{{index}}" aria-label="Type of Test">
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="row g-2">
+                <div class="col-auto">
+                    <label for="dateInput{{index}}" class="col-form-label">DATE:</label>
+                </div>
+                <div class="col">
+                    <input type="text" name="date_AI_test_{{index}}" class="form-control" id="dateInput{{index}}" aria-label="Date">
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="row g-2">
+                <div class="col-auto">
+                    <label for="gradeLevelInput{{index}}" class="col-form-label">GRADE LEVEL:</label>
+                </div>
+                <div class="col">
+                    <input type="text" name="grade_level_AI_test_{{index}}" class="form-control" id="gradeLevelInput{{index}}" aria-label="Grade Level">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="row mt-3 table-header-cr">
+            <div class="col-2 border border-gray p-2">
+                <span>Subject</span>
+            </div>
+            <div class="col-2 border border-gray p-2">
+                <span>Raw Score</span>
+            </div>
+            <div class="col-2 border border-gray p-2">
+                <span>Scaled Score</span>
+            </div>
+            <div class="col-2 border border-gray p-2">
+                <span>%ile</span>
+            </div>
+            <div class="col-2 border border-gray p-2">
+                <span>Stanine</span>
+            </div>
+            <div class="col-2 border border-gray p-2">
+                <span>Remarks</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Example for one subject entry, repeat for others as needed -->
+    <div class="row mx-half mb-0 input-group-custom-cr">
+        <div class="col-2 border border-gray p-2">
+            <span>Reading</span>
+        </div>
+        <div class="col-2 px-0">
+            <input required name="reading_rawscore_{{index}}" type="text" class="form-control rounded-0 border border-gray" placeholder="" />
+        </div>
+        <div class="col-2 px-0">
+            <input required name="reading_scaledscore_{{index}}" type="text" class="form-control rounded-0 border border-gray" placeholder="" />
+        </div>
+         <div class="col-2 px-0">
+            <input required name="reading_%ile_{{index}}" type="text" class="form-control rounded-0 border border-gray"
+                placeholder="" />
+        </div>
+        <div class="col-2 px-0">
+            <input required name="reading_stanine_{{index}}" type="text" class="form-control rounded-0 border border-gray"
+                placeholder="" />
+        </div>
+        <div class="col-2 px-0">
+            <input required name="reading_remarks_{{index}}" type="text" class="form-control rounded-0 border border-gray"
+                placeholder="" />
+        </div>
+    </div>
+    <div class="row mx-half mb-0 input-group-custom-cr">
+        <div class="col-2 border border-gray p-2">
+            <span>Language</span>
+        </div>
+        <div class="col-2 px-0">
+            <input required name="language_rawscore_{{index}}" type="text" class="form-control rounded-0 border border-gray" placeholder="" />
+        </div>
+        <div class="col-2 px-0">
+            <input required name="language_scaledscore_{{index}}" type="text" class="form-control rounded-0 border border-gray" placeholder="" />
+        </div>
+         <div class="col-2 px-0">
+            <input required name="language_%ile_{{index}}" type="text" class="form-control rounded-0 border border-gray"
+                placeholder="" />
+        </div>
+        <div class="col-2 px-0">
+            <input required name="language_stanine_{{index}}" type="text" class="form-control rounded-0 border border-gray"
+                placeholder="" />
+        </div>
+        <div class="col-2 px-0">
+            <input required name="language_remarks_{{index}}" type="text" class="form-control rounded-0 border border-gray"
+                placeholder="" />
+        </div>
+    </div>
+    <div class="row mx-half mb-0 input-group-custom-cr">
+        <div class="col-2 border border-gray p-2">
+            <span>English</span>
+        </div>
+        <div class="col-2 px-0">
+            <input required name="english_rawscore_{{index}}" type="text" class="form-control rounded-0 border border-gray" placeholder="" />
+        </div>
+        <div class="col-2 px-0">
+            <input required name="english_scaledscore_{{index}}" type="text" class="form-control rounded-0 border border-gray" placeholder="" />
+        </div>
+         <div class="col-2 px-0">
+            <input required name="english_%ile_{{index}}" type="text" class="form-control rounded-0 border border-gray"
+                placeholder="" />
+        </div>
+        <div class="col-2 px-0">
+            <input required name="english_stanine_{{index}}" type="text" class="form-control rounded-0 border border-gray"
+                placeholder="" />
+        </div>
+        <div class="col-2 px-0">
+            <input required name="english_remarks_{{index}}" type="text" class="form-control rounded-0 border border-gray"
+                placeholder="" />
+        </div>
+    </div>
+    <div class="row mx-half mb-0 input-group-custom-cr">
+        <div class="col-2 border border-gray p-2">
+            <span>Filipino</span>
+        </div>
+        <div class="col-2 px-0">
+            <input required name="filipino_rawscore_{{index}}" type="text" class="form-control rounded-0 border border-gray" placeholder="" />
+        </div>
+        <div class="col-2 px-0">
+            <input required name="filipino_scaledscore_{{index}}" type="text" class="form-control rounded-0 border border-gray" placeholder="" />
+        </div>
+         <div class="col-2 px-0">
+            <input required name="filipino_%ile_{{index}}" type="text" class="form-control rounded-0 border border-gray"
+                placeholder="" />
+        </div>
+        <div class="col-2 px-0">
+            <input required name="filipino_stanine_{{index}}" type="text" class="form-control rounded-0 border border-gray"
+                placeholder="" />
+        </div>
+        <div class="col-2 px-0">
+            <input required name="filipino_remarks_{{index}}" type="text" class="form-control rounded-0 border border-gray"
+                placeholder="" />
+        </div>
+    </div>
+    <div class="row mx-half mb-0 input-group-custom-cr">
+        <div class="col-2 border border-gray p-2">
+            <span>Mathematics</span>
+        </div>
+        <div class="col-2 px-0">
+            <input required name="mathematics_rawscore_{{index}}" type="text" class="form-control rounded-0 border border-gray" placeholder="" />
+        </div>
+        <div class="col-2 px-0">
+            <input required name="mathematics_scaledscore_{{index}}" type="text" class="form-control rounded-0 border border-gray" placeholder="" />
+        </div>
+         <div class="col-2 px-0">
+            <input required name="mathematics_%ile_{{index}}" type="text" class="form-control rounded-0 border border-gray"
+                placeholder="" />
+        </div>
+        <div class="col-2 px-0">
+            <input required name="mathematics_stanine_{{index}}" type="text" class="form-control rounded-0 border border-gray"
+                placeholder="" />
+        </div>
+        <div class="col-2 px-0">
+            <input required name="mathematics_remarks_{{index}}" type="text" class="form-control rounded-0 border border-gray"
+                placeholder="" />
+        </div>
+    </div>
+    <div class="row mx-half mb-0 input-group-custom-cr">
+        <div class="col-2 border border-gray p-2">
+            <span>Science</span>
+        </div>
+        <div class="col-2 px-0">
+            <input required name="science_rawscore_{{index}}" type="text" class="form-control rounded-0 border border-gray" placeholder="" />
+        </div>
+        <div class="col-2 px-0">
+            <input required name="science_scaledscore_{{index}}" type="text" class="form-control rounded-0 border border-gray" placeholder="" />
+        </div>
+         <div class="col-2 px-0">
+            <input required name="science_%ile_{{index}}" type="text" class="form-control rounded-0 border border-gray"
+                placeholder="" />
+        </div>
+        <div class="col-2 px-0">
+            <input required name="science_stanine_{{index}}" type="text" class="form-control rounded-0 border border-gray"
+                placeholder="" />
+        </div>
+        <div class="col-2 px-0">
+            <input required name="science_remarks_{{index}}" type="text" class="form-control rounded-0 border border-gray"
+                placeholder="" />
+        </div>
+    </div>
+    <div class="row mx-half mb-0 input-group-custom-cr">
+        <div class="col-2 border border-gray p-2">
+            <span>Araling Panlipunan</span>
+        </div>
+        <div class="col-2 px-0">
+            <input required name="aralingpanlipunan_rawscore_{{index}}" type="text" class="form-control rounded-0 border border-gray" placeholder="" />
+        </div>
+        <div class="col-2 px-0">
+            <input required name="aralingpanlipunan_scaledscore_{{index}}" type="text" class="form-control rounded-0 border border-gray" placeholder="" />
+        </div>
+         <div class="col-2 px-0">
+            <input required name="aralingpanlipunan_%ile_{{index}}" type="text" class="form-control rounded-0 border border-gray"
+                placeholder="" />
+        </div>
+        <div class="col-2 px-0">
+            <input required name="aralingpanlipunan_stanine_{{index}}" type="text" class="form-control rounded-0 border border-gray"
+                placeholder="" />
+        </div>
+        <div class="col-2 px-0">
+            <input required name="aralingpanlipunan_remarks_{{index}}" type="text" class="form-control rounded-0 border border-gray"
+                placeholder="" />
+        </div>
+    </div>
+</div>
+ <br>
