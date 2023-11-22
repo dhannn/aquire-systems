@@ -28,8 +28,6 @@ export class AdminContoller extends UserController {
    */
 
   async addStudent(req, res) {
-    
-
     const currentSchoolYear = await CurrentSchoolYear.findOne({
       order: [["createdAt", "DESC"]],
     });
@@ -43,6 +41,7 @@ export class AdminContoller extends UserController {
     const nextfromYear = parseInt(currentSchoolYear.fromYear) + 1;
     const nexttoYear = parseInt(currentSchoolYear.toYear) + 1;
     const nextschoolyear = `${nextfromYear}-${nexttoYear}`;
+    var message;
 
     const students = await Student.findAll({
       attributes: ["student_id", "firstName", "middleInitial", "lastName"],
