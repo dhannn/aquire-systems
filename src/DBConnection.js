@@ -1,3 +1,4 @@
+
 import { config } from "dotenv";
 import { Sequelize }  from 'sequelize';
 
@@ -9,7 +10,3 @@ export const sequelize = new Sequelize('aquire', 'root', '123456789', {
   host: 'localhost',
   dialect: 'mysql',
 });
-
-
-
-

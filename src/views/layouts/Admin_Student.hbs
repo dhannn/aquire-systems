@@ -8,40 +8,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
-    <link rel="stylesheet" type="text/css" href="/style.css">
-
-    <script>
-        // Function to handle "Start new school year" button click
-        function handleStartNewSchoolYear() {
-            
-            const modal = new bootstrap.Modal(document.getElementById('exampleModal'));
-
-            
-            const confirmButton = document.getElementById('confirmStartNewYear');
-            confirmButton.addEventListener('click', () => {
-                
-                fetch('/admin/startNewSchoolYear', {
-                    method: 'POST',
-                })
-                .then(response => response.json())
-                .then(data => {
-                    console.log('Success:', data);
-                
-                })
-                .catch((error) => {
-                    console.error('Error:', error);
-                    
-                });
-
-                
-                modal.hide();
-            });
-
-        
-            modal.show();
-        }
-    </script>
-    
+    <link rel="stylesheet" type="text/css" href="/style.css"> 
 </head>
 
 <body>
@@ -50,9 +17,7 @@
     {{#if message}}
     {{> Message message=message}}
     {{/if}}
-
-    {{!-- NAVBAR PARTIAL --}}
-    {{> navbar userRole='Admin' student_page="true"}}
+    {{> Navbar userRole="Admin" student_page="true" user_page="true" }}
 
     <div class="container-fluid">
         <div class="row mx-5">
@@ -61,34 +26,40 @@
                 <p>SY 2023 - 2024</p>
                 <ul class="sidebar-links nav flex-column">
                     {{!-- GRADELIST PARTIAL --}}
-                    {{> grade_list label="Kinder" current="true"}}
-                    {{> grade_list label="Senior Kinder" current=""}}
-                    {{> grade_list label="Grade 1" current=""}}
-                    {{> grade_list label="Grade 2" current=""}}
-                    {{> grade_list label="Grade 3" current=""}}
-                    {{> grade_list label="Grade 4" current=""}}
-                    {{> grade_list label="Grade 5" current=""}}
-                    {{> grade_list label="Grade 6" current=""}}
-                    {{> grade_list label="Grade 7" current=""}}
-                    {{> grade_list label="Grade 8" current=""}}
-                    {{> grade_list label="Grade 9" current=""}}
-                    {{> grade_list label="Grade 10" current=""}}
-                    {{> grade_list label="Grade 11" current=""}}
-                    {{> grade_list label="Grade 12" current=""}}
+                    {{> grade_list label="Kinder" current=K}}
+                    {{> grade_list label="Senior Kinder" current=SK}}
+                    {{> grade_list label="Grade 1" current=G1}}
+                    {{> grade_list label="Grade 2" current=G2}}
+                    {{> grade_list label="Grade 3" current=G3}}
+                    {{> grade_list label="Grade 4" current=G4}}
+                    {{> grade_list label="Grade 5" current=G5}}
+                    {{> grade_list label="Grade 6" current=G6}}
+                    {{> grade_list label="Grade 7" current=G7}}
+                    {{> grade_list label="Grade 8" current=G8}}
+                    {{> grade_list label="Grade 9" current=G9}}
+                    {{> grade_list label="Grade 10" current=G10}}
+                    {{> grade_list label="Grade 11" current=G11}}
+                    {{> grade_list label="Grade 12" current=G12}}
                 </ul>
             </aside>
 
             <section class="flex-column col-10 p-2">
                 <div class="row my-3">
                     <div class="d-flex justify-content-end">
-                        <button type="button" class="button-yellow btn rounded-0 mx-3 border-0" onclick="handleStartNewSchoolYear()">Start new school year</button>
+                        <button id="startNewSchoolYearBtn" type="button" class="btn rounded-0 btn-outline-dark mx-3" data-bs-toggle="modal" data-bs-target="#startNewSchoolYearModal">Start new school year</button>
 
                         <button type="button" class="col-1 button-gray btn rounded-0 p-1">Bulk enroll</button>
                     </div>
                 </div>
-
-
-                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                <div class="row my-3">
+                    <form class="d-flex" role="search">
+                        <input class="form-control me-2 rounded-0" type="search" placeholder="Search"
+                            aria-label="Search">
+                        <button class="btn btn-outline-success rounded-0 pt-1" type="submit"><i
+                                class="bi bi-search"></i></button>
+                    </form>
+                </div>
+                 <div class="modal fade" id="StartNewSY" tabindex="-1" aria-labelledby="exampleModalLabel"
                             aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
                             <div class="modal-dialog modal-dialog-centered">
                                 <div class=" modal-content p-5">
@@ -127,9 +98,6 @@
                         </div>
                     </div>
                 </form>
-                
-
-
                 <form id="add-student-form" role="form" method="POST" action="/admin/students" class="input-group-custom my-3">
                     <div class="row mx-half mb-0">
                         <div class="col-11 px-0">
@@ -203,28 +171,26 @@
                     </div>
                 </div>
 
-                <div class="data-table container-fluid">
-                    {{#if students.length}}
+                <div id="data-table" class="container-fluid">
+                {{#if students.length}}
                     {{#each students}}
-                    {{!-- STUDENT INFO PARTIAL --}}
-                    {{> student_info}}
+                        {{!-- STUDENT INFO PARTIAL --}}
+                        {{> student_info}}
                     {{/each}}
-                    {{else}}
-                    <div class="row mt-3">
+                {{else}}
+                    <div class="row">
                         <div class="col-12 text-center">
                             <span>No students found.</span>
                         </div>
                     </div>
-                    {{/if}}
-                </div>
+                {{/if}}
+            </div>
         </div>
 
         </section>
 
     </div>
-
-
-
+</div>
     <!-- Include Bootstrap JS (optional, for dropdown menus) -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
         integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
@@ -243,47 +209,47 @@
         crossorigin="anonymous"></script>
     <script src="https://kit.fontawesome.com/84cb3b7f2b.js" crossorigin="anonymous"></script>
     
-    <script>
-            document.getElementById('startNewSchoolYearBtn').addEventListener('click', function () {
-                // Show the overlay
-                document.getElementById('overlay').style.display = 'block';
+<script>
+document.getElementById('startNewSchoolYearBtn').addEventListener('click', function () {
+    // Show the overlay
+    document.getElementById('overlay').style.display = 'block';
 
-                // Trigger the start new school year modal
-                var myModal = new bootstrap.Modal(document.getElementById('startNewSchoolYearModal'));
+    // Trigger the start new school year modal
+    var myModal = new bootstrap.Modal(document.getElementById('StartNewSY'));
 
-                // Show the modal
-                myModal.show();
-            });
+    // Show the modal
+    myModal.show();
+  });
 
-            document.getElementById('confirmStartNewSchoolYear').addEventListener('click', function () {
-                // Trigger the start new school year functionality
-                fetch('/admin/startNewSchoolYear', { method: 'POST' })
-                    .then(response => {
-                        if (!response.ok) {
-                            throw new Error(`Failed to start new school year. Status: ${response.status}`);
-                        }
-                        return response.json();
-                    })
-                    .then(data => {
-                        console.log('Success:', data);
+  document.getElementById('confirmStartNewSchoolYear').addEventListener('click', function () {
+    // Trigger the start new school year functionality
+    fetch('/admin/startNewSchoolYear', { method: 'POST' })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(`Failed to start new school year. Status: ${response.status}`);
+        }
+        return response.json();
+      })
+      .then(data => {
+        console.log('Success:', data);
 
-                        // Display a message (replace this with your actual logic)
-                        alert('New school year started successfully!');
-                    })
-                    .catch(error => {
-                        console.error('Error starting new school year:', error.message);
+        // Display a message (replace this with your actual logic)
+        alert('New school year started successfully!');
+      })
+      .catch(error => {
+        console.error('Error starting new school year:', error.message);
 
-                        // Display an error message (replace this with your actual error handling logic)
-                        alert('Failed to start new school year. Please try again.');
-                    })
-                    .finally(() => {
-                        // Hide the modal and overlay
-                        var myModal = new bootstrap.Modal(document.getElementById('startNewSchoolYearModal'));
-                        myModal.hide();
-                        document.getElementById('overlay').style.display = 'none';
-                    });
-            });
+        // Display an error message (replace this with your actual error handling logic)
+        alert('Failed to start new school year. Please try again.');
+      })
+      .finally(() => {
+        // Hide the modal and overlay
+        var myModal = new bootstrap.Modal(document.getElementById('startNewSchoolYearModal'));
+        myModal.hide();
+        document.getElementById('overlay').style.display = 'none';
+      });
+  });
 
-        </script>
+</script>
 </body>
 </html>

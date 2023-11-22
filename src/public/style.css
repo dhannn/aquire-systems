@@ -26,7 +26,6 @@
 
 .sidebar-links {
     background-color: var(--lightgray);
-
     & li a {
         color: var(--white);
     }
@@ -52,6 +51,7 @@
     text-decoration: none !important;
 }
 
+
 .data-table {
     border-color: var(--lightgray);
 }
@@ -61,6 +61,7 @@
     color: var(--white);
 }
 
+
 .data-table span {
     font-size: 1rem;
     color: var(--darkgray);
@@ -68,6 +69,11 @@
 
 .custom-width-12 {
     width: 12.25% !important;
+}
+
+.data-table {
+    border-color: #d9d9d9;
+
 }
 
 .button-yellow {
@@ -86,6 +92,7 @@
         color: #FAFAFA !important;
     }
 }
+
 
 .button-gray {
     color: var(--white);
@@ -126,6 +133,8 @@
 .input-group-custom input.form-control{
     background-color: var(--white);
     border-color: var(--darkgray);
+.input-group-custom input.form-control{
+    background-color: #d9d9d9;
     font-size: 1rem;
     height: 100%;
 
@@ -198,6 +207,7 @@
     padding: 0em .75em;
     color: var(--darkgray);
     border: none;
+
     border-radius: 6px;
     cursor: pointer;
     user-select: none;
@@ -215,6 +225,7 @@
     display: block; 
 }
 
+
 .list-div:nth-child(even) {
     background-color: var(--lightergray); /* Light gray background for even rows in the second column */
 }
@@ -222,7 +233,6 @@
 .list-div:nth-child(odd) {
     background-color: var(--white); /* Default background color for odd rows in the second column */
 }
-
 .add-button {
     position: absolute; 
     background-color: transparent; 
@@ -249,8 +259,6 @@
 
     &:focus {
         background-color: var(--lightgray);
-        font-size: 11px;
-    }
  
     &:focus::placeholder {
         color: var(--darkgray);
@@ -273,6 +281,29 @@
     &:focus::placeholder {
         color: var(--darkgray);
     }
+}
+  
+.checkbox-dropdown {
+    background-color: #d9d9d9 !important;
+    border: 0;
+  
+    &:hover {
+        opacity: 0.5;    
+    }
+  
+    &:active {
+        background-color: #d9d9d9 !important;
+    }
+
+    &:focus {
+      background-color: #d9d9d9;
+      border: none;
+    }
+
+    &:visited {
+        background-color: #d9d9d9;
+        border: none;
+      }
 }
 
 #form-button-add {
@@ -323,3 +354,12 @@
   .form-check-label {
     font-size: 11px;
   }
+  
+  .greyed-out {
+    opacity: 0.6; 
+    pointer-events: none; 
+}
+ #login-button{
+    color: black;
+    background-color: #FFD700;
+}

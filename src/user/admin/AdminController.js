@@ -11,6 +11,7 @@ export class AdminContoller extends UserController {
   allowedUserType = "A";
 
   initializeRoutes() {
+    this.createRoute("GET", "", this.viewStudents);
     this.createRoute("GET", "/", this.viewStudents);
     this.createRoute("GET", "/students", this.viewStudents);
     this.createRoute("GET", "/users", this.viewUsers);
@@ -57,8 +58,8 @@ export class AdminContoller extends UserController {
       ],
       raw: true,
     });
-
     try {
+      
       await this.model.addStudent(
         req.body.student_id,
         req.body.firstName,
@@ -67,6 +68,23 @@ export class AdminContoller extends UserController {
         req.body.grade,
         req.body.section
       );
+      console.log("Student Added");
+      message = { isSuccess: true, content: "Student added successfully!" };
+    } catch (error) {
+      console.error(error.message);
+      message = { content: error.message };
+    }
+  
+    try {
+      const currentSchoolYear = await CurrentSchoolYear.findOne({
+        order: [["createdAt", "DESC"]],
+      });
+  
+      if (!currentSchoolYear) {
+        throw new Error("Current school year is not set");
+      }
+  
+      const schoolYear = `${currentSchoolYear.fromYear}-${currentSchoolYear.toYear}`;
       const students = await Student.findAll({
         attributes: ["student_id", "firstName", "middleInitial", "lastName"],
         include: [
@@ -81,10 +99,9 @@ export class AdminContoller extends UserController {
         ],
         raw: true,
       });
-      
       console.log("Student Added");
       res.render("Admin_Student", {
-        message: { isSuccess: true, content: "Student added successfully!" },
+        message: message,
         students: students,
         schoolyear: schoolYear,
         nextschoolyear: nextschoolyear
@@ -92,7 +109,33 @@ export class AdminContoller extends UserController {
     } catch (error) {
       console.error(error.message);
       res.render("Admin_Student", {
-        message: { content: error.message },
+        message: { content: "Failed to fetch students: " + error.message },
+        students: [],
+      });
+    }
+  }
+  
+
+  async addUser(req, res) {
+    const result = await this.model.addUser(
+      req.body.userName,
+      req.body.userPassword,
+      req.body.userType
+    );
+
+    if (result.error) {
+      if (result.error.includes("duplicate key error")) {
+        res.render("Admin_User", {
+          message: { content: "Username already exists!" },
+        });
+      } else {
+        res.render("Admin_User", {
+          message: { content: "Username already exists!" },
+        });
+      }
+    } else {
+      res.render("Admin_User", {
+        message: { isSuccess: true, content: "User added successfully!" },
         students: students,
         schoolyear: schoolYear,
         nextschoolyear: nextschoolyear
@@ -100,12 +143,12 @@ export class AdminContoller extends UserController {
     }
   }
 
-  async viewStudents(_, res) {
+  async viewStudents(req, res) {
     const allowed = await UserController.verifyUserPermission(
       this.allowedUserType,
-      _
+      req
     );
-    const loggedIn = UserController.checkifloggedIn(_);
+    const loggedIn = UserController.checkifloggedIn(req);
 
     if (!loggedIn) {
       return res.redirect("/");
@@ -123,7 +166,13 @@ export class AdminContoller extends UserController {
     const nextfromYear = parseInt(currentSchoolYear.fromYear) + 1;
     const nexttoYear = parseInt(currentSchoolYear.toYear) + 1;
     const nextschoolyear = `${nextfromYear}-${nexttoYear}`;
-
+    
+    var gradefilter;
+    if (req.query.grade == null) {
+      gradefilter = 'Kinder';
+    } else {
+      gradefilter = req.query.grade;
+    }
 
     const students = await Student.findAll({
       attributes: ["student_id", "firstName", "middleInitial", "lastName"],
@@ -133,6 +182,7 @@ export class AdminContoller extends UserController {
           attributes: ["grade", "section"],
           where: {
             schoolYear: schoolYear,
+            grade: gradefilter,
           },
           required: true,
         },
@@ -150,14 +200,44 @@ export class AdminContoller extends UserController {
           students: [],
           message: "No students found for the current school year.",
           schoolyear: schoolYear,
-          nextschoolyear: nextschoolyear
+          nextschoolyear: nextschoolyear,
+          //for current proccing
+          K: gradefilter === 'Kinder',
+          SK: gradefilter === 'Senior Kinder',
+          G1: gradefilter === 'Grade 1',
+          G2: gradefilter === 'Grade 2',
+          G3: gradefilter === 'Grade 3',
+          G4: gradefilter === 'Grade 4',
+          G5: gradefilter === 'Grade 5',
+          G6: gradefilter === 'Grade 6',
+          G7: gradefilter === 'Grade 7',
+          G8: gradefilter === 'Grade 8',
+          G9: gradefilter === 'Grade 9',
+          G10: gradefilter === 'Grade 10',
+          G11: gradefilter === 'Grade 11',
+          G12: gradefilter === 'Grade 12',
         });
       }
 
       res.render("Admin_Student", { 
         students: students,
         schoolyear: schoolYear,
-        nextschoolyear: nextschoolyear
+        nextschoolyear: nextschoolyear,
+        //for current proccing
+        K: gradefilter === 'Kinder',
+        SK: gradefilter === 'Senior Kinder',
+        G1: gradefilter === 'Grade 1',
+        G2: gradefilter === 'Grade 2',
+        G3: gradefilter === 'Grade 3',
+        G4: gradefilter === 'Grade 4',
+        G5: gradefilter === 'Grade 5',
+        G6: gradefilter === 'Grade 6',
+        G7: gradefilter === 'Grade 7',
+        G8: gradefilter === 'Grade 8',
+        G9: gradefilter === 'Grade 9',
+        G10: gradefilter === 'Grade 10',
+        G11: gradefilter === 'Grade 11',
+        G12: gradefilter === 'Grade 12',
        });
     } catch (error) {
       console.error("Error fetching students:", error);
@@ -216,10 +296,10 @@ export class AdminContoller extends UserController {
 
    async startNewSchoolYear(req, res) {
     try {
-        await this.model.startNewSchoolYear();
-
+        const updatedSchoolYear = await this.model.startNewSchoolYear();
         res.render('Admin_Student', {
             message: { isSuccess: true, content: 'New school year started successfully!' },
+            schoolYear: `${updatedSchoolYear.fromYear} - ${updatedSchoolYear.toYear}`,
         });
     } catch (error) {
         console.error(error.message);
@@ -227,7 +307,7 @@ export class AdminContoller extends UserController {
             message: { content: error.message },
         });
     }
-}
+  }
     async viewUsers(_, res) {
         const allowed = await UserController.verifyUserPermission(this.allowedUserType, _)
         const loggedIn = UserController.checkifloggedIn(_);
