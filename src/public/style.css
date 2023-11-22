@@ -1,16 +1,46 @@
+html,body {
+    height:100%;
+}
+
+body{
+    background-color: #fdfdfd;
+}
+
+#login-form{
+    width:35%;
+}
+
+#user-view{
+    width:50%;
+}
+
 .navbar {
     position: sticky;
     top: 0;
     background-color: #ffd966;
-}
-
-.topbar-links li a{
-    color: #FAFAFA;
-}
-
-.topbar-links li a:hover{
     color: #0A0A0A;
+}
+
+#logout-link {
+    color: #ff2222;
+}
+
+#student-link, #user-link{
+    color: #0A0A0A;
+}
+
+#topbar-links li a{
+    font-weight: bolder;
+}
+
+#sidebar-links li a{
+    color: #5e5e5e;
+    font-weight: bold;
+}
+
+#topbar-links li a:hover, #sidebar-links li a:hover{
     cursor: pointer;
+    color: #0a58ca;
 }
 
 .sidebar-links {
@@ -37,13 +67,15 @@
 
 .table-header {
     background-color: #ffd966;
-    color: #FAFAFA;
+    color: #0A0A0A;
+    font-weight: bold;
 }
 
 .data-table span {
     font-size: 1rem;
     color: #7f7f7f;
 }
+
 
 .custom-width-12 {
     width: 12% !important;
@@ -135,7 +167,7 @@
     background-color: #FCFCFC;
     border: 1px solid #847979;
     animation-name: dismiss-alert;
-    animation-delay: 2s;
+    animation-delay: 5s;
     animation-duration: 0.2s;
     animation-fill-mode: forwards;
 }
@@ -150,10 +182,44 @@
     }
 }
 
-.form-button-add {
+.button-yellow {
+    color: #0A0A0A;
+    background-color: #ffd966;
+
+    &:hover {
+        background-color: #ffd966;
+        opacity: 0.5;
+        color: #FAFAFA;
+    }
+
+    &:active {
+        opacity: 1;
+        background-color: #d9d9d9 !important;
+        color: #FAFAFA !important;
+    }
+}
+
+.button-gray {
+    color: #FAFAFA;
+    background-color: #d9d9d9;
+
+    &:hover {
+        background-color: #d9d9d9;
+        opacity: 0.5;
+        color: #FAFAFA;
+    }
+
+    &:active {
+        opacity: 1;
+        background-color: #7f7f7f !important;
+        color: #FAFAFA !important;
+    }
+}
+
+#form-button-add {
     padding: .5em .75em;
     background: #ffd966;
-    color: #FAFAFA;
+    color: #0A0A0A;
     border-radius: 6px;
     cursor: pointer;
     user-select: none;
@@ -288,4 +354,24 @@
 .greyed-out {
     opacity: 0.6; 
     pointer-events: none; 
+}
+ #login-button{
+    color: black;
+    background-color: #FFD700;
+
+    border-radius: 6px;
+    cursor: pointer;
+    user-select: none;
+    transition: 0.2s;
+    font-weight: bold; 
+  
+    &:hover {
+        opacity: 0.5;
+        transition: 0.2s; 
+    }
+    
+    &:active {
+        opacity: 1;
+        background-color: #d9d9d9;
+    }
 }

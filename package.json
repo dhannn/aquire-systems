@@ -4,7 +4,8 @@
   "description": "A central electronic repository for student records in Aquinas School",
   "main": "App.js",
   "scripts": {
-    "start": "nodemon src/App.js",
+    "start": "node src/App.js",
+    "start-dev": "nodemon src/App.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
