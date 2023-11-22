@@ -52,7 +52,7 @@ export class AdminModel {
     viewUsers() {}
 
   /**
-   * Inserts the student to the database
+   * Inserts the student tow the database
    * @param {string} id
    * @param {string} firstName
    * @param {string} middleName
@@ -167,22 +167,4 @@ export class AdminModel {
         throw error;
     }
  }
-  async updateCurrentSchoolYear(fromYear, toYear) {
-    try {
-        // Update the current school year range in the CurrentSchoolYear table
-        const [updatedRows] = await CurrentSchoolYear.update(
-            { fromYear, toYear },
-            { where: {} }
-        );
-
-        if (updatedRows === 0) {
-            throw new Error('Failed to update the current school year');
-        }
-
-        return { fromYear, toYear };
-    } catch (error) {
-        console.error('Error updating the current school year:', error);
-        throw error;
-    }
-  }
 }
