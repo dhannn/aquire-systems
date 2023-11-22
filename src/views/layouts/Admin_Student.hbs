@@ -13,31 +13,25 @@
     <script>
         // Function to handle "Start new school year" button click
         function handleStartNewSchoolYear() {
-            
             const modal = new bootstrap.Modal(document.getElementById('exampleModal'));
 
-            
             const confirmButton = document.getElementById('confirmStartNewYear');
             confirmButton.addEventListener('click', () => {
                 
                 fetch('/admin/startNewSchoolYear', {
                     method: 'POST',
                 })
-                .then(response => response.json())
+                //.then(response => response.json())
                 .then(data => {
                     console.log('Success:', data);
-                
+                    location.reload();
                 })
                 .catch((error) => {
                     console.error('Error:', error);
                     
-                });
-
-                
+                });      
                 modal.hide();
             });
-
-        
             modal.show();
         }
     </script>
@@ -58,7 +52,7 @@
         <div class="row mx-5">
             <aside class="col-2">
                 <p class="fw-bold fs-4 mb-0">Enrolled Students</p>
-                <p>SY 2023 - 2024</p>
+                <p>SY {{nextschoolyear}}</p>
                 <ul class="sidebar-links nav flex-column">
                     {{!-- GRADELIST PARTIAL --}}
                     {{> grade_list label="Kinder" current="true"}}
