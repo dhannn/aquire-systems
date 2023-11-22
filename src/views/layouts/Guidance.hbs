@@ -16,7 +16,7 @@
     {{> Navbar userRole='Guidance'}}
 
     {{#if message}}
-        {{> Message message=message}}
+    {{> Message message=message}}
     {{/if}}
 
     <div class="container-fluid">
@@ -45,26 +45,29 @@
             <section class="flex-column col-6 p-0 mx-5">
 
 
-                
-                <form id="cummilative-anectodal-form" class="input-group-custom" method="GET" action="guidance/cummulative">
+
+                <form id="cummilative-anectodal-form" class="input-group-custom" method="GET"
+                    action="guidance/cummulative">
                     <div class="row mx-half">
                         <div class="col-5 px-0">
                             <input required name="student_id" type="text" id="studentId-cummilative-anecdotal"
-                                class="form-control rounded-0 border border-white" placeholder="Student ID" />  
+                                class="form-control rounded-0 border border-white" placeholder="Student ID" />
                         </div>
 
                         <div class="col-3 px-0 m-button">
                             <div class="form-button-add text-center rounded-0 border border-white" role="button"
                                 tabindex="0">
                                 <label for="add_anecdotal_record">Add Anecdotal Record</label>
-                                <input class="add-button" type="submit" value="" id="add_anecdotal_record"/>
+                                <input class="add-button" type="submit" value="" id="add_anecdotal_record" />
                             </div>
                         </div>
 
                         <div class="col-3 px-0 m-button">
-                            <div class="form-button-add text-center rounded-0 border border-white" role="button" tabindex="0">
+                            <div class="form-button-add text-center rounded-0 border border-white" role="button"
+                                tabindex="0">
                                 <label for="edit_cummulative_record">Edit Cummulative Record</label>
-                                <input class="add-button" type="submit" value="" data-bs-toggle="modal" data-bs-target="#exampleModalScrollable"  id="edit_cummulative_record"/>
+                                <input class="add-button" type="submit" value="" data-bs-toggle="modal"
+                                    data-bs-target="#exampleModalScrollable" id="edit_cummulative_record" />
                             </div>
                         </div>
 
@@ -72,7 +75,7 @@
                     </div>
                 </form>
 
-                
+
 
                 <div class="row my-3">
                     <form class="d-flex" role="search">
@@ -106,36 +109,42 @@
                                 type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             </button>
                             <div class="dropdown-menu col-12 rounded-0">
-                                {{> CheckboxFormGroup checkboxName="recordTypes[]" checkboxValue="MC" checkboxId="checkboxMC" checkboxLabel="Medical Certificate"}}
-                                {{> CheckboxFormGroup checkboxName="recordTypes[]" checkboxValue="SRF" checkboxId="checkboxSRF" checkboxLabel="Scholastic Record Form"}}
-                                {{> CheckboxFormGroup checkboxName="recordTypes[]" checkboxValue="IS" checkboxId="checkboxIS" checkboxLabel="Information Sheet"}}
-                                {{> CheckboxFormGroup checkboxName="recordTypes[]" checkboxValue="BEF" checkboxId="checkboxBEF" checkboxLabel="Basic Education Form"}}
-                                {{> CheckboxFormGroup checkboxName="recordTypes[]" checkboxValue="SHSF" checkboxId="checkboxSHSF" checkboxLabel="Senior High School Form"}}
-                                {{> CheckboxFormGroup checkboxName="recordTypes[]" checkboxValue="RF" checkboxId="checkboxRF" checkboxLabel="Recommendation Form"}}                       
+                                {{> CheckboxFormGroup checkboxName="recordTypes[]" checkboxValue="MC"
+                                checkboxId="checkboxMC" checkboxLabel="Medical Certificate"}}
+                                {{> CheckboxFormGroup checkboxName="recordTypes[]" checkboxValue="SRF"
+                                checkboxId="checkboxSRF" checkboxLabel="Scholastic Record Form"}}
+                                {{> CheckboxFormGroup checkboxName="recordTypes[]" checkboxValue="IS"
+                                checkboxId="checkboxIS" checkboxLabel="Information Sheet"}}
+                                {{> CheckboxFormGroup checkboxName="recordTypes[]" checkboxValue="BEF"
+                                checkboxId="checkboxBEF" checkboxLabel="Basic Education Form"}}
+                                {{> CheckboxFormGroup checkboxName="recordTypes[]" checkboxValue="SHSF"
+                                checkboxId="checkboxSHSF" checkboxLabel="Senior High School Form"}}
+                                {{> CheckboxFormGroup checkboxName="recordTypes[]" checkboxValue="RF"
+                                checkboxId="checkboxRF" checkboxLabel="Recommendation Form"}}
                             </div>
                         </div>
                         <div class="col-4 px-0">
                             <div class="form-button-add text-center rounded-0 border border-white" role="button"
                                 tabindex="0">
                                 <label for="add_admission_record">Add Admission Record</label>
-                                <input class="add-button" type="submit" value="" id="add_admission_record"/>
+                                <input class="add-button" type="submit" value="" id="add_admission_record" />
                             </div>
                         </div>
                     </div>
                 </form>
                 <div id="data-table" class="data-table container-fluid my-3">
                     {{#each studentRecords}}
-                        <div class="row list-div">
-                            <div class="col-3 border p-2">
-                                <span>{{student_id}}</span>
-                            </div>
-                            <div class="col-6 border p-2">
-                                <span>{{recordId}}</span>
-                            </div>
-                            <div class="edit-button-div col-3 text-center rounded-0" role="button" tabindex="0">
-                                <i class="fa-solid fa-pen"></i>
-                            </div>
+                    <div class="row list-div">
+                        <div class="col-3 border p-2">
+                            <span>{{student_id}}</span>
                         </div>
+                        <div class="col-6 border p-2">
+                            <span>{{recordId}}</span>
+                        </div>
+                        <div class="edit-button-div col-3 text-center rounded-0" role="button" tabindex="0">
+                            <i class="fa-solid fa-pen"></i>
+                        </div>
+                    </div>
                     {{/each}}
                 </div>
             </section>
@@ -143,505 +152,498 @@
     </div>
 
 
-    <div class="modal fade" id="exampleModalScrollable" tabindex="-1" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+    <div class="modal fade" id="exampleModalScrollable" tabindex="-1" aria-labelledby="exampleModalScrollableTitle"
+        aria-hidden="true">
         <div class="modal-dialog modal-dialog-scrollable modal-xl">
-        <!-- Modal content goes here -->
-        <div class="modal-content">
-            <div class="modal-header">
-                <h1 class="modal-title fs-5" id="exampleModalScrollableTitle">Edit Cummulative Record</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-         
-            <div class="modal-body">
-
-            <div class = "family-data">
-                <h5>I.FAMILY DATA</h5>
-                <div class="container-fluid">
-                    <div class="row mt-3 table-header-cr">
-                        <div class="col-2 border border-gray p-2">
-                            <span>NAME (Last, First, Middle, Ext)</span>
-                        </div>
-                        <div class="col-2 border border-gray p-2">
-                            <span>Birthday (MM/DD/YYYY)</span>
-                        </div>
-                        <div class="col-2 border border-gray p-2">
-                            <span>Citizenship</span>
-                        </div>
-                        <div class="col-4 border border-gray p-2">
-                            <span>Address/Tel or Cp No.</span>
-                        </div>
-                        <div class="col-2 border border-gray p-2">
-                            <span>Occupation</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="row mx-half mb-0 input-group-custom-cr">
-                    <div class="col-2 px-0">
-                        <input required name="student_name" type="text"
-                            class="form-control rounded-0 border border-gray" placeholder="Student" />
-                    </div>
-                    <div class="col-2 px-0">
-                        <input required name="student_birthday" type="text"
-                            class="form-control rounded-0 border border-gray" placeholder="" />
-                    </div>
-                    <div class="col-2 px-0">
-                        <input required name="student_citizenship" type="text"
-                            class="form-control rounded-0 border border-gray" placeholder="" />
-                    </div>
-                    <div class="col-4 px-0">
-                        <input name="student_address" type="text" class="form-control rounded-0 border border-gray"
-                            placeholder="" />
-                    </div>
-                    <div class="col-2 px-0">
-                        <input required name="student_occupation" type="text" class="form-control rounded-0 border border-gray"
-                            placeholder="" />
-                    </div>
-                </div>
-                <div class="row mx-half mb-0 input-group-custom-cr">
-                    <div class="col-2 px-0">
-                        <input required name="father_name" type="text"
-                            class="form-control rounded-0 border border-gray" placeholder="Father" />
-                    </div>
-                    <div class="col-2 px-0">
-                        <input required name="father_birthday" type="text"
-                            class="form-control rounded-0 border border-gray" placeholder="" />
-                    </div>
-                    <div class="col-2 px-0">
-                        <input required name="father_citizenship" type="text"
-                            class="form-control rounded-0 border border-gray" placeholder="" />
-                    </div>
-                    <div class="col-4 px-0">
-                        <input name="father_address" type="text" class="form-control rounded-0 border border-gray"
-                            placeholder="" />
-                    </div>
-                    <div class="col-2 px-0">
-                        <input required name="father_occupation" type="text" class="form-control rounded-0 border border-gray"
-                            placeholder="" />
-                    </div>
-                </div>
-                <div class="row mx-half mb-0 input-group-custom-cr">
-                    <div class="col-2 px-0">
-                        <input required name="mother_name" type="text"
-                            class="form-control rounded-0 border border-gray" placeholder="Mother" />
-                    </div>
-                    <div class="col-2 px-0">
-                        <input required name="mother_birthday" type="text"
-                            class="form-control rounded-0 border border-gray" placeholder="" />
-                    </div>
-                    <div class="col-2 px-0">
-                        <input required name="mother_citizenship" type="text"
-                            class="form-control rounded-0 border border-gray" placeholder="" />
-                    </div>
-                    <div class="col-4 px-0">
-                        <input name="mother_address" type="text" class="form-control rounded-0 border border-gray"
-                            placeholder="" />
-                    </div>
-                    <div class="col-2 px-0">
-                        <input required name="mother_occupation" type="text" class="form-control rounded-0 border border-gray"
-                            placeholder="" />
-                    </div>
-                </div>
-                <div class="row mx-half mb-0 input-group-custom-cr">
-                    <div class="col-2 px-0">
-                        <input required name="guardian_name" type="text"
-                            class="form-control rounded-0 border border-gray" placeholder="Guardian" />
-                    </div>
-                    <div class="col-2 px-0">
-                        <input required name="guardian_birthday" type="text"
-                            class="form-control rounded-0 border border-gray" placeholder="" />
-                    </div>
-                    <div class="col-2 px-0">
-                        <input required name="guardian_citizenship" type="text"
-                            class="form-control rounded-0 border border-gray" placeholder="" />
-                    </div>
-                    <div class="col-4 px-0">
-                        <input name="guardian_address" type="text" class="form-control rounded-0 border border-gray"
-                            placeholder="" />
-                    </div>
-                    <div class="col-2 px-0">
-                        <input required name="guardian_occupation" type="text" class="form-control rounded-0 border border-gray"
-                            placeholder="" />
-                    </div>
+            <!-- Modal content goes here -->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalScrollableTitle">Edit Cummulative Record</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
 
-                <div class="row my-3">
-                    <div class="col-4">
-                        <div class="form-group row">
-                            <label for="totalChildren" class="col-7 col-form-label">Total Number of Children</label>
-                            <div class="col-3">
-                                <input type="number" class="form-control" id="totalChildren" value="">
+                <div class="modal-body">
+
+                    <div class="family-data">
+                        <h5>I.FAMILY DATA</h5>
+                        <div class="container-fluid">
+                            <div class="row mt-3 table-header-cr">
+                                <div class="col-2 border border-gray p-2">
+                                    <span>NAME (Last, First, Middle, Ext)</span>
+                                </div>
+                                <div class="col-2 border border-gray p-2">
+                                    <span>Birthday (MM/DD/YYYY)</span>
+                                </div>
+                                <div class="col-2 border border-gray p-2">
+                                    <span>Citizenship</span>
+                                </div>
+                                <div class="col-4 border border-gray p-2">
+                                    <span>Address/Tel or Cp No.</span>
+                                </div>
+                                <div class="col-2 border border-gray p-2">
+                                    <span>Occupation</span>
+                                </div>
                             </div>
                         </div>
-                        <div class="form-group row">
-                            <label for="rankFamily" class="col-7 col-form-label">Rank in the Family</label>
-                            <div class="col-3">
-                                <input type="number" class="form-control" id="rankFamily" value="">
+                        <div class="row mx-half mb-0 input-group-custom-cr">
+                            <div class="col-2 px-0">
+                                <input required name="student_name" type="text"
+                                    class="form-control rounded-0 border border-gray" placeholder="Student" />
+                            </div>
+                            <div class="col-2 px-0">
+                                <input required name="student_birthday" type="text"
+                                    class="form-control rounded-0 border border-gray" placeholder="" />
+                            </div>
+                            <div class="col-2 px-0">
+                                <input required name="student_citizenship" type="text"
+                                    class="form-control rounded-0 border border-gray" placeholder="" />
+                            </div>
+                            <div class="col-4 px-0">
+                                <input name="student_address" type="text"
+                                    class="form-control rounded-0 border border-gray" placeholder="" />
+                            </div>
+                            <div class="col-2 px-0">
+                                <input required name="student_occupation" type="text"
+                                    class="form-control rounded-0 border border-gray" placeholder="" />
+                            </div>
+                        </div>
+                        <div class="row mx-half mb-0 input-group-custom-cr">
+                            <div class="col-2 px-0">
+                                <input required name="father_name" type="text"
+                                    class="form-control rounded-0 border border-gray" placeholder="Father" />
+                            </div>
+                            <div class="col-2 px-0">
+                                <input required name="father_birthday" type="text"
+                                    class="form-control rounded-0 border border-gray" placeholder="" />
+                            </div>
+                            <div class="col-2 px-0">
+                                <input required name="father_citizenship" type="text"
+                                    class="form-control rounded-0 border border-gray" placeholder="" />
+                            </div>
+                            <div class="col-4 px-0">
+                                <input name="father_address" type="text"
+                                    class="form-control rounded-0 border border-gray" placeholder="" />
+                            </div>
+                            <div class="col-2 px-0">
+                                <input required name="father_occupation" type="text"
+                                    class="form-control rounded-0 border border-gray" placeholder="" />
+                            </div>
+                        </div>
+                        <div class="row mx-half mb-0 input-group-custom-cr">
+                            <div class="col-2 px-0">
+                                <input required name="mother_name" type="text"
+                                    class="form-control rounded-0 border border-gray" placeholder="Mother" />
+                            </div>
+                            <div class="col-2 px-0">
+                                <input required name="mother_birthday" type="text"
+                                    class="form-control rounded-0 border border-gray" placeholder="" />
+                            </div>
+                            <div class="col-2 px-0">
+                                <input required name="mother_citizenship" type="text"
+                                    class="form-control rounded-0 border border-gray" placeholder="" />
+                            </div>
+                            <div class="col-4 px-0">
+                                <input name="mother_address" type="text"
+                                    class="form-control rounded-0 border border-gray" placeholder="" />
+                            </div>
+                            <div class="col-2 px-0">
+                                <input required name="mother_occupation" type="text"
+                                    class="form-control rounded-0 border border-gray" placeholder="" />
+                            </div>
+                        </div>
+                        <div class="row mx-half mb-0 input-group-custom-cr">
+                            <div class="col-2 px-0">
+                                <input required name="guardian_name" type="text"
+                                    class="form-control rounded-0 border border-gray" placeholder="Guardian" />
+                            </div>
+                            <div class="col-2 px-0">
+                                <input required name="guardian_birthday" type="text"
+                                    class="form-control rounded-0 border border-gray" placeholder="" />
+                            </div>
+                            <div class="col-2 px-0">
+                                <input required name="guardian_citizenship" type="text"
+                                    class="form-control rounded-0 border border-gray" placeholder="" />
+                            </div>
+                            <div class="col-4 px-0">
+                                <input name="guardian_address" type="text"
+                                    class="form-control rounded-0 border border-gray" placeholder="" />
+                            </div>
+                            <div class="col-2 px-0">
+                                <input required name="guardian_occupation" type="text"
+                                    class="form-control rounded-0 border border-gray" placeholder="" />
+                            </div>
+                        </div>
+
+                        <div class="row my-3">
+                            <div class="col-4">
+                                <div class="form-group row">
+                                    <label for="totalChildren" class="col-7 col-form-label">Total Number of
+                                        Children</label>
+                                    <div class="col-3">
+                                        <input type="number" class="form-control" id="totalChildren" value="">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="rankFamily" class="col-7 col-form-label">Rank in the Family</label>
+                                    <div class="col-3">
+                                        <input type="number" class="form-control" id="rankFamily" value="">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <label>Language Spoken at Home</label>
+                                <div>
+                                    <label>
+                                        <input type="radio" name="spokenLanguage" value="tagalog">
+                                        Tagalog
+                                    </label>
+                                </div>
+                                <div>
+                                    <label>
+                                        <input type="radio" name="spokenLanguage" value="others">
+                                        Others
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <label>Religion</label>
+                                <div>
+                                    <label>
+                                        <input type="radio" name="religion" value="catholic">
+                                        Catholic
+                                    </label>
+                                </div>
+                                <div>
+                                    <label>
+                                        <input type="radio" name="religion" value="others">
+                                        Others
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row my-3">
+                            <div class="col-4">
+                                <label class="">Martial Status of Parents</label>
+                                <div>
+                                    <label>
+                                        <input type="radio" name="parentStatus" value="married">
+                                        Married
+                                    </label>
+                                </div>
+                                <div>
+                                    <label>
+                                        <input type="radio" name="parentStatus" value="singleParent">
+                                        Single Parent
+                                    </label>
+                                </div>
+                                <div>
+                                    <label>
+                                        <input type="radio" name="parentStatus" value="separated">
+                                        Separated
+                                    </label>
+                                </div>
+                                <div>
+                                    <label>
+                                        <input type="radio" name="parentStatus" value="deceased">
+                                        Father/Mother Deceased
+                                    </label>
+                                </div>
                             </div>
                         </div>
                     </div>
-                        <div class="col-4">
-                        <label>Language Spoken at Home</label>
-                        <div>
-                            <label>
-                                <input type="radio" name="spokenLanguage" value="tagalog">
-                                Tagalog
-                            </label>
-                        </div>
-                        <div>
-                            <label>
-                                <input type="radio" name="spokenLanguage" value="others">
-                                Others
-                            </label>
-                        </div>
-                    </div>
-                    <div class="col-4">
-                        <label>Religion</label>
-                        <div>
-                            <label>
-                                <input type="radio" name="religion" value="catholic">
-                                Catholic
-                            </label>
-                        </div>
-                        <div>
-                            <label>
-                                <input type="radio" name="religion" value="others">
-                                Others
-                            </label>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="row my-3">
-                    <div class="col-4">
-                        <label class="">Martial Status of Parents</label>
-                        <div>
-                            <label>
-                                <input type="radio" name="parentStatus" value="married">
-                                Married
-                            </label>
-                        </div>
-                        <div>
-                            <label>
-                                <input type="radio" name="parentStatus" value="singleParent">
-                                Single Parent
-                            </label>
-                        </div>
-                        <div>
-                            <label>
-                                <input type="radio" name="parentStatus" value="separated">
-                                Separated
-                            </label>
-                        </div>
-                        <div>
-                            <label>
-                                <input type="radio" name="parentStatus" value="deceased">
-                                Father/Mother Deceased
-                            </label>
-                        </div>
-                    </div>
-                </div>
-            </div> 
 
 
-            <div class = "school-history">
-                <p>III. SCHOOL HISTORY</p>
-                    <div class="form-row-cr">
+                    <div class="school-history">
+                        <p>III. SCHOOL HISTORY</p>
+                        <div class="form-row-cr">
+                            <div class="form-group-cr">
+                                <label for="enteredFrom">Entered from:</label>
+                                <input class="SH" type="text" id="enteredFrom" name="enteredFrom" value="" required>
+                            </div>
+
+                            <div class="form-group-cr">
+                                <label for="admittedInSchoolYear">Admitted in Aquinas School SY:</label>
+                                <input class="SH" type="text" id="schoolYearAdmitted" name="schoolYearAdmitted" value=""
+                                    required>
+                            </div>
+                        </div>
+
                         <div class="form-group-cr">
-                            <label for="enteredFrom">Entered from:</label>
-                            <input class= "SH" type="text" id="enteredFrom" name="enteredFrom"  value="" required>
+                            <label for="gradeLevelEntered">Grade Level Entered:</label>
+                            <input class="SH" type="text" id="gradeLevelEntered" name="gradeLevelEntered" value=""
+                                required>
                         </div>
-                        
+
                         <div class="form-group-cr">
-                            <label for="admittedInSchoolYear">Admitted in Aquinas School SY:</label>
-                            <input class= "SH" type="text" id="schoolYearAdmitted" name="schoolYearAdmitted" value="" required>
+                            <label for="otherSchoolAttended">Other School Attended:</label>
+                            <input class="SH long" type="text" id="otherSchoolsAttended" name="otherSchoolsAttended"
+                                value="" required>
                         </div>
+
+                        <div class="form-group-cr">
+                            <label for="Name">(Name of School, Grade Level and SY)</label>
+                            <input class="SH long" type="text" id="etc" name="Name" required>
+                        </div>
+
                     </div>
-                    
-                    <div class="form-group-cr">
-                        <label for="gradeLevelEntered">Grade Level Entered:</label>
-                        <input  class= "SH" type="text" id="gradeLevelEntered" name="gradeLevelEntered" value="" required>
+
+
+
+
+
+                    <div class="school-activities">
+
+                        <h5>V. SCHOOL ACTIVITIES (Membership in school club/organization, awards received, educational
+                            trips, etc)</h5>
+                        <div class="container-fluid">
+                            <div class="row mt-3 table-header-cr">
+                                <div class="col-2 border border-gray p-2">
+                                    <span>Grade Level</span>
+                                </div>
+                                <div class="col-2 border border-gray p-2">
+                                    <span>School Year</span>
+                                </div>
+                                <div class="col-4 border border-gray p-2">
+                                    <span>NAME OF CLUB/ORGANIZATION<br>(Position of Leadership, Award, Etc)
+                                    </span>
+                                </div>
+                                <div class="col-4 border border-gray p-2">
+                                    <span>Educational Trips, Participation in <br> extra-Curricular Activities</span>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Grade 7 -->
+                        <div class="row mx-half mb-0 input-group-custom-cr">
+                            <div class="col-2 border border-gray p-2">
+                                <span>Grade 7</span>
+                            </div>
+                            <div class="col-2 px-0">
+                                <input required name="grade7_school_year" type="text"
+                                    class="form-control rounded-0 border border-gray" placeholder="" />
+                            </div>
+                            <div class="col-4 px-0">
+                                <input required name="grade7_club_name" type="text"
+                                    class="form-control rounded-0 border border-gray" placeholder="" />
+                            </div>
+                            <div class="col-4 px-0">
+                                <input name="grade7_field_trips" type="text"
+                                    class="form-control rounded-0 border border-gray" placeholder="" />
+                            </div>
+                        </div>
+
+                        <!-- Grade 8 -->
+                        <div class="row mx-half mb-0 input-group-custom-cr">
+                            <div class="col-2 border border-gray p-2">
+                                <span>Grade 8</span>
+                            </div>
+                            <div class="col-2 px-0">
+                                <input required name="grade8_school_year" type="text"
+                                    class="form-control rounded-0 border border-gray" placeholder="" />
+                            </div>
+                            <div class="col-4 px-0">
+                                <input required name="grade8_club_name" type="text"
+                                    class="form-control rounded-0 border border-gray" placeholder="" />
+                            </div>
+                            <div class="col-4 px-0">
+                                <input name="grade8_field_trips" type="text"
+                                    class="form-control rounded-0 border border-gray" placeholder="" />
+                            </div>
+                        </div>
+
+                        <!-- Grade 9 -->
+                        <div class="row mx-half mb-0 input-group-custom-cr">
+                            <div class="col-2 border border-gray p-2">
+                                <span>Grade 9</span>
+                            </div>
+                            <div class="col-2 px-0">
+                                <input required name="grade9_school_year" type="text"
+                                    class="form-control rounded-0 border border-gray" placeholder="" />
+                            </div>
+                            <div class="col-4 px-0">
+                                <input required name="grade9_club_name" type="text"
+                                    class="form-control rounded-0 border border-gray" placeholder="" />
+                            </div>
+                            <div class="col-4 px-0">
+                                <input name="grade9_field_trips" type="text"
+                                    class="form-control rounded-0 border border-gray" placeholder="" />
+                            </div>
+                        </div>
+
+                        <!-- Grade 10 -->
+                        <div class="row mx-half mb-0 input-group-custom-cr">
+                            <div class="col-2 border border-gray p-2">
+                                <span>Grade 10</span>
+                            </div>
+                            <div class="col-2 px-0">
+                                <input required name="grade10_school_year" type="text"
+                                    class="form-control rounded-0 border border-gray" placeholder="" />
+                            </div>
+                            <div class="col-4 px-0">
+                                <input required name="grade10_club_name" type="text"
+                                    class="form-control rounded-0 border border-gray" placeholder="" />
+                            </div>
+                            <div class="col-4 px-0">
+                                <input name="grade10_field_trips" type="text"
+                                    class="form-control rounded-0 border border-gray" placeholder="" />
+                            </div>
+                        </div>
+
+                        <!-- Grade 11 -->
+                        <div class="row mx-half mb-0 input-group-custom-cr">
+                            <div class="col-2 border border-gray p-2">
+                                <span>Grade 11</span>
+                            </div>
+                            <div class="col-2 px-0">
+                                <input required name="grade11_school_year" type="text"
+                                    class="form-control rounded-0 border border-gray" placeholder="" />
+                            </div>
+                            <div class="col-4 px-0">
+                                <input required name="grade11_club_name" type="text"
+                                    class="form-control rounded-0 border border-gray" placeholder="" />
+                            </div>
+                            <div class="col-4 px-0">
+                                <input name="grade11_field_trips" type="text"
+                                    class="form-control rounded-0 border border-gray" placeholder="" />
+                            </div>
+                        </div>
+
+                        <!-- Grade 12 -->
+                        <div class="row mx-half mb-0 input-group-custom-cr">
+                            <div class="col-2 border border-gray p-2">
+                                <span>Grade 12</span>
+                            </div>
+                            <div class="col-2 px-0">
+                                <input required name="grade12_school_year" type="text"
+                                    class="form-control rounded-0 border border-gray" placeholder="" />
+                            </div>
+                            <div class="col-4 px-0">
+                                <input required name="grade12_club_name" type="text"
+                                    class="form-control rounded-0 border border-gray" placeholder="" />
+                            </div>
+                            <div class="col-4 px-0">
+                                <input name="grade12_field_trips" type="text"
+                                    class="form-control rounded-0 border border-gray" placeholder="" />
+                            </div>
+                        </div>
+
                     </div>
-                                            
-                    <div class="form-group-cr">
-                        <label for="otherSchoolAttended">Other School Attended:</label>
-                        <input  class= "SH long"type="text" id="otherSchoolsAttended" name="otherSchoolsAttended" value="" required>
-                    </div>
-                                            
-                    <div class="form-group-cr">
-                        <label for="Name">(Name of School, Grade Level and SY)</label>
-                        <input class= "SH long"type="text" id="etc" name="Name" required>
-                    </div>
-                    
+
+                    <br><br>
+                    {{> ROTR_Ability-Intelligence_Test_hs }}
+                    <br><br>
+                    {{>ROTR_Achievement_Test_hs}}
+
+
+
+
+
+
+                    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+                    <p>This content should appear at the bottom after you scroll.</p>
+                </div>
+                <div class="modal-footer">
+                    <input type="submit" class="btn btn-primary btn-yellow">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
             </div>
-
-
-
-
-
-             <div class = "school-activities">
-
-                <h5>V. SCHOOL ACTIVITIES (Membership in school club/organization, awards received, educational trips, etc)</h5>
-                <div class="container-fluid">
-                    <div class="row mt-3 table-header-cr">
-                        <div class="col-2 border border-gray p-2">
-                            <span>Grade Level</span>
-                        </div>
-                        <div class="col-2 border border-gray p-2">
-                            <span>School Year</span>
-                        </div>
-                        <div class="col-4 border border-gray p-2">
-                            <span>NAME OF CLUB/ORGANIZATION<br>(Position of Leadership, Award, Etc)
-                            </span>
-                        </div>
-                        <div class="col-4 border border-gray p-2">
-                            <span>Educational Trips, Participation in <br> extra-Curricular Activities</span>
-                        </div>
-                    </div>
-                </div>
-                <!-- Grade 7 -->
-                <div class="row mx-half mb-0 input-group-custom-cr">
-                    <div class="col-2 border border-gray p-2">
-                        <span>Grade 7</span>
-                    </div>
-                    <div class="col-2 px-0">
-                        <input required name="grade7_school_year" type="text"
-                            class="form-control rounded-0 border border-gray" placeholder="" />
-                    </div>
-                    <div class="col-4 px-0">
-                        <input required name="grade7_club_name" type="text"
-                            class="form-control rounded-0 border border-gray" placeholder="" />
-                    </div>
-                    <div class="col-4 px-0">
-                        <input name="grade7_field_trips" type="text" 
-                            class="form-control rounded-0 border border-gray"
-                            placeholder="" />
-                    </div>
-                </div>
-
-                <!-- Grade 8 -->
-                <div class="row mx-half mb-0 input-group-custom-cr">
-                    <div class="col-2 border border-gray p-2">
-                        <span>Grade 8</span>
-                    </div>
-                    <div class="col-2 px-0">
-                        <input required name="grade8_school_year" type="text"
-                            class="form-control rounded-0 border border-gray" placeholder="" />
-                    </div>
-                    <div class="col-4 px-0">
-                        <input required name="grade8_club_name" type="text"
-                            class="form-control rounded-0 border border-gray" placeholder="" />
-                    </div>
-                    <div class="col-4 px-0">
-                        <input name="grade8_field_trips" type="text" 
-                            class="form-control rounded-0 border border-gray"
-                            placeholder="" />
-                    </div>
-                </div>
-
-                <!-- Grade 9 -->
-                <div class="row mx-half mb-0 input-group-custom-cr">
-                    <div class="col-2 border border-gray p-2">
-                        <span>Grade 9</span>
-                    </div>
-                    <div class="col-2 px-0">
-                        <input required name="grade9_school_year" type="text"
-                            class="form-control rounded-0 border border-gray" placeholder="" />
-                    </div>
-                    <div class="col-4 px-0">
-                        <input required name="grade9_club_name" type="text"
-                            class="form-control rounded-0 border border-gray" placeholder="" />
-                    </div>
-                    <div class="col-4 px-0">
-                        <input name="grade9_field_trips" type="text" 
-                            class="form-control rounded-0 border border-gray"
-                            placeholder="" />
-                    </div>
-                </div>
-
-                <!-- Grade 10 -->
-                <div class="row mx-half mb-0 input-group-custom-cr">
-                    <div class="col-2 border border-gray p-2">
-                        <span>Grade 10</span>
-                    </div>
-                    <div class="col-2 px-0">
-                        <input required name="grade10_school_year" type="text"
-                            class="form-control rounded-0 border border-gray" placeholder="" />
-                    </div>
-                    <div class="col-4 px-0">
-                        <input required name="grade10_club_name" type="text"
-                            class="form-control rounded-0 border border-gray" placeholder="" />
-                    </div>
-                    <div class="col-4 px-0">
-                        <input name="grade10_field_trips" type="text" 
-                            class="form-control rounded-0 border border-gray"
-                            placeholder="" />
-                    </div>
-                </div>
-
-                <!-- Grade 11 -->
-                <div class="row mx-half mb-0 input-group-custom-cr">
-                    <div class="col-2 border border-gray p-2">
-                        <span>Grade 11</span>
-                    </div>
-                    <div class="col-2 px-0">
-                        <input required name="grade11_school_year" type="text"
-                            class="form-control rounded-0 border border-gray" placeholder="" />
-                    </div>
-                    <div class="col-4 px-0">
-                        <input required name="grade11_club_name" type="text"
-                            class="form-control rounded-0 border border-gray" placeholder="" />
-                    </div>
-                    <div class="col-4 px-0">
-                        <input name="grade11_field_trips" type="text" 
-                            class="form-control rounded-0 border border-gray"
-                            placeholder="" />
-                    </div>
-                </div>
-
-                <!-- Grade 12 -->
-                <div class="row mx-half mb-0 input-group-custom-cr">
-                    <div class="col-2 border border-gray p-2">
-                        <span>Grade 12</span>
-                    </div>
-                    <div class="col-2 px-0">
-                        <input required name="grade12_school_year" type="text"
-                            class="form-control rounded-0 border border-gray" placeholder="" />
-                    </div>
-                    <div class="col-4 px-0">
-                        <input required name="grade12_club_name" type="text"
-                            class="form-control rounded-0 border border-gray" placeholder="" />
-                    </div>
-                    <div class="col-4 px-0">
-                        <input name="grade12_field_trips" type="text" 
-                            class="form-control rounded-0 border border-gray"
-                            placeholder="" />
-                    </div>
-                </div>
-
-             </div> 
-
-
-            <br>
-                {{> ROTR_Ability-Intelligence_Test_hs }}
-                
-
-
-
-
-
-
-
-
-
-      
-
-
-
-                <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-                <p>This content should appear at the bottom after you scroll.</p>
-            </div>
-            <div class="modal-footer">
-                <input type="submit" class="btn btn-primary btn-yellow">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            </div>
-        </div>
-        </form>
+            </form>
         </div>
     </div>
 
 
 
-        <!-- Include Bootstrap JS (optional, for dropdown menus) -->
-        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-            integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-            crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
-            integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
-            crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
-            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-            crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
-            crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
-            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-            crossorigin="anonymous"></script>
-        <script src="https://kit.fontawesome.com/84cb3b7f2b.js" crossorigin="anonymous"></script>
+    <!-- Include Bootstrap JS (optional, for dropdown menus) -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/84cb3b7f2b.js" crossorigin="anonymous"></script>
 
 
 
 
     <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        var timeout = null;
-        document.getElementById('studentId').addEventListener('keyup', function () {
-            clearTimeout(timeout);
-            timeout = setTimeout(function() {
-                var textvalue = document.getElementById('studentId').value;
-                var xhr = new XMLHttpRequest();
-                xhr.open('POST', '/guidance', true);
-                xhr.setRequestHeader('Content-Type', 'application/json');
-                xhr.onload = function() {
-                    if(xhr.status === 200) {
+        document.addEventListener('DOMContentLoaded', function () {
+            var timeout = null;
+            document.getElementById('studentId').addEventListener('keyup', function () {
+                clearTimeout(timeout);
+                timeout = setTimeout(function () {
+                    var textvalue = document.getElementById('studentId').value;
+                    var xhr = new XMLHttpRequest();
+                    xhr.open('POST', '/guidance', true);
+                    xhr.setRequestHeader('Content-Type', 'application/json');
+                    xhr.onload = function () {
+                        if (xhr.status === 200) {
+                            if (xhr.status === 200) {
+                                var response = JSON.parse(xhr.responseText);
+                                var recordIds = response.recordIds;
+
+                                // Update checkboxes
+                                var checkboxes = document.querySelectorAll('[name="recordTypes[]"]');
+                                checkboxes.forEach(function (checkbox) {
+                                    if (recordIds.includes(checkbox.value)) {
+                                        checkbox.checked = true;
+                                        checkbox.classList.add('greyed-out');
+                                    } else {
+                                        checkbox.checked = false;
+                                        checkbox.classList.remove('greyed-out');
+                                    }
+                                });
+                            }
+                        }
+                    };
+                    xhr.onerror = function () {
+                        console.error('Request Error...');
+                    };
+                    xhr.send(JSON.stringify({ textData: textvalue }));
+                }, 500);
+            });
+            document.getElementById('studentId-cummilative-anecdotal').addEventListener('keyup', function () {
+                clearTimeout(timeout);
+                timeout = setTimeout(function () {
+                    var baseStudentId = document.getElementById('studentId-cummilative-anecdotal').value;
+                    var xhr = new XMLHttpRequest();
+                    xhr.open('POST', '/guidance/cummulative-get', true);
+                    xhr.setRequestHeader('Content-Type', 'application/json');
+                    xhr.onload = function () {
                         if (xhr.status === 200) {
                             var response = JSON.parse(xhr.responseText);
-                            var recordIds = response.recordIds;
-
-                            // Update checkboxes
-                            var checkboxes = document.querySelectorAll('[name="recordTypes[]"]');
-                            checkboxes.forEach(function(checkbox) {
-                                if (recordIds.includes(checkbox.value)) {
-                                    checkbox.checked = true;
-                                    checkbox.classList.add('greyed-out');
-                                } else {
-                                    checkbox.checked = false;
-                                    checkbox.classList.remove('greyed-out');
-                                }
-                            });
+                            var schoolHistory = response.formattedSchoolHistory;
+                            document.querySelector('[name="enteredFrom"]').value = schoolHistory.enteredFrom;
+                            document.querySelector('[name="schoolYearAdmitted"]').value = schoolHistory.schoolYearAdmitted;
+                            document.querySelector('[name="gradeLevelEntered"]').value = schoolHistory.gradeLevelEntered;
+                            document.querySelector('[name="otherSchoolsAttended"]').value = schoolHistory.otherSchoolsAttended;
+                        } else {
+                            console.error('Request failed with status:', xhr.status);
                         }
-                    }
-                };
-                xhr.onerror = function() {
-                    console.error('Request Error...');
-                };
-                xhr.send(JSON.stringify({textData: textvalue}));
-            }, 500);
+                    };
+                    xhr.onerror = function () {
+                        console.error('Request Error...');
+                    };
+                    xhr.send(JSON.stringify({ textData: baseStudentId }));
+                }, 500);
+            });
         });
-        document.getElementById('studentId-cummilative-anecdotal').addEventListener('keyup', function () {
-            clearTimeout(timeout);
-            timeout = setTimeout(function() {
-                var baseStudentId = document.getElementById('studentId-cummilative-anecdotal').value;
-                var xhr = new XMLHttpRequest();
-                xhr.open('POST', '/guidance/cummulative-get', true);
-                xhr.setRequestHeader('Content-Type', 'application/json');
-                xhr.onload = function() {
-                    if (xhr.status === 200) {
-                        var response = JSON.parse(xhr.responseText);
-                        var schoolHistory = response.formattedSchoolHistory;
-                        document.querySelector('[name="enteredFrom"]').value = schoolHistory.enteredFrom;
-                        document.querySelector('[name="schoolYearAdmitted"]').value = schoolHistory.schoolYearAdmitted;
-                        document.querySelector('[name="gradeLevelEntered"]').value = schoolHistory.gradeLevelEntered;
-                        document.querySelector('[name="otherSchoolsAttended"]').value = schoolHistory.otherSchoolsAttended;
-                    } else {
-                        console.error('Request failed with status:', xhr.status);
-                    }
-                };
-                xhr.onerror = function() {
-                    console.error('Request Error...');
-                };
-                xhr.send(JSON.stringify({textData: baseStudentId}));
-            }, 500);
-        });
-    });
 
-     document.getElementById('edit_cummulative_record').addEventListener('click', function () {
-        event.preventDefault();
-        const baseStudentId = document.getElementById('studentId-cummilative-anecdotal').value;
-        document.getElementById('studentIdField').value = baseStudentId;
-     });
+        document.getElementById('edit_cummulative_record').addEventListener('click', function () {
+            event.preventDefault();
+            const baseStudentId = document.getElementById('studentId-cummilative-anecdotal').value;
+            document.getElementById('studentIdField').value = baseStudentId;
+        });
     </script>
-        
+
 </body>
 
 </html>
