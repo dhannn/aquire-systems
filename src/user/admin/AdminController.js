@@ -11,6 +11,7 @@ export class AdminContoller extends UserController {
   allowedUserType = "A";
 
   initializeRoutes() {
+    this.createRoute("GET", "", this.viewStudents);
     this.createRoute("GET", "/", this.viewStudents);
     this.createRoute("GET", "/students", this.viewStudents);
     this.createRoute("GET", "/users", this.viewUsers);
@@ -142,12 +143,12 @@ export class AdminContoller extends UserController {
     }
   }
 
-  async viewStudents(_, res) {
+  async viewStudents(req, res) {
     const allowed = await UserController.verifyUserPermission(
       this.allowedUserType,
-      _
+      req
     );
-    const loggedIn = UserController.checkifloggedIn(_);
+    const loggedIn = UserController.checkifloggedIn(req);
 
     if (!loggedIn) {
       return res.redirect("/");
@@ -165,7 +166,13 @@ export class AdminContoller extends UserController {
     const nextfromYear = parseInt(currentSchoolYear.fromYear) + 1;
     const nexttoYear = parseInt(currentSchoolYear.toYear) + 1;
     const nextschoolyear = `${nextfromYear}-${nexttoYear}`;
-
+    
+    var gradefilter;
+    if (req.query.grade == null) {
+      gradefilter = 'Kinder';
+    } else {
+      gradefilter = req.query.grade;
+    }
 
     const students = await Student.findAll({
       attributes: ["student_id", "firstName", "middleInitial", "lastName"],
@@ -175,6 +182,7 @@ export class AdminContoller extends UserController {
           attributes: ["grade", "section"],
           where: {
             schoolYear: schoolYear,
+            grade: gradefilter,
           },
           required: true,
         },
@@ -192,14 +200,44 @@ export class AdminContoller extends UserController {
           students: [],
           message: "No students found for the current school year.",
           schoolyear: schoolYear,
-          nextschoolyear: nextschoolyear
+          nextschoolyear: nextschoolyear,
+          //for current proccing
+          K: gradefilter === 'Kinder',
+          SK: gradefilter === 'Senior Kinder',
+          G1: gradefilter === 'Grade 1',
+          G2: gradefilter === 'Grade 2',
+          G3: gradefilter === 'Grade 3',
+          G4: gradefilter === 'Grade 4',
+          G5: gradefilter === 'Grade 5',
+          G6: gradefilter === 'Grade 6',
+          G7: gradefilter === 'Grade 7',
+          G8: gradefilter === 'Grade 8',
+          G9: gradefilter === 'Grade 9',
+          G10: gradefilter === 'Grade 10',
+          G11: gradefilter === 'Grade 11',
+          G12: gradefilter === 'Grade 12',
         });
       }
 
       res.render("Admin_Student", { 
         students: students,
         schoolyear: schoolYear,
-        nextschoolyear: nextschoolyear
+        nextschoolyear: nextschoolyear,
+        //for current proccing
+        K: gradefilter === 'Kinder',
+        SK: gradefilter === 'Senior Kinder',
+        G1: gradefilter === 'Grade 1',
+        G2: gradefilter === 'Grade 2',
+        G3: gradefilter === 'Grade 3',
+        G4: gradefilter === 'Grade 4',
+        G5: gradefilter === 'Grade 5',
+        G6: gradefilter === 'Grade 6',
+        G7: gradefilter === 'Grade 7',
+        G8: gradefilter === 'Grade 8',
+        G9: gradefilter === 'Grade 9',
+        G10: gradefilter === 'Grade 10',
+        G11: gradefilter === 'Grade 11',
+        G12: gradefilter === 'Grade 12',
        });
     } catch (error) {
       console.error("Error fetching students:", error);
