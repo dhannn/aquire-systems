@@ -86,7 +86,7 @@ export class GuidanceController extends UserController {
     async updateStudentCummulativeRecord(req, res) {
         try{
             console.log(req.body);
-            this.updateStudentSchoolHistory(req, res);
+            //this.updateStudentSchoolHistory(req, res);
             this.updateStudentHealthRecord(req, res);
             const studentRecords = await GuidanceModel.StudentRecords();
             res.render('Guidance', {message: {isSuccess: true, content: 'Student Cummulative Record updated!'}, studentRecords: studentRecords})

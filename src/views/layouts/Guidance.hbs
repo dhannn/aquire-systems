@@ -351,21 +351,27 @@
                                         <span></span>
                                     </div>
                                     <div class="col border border-gray p-2">
+                                        <input type="hidden" name="healthRecordGrade7" id="healthRecordGrade7" value="Grade 7">
                                         <span>Grade 7</span>
                                     </div>
                                     <div class="col border border-gray p-2">
+                                        <input type="hidden" name="healthRecordGrade8" id="healthRecordGrade7" value="Grade 8">
                                         <span>Grade 8</span>
                                     </div>
                                     <div class="col border border-gray p-2">
+                                        <input type="hidden" name="healthRecordGrade9" id="healthRecordGrade7" value="Grade 9">
                                         <span>Grade 9</span>
                                     </div>
                                     <div class="col border border-gray p-2">
+                                        <input type="hidden" name="healthRecordGrade10" id="healthRecordGrade7" value="Grade 10">
                                         <span>Grade 10</span>
                                     </div>
                                     <div class="col border border-gray p-2">
+                                        <input type="hidden" name="healthRecordGrade11" id="healthRecordGrade7" value="Grade 11">
                                         <span>Grade 11</span>
                                     </div>
                                     <div class="col border border-gray p-2">
+                                        <input type="hidden" name="healthRecordGrade12" id="healthRecordGrade7" value="Grade 12">
                                         <span>Grade 12</span>
                                     </div>
                                 </div>
@@ -734,12 +740,12 @@
                     if (xhr.status === 200) {
                         var response = JSON.parse(xhr.responseText);
                         console.log(response);
-                        var schoolHistory = response.schoolHistory;
+                        //var schoolHistory = response.schoolHistory;
                         var healthRecord = response.healthRecord;
-                        document.querySelector('[name="enteredFrom"]').value = schoolHistory.enteredFrom;
-                        document.querySelector('[name="schoolYearAdmitted"]').value = schoolHistory.schoolYearAdmitted;
-                        document.querySelector('[name="gradeLevelEntered"]').value = schoolHistory.gradeLevelEntered;
-                        document.querySelector('[name="otherSchoolsAttended"]').value = schoolHistory.otherSchoolsAttended;
+                        //document.querySelector('[name="enteredFrom"]').value = schoolHistory.enteredFrom;
+                        //document.querySelector('[name="schoolYearAdmitted"]').value = schoolHistory.schoolYearAdmitted;
+                        //document.querySelector('[name="gradeLevelEntered"]').value = schoolHistory.gradeLevelEntered;
+                        //document.querySelector('[name="otherSchoolsAttended"]').value = schoolHistory.otherSchoolsAttended;
                         document.querySelector('[name="grade7Vision"]').value = healthRecord[3].vision;
                         document.querySelector('[name="grade7Height"]').value = healthRecord[3].height;
                         document.querySelector('[name="grade7Weight"]').value = healthRecord[3].weight;
