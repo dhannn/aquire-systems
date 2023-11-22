@@ -39,7 +39,7 @@
     {{#if message}}
         {{> Message message=message}}
     {{/if}}
-    {{> navbar student_page="true"}}
+    {{> Navbar userRole="Admin" student_page="true" user_page="true" }}
 
     <div class="container-fluid">
         <div class="row mx-5">
@@ -82,7 +82,7 @@
                                 class="bi bi-search"></i></button>
                     </form>
                 </div>
-                 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                 <div class="modal fade" id="StartNewSY" tabindex="-1" aria-labelledby="exampleModalLabel"
                             aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
                             <div class="modal-dialog modal-dialog-centered">
                                 <div class=" modal-content p-5">
@@ -165,94 +165,11 @@
                     </div>
                 {{/if}}
             </div>
-
-                {{!-- <div id="data-table" class="container-fluid my-3">
-                    <div class="row">
-                        <div class="col-2 border p-2">
-                            <span>23-00001</span>
-                        </div>
-                        <div class="col-2 border p-2">
-                            <span>Gutierrez</span>
-                        </div>
-                        <div class="col-2 border p-2">
-                            <span>James</span>
-                        </div>
-                        <div class="col-2 border p-2">
-                            <span>Z</span>
-                        </div>
-                        <div class="col-2 border p-2">
-                            <span>Justice</span>
-                        </div>
-                        <div class="col-2">
-                            <button type="submit" class="btn col-12 rounded-0"><i class="bi bi-pencil-fill"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-2 border p-2">
-                            <span>23-00012</span>
-                        </div>
-                        <div class="col-2 border p-2">
-                            <span>De La Cruz</span>
-                        </div>
-                        <div class="col-2 border p-2">
-                            <span>Samantha</span>
-                        </div>
-                        <div class="col-2 border p-2">
-                            <span>D</span>
-                        </div>
-                        <div class="col-2 border p-2">
-                            <span>Justice</span>
-                        </div>
-                        <div class="col-2">
-                            <button type="submit" class="btn col-12 rounded-0"><i class="bi bi-pencil-fill"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-2 border p-2">
-                            <span>23-00003</span>
-                        </div>
-                        <div class="col-2 border p-2">
-                            <span>Chan</span>
-                        </div>
-                        <div class="col-2 border p-2">
-                            <span>Ling</span>
-                        </div>
-                        <div class="col-2 border p-2">
-                            <span>JS</span>
-                        </div>
-                        <div class="col-2 border p-2">
-                            <span>Justice</span>
-                        </div>
-                        <div class="col-2">
-                            <button type="submit" class="btn col-12 rounded-0"><i class="bi bi-pencil-fill"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div> --}}
         </div>
 
         </section>
 
     </div>
-
-    <div class="modal fade" id="startNewSchoolYearModal" tabindex="-1" aria-labelledby="startNewSchoolYearModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="startNewSchoolYearModalLabel">Start New School Year</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        Are you sure you want to start a new school year?
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-        <button type="button" class="btn btn-primary" id="confirmStartNewSchoolYear">Yes, Start New School Year</button>
-      </div>
-    </div>
-  </div>
 </div>
 <div id="overlay"></div>
     <!-- Include Bootstrap JS (optional, for dropdown menus) -->
@@ -261,12 +178,12 @@
         crossorigin="anonymous"></script>
 
 <script>
-  document.getElementById('startNewSchoolYearBtn').addEventListener('click', function () {
+document.getElementById('startNewSchoolYearBtn').addEventListener('click', function () {
     // Show the overlay
     document.getElementById('overlay').style.display = 'block';
 
     // Trigger the start new school year modal
-    var myModal = new bootstrap.Modal(document.getElementById('startNewSchoolYearModal'));
+    var myModal = new bootstrap.Modal(document.getElementById('StartNewSY'));
 
     // Show the modal
     myModal.show();
