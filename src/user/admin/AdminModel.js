@@ -34,17 +34,17 @@ export class AdminModel {
         return insertUser();
     }
 
-    // updateCurrentSchoolYear method
-    async updateCurrentSchoolYear(fromYear, toYear) {
-        try {
-            // Update the current school year range in the CurrentSchoolYear table
-            await CurrentSchoolYear.create({ fromYear, toYear }, { upsert: true });
-            return { fromYear, toYear };
-        } catch (error) {
-            console.error('Error updating the current school year:', error);
-            throw error;
-        }
-    }
+    // // updateCurrentSchoolYear method
+    // async updateCurrentSchoolYear(fromYear, toYear) {
+    //     try {
+    //         // Update the current school year range in the CurrentSchoolYear table
+    //         await CurrentSchoolYear.create({ fromYear, toYear }, { upsert: true });
+    //         return { fromYear, toYear };
+    //     } catch (error) {
+    //         console.error('Error updating the current school year:', error);
+    //         throw error;
+    //     }
+    // }
 
     /**
      * Inserts the user to the database
@@ -142,19 +142,23 @@ export class AdminModel {
 
   async startNewSchoolYear() {
     try {
-        const currentYear = new Date().getFullYear();
-        const fromYear = currentYear.toString();
-        const toYear = (currentYear + 1).toString();
+        const currentSchoolYear = await CurrentSchoolYear.findOne({
+            order: [['createdAt', 'DESC']],
+        });
 
-        const [updatedRows] = await CurrentSchoolYear.update(
-            { fromYear, toYear },
-            { where: {} }
-        );
-
-        if (updatedRows === 0) {
-            throw new Error('Failed to update the current school year');
+        if (!currentSchoolYear) {
+            throw new Error('Current school year is not set');
         }
 
+        console.log('Starting new school year. Current school year:', currentSchoolYear);
+
+        const fromYear = parseInt(currentSchoolYear.fromYear) + 1;
+        const toYear = parseInt(currentSchoolYear.toYear) + 1;
+
+        await this.updateCurrentSchoolYear(fromYear.toString(), toYear.toString());
+
+        console.log('New school year started successfully.');
+        
         const updatedSchoolYear = await CurrentSchoolYear.findOne();
 
         if (!updatedSchoolYear) {
@@ -167,4 +171,24 @@ export class AdminModel {
         throw error;
     }
  }
+
+
+ async updateCurrentSchoolYear(fromYear, toYear) {
+  try {
+      // Update the current school year range in the CurrentSchoolYear table
+      const [updatedRows] = await CurrentSchoolYear.update(
+          { fromYear, toYear },
+          { where: {} }
+      );
+
+      if (updatedRows === 0) {
+          throw new Error('Failed to update the current school year');
+      }
+
+      return { fromYear, toYear };
+  } catch (error) {
+      console.error('Error updating the current school year:', error);
+      throw error;
+  }
+}
 }
