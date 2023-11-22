@@ -27,11 +27,6 @@ body{
 
 #student-link, #user-link{
     color: #0A0A0A;
-}
-
-#topbar-links li a{
-    font-weight: bolder;
-}
 
 #sidebar-links li a{
     color: #5e5e5e;
