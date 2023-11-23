@@ -301,7 +301,7 @@
 
 
 
-
+ /*FOR SCHOOL HISORY------------------------------------------------------------*/
 
 
 
@@ -322,12 +322,9 @@
 
 .long{
     width: 65%;
-    
 }
 
-
 .form-row-cr {
-  
     display: flex;
     justify-content: space-between;
 }
