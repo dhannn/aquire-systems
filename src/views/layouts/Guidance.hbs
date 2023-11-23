@@ -153,7 +153,8 @@
             </div>
          
             <div class="modal-body">
-
+            <form id="cummulative-form" method="POST" action="/guidance/cummulative">
+            <input type="hidden" name="student_id" id="studentIdField">
             <div class = "family-data">
                 <h5>I.FAMILY DATA</h5>
                 <div class="container-fluid">
@@ -269,13 +270,13 @@
                         <div class="form-group row">
                             <label for="totalChildren" class="col-7 col-form-label">Total Number of Children</label>
                             <div class="col-3">
-                                <input type="number" class="form-control" id="totalChildren" value="">
+                                <input type="number" class="form-control" name="totalChildren" id="totalChildren" value="">
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="rankFamily" class="col-7 col-form-label">Rank in the Family</label>
                             <div class="col-3">
-                                <input type="number" class="form-control" id="rankFamily" value="">
+                                <input type="number" class="form-control" name="rankFamily" id="rankFamily" value="">
                             </div>
                         </div>
                     </div>
@@ -363,13 +364,8 @@
                     </div>
                                             
                     <div class="form-group-cr">
-                        <label for="otherSchoolAttended">Other School Attended:</label>
+                        <label for="otherSchoolAttended">Other School Attended: (Name of School, Grade Level and SY)</label>
                         <input  class= "SH long"type="text" id="otherSchoolsAttended" name="otherSchoolsAttended" value="" required>
-                    </div>
-                                            
-                    <div class="form-group-cr">
-                        <label for="Name">(Name of School, Grade Level and SY)</label>
-                        <input class= "SH long"type="text" id="etc" name="Name" required>
                     </div>
                     
             </div>
@@ -402,6 +398,7 @@
                 <div class="row mx-half mb-0 input-group-custom-cr">
                     <div class="col-2 border border-gray p-2">
                         <span>Grade 7</span>
+                        <input type="hidden" name="schoolActivityGrade7" id="schoolActivityGrade7" value="Grade 7">
                     </div>
                     <div class="col-2 px-0">
                         <input required name="grade7_school_year" type="text"
@@ -422,6 +419,7 @@
                 <div class="row mx-half mb-0 input-group-custom-cr">
                     <div class="col-2 border border-gray p-2">
                         <span>Grade 8</span>
+                        <input type="hidden" name="schoolActivityGrade8" id="schoolActivityGrade8" value="Grade 8">
                     </div>
                     <div class="col-2 px-0">
                         <input required name="grade8_school_year" type="text"
@@ -442,6 +440,7 @@
                 <div class="row mx-half mb-0 input-group-custom-cr">
                     <div class="col-2 border border-gray p-2">
                         <span>Grade 9</span>
+                        <input type="hidden" name="schoolActivityGrade9" id="schoolActivityGrade9" value="Grade 9">
                     </div>
                     <div class="col-2 px-0">
                         <input required name="grade9_school_year" type="text"
@@ -462,6 +461,7 @@
                 <div class="row mx-half mb-0 input-group-custom-cr">
                     <div class="col-2 border border-gray p-2">
                         <span>Grade 10</span>
+                        <input type="hidden" name="schoolActivityGrade10" id="schoolActivityGrade10" value="Grade 10">
                     </div>
                     <div class="col-2 px-0">
                         <input required name="grade10_school_year" type="text"
@@ -482,6 +482,7 @@
                 <div class="row mx-half mb-0 input-group-custom-cr">
                     <div class="col-2 border border-gray p-2">
                         <span>Grade 11</span>
+                        <input type="hidden" name="schoolActivityGrade11" id="schoolActivity11" value="Grade 11">
                     </div>
                     <div class="col-2 px-0">
                         <input required name="grade11_school_year" type="text"
@@ -502,6 +503,7 @@
                 <div class="row mx-half mb-0 input-group-custom-cr">
                     <div class="col-2 border border-gray p-2">
                         <span>Grade 12</span>
+                        <input type="hidden" name="schoolActivityGrade12" id="schoolActivityGrade12" value="Grade 12">
                     </div>
                     <div class="col-2 px-0">
                         <input required name="grade12_school_year" type="text"
@@ -618,11 +620,112 @@
                 xhr.onload = function() {
                     if (xhr.status === 200) {
                         var response = JSON.parse(xhr.responseText);
-                        var schoolHistory = response.formattedSchoolHistory;
+                        var schoolHistory = response.schoolHistory;
+                        var familyData = response.familyData;
+                        var schoolActivity = response.schoolActivity;
+                        var abilityIntelligenceTest = response.abilityIntelligenceTest;
                         document.querySelector('[name="enteredFrom"]').value = schoolHistory.enteredFrom;
                         document.querySelector('[name="schoolYearAdmitted"]').value = schoolHistory.schoolYearAdmitted;
                         document.querySelector('[name="gradeLevelEntered"]').value = schoolHistory.gradeLevelEntered;
                         document.querySelector('[name="otherSchoolsAttended"]').value = schoolHistory.otherSchoolsAttended;
+                        document.querySelector('[name="student_name"]').value = familyData.studentName;
+                        document.querySelector('[name="student_birthday"]').value = familyData.studentBirthday;
+                        document.querySelector('[name="student_citizenship"]').value = familyData.studentCitizenship;
+                        document.querySelector('[name="student_address"]').value = familyData.studentAddress_TelOrCpNum;
+                        document.querySelector('[name="student_occupation"]').value = familyData.studentOccupation;
+                        document.querySelector('[name="father_name"]').value = familyData.fatherName;
+                        document.querySelector('[name="father_birthday"]').value = familyData.fatherBirthday;
+                        document.querySelector('[name="father_citizenship"]').value = familyData.fatherCitizenship;
+                        document.querySelector('[name="father_address"]').value = familyData.fatherAddress_TelOrCpNum;
+                        document.querySelector('[name="father_occupation"]').value = familyData.fatherOccupation;
+                        document.querySelector('[name="mother_name"]').value = familyData.motherName;
+                        document.querySelector('[name="mother_birthday"]').value = familyData.motherBirthday;
+                        document.querySelector('[name="mother_citizenship"]').value = familyData.motherCitizenship;
+                        document.querySelector('[name="mother_address"]').value = familyData.motherAddress_TelOrCpNum;
+                        document.querySelector('[name="mother_occupation"]').value = familyData.motherOccupation;
+                        document.querySelector('[name="guardian_name"]').value = familyData.guardianName;
+                        document.querySelector('[name="guardian_birthday"]').value = familyData.guardianBirthday;
+                        document.querySelector('[name="guardian_citizenship"]').value = familyData.guardianCitizenship;
+                        document.querySelector('[name="guardian_address"]').value = familyData.guardianAddress_TelOrCpNum;
+                        document.querySelector('[name="guardian_occupation"]').value = familyData.guardianOccupation;
+                        document.querySelector('[name="totalChildren"]').value = familyData.totalNumberOfChildren;
+                        document.querySelector('[name="rankFamily"]').value = familyData.rankInTheFamily;
+                        var languageSelected = familyData.languageSpokenAtHome;
+                        document.querySelector(`[name="spokenLanguage"][value="${languageSelected}"]`).click();
+                        var religionSelected =familyData.religion;
+                        document.querySelector(`[name="religion"][value="${religionSelected}"]`).click();
+                        var statusSelected = familyData.martialStatusofParents;
+                        document.querySelector(`[name="parentStatus"][value="${statusSelected}"]`).click();
+                        document.querySelector('[name="grade7_school_year"]').value = schoolActivity[3].schoolYear;
+                        document.querySelector('[name="grade7_club_name"]').value = schoolActivity[3].clubName;
+                        document.querySelector('[name="grade7_field_trips"]').value = schoolActivity[3].clubParticipation;
+                        document.querySelector('[name="grade8_school_year"]').value = schoolActivity[4].schoolYear;
+                        document.querySelector('[name="grade8_club_name"]').value = schoolActivity[4].clubName;
+                        document.querySelector('[name="grade8_field_trips"]').value = schoolActivity[4].clubParticipation;
+                        document.querySelector('[name="grade9_school_year"]').value = schoolActivity[5].schoolYear;
+                        document.querySelector('[name="grade9_club_name"]').value = schoolActivity[5].clubName;
+                        document.querySelector('[name="grade9_field_trips"]').value = schoolActivity[5].clubParticipation;
+                        document.querySelector('[name="grade10_school_year"]').value = schoolActivity[0].schoolYear;
+                        document.querySelector('[name="grade10_club_name"]').value = schoolActivity[0].clubName;
+                        document.querySelector('[name="grade10_field_trips"]').value = schoolActivity[0].clubParticipation;
+                        document.querySelector('[name="grade11_school_year"]').value = schoolActivity[1].schoolYear;
+                        document.querySelector('[name="grade11_club_name"]').value = schoolActivity[1].clubName;
+                        document.querySelector('[name="grade11_field_trips"]').value = schoolActivity[1].clubParticipation;
+                        document.querySelector('[name="grade12_school_year"]').value = schoolActivity[2].schoolYear;
+                        document.querySelector('[name="grade12_club_name"]').value = schoolActivity[2].clubName;
+                        document.querySelector('[name="grade12_field_trips"]').value = schoolActivity[2].clubParticipation;
+                        document.querySelector('[name="test_type_AI_test"]').value = abilityIntelligenceTest[0].testType;
+                        document.querySelector('[name="date_AI_test"]').value = formatDate(abilityIntelligenceTest[0].currentDate);
+                        document.querySelector('[name="grade_level_AI_test"]').value = abilityIntelligenceTest[0].currentGradeLevel;
+                        document.querySelector('[name=grade7_date]').value = formatDate(abilityIntelligenceTest[3].dateAdministered);
+                        document.querySelector('[name=grade7_test_administered]').value = abilityIntelligenceTest[3].testAdministered;
+                        document.querySelector('[name=grade7_raw_score]').value = abilityIntelligenceTest[3].rawScore;
+                        document.querySelector('[name=grade7_CA]').value = abilityIntelligenceTest[3].ca;
+                        document.querySelector('[name=grade7_IQ_SAI]').value = abilityIntelligenceTest[3].iq_sai;
+                        document.querySelector('[name=grade7_percentile]').value = abilityIntelligenceTest[3].percentile;
+                        document.querySelector('[name=grade7_stanine]').value = abilityIntelligenceTest[3].stanine;
+                        document.querySelector('[name=grade7_remarks]').value = abilityIntelligenceTest[3].remarks;
+                        document.querySelector('[name=grade8_date]').value = formatDate(abilityIntelligenceTest[4].dateAdministered);
+                        document.querySelector('[name=grade8_test_administered]').value = abilityIntelligenceTest[4].testAdministered;
+                        document.querySelector('[name=grade8_raw_score]').value = abilityIntelligenceTest[4].rawScore;
+                        document.querySelector('[name=grade8_CA]').value = abilityIntelligenceTest[4].ca;
+                        document.querySelector('[name=grade8_IQ_SAI]').value = abilityIntelligenceTest[4].iq_sai;
+                        document.querySelector('[name=grade8_percentile]').value = abilityIntelligenceTest[4].percentile;
+                        document.querySelector('[name=grade8_stanine]').value = abilityIntelligenceTest[4].stanine;
+                        document.querySelector('[name=grade8_remarks]').value = abilityIntelligenceTest[4].remarks;
+                        document.querySelector('[name=grade9_date]').value = formatDate(abilityIntelligenceTest[5].dateAdministered);
+                        document.querySelector('[name=grade9_test_administered]').value = abilityIntelligenceTest[5].testAdministered;
+                        document.querySelector('[name=grade9_raw_score]').value = abilityIntelligenceTest[5].rawScore;
+                        document.querySelector('[name=grade9_CA]').value = abilityIntelligenceTest[5].ca;
+                        document.querySelector('[name=grade9_IQ_SAI]').value = abilityIntelligenceTest[5].iq_sai;
+                        document.querySelector('[name=grade9_percentile]').value = abilityIntelligenceTest[5].percentile;
+                        document.querySelector('[name=grade9_stanine]').value = abilityIntelligenceTest[5].stanine;
+                        document.querySelector('[name=grade9_remarks]').value = abilityIntelligenceTest[5].remarks;
+                        document.querySelector('[name=grade10_date]').value = formatDate(abilityIntelligenceTest[0].dateAdministered);
+                        document.querySelector('[name=grade10_test_administered]').value = abilityIntelligenceTest[0].testAdministered;
+                        document.querySelector('[name=grade10_raw_score]').value = abilityIntelligenceTest[0].rawScore;
+                        document.querySelector('[name=grade10_CA]').value = abilityIntelligenceTest[0].ca;
+                        document.querySelector('[name=grade10_IQ_SAI]').value = abilityIntelligenceTest[0].iq_sai;
+                        document.querySelector('[name=grade10_percentile]').value = abilityIntelligenceTest[0].percentile;
+                        document.querySelector('[name=grade10_stanine]').value = abilityIntelligenceTest[0].stanine;
+                        document.querySelector('[name=grade10_remarks]').value = abilityIntelligenceTest[0].remarks;
+                        document.querySelector('[name=grade11_date]').value = formatDate(abilityIntelligenceTest[1].dateAdministered);
+                        document.querySelector('[name=grade11_test_administered]').value = abilityIntelligenceTest[1].testAdministered;
+                        document.querySelector('[name=grade11_raw_score]').value = abilityIntelligenceTest[1].rawScore;
+                        document.querySelector('[name=grade11_CA]').value = abilityIntelligenceTest[1].ca;
+                        document.querySelector('[name=grade11_IQ_SAI]').value = abilityIntelligenceTest[1].iq_sai;
+                        document.querySelector('[name=grade11_percentile]').value = abilityIntelligenceTest[1].percentile;
+                        document.querySelector('[name=grade11_stanine]').value = abilityIntelligenceTest[1].stanine;
+                        document.querySelector('[name=grade11_remarks]').value = abilityIntelligenceTest[1].remarks;
+                        document.querySelector('[name=grade12_date]').value = formatDate(abilityIntelligenceTest[2].dateAdministered);
+                        document.querySelector('[name=grade12_test_administered]').value = abilityIntelligenceTest[2].testAdministered;
+                        document.querySelector('[name=grade12_raw_score]').value = abilityIntelligenceTest[2].rawScore;
+                        document.querySelector('[name=grade12_CA]').value = abilityIntelligenceTest[2].ca;
+                        document.querySelector('[name=grade12_IQ_SAI]').value = abilityIntelligenceTest[2].iq_sai;
+                        document.querySelector('[name=grade12_percentile]').value = abilityIntelligenceTest[2].percentile;
+                        document.querySelector('[name=grade12_stanine]').value = abilityIntelligenceTest[2].stanine;
+                        document.querySelector('[name=grade12_remarks]').value = abilityIntelligenceTest[2].remarks;
+                        
                     } else {
                         console.error('Request failed with status:', xhr.status);
                     }
@@ -640,6 +743,11 @@
         const baseStudentId = document.getElementById('studentId-cummilative-anecdotal').value;
         document.getElementById('studentIdField').value = baseStudentId;
      });
+
+     function formatDate(date){
+        let formattedDate = date.split('T')[0];
+        return formattedDate;
+     }
     </script>
         
 </body>
