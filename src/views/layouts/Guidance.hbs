@@ -457,11 +457,41 @@
                 xhr.onload = function() {
                     if (xhr.status === 200) {
                         var response = JSON.parse(xhr.responseText);
-                        var schoolHistory = response.formattedSchoolHistory;
+                        var schoolHistory = response.schoolHistory;
+                        var familyData = response.familyData;
                         document.querySelector('[name="enteredFrom"]').value = schoolHistory.enteredFrom;
                         document.querySelector('[name="schoolYearAdmitted"]').value = schoolHistory.schoolYearAdmitted;
                         document.querySelector('[name="gradeLevelEntered"]').value = schoolHistory.gradeLevelEntered;
                         document.querySelector('[name="otherSchoolsAttended"]').value = schoolHistory.otherSchoolsAttended;
+                        document.querySelector('[name="student_name"]').value = familyData.studentName;
+                        document.querySelector('[name="student_birthday"]').value = familyData.studentBirthday;
+                        document.querySelector('[name="student_citizenship"]').value = familyData.studentCitizenship;
+                        document.querySelector('[name="student_address"]').value = familyData.studentAddress_TelOrCpNum;
+                        document.querySelector('[name="student_occupation"]').value = familyData.studentOccupation;
+                        document.querySelector('[name="father_name"]').value = familyData.fatherName;
+                        document.querySelector('[name="father_birthday"]').value = familyData.fatherBirthday;
+                        document.querySelector('[name="father_citizenship"]').value = familyData.fatherCitizenship;
+                        document.querySelector('[name="father_address"]').value = familyData.fatherAddress_TelOrCpNum;
+                        document.querySelector('[name="father_occupation"]').value = familyData.fatherOccupation;
+                        document.querySelector('[name="mother_name"]').value = familyData.motherName;
+                        document.querySelector('[name="mother_birthday"]').value = familyData.motherBirthday;
+                        document.querySelector('[name="mother_citizenship"]').value = familyData.motherCitizenship;
+                        document.querySelector('[name="mother_address"]').value = familyData.motherAddress_TelOrCpNum;
+                        document.querySelector('[name="mother_occupation"]').value = familyData.motherOccupation;
+                        document.querySelector('[name="guardian_name"]').value = familyData.guardianName;
+                        document.querySelector('[name="guardian_birthday"]').value = familyData.guardianBirthday;
+                        document.querySelector('[name="guardian_citizenship"]').value = familyData.guardianCitizenship;
+                        document.querySelector('[name="guardian_address"]').value = familyData.guardianAddress_TelOrCpNum;
+                        document.querySelector('[name="guardian_occupation"]').value = familyData.guardianOccupation;
+                        document.querySelector('[name="totalChildren"]').value = familyData.totalNumberOfChildren;
+                        document.querySelector('[name="rankFamily"]').value = familyData.rankInTheFamily;
+                        var languageSelected = familyData.languageSpokenAtHome;
+                        document.querySelector(`[name="spokenLanguage"][value="${languageSelected}"]`).click();
+                        var religionSelected =familyData.religion;
+                        document.querySelector(`[name="religion"][value="${religionSelected}"]`).click();
+                        var statusSelected = familyData.martialStatusofParents;
+                        console.log(`statusSelected: '${statusSelected}'`);
+                        document.querySelector(`[name="parentStatus"][value="${statusSelected}"]`).click();
                     } else {
                         console.error('Request failed with status:', xhr.status);
                     }
