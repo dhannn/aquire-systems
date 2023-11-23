@@ -89,8 +89,9 @@ export class GuidanceController extends UserController {
             console.log(req.body);
             const schoolHistoryError = await this.updateStudentSchoolHistory(req, res);
             const familyDataError = await this.updateStudentFamilyData(req, res);
+            const schoolAcitivityError = await this.updateStudentSchoolActivity(req, res);
             const studentRecords = await GuidanceModel.StudentRecords();
-            if(schoolHistoryError.error || familyDataError.error){
+            if(schoolHistoryError.error || familyDataError.error || schoolAcitivityError.error){
                 res.render('Guidance', {message: {content: 'Error updating Cummulative Record'}, studentRecords: studentRecords});
             } else{
                 res.render('Guidance', {message: {isSuccess: true, content: 'Student Cummulative Record updated!'}, studentRecords: studentRecords})
@@ -117,7 +118,8 @@ export class GuidanceController extends UserController {
         try {
             const cummulativeRecord = {
                 schoolHistory: await this.getStudentSchoolHistory(req, res),
-                familyData: await this.getStudentFamilyData(req, res)
+                familyData: await this.getStudentFamilyData(req, res),
+                schoolActivity: await this.getStudentSchoolActivities(req, res),
             }
             res.json(cummulativeRecord);
         } catch (error) {
@@ -174,6 +176,7 @@ export class GuidanceController extends UserController {
             console.log('Error updating/creating student family data', error);
         }
     }
+
     async getStudentFamilyData(req, res){
         const studentId = req.body.textData;
         try{
@@ -216,6 +219,49 @@ export class GuidanceController extends UserController {
         } catch (error) {
             console.log('error fetching student family data', error);
             res.status(500).send('Error processing request');
+        }
+    }
+
+    async updateStudentSchoolActivity(req, res) {
+        try{
+            const grade7SchoolActivity = await GuidanceModel.updateStudentSchoolActivities(req.body.student_id, req.body.schoolActivityGrade7 ,req.body.grade7_school_year, req.body.grade7_club_name, req.body.grade7_field_trips);
+            const grade8SchoolActivity = await GuidanceModel.updateStudentSchoolActivities(req.body.student_id, req.body.schoolActivityGrade8 ,req.body.grade8_school_year, req.body.grade8_club_name, req.body.grade8_field_trips);
+            const grade9SchoolActivity = await GuidanceModel.updateStudentSchoolActivities(req.body.student_id, req.body.schoolActivityGrade9 ,req.body.grade9_school_year, req.body.grade9_club_name, req.body.grade9_field_trips);
+            const grade10SchoolActivity = await GuidanceModel.updateStudentSchoolActivities(req.body.student_id, req.body.schoolActivityGrade10 ,req.body.grade10_school_year, req.body.grade10_club_name, req.body.grade10_field_trips);
+            const grade11SchoolActivity = await GuidanceModel.updateStudentSchoolActivities(req.body.student_id, req.body.schoolActivityGrade11 ,req.body.grade11_school_year, req.body.grade11_club_name, req.body.grade11_field_trips);
+            const grade12SchoolActivity = await GuidanceModel.updateStudentSchoolActivities(req.body.student_id, req.body.schoolActivityGrade12 ,req.body.grade12_school_year, req.body.grade12_club_name, req.body.grade12_field_trips);
+            if(grade7SchoolActivity.error || grade8SchoolActivity.error || grade9SchoolActivity.error || grade10SchoolActivity.error || grade11SchoolActivity.error || grade12SchoolActivity.error){
+                if(grade7SchoolActivity.error){
+                    return {error: grade7SchoolActivity.error}
+                } else if(grade8SchoolActivity.error){
+                    return {error: grade8SchoolActivity.error}
+                } else if(grade9SchoolActivity.error){
+                    return {error: grade9SchoolActivity.error}
+                } else if(grade10SchoolActivity.error){
+                    return {error: grade10SchoolActivity.error}
+                } else if(grade11SchoolActivity.error){
+                    return {error: grade11SchoolActivity.error}
+                } else if(grade12SchoolActivity.error){
+                    return {error: grade12SchoolActivity.error}
+                }
+            }
+        } catch (error) {
+            console.log('Error updating school activity', error);
+        }
+    }
+
+    async getStudentSchoolActivities(req, res){
+        const studentId = req.body.textData;
+
+        const schoolActivity = await SchoolActivity.findAll({
+            where: {student_id: studentId}
+        });
+        if(schoolActivity){
+            const formattedSchoolActivity = schoolActivity.map(record => record.dataValues);
+            console.log(formattedSchoolActivity);
+            return formattedSchoolActivity;
+        } else {
+            console.log('Student School Activity Not Found');
         }
     }
 }

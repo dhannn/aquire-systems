@@ -183,7 +183,7 @@ export class GuidanceModel {
                                 student_id: id
                             }
                         });
-                        console.log('Student family data successfully updated', familydata);
+                        console.log('Student family data successfully updated', familyData);
                         return{familyData: familyData};
                     } else {
                         const familyData = await FamilyData.create({
@@ -226,9 +226,43 @@ export class GuidanceModel {
             return updateStudentFamilyData();
         }
 
-        static updateStudentSchoolActivities(id, grade, schoolYear, nameOfClub, participation){
+        static updateStudentSchoolActivities(id, gradeLevel, schoolYear, clubName, clubParticipation){
             async function updateStudentSchoolActivities(){
-
+                try{
+                    const existingSchoolActivity = await SchoolActivity.findOne({where: {
+                        student_id: id,
+                        grade: gradeLevel
+                    }});
+                    if(existingSchoolActivity){
+                        const studentSchoolActivity = await SchoolActivity.update({
+                            student_id: id,
+                            grade: gradeLevel,
+                            schoolYear: schoolYear,
+                            clubName: clubName,
+                            clubParticipation: clubParticipation,
+                        },{
+                            where: {
+                                student_id: id,
+                                grade: gradeLevel
+                            }
+                        });
+                        console.log('School activity successfully updated: ', studentSchoolActivity);
+                        return {schoolActivity: studentSchoolActivity};
+                    } else {
+                        const studentSchoolActivity = await SchoolActivity.create({
+                            student_id: id,
+                            grade: gradeLevel,
+                            schoolYear: schoolYear,
+                            clubName: clubName,
+                            clubParticipation: clubParticipation,
+                        });
+                        console.log('School activity successfully added: ', studentSchoolActivity);
+                        return {schoolActivity: studentSchoolActivity};
+                    }
+                } catch (error) {
+                    console.log('Error updating School Activity: ', error);
+                    return {error: error};
+                }
             }
             return updateStudentSchoolActivities();
         }

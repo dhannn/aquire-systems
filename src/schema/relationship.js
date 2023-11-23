@@ -3,6 +3,7 @@ import { Enrolls } from './enrolls.js';
 import { Record } from './record.js';
 import { AdmissionRecord } from './admissionrecord.js';
 import { SchoolHistory } from './schoolhistory.js';
+import { SchoolActivity } from './schoolactivity.js';
 
 Student.hasMany(Enrolls, {
     foreignKey: 'student_id',
@@ -34,3 +35,15 @@ SchoolHistory.belongsTo(Student, {
     foreignKey: 'student_id',
     targetKey: 'student_id'
 });
+
+SchoolActivity.belongsTo(Student, {
+    foreignKey: 'student_id',
+    sourceKey: 'student_id',
+});
+
+Student.hasMany(SchoolActivity, {
+    foreignKey: 'student_id',
+    targetKey: 'student_id',
+});
+
+

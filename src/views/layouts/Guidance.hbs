@@ -151,10 +151,10 @@
                 <h1 class="modal-title fs-5" id="exampleModalScrollableTitle">Edit Cummulative Record</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-         
             <div class="modal-body">
-
             <div class = "family-data">
+                <form id="cummulative-form" method="POST" action="/guidance/cummulative">
+                <input type="hidden" name="student_id" id="studentIdField">
                 <h5>I.FAMILY DATA</h5>
                 <div class="container-fluid">
                     <div class="row mt-3 table-header-cr">
@@ -269,13 +269,13 @@
                         <div class="form-group row">
                             <label for="totalChildren" class="col-7 col-form-label">Total Number of Children</label>
                             <div class="col-3">
-                                <input type="number" class="form-control" id="totalChildren" value="">
+                                <input type="number" class="form-control" name="totalChildren" id="totalChildren" value="">
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="rankFamily" class="col-7 col-form-label">Rank in the Family</label>
                             <div class="col-3">
-                                <input type="number" class="form-control" id="rankFamily" value="">
+                                <input type="number" class="form-control" name="rankFamily" id="rankFamily" value="">
                             </div>
                         </div>
                     </div>
@@ -363,13 +363,8 @@
                     </div>
                                             
                     <div class="form-group-cr">
-                        <label for="otherSchoolAttended">Other School Attended:</label>
+                        <label for="otherSchoolAttended">Other School Attended: (Name of School, Grade Level and SY)</label>
                         <input  class= "SH long"type="text" id="otherSchoolsAttended" name="otherSchoolsAttended" value="" required>
-                    </div>
-                                            
-                    <div class="form-group-cr">
-                        <label for="Name">(Name of School, Grade Level and SY)</label>
-                        <input class= "SH long"type="text" id="etc" name="Name" required>
                     </div>
                     
             </div>
@@ -459,6 +454,7 @@
                         var response = JSON.parse(xhr.responseText);
                         var schoolHistory = response.schoolHistory;
                         var familyData = response.familyData;
+                        var schoolActivity = response.schoolActivity;
                         document.querySelector('[name="enteredFrom"]').value = schoolHistory.enteredFrom;
                         document.querySelector('[name="schoolYearAdmitted"]').value = schoolHistory.schoolYearAdmitted;
                         document.querySelector('[name="gradeLevelEntered"]').value = schoolHistory.gradeLevelEntered;
@@ -490,8 +486,25 @@
                         var religionSelected =familyData.religion;
                         document.querySelector(`[name="religion"][value="${religionSelected}"]`).click();
                         var statusSelected = familyData.martialStatusofParents;
-                        console.log(`statusSelected: '${statusSelected}'`);
                         document.querySelector(`[name="parentStatus"][value="${statusSelected}"]`).click();
+                        document.querySelector('[name="grade7_school_year"]').value = schoolActivity[3].schoolYear;
+                        document.querySelector('[name="grade7_club_name"]').value = schoolActivity[3].clubName;
+                        document.querySelector('[name="grade7_field_trips"]').value = schoolActivity[3].clubParticipation;
+                        document.querySelector('[name="grade8_school_year"]').value = schoolActivity[4].schoolYear;
+                        document.querySelector('[name="grade8_club_name"]').value = schoolActivity[4].clubName;
+                        document.querySelector('[name="grade8_field_trips"]').value = schoolActivity[4].clubParticipation;
+                        document.querySelector('[name="grade9_school_year"]').value = schoolActivity[5].schoolYear;
+                        document.querySelector('[name="grade9_club_name"]').value = schoolActivity[5].clubName;
+                        document.querySelector('[name="grade9_field_trips"]').value = schoolActivity[5].clubParticipation;
+                        document.querySelector('[name="grade10_school_year"]').value = schoolActivity[0].schoolYear;
+                        document.querySelector('[name="grade10_club_name"]').value = schoolActivity[0].clubName;
+                        document.querySelector('[name="grade10_field_trips"]').value = schoolActivity[0].clubParticipation;
+                        document.querySelector('[name="grade11_school_year"]').value = schoolActivity[1].schoolYear;
+                        document.querySelector('[name="grade11_club_name"]').value = schoolActivity[1].clubName;
+                        document.querySelector('[name="grade11_field_trips"]').value = schoolActivity[1].clubParticipation;
+                        document.querySelector('[name="grade12_school_year"]').value = schoolActivity[2].schoolYear;
+                        document.querySelector('[name="grade12_club_name"]').value = schoolActivity[2].clubName;
+                        document.querySelector('[name="grade12_field_trips"]').value = schoolActivity[2].clubParticipation;
                     } else {
                         console.error('Request failed with status:', xhr.status);
                     }

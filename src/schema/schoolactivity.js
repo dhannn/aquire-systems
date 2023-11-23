@@ -11,15 +11,20 @@ export const SchoolActivity = sequelize.define('schoolactivity', {
             key: 'student_id', 
         }
     },
+    grade: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        primaryKey: true,
+    },
     schoolYear: {
         type: DataTypes.STRING,
         allowNull: false,
     },
-    nameOfClub: {
+    clubName: {
         type: DataTypes.STRING,
         allowNull: true,
     },
-    participation: {
+    clubParticipation: {
         type: DataTypes.STRING,
         allowNull: true,
     }
