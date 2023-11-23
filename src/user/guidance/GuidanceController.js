@@ -89,7 +89,11 @@ export class GuidanceController extends UserController {
             const schoolHistoryError = await this.updateStudentSchoolHistory(req, res);
             const familyDataError = await this.updateStudentFamilyData(req, res);
             const studentRecords = await GuidanceModel.StudentRecords();
-            res.render('Guidance', {message: {isSuccess: true, content: 'Student Cummulative Record updated!'}, studentRecords: studentRecords})
+            if(schoolHistoryError.error || familyDataError.error){
+                res.render('Guidance', {message: {content: 'Error updating Cummulative Record'}, studentRecords: studentRecords});
+            } else{
+                res.render('Guidance', {message: {isSuccess: true, content: 'Student Cummulative Record updated!'}, studentRecords: studentRecords})
+            }
         } catch (error) {
             const studentRecords = await GuidanceModel.StudentRecords();
             res.render('Guidance', {message: {content: 'Error updating Cummulative Record'}, studentRecords: studentRecords})
