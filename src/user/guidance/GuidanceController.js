@@ -87,11 +87,9 @@ export class GuidanceController extends UserController {
     async updateStudentCummulativeRecord(req, res) {
         try{
             console.log(req.body);
-            const schoolHistoryError = await this.updateStudentSchoolHistory(req, res);
-            const familyDataError = await this.updateStudentFamilyData(req, res);
             const schoolAcitivityError = await this.updateStudentSchoolActivity(req, res);
             const studentRecords = await GuidanceModel.StudentRecords();
-            if(schoolHistoryError.error || familyDataError.error || schoolAcitivityError.error){
+            if(schoolAcitivityError.error){
                 res.render('Guidance', {message: {content: 'Error updating Cummulative Record'}, studentRecords: studentRecords});
             } else{
                 res.render('Guidance', {message: {isSuccess: true, content: 'Student Cummulative Record updated!'}, studentRecords: studentRecords})
@@ -224,13 +222,23 @@ export class GuidanceController extends UserController {
 
     async updateStudentSchoolActivity(req, res) {
         try{
+            const juniorKinderSchoolActivity = await GuidanceModel.updateStudentSchoolActivities(req.body.student_id, req.body.schoolActivityJuniorKinder ,req.body.juniorkinder_school_year, req.body.juniorkinder_club_name, req.body.juniorkinder_field_trips);
+            const seniorKinderSchoolActivity = await GuidanceModel.updateStudentSchoolActivities(req.body.student_id, req.body.schoolActivitySeniorKinder ,req.body.seniorkinder_school_year, req.body.seniorkinder_club_name, req.body.seniorkinder_field_trips);
+            const grade1SchoolActivity = await GuidanceModel.updateStudentSchoolActivities(req.body.student_id, req.body.schoolActivityGrade1 ,req.body.grade1_school_year, req.body.grade1_club_name, req.body.grade1_field_trips);
+            const grade2SchoolActivity = await GuidanceModel.updateStudentSchoolActivities(req.body.student_id, req.body.schoolActivityGrade2 ,req.body.grade2_school_year, req.body.grade2_club_name, req.body.grade2_field_trips);
+            const grade3SchoolActivity = await GuidanceModel.updateStudentSchoolActivities(req.body.student_id, req.body.schoolActivityGrade3 ,req.body.grade3_school_year, req.body.grade3_club_name, req.body.grade3_field_trips);
+            const grade4SchoolActivity = await GuidanceModel.updateStudentSchoolActivities(req.body.student_id, req.body.schoolActivityGrade4 ,req.body.grade4_school_year, req.body.grade4_club_name, req.body.grade4_field_trips);
+            const grade5SchoolActivity = await GuidanceModel.updateStudentSchoolActivities(req.body.student_id, req.body.schoolActivityGrade5 ,req.body.grade5_school_year, req.body.grade5_club_name, req.body.grade5_field_trips);
+            const grade6SchoolActivity = await GuidanceModel.updateStudentSchoolActivities(req.body.student_id, req.body.schoolActivityGrade6 ,req.body.grade6_school_year, req.body.grade6_club_name, req.body.grade6_field_trips);
             const grade7SchoolActivity = await GuidanceModel.updateStudentSchoolActivities(req.body.student_id, req.body.schoolActivityGrade7 ,req.body.grade7_school_year, req.body.grade7_club_name, req.body.grade7_field_trips);
             const grade8SchoolActivity = await GuidanceModel.updateStudentSchoolActivities(req.body.student_id, req.body.schoolActivityGrade8 ,req.body.grade8_school_year, req.body.grade8_club_name, req.body.grade8_field_trips);
             const grade9SchoolActivity = await GuidanceModel.updateStudentSchoolActivities(req.body.student_id, req.body.schoolActivityGrade9 ,req.body.grade9_school_year, req.body.grade9_club_name, req.body.grade9_field_trips);
             const grade10SchoolActivity = await GuidanceModel.updateStudentSchoolActivities(req.body.student_id, req.body.schoolActivityGrade10 ,req.body.grade10_school_year, req.body.grade10_club_name, req.body.grade10_field_trips);
             const grade11SchoolActivity = await GuidanceModel.updateStudentSchoolActivities(req.body.student_id, req.body.schoolActivityGrade11 ,req.body.grade11_school_year, req.body.grade11_club_name, req.body.grade11_field_trips);
             const grade12SchoolActivity = await GuidanceModel.updateStudentSchoolActivities(req.body.student_id, req.body.schoolActivityGrade12 ,req.body.grade12_school_year, req.body.grade12_club_name, req.body.grade12_field_trips);
-            if(grade7SchoolActivity.error || grade8SchoolActivity.error || grade9SchoolActivity.error || grade10SchoolActivity.error || grade11SchoolActivity.error || grade12SchoolActivity.error){
+            if(grade7SchoolActivity.error || grade8SchoolActivity.error || grade9SchoolActivity.error || grade10SchoolActivity.error || grade11SchoolActivity.error || grade12SchoolActivity.error 
+                || juniorKinderSchoolActivity.error || seniorKinderSchoolActivity.error || grade1SchoolActivity.error || grade2SchoolActivity.error || grade3SchoolActivity.error 
+                || grade4SchoolActivity.error || grade5SchoolActivity.error || grade6SchoolActivity.error){
                 if(grade7SchoolActivity.error){
                     return {error: grade7SchoolActivity.error}
                 } else if(grade8SchoolActivity.error){
@@ -243,6 +251,22 @@ export class GuidanceController extends UserController {
                     return {error: grade11SchoolActivity.error}
                 } else if(grade12SchoolActivity.error){
                     return {error: grade12SchoolActivity.error}
+                } else if(juniorKinderSchoolActivity.error){
+                    return {error: juniorKinderSchoolActivity.error}
+                } else if(seniorKinderSchoolActivity.error){
+                    return {error: seniorKinderSchoolActivity.error}
+                } else if(grade1SchoolActivity.error){
+                    return {error: grade1SchoolActivity.error}
+                } else if(grade2SchoolActivity.error){
+                    return {error: grade2SchoolActivity.error}
+                } else if(grade3SchoolActivity.error){
+                    return {error: grade3SchoolActivity.error}
+                } else if(grade4SchoolActivity.error){
+                    return {error: grade4SchoolActivity.error}
+                } else if(grade5SchoolActivity.error){
+                    return {error: grade5SchoolActivity.error}
+                } else if(grade6SchoolActivity.error){
+                    return {error: grade6SchoolActivity.error}
                 }
             }
         } catch (error) {
