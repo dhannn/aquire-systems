@@ -323,3 +323,7 @@
   .form-check-label {
     font-size: 11px;
   }
+
+  .readonly::placeholder {
+    color: var(--black);
+  }
