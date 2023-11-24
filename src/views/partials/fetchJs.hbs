@@ -34,7 +34,7 @@
                 xhr.send(JSON.stringify({textData: textvalue}));
             }, 500);
         });
-        document.getElementById('studentId-cummilative-anecdotal').addEventListener('keyup', function () {
+        document.getElementById('studentId-cummilative-anecdotal').addEventListener('blur', function () {
             clearTimeout(timeout);
             timeout = setTimeout(function() {
                 var baseStudentId = document.getElementById('studentId-cummilative-anecdotal').value;
@@ -45,7 +45,7 @@
                     if (xhr.status === 200) {
                         var response = JSON.parse(xhr.responseText);
                         var schoolHistory = response.schoolHistory;
-                         document.querySelector('[name="enteredFrom_gs"]').value = schoolHistory[0].enteredFrom;
+                        document.querySelector('[name="enteredFrom_gs"]').value = schoolHistory[0].enteredFrom;
                         document.querySelector('[name="schoolYearAdmitted_gs"]').value = schoolHistory[0].schoolYearAdmitted;
                         document.querySelector('[name="gradeLevelEntered_gs"]').value = schoolHistory[0].gradeLevelEntered;
                         document.querySelector('[name="otherSchoolsAttended_gs"]').value = schoolHistory[0].otherSchoolsAttended;
@@ -61,7 +61,7 @@
                     console.error('Request Error...');
                 };
                 xhr.send(JSON.stringify({textData: baseStudentId}));
-            }, 500);
+            }, 100);
         });
     });
 
