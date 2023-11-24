@@ -89,7 +89,7 @@ export class GuidanceController extends UserController {
             console.log(req.body);
             const schoolAcitivityError = await this.updateStudentSchoolActivity(req, res);
             const studentRecords = await GuidanceModel.StudentRecords();
-            if(schoolAcitivityError.error){
+            if(schoolAcitivityError){
                 res.render('Guidance', {message: {content: 'Error updating Cummulative Record'}, studentRecords: studentRecords});
             } else{
                 res.render('Guidance', {message: {isSuccess: true, content: 'Student Cummulative Record updated!'}, studentRecords: studentRecords})
