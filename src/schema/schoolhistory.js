@@ -13,6 +13,11 @@ export const SchoolHistory = sequelize.define('schoolhistory', {
             key: 'student_id', 
         }
     },
+    isHighSchool: {
+        type: DataTypes.TINYINT,
+        allowNull: false,
+        primaryKey: true,
+    },
     enteredFrom: {
         type: DataTypes.STRING,
         allowNull: true,

@@ -150,37 +150,38 @@
             <div class="modal-header">
                 <h1 class="modal-title fs-5" id="exampleModalScrollableTitle">Edit Cummulative Record</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <form id="cummulative-form" method="POST" action="/guidance/cummulative">
+                <input type="hidden" name="student_id" id="studentIdField">
             </div>
          
             <div class="modal-body">
-                <form id="cummulative-form" method="POST" action="/guidance/cummulative">
-                <input type="hidden" name="student_id" id="studentIdField">
 
 
 
                 <h1>GradeSchool</h1>
                 <div class = "school-history-gs">
                  <h5>III. SCHOOL HISTORY</h5>
+                 <input type="hidden" name="grade_school_history" id="grade_school_history" value="0">
                         <div class="form-row-cr">
                             <div class="form-group-cr">
                                 <label for="enteredFrom_gs">Entered from:</label>
-                                <input class= "SH" type="text" id="enteredFrom_gs" name="enteredFrom_gs"  value="" required>
+                                <input class= "SH" type="text" id="enteredFrom_gs" name="enteredFrom_gs"  value="">
                             </div>
                             
                             <div class="form-group-cr">
                                 <label for="admittedInSchoolYear_gs">Admitted in Aquinas School SY:</label>
-                                <input class= "SH" type="number" id="schoolYearAdmitted_gs" name="schoolYearAdmitted_gs" value="" required>
+                                <input class= "SH" type="number" id="schoolYearAdmitted_gs" name="schoolYearAdmitted_gs" value="">
                             </div>
                         </div>
                         
                         <div class="form-group-cr">
                             <label for="gradeLevelEntered_gs">Grade Level Entered:</label>
-                            <input  class= "SH" type="text" id="gradeLevelEntered_gs" name="gradeLevelEntered_gs" value="" required>
+                            <input  class= "SH" type="text" id="gradeLevelEntered_gs" name="gradeLevelEntered_gs" value="">
                         </div>
                                                 
                         <div class="form-group-cr">
                             <label for="otherSchoolAttended_gs">Other School Attended:<br>(Name of School, Grade Level and SY)</label>
-                            <input  class= "SH long"type="text" id="otherSchoolsAttended_gs" name="otherSchoolsAttended_gs" value="" required>
+                            <input  class= "SH long"type="text" id="otherSchoolsAttended_gs" name="otherSchoolsAttended_gs" value="">
                         </div>
                 </div>
 
@@ -189,26 +190,27 @@
                 <h1>HighSchool</h1>
                 <div class = "school-history">
                  <h5>III. SCHOOL HISTORY</h5>
+                 <input type="hidden" name="high_school_history" id="high_school_history" value="1">
                         <div class="form-row-cr">
                             <div class="form-group-cr">
                                 <label for="enteredFrom">Entered from:</label>
-                                <input class= "SH" type="text" id="enteredFrom" name="enteredFrom"  value="" required>
+                                <input class= "SH" type="text" id="enteredFrom" name="enteredFrom"  value="">
                             </div>
                             
                             <div class="form-group-cr">
                                 <label for="admittedInSchoolYear">Admitted in Aquinas School SY:</label>
-                                <input class= "SH" type="number" id="schoolYearAdmitted" name="schoolYearAdmitted" value="" required>
+                                <input class= "SH" type="number" id="schoolYearAdmitted" name="schoolYearAdmitted" value="">
                             </div>
                         </div>
                         
                         <div class="form-group-cr">
                             <label for="gradeLevelEntered">Grade Level Entered:</label>
-                            <input  class= "SH" type="text" id="gradeLevelEntered" name="gradeLevelEntered" value="" required>
+                            <input  class= "SH" type="text" id="gradeLevelEntered" name="gradeLevelEntered" value="">
                         </div>
                                                 
                         <div class="form-group-cr">
                             <label for="otherSchoolAttended">Other School Attended:<br>(Name of School, Grade Level and SY)</label>
-                            <input  class= "SH long"type="text" id="otherSchoolsAttended" name="otherSchoolsAttended" value="" required>
+                            <input  class= "SH long"type="text" id="otherSchoolsAttended" name="otherSchoolsAttended" value="">
                         </div>
                 </div>
 
@@ -249,78 +251,7 @@
             crossorigin="anonymous"></script>
         <script src="https://kit.fontawesome.com/84cb3b7f2b.js" crossorigin="anonymous"></script>
 
-
-
-
-    <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        var timeout = null;
-        document.getElementById('studentId').addEventListener('keyup', function () {
-            clearTimeout(timeout);
-            timeout = setTimeout(function() {
-                var textvalue = document.getElementById('studentId').value;
-                var xhr = new XMLHttpRequest();
-                xhr.open('POST', '/guidance', true);
-                xhr.setRequestHeader('Content-Type', 'application/json');
-                xhr.onload = function() {
-                    if(xhr.status === 200) {
-                        if (xhr.status === 200) {
-                            var response = JSON.parse(xhr.responseText);
-                            var recordIds = response.recordIds;
-
-                            // Update checkboxes
-                            var checkboxes = document.querySelectorAll('[name="recordTypes[]"]');
-                            checkboxes.forEach(function(checkbox) {
-                                if (recordIds.includes(checkbox.value)) {
-                                    checkbox.checked = true;
-                                    checkbox.classList.add('greyed-out');
-                                } else {
-                                    checkbox.checked = false;
-                                    checkbox.classList.remove('greyed-out');
-                                }
-                            });
-                        }
-                    }
-                };
-                xhr.onerror = function() {
-                    console.error('Request Error...');
-                };
-                xhr.send(JSON.stringify({textData: textvalue}));
-            }, 500);
-        });
-        document.getElementById('studentId-cummilative-anecdotal').addEventListener('keyup', function () {
-            clearTimeout(timeout);
-            timeout = setTimeout(function() {
-                var baseStudentId = document.getElementById('studentId-cummilative-anecdotal').value;
-                var xhr = new XMLHttpRequest();
-                xhr.open('POST', '/guidance/cummulative-get', true);
-                xhr.setRequestHeader('Content-Type', 'application/json');
-                xhr.onload = function() {
-                    if (xhr.status === 200) {
-                        var response = JSON.parse(xhr.responseText);
-                        var schoolHistory = response.formattedSchoolHistory;
-                        document.querySelector('[name="enteredFrom"]').value = schoolHistory.enteredFrom;
-                        document.querySelector('[name="schoolYearAdmitted"]').value = schoolHistory.schoolYearAdmitted;
-                        document.querySelector('[name="gradeLevelEntered"]').value = schoolHistory.gradeLevelEntered;
-                        document.querySelector('[name="otherSchoolsAttended"]').value = schoolHistory.otherSchoolsAttended;
-                    } else {
-                        console.error('Request failed with status:', xhr.status);
-                    }
-                };
-                xhr.onerror = function() {
-                    console.error('Request Error...');
-                };
-                xhr.send(JSON.stringify({textData: baseStudentId}));
-            }, 500);
-        });
-    });
-
-     document.getElementById('edit_cummulative_record').addEventListener('click', function () {
-        event.preventDefault();
-        const baseStudentId = document.getElementById('studentId-cummilative-anecdotal').value;
-        document.getElementById('studentIdField').value = baseStudentId;
-     });
-    </script>
+    {{> fetchJs }}
         
 </body>
 

@@ -14,8 +14,8 @@ export class GuidanceController extends UserController {
         this.createRoute('GET', '/records', this.viewGuidancePage)
         this.createRoute('POST', '/records', this.addStudentRecord);
         this.createRoute('GET', '/cummulative', this.viewGuidancePage);
-        this.createRoute('POST', '/cummulative', this.updateStudentSchoolHistory);
-        this.createRoute('POST', '/cummulative-get', this.getStudentSchoolHistory);
+        this.createRoute('POST', '/cummulative', this.updateStudentCummulativeRecord);
+        this.createRoute('POST', '/cummulative-get', this.getStudentCummulativeRecord);
 
     }
 
@@ -82,17 +82,30 @@ export class GuidanceController extends UserController {
         }
     }
 
+    async updateStudentCummulativeRecord(req, res) {
+        try{
+            console.log(req.body);
+            const schoolHistoryError = await this.updateStudentSchoolHistory(req, res);
+            const studentRecords = await GuidanceModel.StudentRecords();
+            if(schoolHistoryError){
+                res.render('Guidance', {message: {content: 'Error updating Cummulative Record'}, studentRecords: studentRecords});
+            } else{
+                res.render('Guidance', {message: {isSuccess: true, content: 'Student Cummulative Record updated!'}, studentRecords: studentRecords});
+            }
+        } catch (error) {
+            const studentRecords = await GuidanceModel.StudentRecords();
+            res.render('Guidance', {message: {content: 'Error updating Cummulative Record'}, studentRecords: studentRecords})
+        }
+    }
+
     async updateStudentSchoolHistory(req, res) {
         try {
-            console.log(req.body);
-            const newSchoolHistory = await GuidanceModel.updateStudentSchoolHistory(req.body.student_id, req.body.enteredFrom, req.body.gradeLevelEntered, req.body.schoolYearAdmitted, req.body.otherSchoolsAttended);
-            console.log('School History Added');
-            const studentRecords = await GuidanceModel.StudentRecords();
-            if(newSchoolHistory.error){
-                res.render('Guidance', {message: {content: 'Error updating School History'}, studentRecords: studentRecords});
-            } else {
-                res.render('Guidance', {message: {isSuccess: true, content: 'Student School History Successfully updated!'}, studentRecords: studentRecords})
-                console.log('Record Added');
+            const newGradeSchoolHistory = await GuidanceModel.updateStudentSchoolHistory(req.body.student_id, req.body.grade_school_history, req.body.enteredFrom_gs, req.body.gradeLevelEntered_gs, req.body.schoolYearAdmitted_gs, req.body.otherSchoolsAttended_gs);
+            const newHighSchoolHistory = await GuidanceModel.updateStudentSchoolHistory(req.body.student_id, req.body.high_school_history, req.body.enteredFrom, req.body.gradeLevelEntered, req.body.schoolYearAdmitted, req.body.otherSchoolsAttended);
+            if(newGradeSchoolHistory.error){
+                return {error: newGradeSchoolHistory.error};
+            } else if(newHighSchoolHistory.error){
+                return {error: newHighSchoolHistory.error};
             }
         } catch (error) {
             const studentRecords = await GuidanceModel.StudentRecords();
@@ -100,36 +113,24 @@ export class GuidanceController extends UserController {
         }
     }
 
+    async getStudentCummulativeRecord(req, res){
+        const cummulativeRecord = {
+            schoolHistory: await this.getStudentSchoolHistory(req, res),
+        }
+        res.json(cummulativeRecord);
+    }
+
     async getStudentSchoolHistory(req, res) {
         const studentId = req.body.textData;
-        try {
-            
-            const schoolHistory = await SchoolHistory.findOne({
-                where: {student_id: studentId}
-            });
-
-            if(schoolHistory){
-                const formattedSchoolHistory = {
-                    enteredFrom: schoolHistory.enteredFrom,
-                    gradeLevelEntered: schoolHistory.gradeLevelEntered,
-                    schoolYearAdmitted: schoolHistory.schoolYearAdmitted,
-                    otherSchoolsAttended: schoolHistory.otherSchoolsAttended
-                }
-                console.log('Successfully fetched student school history: ', schoolHistory);
-                res.json({formattedSchoolHistory});
-            } else {
-                const formattedSchoolHistory = {
-                    enteredFrom: '',
-                    gradeLevelEntered: '',
-                    schoolYearAdmitted: '',
-                    otherSchoolsAttended: ''
-                }
-                console.log('Student School history not found');
-                res.json({ formattedSchoolHistory });
+        const schoolHistory = await SchoolHistory.findAll({
+            where: {
+                student_id: studentId
             }
-        } catch(error) {
-            console.error('Error fetching school history: ', error);
-            res.status(500).send('Error processing request');
+        });
+        if(schoolHistory){
+            const formattedSchoolHistory = schoolHistory.map(record => record.dataValues);
+            console.log(formattedSchoolHistory);
+            return formattedSchoolHistory;
         }
     }
 }

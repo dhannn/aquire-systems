@@ -75,21 +75,26 @@ export class GuidanceModel {
      * @param {String} schoolYearAdmitted 
      * @param {String} otherSchoolsAttended 
      */
-    static updateStudentSchoolHistory(id, enteredFrom, gradeLevelEntered, schoolYearAdmitted, otherSchoolsAttended) {
+    static updateStudentSchoolHistory(id, isHighSchool, enteredFrom, gradeLevelEntered, schoolYearAdmitted, otherSchoolsAttended) {
         async function addStudentSchoolHistory() {
             try{
                 const existingSchoolHistory = await SchoolHistory.findOne({
-                    where: {student_id: id}
+                    where: {
+                        student_id: id,
+                        isHighSchool: isHighSchool,
+                    }
                 });
                 if(existingSchoolHistory) {
                     const schoolHistory = await SchoolHistory.update({
+                        isHighSchool: isHighSchool,
                         enteredFrom: enteredFrom,
                         gradeLevelEntered: gradeLevelEntered,
                         schoolYearAdmitted: schoolYearAdmitted,
                         otherSchoolsAttended: otherSchoolsAttended
                     },{
                         where: {
-                            student_id: id
+                            student_id: id,
+                            isHighSchool: isHighSchool,
                         }
                     });
                     console.log('School History updated Successfully', schoolHistory);
@@ -97,6 +102,7 @@ export class GuidanceModel {
                 } else {
                     const newStudentSchoolHistory = await SchoolHistory.create({
                         student_id: id,
+                        isHighSchool: isHighSchool,
                         enteredFrom: enteredFrom,
                         gradeLevelEntered: gradeLevelEntered,
                         schoolYearAdmitted: schoolYearAdmitted,
