@@ -88,12 +88,9 @@ export class GuidanceController extends UserController {
     async updateStudentCummulativeRecord(req, res) {
         try{
             console.log(req.body);
-            const schoolHistoryError = await this.updateStudentSchoolHistory(req, res);
-            const familyDataError = await this.updateStudentFamilyData(req, res);
-            const schoolAcitivityError = await this.updateStudentSchoolActivity(req, res);
             const abilityIntelligenceTest = await this.updateStudentAbilityIntelligenceTest(req, res);
             const studentRecords = await GuidanceModel.StudentRecords();
-            if(schoolHistoryError.error || familyDataError.error || schoolAcitivityError.error || abilityIntelligenceTest.error){
+            if(abilityIntelligenceTest){
                 res.render('Guidance', {message: {content: 'Error updating Cummulative Record'}, studentRecords: studentRecords});
             } else{
                 res.render('Guidance', {message: {isSuccess: true, content: 'Student Cummulative Record updated!'}, studentRecords: studentRecords})
@@ -270,6 +267,30 @@ export class GuidanceController extends UserController {
 
     async updateStudentAbilityIntelligenceTest(req, res) {
         try{
+            const juniorKinderAbilityIntelligenceTest = await GuidanceModel.updateStudentAbilityIntelligenceTest(req.body.student_id, req.body.juniorkinder_ability_intelligence, req.body.test_type_AI_test_gs, req.body.date_AI_test_gs, req.body.grade_level_AI_test_gs,
+                                                                                                            req.body.juniorkinder_date, req.body.juniorkinder_test_administered, req.body.juniorkinder_raw_score, req.body.juniorkinder_CA, req.body.juniorkinder_IQ_SAI, req.body.juniorkinder_percentile,
+                                                                                                            req.body.juniorkinder_stanine, req.body.juniorkinder_remarks);
+            const seniorKinderAbilityIntelligenceTest = await GuidanceModel.updateStudentAbilityIntelligenceTest(req.body.student_id, req.body.seniorkinder_ability_intelligence, req.body.test_type_AI_test_gs, req.body.date_AI_test_gs, req.body.grade_level_AI_test_gs,
+                                                                                                            req.body.seniorkinder_date, req.body.seniorkinder_test_administered, req.body.seniorkinder_raw_score, req.body.seniorkinder_CA, req.body.seniorkinder_IQ_SAI, req.body.seniorkinder_percentile,
+                                                                                                            req.body.seniorkinder_stanine, req.body.seniorkinder_remarks);
+            const grade1AbilityIntelligenceTest = await GuidanceModel.updateStudentAbilityIntelligenceTest(req.body.student_id, req.body.grade1_ability_intelligence, req.body.test_type_AI_test_gs, req.body.date_AI_test_gs, req.body.grade_level_AI_test_gs,
+                                                                                                            req.body.grade1_date, req.body.grade1_test_administered, req.body.grade1_raw_score, req.body.grade1_CA, req.body.grade1_IQ_SAI, req.body.grade1_percentile,
+                                                                                                            req.body.grade1_stanine, req.body.grade1_remarks);
+            const grade2AbilityIntelligenceTest = await GuidanceModel.updateStudentAbilityIntelligenceTest(req.body.student_id, req.body.grade2_ability_intelligence, req.body.test_type_AI_test_gs, req.body.date_AI_test_gs, req.body.grade_level_AI_test_gs,
+                                                                                                            req.body.grade2_date, req.body.grade2_test_administered, req.body.grade2_raw_score, req.body.grade2_CA, req.body.grade2_IQ_SAI, req.body.grade2_percentile,
+                                                                                                            req.body.grade2_stanine, req.body.grade2_remarks);
+            const grade3AbilityIntelligenceTest = await GuidanceModel.updateStudentAbilityIntelligenceTest(req.body.student_id, req.body.grade3_ability_intelligence, req.body.test_type_AI_test_gs, req.body.date_AI_test_gs, req.body.grade_level_AI_test_gs,
+                                                                                                            req.body.grade3_date, req.body.grade3_test_administered, req.body.grade3_raw_score, req.body.grade3_CA, req.body.grade3_IQ_SAI, req.body.grade3_percentile,
+                                                                                                            req.body.grade3_stanine, req.body.grade3_remarks);
+            const grade4AbilityIntelligenceTest = await GuidanceModel.updateStudentAbilityIntelligenceTest(req.body.student_id, req.body.grade4_ability_intelligence, req.body.test_type_AI_test_gs, req.body.date_AI_test_gs, req.body.grade_level_AI_test_gs,
+                                                                                                            req.body.grade4_date, req.body.grade4_test_administered, req.body.grade4_raw_score, req.body.grade4_CA, req.body.grade4_IQ_SAI, req.body.grade4_percentile,
+                                                                                                            req.body.grade4_stanine, req.body.grade4_remarks);
+            const grade5AbilityIntelligenceTest = await GuidanceModel.updateStudentAbilityIntelligenceTest(req.body.student_id, req.body.grade5_ability_intelligence, req.body.test_type_AI_test_gs, req.body.date_AI_test_gs, req.body.grade_level_AI_test_gs,
+                                                                                                            req.body.grade5_date, req.body.grade5_test_administered, req.body.grade5_raw_score, req.body.grade5_CA, req.body.grade5_IQ_SAI, req.body.grade5_percentile,
+                                                                                                            req.body.grade5_stanine, req.body.grade5_remarks);
+            const grade6AbilityIntelligenceTest = await GuidanceModel.updateStudentAbilityIntelligenceTest(req.body.student_id, req.body.grade6_ability_intelligence, req.body.test_type_AI_test_gs, req.body.date_AI_test_gs, req.body.grade_level_AI_test_gs,
+                                                                                                            req.body.grade6_date, req.body.grade6_test_administered, req.body.grade6_raw_score, req.body.grade6_CA, req.body.grade6_IQ_SAI, req.body.grade6_percentile,
+                                                                                                            req.body.grade6_stanine, req.body.grade6_remarks);
             const grade7AbilityIntelligenceTest = await GuidanceModel.updateStudentAbilityIntelligenceTest(req.body.student_id, req.body.grade7_ability_intelligence, req.body.test_type_AI_test, req.body.date_AI_test, req.body.grade_level_AI_test,
                                                                                                             req.body.grade7_date, req.body.grade7_test_administered, req.body.grade7_raw_score, req.body.grade7_CA, req.body.grade7_IQ_SAI, req.body.grade7_percentile,
                                                                                                             req.body.grade7_stanine, req.body.grade7_remarks);
@@ -288,7 +309,9 @@ export class GuidanceController extends UserController {
             const grade12AbilityIntelligenceTest = await GuidanceModel.updateStudentAbilityIntelligenceTest(req.body.student_id, req.body.grade12_ability_intelligence, req.body.test_type_AI_test, req.body.date_AI_test, req.body.grade_level_AI_test,
                                                                                                             req.body.grade12_date, req.body.grade12_test_administered, req.body.grade12_raw_score, req.body.grade12_CA, req.body.grade12_IQ_SAI, req.body.grade12_percentile,
                                                                                                             req.body.grade12_stanine, req.body.grade12_remarks);
-            if(grade7AbilityIntelligenceTest.error || grade8AbilityIntelligenceTest.error || grade9AbilityIntelligenceTest.error || grade10AbilityIntelligenceTest.error || grade11AbilityIntelligenceTest.error || grade12AbilityIntelligenceTest.error){
+            if(grade7AbilityIntelligenceTest.error || grade8AbilityIntelligenceTest.error || grade9AbilityIntelligenceTest.error || grade10AbilityIntelligenceTest.error || grade11AbilityIntelligenceTest.error || grade12AbilityIntelligenceTest.error
+                || juniorKinderAbilityIntelligenceTest.error || seniorKinderAbilityIntelligenceTest.error || grade1AbilityIntelligenceTest.error || grade2AbilityIntelligenceTest.error || grade3AbilityIntelligenceTest.error
+                || grade4AbilityIntelligenceTest.error || grade5AbilityIntelligenceTest.error || grade6AbilityIntelligenceTest.error){
                 if(grade7AbilityIntelligenceTest.error){
                     return {error: grade7AbilityIntelligenceTest.error}
                 } else if(grade8AbilityIntelligenceTest.error){
@@ -301,6 +324,22 @@ export class GuidanceController extends UserController {
                     return {error: grade11AbilityIntelligenceTest.error}
                 } else if(grade12AbilityIntelligenceTest.error){
                     return {error: grade12AbilityIntelligenceTest.error}
+                } else if(juniorKinderAbilityIntelligenceTest.error){
+                    return {error: juniorKinderAbilityIntelligenceTest.error}
+                } else if(seniorKinderAbilityIntelligenceTest.error){
+                    return {error: seniorKinderAbilityIntelligenceTest.error}
+                } else if(grade1AbilityIntelligenceTest.error){
+                    return {error: grade1AbilityIntelligenceTest.error}
+                } else if(grade2AbilityIntelligenceTest.error){
+                    return {error: grade2AbilityIntelligenceTest.error}
+                } else if(grade3AbilityIntelligenceTest.error){
+                    return {error: grade3AbilityIntelligenceTest.error}
+                } else if(grade4AbilityIntelligenceTest.error){
+                    return {error: grade4AbilityIntelligenceTest.error}
+                } else if(grade5AbilityIntelligenceTest.error){
+                    return {error: grade5AbilityIntelligenceTest.error}
+                } else if(grade6AbilityIntelligenceTest.error){
+                    return {error: grade6AbilityIntelligenceTest.error}
                 }
             }
         } catch (error){

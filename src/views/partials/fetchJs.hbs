@@ -1,0 +1,188 @@
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var timeout = null;
+        document.getElementById('studentId').addEventListener('keyup', function () {
+            clearTimeout(timeout);
+            timeout = setTimeout(function() {
+                var textvalue = document.getElementById('studentId').value;
+                var xhr = new XMLHttpRequest();
+                xhr.open('POST', '/guidance', true);
+                xhr.setRequestHeader('Content-Type', 'application/json');
+                xhr.onload = function() {
+                    if(xhr.status === 200) {
+                        if (xhr.status === 200) {
+                            var response = JSON.parse(xhr.responseText);
+                            var recordIds = response.recordIds;
+
+                            // Update checkboxes
+                            var checkboxes = document.querySelectorAll('[name="recordTypes[]"]');
+                            checkboxes.forEach(function(checkbox) {
+                                if (recordIds.includes(checkbox.value)) {
+                                    checkbox.checked = true;
+                                    checkbox.classList.add('greyed-out');
+                                } else {
+                                    checkbox.checked = false;
+                                    checkbox.classList.remove('greyed-out');
+                                }
+                            });
+                        }
+                    }
+                };
+                xhr.onerror = function() {
+                    console.error('Request Error...');
+                };
+                xhr.send(JSON.stringify({textData: textvalue}));
+            }, 500);
+        });
+        document.getElementById('studentId-cummilative-anecdotal').addEventListener('keyup', function () {
+            clearTimeout(timeout);
+            timeout = setTimeout(function() {
+                var baseStudentId = document.getElementById('studentId-cummilative-anecdotal').value;
+                var xhr = new XMLHttpRequest();
+                xhr.open('POST', '/guidance/cummulative-get', true);
+                xhr.setRequestHeader('Content-Type', 'application/json');
+                xhr.onload = function() {
+                    if (xhr.status === 200) {
+                        var response = JSON.parse(xhr.responseText);
+                        var abilityIntelligenceTest = response.abilityIntelligenceTest;
+                         document.querySelector('[name="test_type_AI_test_gs"]').value = abilityIntelligenceTest[0].testType;
+                        document.querySelector('[name="date_AI_test_gs"]').value = formatDate(abilityIntelligenceTest[0].currentDate);
+                        document.querySelector('[name="grade_level_AI_test_gs"]').value = abilityIntelligenceTest[0].currentGradeLevel;
+                        document.querySelector('[name=juniorkinder_date]').value = formatDate(abilityIntelligenceTest[12].dateAdministered);
+                        document.querySelector('[name=juniorkinder_test_administered]').value = abilityIntelligenceTest[12].testAdministered;
+                        document.querySelector('[name=juniorkinder_raw_score]').value = abilityIntelligenceTest[12].rawScore;
+                        document.querySelector('[name=juniorkinder_CA]').value = abilityIntelligenceTest[12].ca;
+                        document.querySelector('[name=juniorkinder_IQ_SAI]').value = abilityIntelligenceTest[12].iq_sai;
+                        document.querySelector('[name=juniorkinder_percentile]').value = abilityIntelligenceTest[12].percentile;
+                        document.querySelector('[name=juniorkinder_stanine]').value = abilityIntelligenceTest[12].stanine;
+                        document.querySelector('[name=juniorkinder_remarks]').value = abilityIntelligenceTest[12].remarks;
+                        document.querySelector('[name=seniorkinder_date]').value = formatDate(abilityIntelligenceTest[13].dateAdministered);
+                        document.querySelector('[name=seniorkinder_test_administered]').value = abilityIntelligenceTest[13].testAdministered;
+                        document.querySelector('[name=seniorkinder_raw_score]').value = abilityIntelligenceTest[13].rawScore;
+                        document.querySelector('[name=seniorkinder_CA]').value = abilityIntelligenceTest[13].ca;
+                        document.querySelector('[name=seniorkinder_IQ_SAI]').value = abilityIntelligenceTest[13].iq_sai;
+                        document.querySelector('[name=seniorkinder_percentile]').value = abilityIntelligenceTest[13].percentile;
+                        document.querySelector('[name=seniorkinder_stanine]').value = abilityIntelligenceTest[13].stanine;
+                        document.querySelector('[name=seniorkinder_remarks]').value = abilityIntelligenceTest[13].remarks;
+                        document.querySelector('[name=grade1_date]').value = formatDate(abilityIntelligenceTest[0].dateAdministered);
+                        document.querySelector('[name=grade1_test_administered]').value = abilityIntelligenceTest[0].testAdministered;
+                        document.querySelector('[name=grade1_raw_score]').value = abilityIntelligenceTest[0].rawScore;
+                        document.querySelector('[name=grade1_CA]').value = abilityIntelligenceTest[0].ca;
+                        document.querySelector('[name=grade1_IQ_SAI]').value = abilityIntelligenceTest[0].iq_sai;
+                        document.querySelector('[name=grade1_percentile]').value = abilityIntelligenceTest[0].percentile;
+                        document.querySelector('[name=grade1_stanine]').value = abilityIntelligenceTest[0].stanine;
+                        document.querySelector('[name=grade1_remarks]').value = abilityIntelligenceTest[0].remarks;
+                        document.querySelector('[name=grade2_date]').value = formatDate(abilityIntelligenceTest[4].dateAdministered);
+                        document.querySelector('[name=grade2_test_administered]').value = abilityIntelligenceTest[4].testAdministered;
+                        document.querySelector('[name=grade2_raw_score]').value = abilityIntelligenceTest[4].rawScore;
+                        document.querySelector('[name=grade2_CA]').value = abilityIntelligenceTest[4].ca;
+                        document.querySelector('[name=grade2_IQ_SAI]').value = abilityIntelligenceTest[4].iq_sai;
+                        document.querySelector('[name=grade2_percentile]').value = abilityIntelligenceTest[4].percentile;
+                        document.querySelector('[name=grade2_stanine]').value = abilityIntelligenceTest[4].stanine;
+                        document.querySelector('[name=grade2_remarks]').value = abilityIntelligenceTest[4].remarks;
+                        document.querySelector('[name=grade3_date]').value = formatDate(abilityIntelligenceTest[5].dateAdministered);
+                        document.querySelector('[name=grade3_test_administered]').value = abilityIntelligenceTest[5].testAdministered;
+                        document.querySelector('[name=grade3_raw_score]').value = abilityIntelligenceTest[5].rawScore;
+                        document.querySelector('[name=grade3_CA]').value = abilityIntelligenceTest[5].ca;
+                        document.querySelector('[name=grade3_IQ_SAI]').value = abilityIntelligenceTest[5].iq_sai;
+                        document.querySelector('[name=grade3_percentile]').value = abilityIntelligenceTest[5].percentile;
+                        document.querySelector('[name=grade3_stanine]').value = abilityIntelligenceTest[5].stanine;
+                        document.querySelector('[name=grade3_remarks]').value = abilityIntelligenceTest[5].remarks;
+                        document.querySelector('[name=grade4_date]').value = formatDate(abilityIntelligenceTest[6].dateAdministered);
+                        document.querySelector('[name=grade4_test_administered]').value = abilityIntelligenceTest[6].testAdministered;
+                        document.querySelector('[name=grade4_raw_score]').value = abilityIntelligenceTest[6].rawScore;
+                        document.querySelector('[name=grade4_CA]').value = abilityIntelligenceTest[6].ca;
+                        document.querySelector('[name=grade4_IQ_SAI]').value = abilityIntelligenceTest[6].iq_sai;
+                        document.querySelector('[name=grade4_percentile]').value = abilityIntelligenceTest[6].percentile;
+                        document.querySelector('[name=grade4_stanine]').value = abilityIntelligenceTest[6].stanine;
+                        document.querySelector('[name=grade4_remarks]').value = abilityIntelligenceTest[6].remarks;
+                        document.querySelector('[name=grade5_date]').value = formatDate(abilityIntelligenceTest[7].dateAdministered);
+                        document.querySelector('[name=grade5_test_administered]').value = abilityIntelligenceTest[7].testAdministered;
+                        document.querySelector('[name=grade5_raw_score]').value = abilityIntelligenceTest[7].rawScore;
+                        document.querySelector('[name=grade5_CA]').value = abilityIntelligenceTest[7].ca;
+                        document.querySelector('[name=grade5_IQ_SAI]').value = abilityIntelligenceTest[7].iq_sai;
+                        document.querySelector('[name=grade5_percentile]').value = abilityIntelligenceTest[7].percentile;
+                        document.querySelector('[name=grade5_stanine]').value = abilityIntelligenceTest[7].stanine;
+                        document.querySelector('[name=grade5_remarks]').value = abilityIntelligenceTest[7].remarks;
+                        document.querySelector('[name=grade6_date]').value = formatDate(abilityIntelligenceTest[8].dateAdministered);
+                        document.querySelector('[name=grade6_test_administered]').value = abilityIntelligenceTest[8].testAdministered;
+                        document.querySelector('[name=grade6_raw_score]').value = abilityIntelligenceTest[8].rawScore;
+                        document.querySelector('[name=grade6_CA]').value = abilityIntelligenceTest[8].ca;
+                        document.querySelector('[name=grade6_IQ_SAI]').value = abilityIntelligenceTest[8].iq_sai;
+                        document.querySelector('[name=grade6_percentile]').value = abilityIntelligenceTest[8].percentile;
+                        document.querySelector('[name=grade6_stanine]').value = abilityIntelligenceTest[8].stanine;
+                        document.querySelector('[name=grade6_remarks]').value = abilityIntelligenceTest[8].remarks;
+                        document.querySelector('[name="test_type_AI_test"]').value = abilityIntelligenceTest[1].testType;
+                        document.querySelector('[name="date_AI_test"]').value = formatDate(abilityIntelligenceTest[1].currentDate);
+                        document.querySelector('[name="grade_level_AI_test"]').value = abilityIntelligenceTest[1].currentGradeLevel;
+                        document.querySelector('[name=grade7_date]').value = formatDate(abilityIntelligenceTest[9].dateAdministered);
+                        document.querySelector('[name=grade7_test_administered]').value = abilityIntelligenceTest[9].testAdministered;
+                        document.querySelector('[name=grade7_raw_score]').value = abilityIntelligenceTest[9].rawScore;
+                        document.querySelector('[name=grade7_CA]').value = abilityIntelligenceTest[9].ca;
+                        document.querySelector('[name=grade7_IQ_SAI]').value = abilityIntelligenceTest[9].iq_sai;
+                        document.querySelector('[name=grade7_percentile]').value = abilityIntelligenceTest[9].percentile;
+                        document.querySelector('[name=grade7_stanine]').value = abilityIntelligenceTest[9].stanine;
+                        document.querySelector('[name=grade7_remarks]').value = abilityIntelligenceTest[9].remarks;
+                        document.querySelector('[name=grade8_date]').value = formatDate(abilityIntelligenceTest[10].dateAdministered);
+                        document.querySelector('[name=grade8_test_administered]').value = abilityIntelligenceTest[10].testAdministered;
+                        document.querySelector('[name=grade8_raw_score]').value = abilityIntelligenceTest[10].rawScore;
+                        document.querySelector('[name=grade8_CA]').value = abilityIntelligenceTest[10].ca;
+                        document.querySelector('[name=grade8_IQ_SAI]').value = abilityIntelligenceTest[10].iq_sai;
+                        document.querySelector('[name=grade8_percentile]').value = abilityIntelligenceTest[10].percentile;
+                        document.querySelector('[name=grade8_stanine]').value = abilityIntelligenceTest[10].stanine;
+                        document.querySelector('[name=grade8_remarks]').value = abilityIntelligenceTest[10].remarks;
+                        document.querySelector('[name=grade9_date]').value = formatDate(abilityIntelligenceTest[11].dateAdministered);
+                        document.querySelector('[name=grade9_test_administered]').value = abilityIntelligenceTest[11].testAdministered;
+                        document.querySelector('[name=grade9_raw_score]').value = abilityIntelligenceTest[11].rawScore;
+                        document.querySelector('[name=grade9_CA]').value = abilityIntelligenceTest[11].ca;
+                        document.querySelector('[name=grade9_IQ_SAI]').value = abilityIntelligenceTest[11].iq_sai;
+                        document.querySelector('[name=grade9_percentile]').value = abilityIntelligenceTest[11].percentile;
+                        document.querySelector('[name=grade9_stanine]').value = abilityIntelligenceTest[11].stanine;
+                        document.querySelector('[name=grade9_remarks]').value = abilityIntelligenceTest[11].remarks;
+                        document.querySelector('[name=grade10_date]').value = formatDate(abilityIntelligenceTest[1].dateAdministered);
+                        document.querySelector('[name=grade10_test_administered]').value = abilityIntelligenceTest[1].testAdministered;
+                        document.querySelector('[name=grade10_raw_score]').value = abilityIntelligenceTest[1].rawScore;
+                        document.querySelector('[name=grade10_CA]').value = abilityIntelligenceTest[1].ca;
+                        document.querySelector('[name=grade10_IQ_SAI]').value = abilityIntelligenceTest[1].iq_sai;
+                        document.querySelector('[name=grade10_percentile]').value = abilityIntelligenceTest[1].percentile;
+                        document.querySelector('[name=grade10_stanine]').value = abilityIntelligenceTest[1].stanine;
+                        document.querySelector('[name=grade10_remarks]').value = abilityIntelligenceTest[1].remarks;
+                        document.querySelector('[name=grade11_date]').value = formatDate(abilityIntelligenceTest[2].dateAdministered);
+                        document.querySelector('[name=grade11_test_administered]').value = abilityIntelligenceTest[2].testAdministered;
+                        document.querySelector('[name=grade11_raw_score]').value = abilityIntelligenceTest[2].rawScore;
+                        document.querySelector('[name=grade11_CA]').value = abilityIntelligenceTest[2].ca;
+                        document.querySelector('[name=grade11_IQ_SAI]').value = abilityIntelligenceTest[2].iq_sai;
+                        document.querySelector('[name=grade11_percentile]').value = abilityIntelligenceTest[2].percentile;
+                        document.querySelector('[name=grade11_stanine]').value = abilityIntelligenceTest[2].stanine;
+                        document.querySelector('[name=grade11_remarks]').value = abilityIntelligenceTest[2].remarks;
+                        document.querySelector('[name=grade12_date]').value = formatDate(abilityIntelligenceTest[3].dateAdministered);
+                        document.querySelector('[name=grade12_test_administered]').value = abilityIntelligenceTest[3].testAdministered;
+                        document.querySelector('[name=grade12_raw_score]').value = abilityIntelligenceTest[3].rawScore;
+                        document.querySelector('[name=grade12_CA]').value = abilityIntelligenceTest[3].ca;
+                        document.querySelector('[name=grade12_IQ_SAI]').value = abilityIntelligenceTest[3].iq_sai;
+                        document.querySelector('[name=grade12_percentile]').value = abilityIntelligenceTest[3].percentile;
+                        document.querySelector('[name=grade12_stanine]').value = abilityIntelligenceTest[3].stanine;
+                        document.querySelector('[name=grade12_remarks]').value = abilityIntelligenceTest[3].remarks;
+                    } else {
+                        console.error('Request failed with status:', xhr.status);
+                    }
+                };
+                xhr.onerror = function() {
+                    console.error('Request Error...');
+                };
+                xhr.send(JSON.stringify({textData: baseStudentId}));
+            }, 500);
+        });
+    });
+
+     document.getElementById('edit_cummulative_record').addEventListener('click', function () {
+        event.preventDefault();
+        const baseStudentId = document.getElementById('studentId-cummilative-anecdotal').value;
+        document.getElementById('studentIdField').value = baseStudentId;
+     });
+
+     function formatDate(date){
+        let formattedDate = date.split('T')[0];
+        return formattedDate;
+     }
+</script>
