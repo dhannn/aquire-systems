@@ -3,13 +3,13 @@
 {{#if current}}
 {{!-- GRADE LEVEL ACTIVE ON PAGE --}}
     <li class="nav-item">
-        <a class="nav-link active" aria-current="page" href="#">{{label}}</a>
+        <a class="nav-link active" aria-current="page" href="/admin/students?grade={{label}}"><u>{{label}}</u></a>
     </li>
 
 {{!-- GRADE LEVEL NOT ACTIVE ON PAGE --}}
     {{else}}
         <li class="nav-item">
-            <a class="nav-link" href="#">{{label}}</a>
+            <a class="nav-link" href="/admin/students?grade={{label}}">{{label}}</a>
         </li>
 </li>
 {{/if}}

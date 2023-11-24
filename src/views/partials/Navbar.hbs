@@ -1,0 +1,91 @@
+{{!-- Navbar Partial for Admin_Student, Admin_User--}}
+<script>
+            // Function to handle "Start new school year" button click
+    function handleLogout() {
+        
+        const modal = new bootstrap.Modal(document.getElementById('logoutModal'));
+
+        
+        const confirmButton = document.getElementById('confirmLogout');
+        confirmButton.addEventListener('click', () => {
+            modal.hide();
+        });
+
+     
+        modal.show();
+    }
+</script>
+<nav id="navbar" class="navbar p-3 mb-5">
+        <div class="container-fluid">
+            <a class="navbar-brand fw-bolder fs-2" href="#">{{userRole}}</a>
+            <ul class="topbar-links nav">
+
+                {{#if student_page}}
+                <li class="nav-item">
+                    <a href="/admin/students" id="student-link"
+                    class="nav-link active px-4">Students</a>
+                </li>
+                {{else if user_page}}
+                  <li class="nav-item">
+                    <a href="/admin/students" id="student-link"
+                    class="nav-link px-4">Students</a>
+                  </li>
+                {{/if}}
+                
+                {{#if user_page}}
+                <li class="nav-item">
+                    <a href="/admin/users" id="user-link"
+                    class="nav-link active px-4">Users</a>
+                </li>
+                {{else if student_page}}
+                <li class="nav-item">
+                    <a href="/admin/users" id="user-link"
+                    class="nav-link px-4">Users</a>
+                </li>
+                {{/if}}
+                <li class="nav-item">
+                    <a class="nav-link px-4" onclick="handleLogout()">Logout</a>
+                </li>
+            </ul>
+
+
+        </div>
+    </nav>
+    <div class="modal fade" id="logoutModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                            aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class=" modal-content p-5">
+                                    <div class="modal-body border-0">
+                                        <div class="container-fluid">
+                                            <h1 class="modal-title fs-5" id="exampleModalLabel">You are about to logout</h1>
+                                        </div>
+                                        <div class="container-fluid">
+                                            <p>Are you sure?​</p>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer border-0 justify-content-center">
+                                        <a href ="/logout"><button type="button"  id="confirmLogout"
+                                            class="button-yellow btn rounded-0 mx-3 border-0y">Logout</button></a>
+                                        <button type="button" class="button-gray btn rounded-0 border-0"
+                                            data-dismiss="modal">Cancel</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+{{!-- <nav class="navbar navbar-expand-lg navbar-light p-3 mb-5">
+        <div class="container-fluid">
+          <a class="navbar-brand fw-bolder fs-2" href="#">{{title}}</a>
+          <button class="navbar-toggler bg-light" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" 
+          aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse fw-bold justify-content-end px-4" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+              <a class="nav-link active px-2 my-2 border border-3 border-end-0 border-top-0 border-bottom-0" href="#">Students</a>
+              <a class="nav-link px-2 my-2 border border-3 border-end-0 border-top-0 border-bottom-0" href="#">Users</a>
+            </div>
+          </div>
+        </div>
+</nav> --}}
