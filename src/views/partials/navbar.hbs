@@ -18,34 +18,33 @@
 <nav id="navbar" class="navbar p-3 mb-5">
         <div class="container-fluid">
             <a class="navbar-brand fw-bolder fs-2" href="#">{{userRole}}</a>
-            <ul id="topbar-links" class="nav">
+            <ul class="topbar-links nav">
 
-              {{#if student_page}}
+                {{#if student_page}}
                 <li class="nav-item">
                     <a href="/admin/students" id="student-link"
-                    class="nav-link fs-5 px-4 border border-3 border-end-0 border-top-0 border-bottom-0 fw-bold"><u>Students</u></a>
+                    class="nav-link active px-4">Students</a>
                 </li>
-                {{else}}
+                {{else if user_page}}
                   <li class="nav-item">
                     <a href="/admin/students" id="student-link"
-                    class="nav-link fs-5 px-4 border border-3 border-end-0 border-top-0 border-bottom-0">Students</a>
+                    class="nav-link px-4">Students</a>
                   </li>
                 {{/if}}
-
-              {{#if user_page}}
+                
+                {{#if user_page}}
                 <li class="nav-item">
                     <a href="/admin/users" id="user-link"
-                    class="nav-link fs-5 px-4 border border-3 border-end-0 border-top-0 border-bottom-0 fw-bold"><u>Users</u></a>
+                    class="nav-link active px-4">Users</a>
                 </li>
-                {{else}}
+                {{else if student_page}}
                 <li class="nav-item">
                     <a href="/admin/users" id="user-link"
-                    class="nav-link fs-5 px-4 border border-3 border-end-0 border-top-0 border-bottom-0">Users</a>
+                    class="nav-link px-4">Users</a>
                 </li>
                 {{/if}}
                 <li class="nav-item">
-                    <button id="logout-link" 
-                    class="nav-link fs-5 px-4 border border-3 border-end-0 border-top-0 border-bottom-0 fw-bold" onclick="handleLogout()">Logout</a>
+                    <a class="nav-link px-4" onclick="handleLogout()">Logout</a>
                 </li>
             </ul>
 
