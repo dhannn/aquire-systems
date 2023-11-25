@@ -98,7 +98,9 @@ export class AdminContoller extends UserController {
         ],
         raw: true,
       });
-      console.log("Student Added");
+        console.log("Student Added");
+        
+      res.set({'Refresh': `3; url=/admin/students?grade=${req.body.grade}`});
       res.render("Admin_Student", {
         message: message,
         students: students,
@@ -168,7 +170,7 @@ export class AdminContoller extends UserController {
     
     var gradefilter;
     if (req.query.grade == null) {
-      gradefilter = 'Kinder';
+      return res.redirect('/admin/students?grade=Kinder');
     } else {
       gradefilter = req.query.grade;
     }
@@ -297,7 +299,6 @@ export class AdminContoller extends UserController {
     
     try {
         const updatedSchoolYear = await this.model.startNewSchoolYear();
-        console.log('asda' + `${updatedSchoolYear.fromYear} - ${updatedSchoolYear.toYear}`);
         res.render('Admin_Student', {
             message: { isSuccess: true, content: 'New school year started successfully!' },
             schoolyear: `${updatedSchoolYear.fromYear} - ${updatedSchoolYear.toYear}`,
