@@ -197,10 +197,9 @@ export class AdminContoller extends UserController {
       if (!students || students.length === 0) {
         return res.render("Admin_Student", {
           students: [],
-          message: "No students found for the current school year.",
           schoolyear: schoolYear,
           nextschoolyear: nextschoolyear,
-          //for current proccing
+          
           K: gradefilter === 'Kinder',
           SK: gradefilter === 'Senior Kinder',
           G1: gradefilter === 'Grade 1',
