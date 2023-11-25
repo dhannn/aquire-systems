@@ -293,11 +293,14 @@ export class AdminContoller extends UserController {
      */
 
    async startNewSchoolYear(req, res) {
+    res.set({'Refresh': '3; url=/admin/students/'});
+    
     try {
         const updatedSchoolYear = await this.model.startNewSchoolYear();
+        console.log('asda' + `${updatedSchoolYear.fromYear} - ${updatedSchoolYear.toYear}`);
         res.render('Admin_Student', {
             message: { isSuccess: true, content: 'New school year started successfully!' },
-            schoolYear: `${updatedSchoolYear.fromYear} - ${updatedSchoolYear.toYear}`,
+            schoolyear: `${updatedSchoolYear.fromYear} - ${updatedSchoolYear.toYear}`,
         });
     } catch (error) {
         console.error(error.message);
