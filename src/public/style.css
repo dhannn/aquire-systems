@@ -2,6 +2,7 @@
     --yellow: #fdcc0a;
     --black: #010101;
     --white: #ffffff;
+    --yellow-gray: rgb(252, 248, 230);
     --lightergray: #f2f2f2;
     --lightgray: #bcbcbc;
     --darkgray: #797979;
@@ -14,7 +15,7 @@
 }
 
 .topbar-links li a{
-    color: var(--white);
+    color: var(--yellow-gray);
 }
 
 .topbar-links li a:hover{
@@ -342,4 +343,5 @@
  #login-button{
     color: black;
     background-color: #FFD700;
+}
 }

@@ -26,28 +26,28 @@
                 {{#if student_page}}
                 <li class="nav-item">
                     <a href="/admin/students" id="student-link"
-                    class="nav-link active px-4">Students</a>
+                    class="nav-link active fs-5">Students</a>
                 </li>
                 {{else if user_page}}
                   <li class="nav-item">
                     <a href="/admin/students" id="student-link"
-                    class="nav-link px-4">Students</a>
+                    class="nav-link fs-5">Students</a>
                   </li>
                 {{/if}}
                 
                 {{#if user_page}}
                 <li class="nav-item">
                     <a href="/admin/users" id="user-link"
-                    class="nav-link active px-4">Users</a>
+                    class="nav-link active fs-5">Users</a>
                 </li>
                 {{else if student_page}}
                 <li class="nav-item">
                     <a href="/admin/users" id="user-link"
-                    class="nav-link px-4">Users</a>
+                    class="nav-link fs-5">Users</a>
                 </li>
                 {{/if}}
                 <li class="nav-item">
-                    <a class="nav-link px-4" onclick="handleLogout()">Logout</a>
+                    <a class="nav-link fs-5" onclick="handleLogout()">Logout</a>
                 </li>
             </ul>
 
