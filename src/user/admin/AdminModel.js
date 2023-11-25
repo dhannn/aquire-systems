@@ -34,17 +34,8 @@ export class AdminModel {
         return insertUser();
     }
 
-    // updateCurrentSchoolYear method
-    async updateCurrentSchoolYear(fromYear, toYear) {
-        try {
-            // Update the current school year range in the CurrentSchoolYear table
-            await CurrentSchoolYear.create({ fromYear, toYear }, { upsert: true });
-            return { fromYear, toYear };
-        } catch (error) {
-            console.error('Error updating the current school year:', error);
-            throw error;
-        }
-    }
+    
+   
 
     /**
      * Inserts the user to the database

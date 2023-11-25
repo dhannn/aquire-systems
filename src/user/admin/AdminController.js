@@ -296,17 +296,31 @@ export class AdminContoller extends UserController {
    async startNewSchoolYear(req, res) {
     try {
         const updatedSchoolYear = await this.model.startNewSchoolYear();
+        const currentSchoolYear = `${updatedSchoolYear.fromYear} - ${updatedSchoolYear.toYear}`;
+        const nextfromYear = parseInt(updatedSchoolYear.fromYear) + 1;
+        const nexttoYear = parseInt(updatedSchoolYear.toYear) + 1;
+        const nextschoolyear = `${nextfromYear}-${nexttoYear}`;
+        
+        const students = await Student.findAll({
+            // Your query to fetch students
+        });
+
         res.render('Admin_Student', {
             message: { isSuccess: true, content: 'New school year started successfully!' },
-            schoolYear: `${updatedSchoolYear.fromYear} - ${updatedSchoolYear.toYear}`,
+            students: students,
+            schoolyear: currentSchoolYear,
+            nextschoolyear: nextschoolyear
+            // other necessary variables for the view
         });
     } catch (error) {
         console.error(error.message);
         res.render('Admin_Student', {
             message: { content: error.message },
+            // other necessary variables for the view
         });
     }
-  }
+}
+
     async viewUsers(_, res) {
         const allowed = await UserController.verifyUserPermission(this.allowedUserType, _)
         const loggedIn = UserController.checkifloggedIn(_);

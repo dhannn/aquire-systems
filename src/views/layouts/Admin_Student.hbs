@@ -19,7 +19,7 @@
     {{/if}}
 
     {{!-- NAVBAR PARTIAL --}}
-    {{> Navbar userRole='Admin' student_page="true"}}
+    {{> navbar userRole='Admin' student_page="true"}}
 
     <div class="container-fluid">
         <div class="row mx-5">
@@ -209,43 +209,46 @@
         crossorigin="anonymous"></script>
     <script src="https://kit.fontawesome.com/84cb3b7f2b.js" crossorigin="anonymous"></script>
     
-    <script>
-            document.getElementById('newSYButton').addEventListener('click', function () {
-                // Trigger the start new school year modal
-                var myModal = new bootstrap.Modal(document.getElementById('exampleModal'));
+  <script>
+    document.getElementById('newSYButton').addEventListener('click', function () {
+        var myModal = new bootstrap.Modal(document.getElementById('exampleModal'));
+        myModal.show();
+    });
 
-                // Show the modal
-                myModal.show();
+    const startnewSY = document.getElementById('confirmStartNewSchoolYear');
+    startnewSY.addEventListener('click', function () {
+        fetch('/admin/startNewSchoolYear', { method: 'POST' })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`Failed to start new school year. Status: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log('Success:', data);
+                // Display success message in the modal body
+                document.querySelector('.modal-body').innerHTML = `
+                    <div class="container-fluid">
+                        <h1 class="modal-title fs-5">Success!</h1>
+                        <p>New school year started successfully!</p>
+                    </div>
+                `;
+                // Hide footer buttons
+                document.querySelector('.modal-footer').style.display = 'none';
+            })
+            .catch(error => {
+                console.error('Error starting new school year:', error.message);
+                // Display error message in the modal body
+                document.querySelector('.modal-body').innerHTML = `
+                    <div class="container-fluid">
+                        <h1 class="modal-title fs-5">Error!</h1>
+                        <p>Failed to start new school year. Please try again.</p>
+                    </div>
+                `;
+                // Hide footer buttons
+                document.querySelector('.modal-footer').style.display = 'none';
             });
-            const startnewSY = document.getElementById('confirmStartNewSchoolYear');
-            startnewSY.addEventListener('click', function () {
-                // Trigger the start new school year functionality
-                fetch('/admin/startNewSchoolYear', { method: 'POST' })
-                    .then(response => {
-                        if (!response.ok) {
-                            throw new Error(`Failed to start new school year. Status: ${response.status}`);
-                        }
-                        return response.json();
-                    })
-                    .then(data => {
-                        console.log('Success:', data);
-
-                        // Display a message (replace this with your actual logic)
-                        alert('New school year started successfully!');
-                    })
-                    .catch(error => {
-                        console.error('Error starting new school year:', error.message);
-
-                        // Display an error message (replace this with your actual error handling logic)
-                        alert('Failed to start new school year. Please try again.');
-                    })
-                    .finally(() => {
-                        // Hide the modal and overlay
-                        var myModal = new bootstrap.Modal(document.getElementById('startNewSchoolYearModal'));
-                        myModal.hide();
-                        //document.getElementById('overlay').style.display = 'none';
-                    });
-            });
-        </script>
+    });
+</script>
 </body>
 </html>
