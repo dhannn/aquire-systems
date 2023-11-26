@@ -131,9 +131,9 @@
     }
 }
 
-.input-group-custom input.form-control, .input-group-custom textarea{
-    background-color: #d9d9d9;
-
+.input-group-custom input.form-control{
+    background-color: var(--white);
+    border-color: var(--darkgray);
     font-size: 1rem;
     height: 100%;
 
@@ -328,71 +328,6 @@
       }
 }
 
-
-
-.m-button{
-    margin-left: 2.33rem;
-
-}
-
-
-.btn-yellow {
-    background-color: #ffd966;
-    color: black; /* Text color, assuming black text on a yellow background */
-    border-color: #ffd966; /* Optional: if you want a border */
-}
-
-
-
-
-
-.school-history{
-    font-family: Arial, Helvetica, sans-serif;
-    font-weight: bold;
-}
-
-
-
-.form-group-cr {
-    margin-bottom: 15px;
-    width: 80%;
-}
-
-
-.SH  {
-    width: 52%;
-    height: 2rem;
-    padding: 8px;
-    margin-bottom: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-}
-
-.long{
-    width: 65%;
-    
-}
-
-
-.form-row-cr {
-  
-    display: flex;
-    justify-content: space-between;
-}
-
-.form-group-cr {
-    font-weight: 400;
-    flex: 1; 
-    margin-right: 10px; 
-}
-
-.new-form, .view-form {
-    background-color: whitesmoke;
-}
-
-.view-form div {
-    background-color: #d9d9d9;
-  
   .add-admission-button {
     font-size: 11px;
   }

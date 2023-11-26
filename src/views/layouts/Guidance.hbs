@@ -19,7 +19,7 @@
     {{/if}}
     
     {{> Navbar userRole='Guidance'}}
-
+    
     <div class="container-fluid">
         <div class="row mx-5">
             <aside class="aside col-2">
@@ -44,35 +44,6 @@
             </aside>
 
             <section class="flex-column col-6 p-0 mx-5">
-
-
-                
-                <form id="cummilative-anectodal-form" class="input-group-custom" method="GET" action="guidance/cummulative">
-                    <div class="row mx-half">
-                        <div class="col-5 px-0">
-                            <input required name="student_id" type="text" id="studentId-cummilative-anecdotal"
-                                class="form-control rounded-0 border border-white" placeholder="Student ID" />  
-                        </div>
-
-                        <div class="col-3 px-0 m-button">
-                            <div class="form-button-add text-center rounded-0 border border-white" role="button" tabindex="0">
-                                <label for="add_anecdotal_record">Add Anecdotal Record</label>
-                                <input class="add-button" type="submit" value="" data-bs-toggle="modal" data-bs-target="#modal_anecdotal"  id="add_anecdotal_record"/>
-                            </div>
-                        </div>
-
-                        <div class="col-3 px-0 m-button">
-                            <div class="form-button-add text-center rounded-0 border border-white" role="button" tabindex="0">
-                                <label for="edit_cummulative_record">Edit Cummulative Record</label>
-                                <input class="add-button" type="submit" value="" data-bs-toggle="modal" data-bs-target="#exampleModalScrollable"  id="edit_cummulative_record"/>
-                            </div>
-                        </div>
-
-
-                    </div>
-                </form>
-
-                
                 <form class="form input-group-custom" role="search">
                     <div class="row mx-half mb-0">
                         <div class="col-11 px-0">
@@ -87,25 +58,30 @@
                     </div>
                 </form>
 
-                <form id="add-student-form" role="form" method="POST" action="/guidance/records"
-                    class="input-group-custom">
-                    <div class="row mx-half">
-                        <div class="col-4 px-0">
-                            <input required name="student_id" type="text" id="studentId"
-                                class="form-control rounded-0 border border-white" placeholder="Student ID" />
-                        </div>
-                        <div class="dropdown-custom student-form btn-group col-4 px-0">
-                            <button class="checkbox-dropdown btn dropdown-toggle rounded-0 border border-white"
-                                type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            </button>
-                            <div class="dropdown-menu col-12 rounded-0">
-                                {{> CheckboxFormGroup checkboxName="recordTypes[]" checkboxValue="MC" checkboxId="checkboxMC" checkboxLabel="Medical Certificate"}}
-                                {{> CheckboxFormGroup checkboxName="recordTypes[]" checkboxValue="SRF" checkboxId="checkboxSRF" checkboxLabel="Scholastic Record Form"}}
-                                {{> CheckboxFormGroup checkboxName="recordTypes[]" checkboxValue="IS" checkboxId="checkboxIS" checkboxLabel="Information Sheet"}}
-                                {{> CheckboxFormGroup checkboxName="recordTypes[]" checkboxValue="BEF" checkboxId="checkboxBEF" checkboxLabel="Basic Education Form"}}
-                                {{> CheckboxFormGroup checkboxName="recordTypes[]" checkboxValue="SHSF" checkboxId="checkboxSHSF" checkboxLabel="Senior High School Form"}}
-                                {{> CheckboxFormGroup checkboxName="recordTypes[]" checkboxValue="RF" checkboxId="checkboxRF" checkboxLabel="Recommendation Form"}}                       
-
+                <form id="add-student-form" role="form" method="POST" action="/guidance/records" class="input-group-custom my-3">
+                    <div class="row mx-half mb-0">
+                        <div class="col-8 px-0">
+                            <div class="row mx-half mb-0 h-100">
+                                <div class="col-6 border px-0">
+                                    <input required name="student_id" type="text" id="studentId"
+                                        class="form-control rounded-0 border border-white" placeholder="New Student ID" />
+                                </div>
+                                <div class="col-6 px-0">
+                                    <div class="dropdown-custom student-form btn-group col-12 px-0 h-100">
+                                        <button class="checkbox-dropdown btn dropdown-toggle rounded-0 border border-white"
+                                            type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        </button>
+                                        <div class="dropdown-menu col-12 rounded-0">
+                                            {{> CheckboxFormGroup checkboxName="recordTypes[]" checkboxValue="MC" checkboxId="checkboxMC" checkboxLabel="Medical Certificate"}}
+                                            {{> CheckboxFormGroup checkboxName="recordTypes[]" checkboxValue="SRF" checkboxId="checkboxSRF" checkboxLabel="Scholastic Record Form"}}
+                                            {{> CheckboxFormGroup checkboxName="recordTypes[]" checkboxValue="IS" checkboxId="checkboxIS" checkboxLabel="Information Sheet"}}
+                                            {{> CheckboxFormGroup checkboxName="recordTypes[]" checkboxValue="BEF" checkboxId="checkboxBEF" checkboxLabel="Basic Education Form"}}
+                                            {{> CheckboxFormGroup checkboxName="recordTypes[]" checkboxValue="SHSF" checkboxId="checkboxSHSF" checkboxLabel="Senior High School Form"}}
+                                            {{> CheckboxFormGroup checkboxName="recordTypes[]" checkboxValue="RF" checkboxId="checkboxRF" checkboxLabel="Recommendation Form"}}                       
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                             </div>
                                 <div class="col-4 px-0 text-center">
                                     <button id="add_admission_record" type="submit" class="form-button-add text-center rounded-0 border w-100">
@@ -157,150 +133,6 @@
             </section>
         </div>
     </div>
-
-    <div class="modal fade" id="modal_anecdotal" tabindex="-1" aria-labelledby="modal_anecdotal_title" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-scrollable modal-xl">
-        <!-- Modal content goes here -->
-        <div class="modal-content">
-            <div class="modal-header">
-                <h1 class="modal-title fs-5" id="modal_anecdotal_title">Add Anecdotal Record</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-         
-            <div class="modal-body">
-                <form class="input-group-custom" id="anecdotal-form" method="POST" action="/guidance/anecdotal">
-                <input type="hidden" name="student_id" id="studentIdField">
-                <input type="hidden" name="date" id="dateField">
-
-                <div class = "new-form p-4">
-                    
-                    <h4>NEW FORM</h4>
-
-                    <div class="form-row-ar mt-4 mb-4">
-
-                        
-                        <div class="form-group-ar mt-4 mb-4">
-                            <label for="date">Date:</label>
-                            <input required type="date" id="anecdotalDate" name="date">
-                        </div>
-
-
-                        <div class="form-group-ar mt-4 mb-4">
-                            <textarea required class="form-control" id="anecdotalRecord" name = "anecdotalRecord" placeholder="Add text here" rows="6"></textarea>
-                        </div>  
-
-                    </div>
-                 
-                </div>
-
-                <div class="view-form p-4 mt-4">
-                    <h4>VIEW FORM</h4>
-
-                    <div class="border p-4 mt-4 mb-4">
-                        <h3>16/11/23</h3>
-                        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-                             Inventore, voluptas voluptatibus corrupti quaerat voluptates at laborum,
-                             incidunt voluptate atque praesentium id nesciunt tempora cum vel eius
-                             consectetur repellat eligendi natus.</p>
-                    </div>
-
-                    <div class="border p-4 mt-4 mb-4">
-                        <h3>15/11/23</h3>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                            Laudantium, doloremque repudiandae. Quisquam harum
-                            accusantium praesentium molestiae. Blanditiis dolores,
-                            expedita dolorum aspernatur, corporis tempore odio suscipit
-                            facilis illum voluptatem consequuntur eveniet placeat
-                            eum consectetur asperiores veniam nulla quod amet cupiditate,
-                            sint eligendi. Facilis dolorem doloribus corporis voluptas
-                            reiciendis similique est voluptates molestias quas enim!
-                            Praesentium facilis ullam possimus expedita tenetur excepturi
-                            perferendis repellendus dolorem, officia, magni error officiis.
-                            Tenetur accusamus sit praesentium iure consequatur voluptates,
-                            illum nam totam consequuntur voluptatem ipsum labore id
-                            dignissimos eius in rerum magnam veritatis? Cumque ratione
-                            quod assumenda animi. Quidem dolorem voluptatem dolores,
-                            magni obcaecati aliquam.</p>
-                    </div>
-
-                    <div class="border p-4 mt-4 mb-4">
-                        <h3>14/11/23</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Culpa, expedita.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <input type="submit" class="btn btn-primary btn-yellow">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            </div>
-        </div>
-        </form>
-        </div>
-    </div>
-
-
-    <div class="modal fade" id="exampleModalScrollable" tabindex="-1" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-scrollable modal-xl">
-        <!-- Modal content goes here -->
-        <div class="modal-content">
-            <div class="modal-header">
-                <h1 class="modal-title fs-5" id="exampleModalScrollableTitle">Edit Cummulative Record</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-         
-            <div class="modal-body">
-                <form id="cummulative-form" method="POST" action="/guidance/cummulative">
-                <input type="hidden" name="student_id" id="studentIdField">
-                <div class = "school-history">
-                 <p>III. SCHOOL HISTORY</p>
-                        <div class="form-row-cr">
-                            <div class="form-group-cr">
-                                <label for="enteredFrom">Entered from:</label>
-                                <input class= "SH" type="text" id="enteredFrom" name="enteredFrom"  value="" required>
-                            </div>
-                            
-                            <div class="form-group-cr">
-                                <label for="admittedInSchoolYear">Admitted in Aquinas School SY:</label>
-                                <input class= "SH" type="text" id="schoolYearAdmitted" name="schoolYearAdmitted" value="" required>
-                            </div>
-                        </div>
-                        
-                        <div class="form-group-cr">
-                            <label for="gradeLevelEntered">Grade Level Entered:</label>
-                            <input  class= "SH" type="text" id="gradeLevelEntered" name="gradeLevelEntered" value="" required>
-                        </div>
-                                                
-                        <div class="form-group-cr">
-                            <label for="otherSchoolAttended">Other School Attended:</label>
-                            <input  class= "SH long"type="text" id="otherSchoolsAttended" name="otherSchoolsAttended" value="" required>
-                        </div>
-                        <!--                        
-                        <div class="form-group-cr">
-                            <label for="Name">(Name of School, Grade Level and SY)</label>
-                            <input class= "SH long"type="text" id="etc" name="Name" required>
-                        </div>
-                        -->
-                </div>
-
-
-
-
-
-
-                <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-                <p>This content should appear at the bottom after you scroll.</p>
-            </div>
-            <div class="modal-footer">
-                <input type="submit" class="btn btn-primary btn-yellow">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            </div>
-        </div>
-        </form>
-        </div>
-    </div>
-
-
-
         <!-- Include Bootstrap JS (optional, for dropdown menus) -->
         <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
             integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
@@ -318,114 +150,6 @@
             integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
             crossorigin="anonymous"></script>
         <script src="https://kit.fontawesome.com/84cb3b7f2b.js" crossorigin="anonymous"></script>
-
-    <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        var timeout = null;
-        document.getElementById('studentId').addEventListener('keyup', function () {
-            clearTimeout(timeout);
-            timeout = setTimeout(function() {
-                var textvalue = document.getElementById('studentId').value;
-                var xhr = new XMLHttpRequest();
-                xhr.open('POST', '/guidance', true);
-                xhr.setRequestHeader('Content-Type', 'application/json');
-                xhr.onload = function() {
-                    if(xhr.status === 200) {
-                        if (xhr.status === 200) {
-                            var response = JSON.parse(xhr.responseText);
-                            var recordIds = response.recordIds;
-
-                            // Update checkboxes
-                            var checkboxes = document.querySelectorAll('[name="recordTypes[]"]');
-                            checkboxes.forEach(function(checkbox) {
-                                if (recordIds.includes(checkbox.value)) {
-                                    checkbox.checked = true;
-                                    checkbox.classList.add('greyed-out');
-                                } else {
-                                    checkbox.checked = false;
-                                    checkbox.classList.remove('greyed-out');
-                                }
-                            });
-                        }
-                    }
-                };
-                xhr.onerror = function() {
-                    console.error('Request Error...');
-                };
-                xhr.send(JSON.stringify({textData: textvalue}));
-            }, 500);
-        });
-        document.getElementById('studentId-cummilative-anecdotal').addEventListener('keyup', function () {
-            clearTimeout(timeout);
-            timeout = setTimeout(function() {
-                var baseStudentId = document.getElementById('studentId-cummilative-anecdotal').value;
-                var xhr = new XMLHttpRequest();
-                xhr.open('POST', '/guidance/cummulative-get', true);
-                xhr.setRequestHeader('Content-Type', 'application/json');
-                xhr.onload = function() {
-                    if (xhr.status === 200) {
-                        var response = JSON.parse(xhr.responseText);
-                        var schoolHistory = response.formattedSchoolHistory;
-                        document.querySelector('[name="enteredFrom"]').value = schoolHistory.enteredFrom;
-                        document.querySelector('[name="schoolYearAdmitted"]').value = schoolHistory.schoolYearAdmitted;
-                        document.querySelector('[name="gradeLevelEntered"]').value = schoolHistory.gradeLevelEntered;
-                        document.querySelector('[name="otherSchoolsAttended"]').value = schoolHistory.otherSchoolsAttended;
-                    } else {
-                        console.error('Request failed with status:', xhr.status);
-                    }
-                };
-                xhr.onerror = function() {
-                    console.error('Request Error...');
-                };
-                console.log('Base Student ID for Cumulative Records:', baseStudentId);
-                xhr.send(JSON.stringify({textData: baseStudentId}));
-            }, 500);
-        });
-    });
-
-     document.getElementById('edit_cummulative_record').addEventListener('click', function () {
-        event.preventDefault();
-        const baseStudentId = document.getElementById('studentId-cummilative-anecdotal').value;
-        document.getElementById('studentIdField').value = baseStudentId;
-     });
-//_____________________________________________________________________
-    document.addEventListener('DOMContentLoaded', function() {
-    var timeout = null;
-
-    document.getElementById('add_anecdotal_record').addEventListener('click', function(event) {
-        event.preventDefault();
-
-        const baseStudentId = document.getElementById('studentId-cummilative-anecdotal').value;
-        let currentDate = new Date().toISOString().slice(0, 19).replace('T', ' '); // Get current date in YYYY-MM-DD HH:MM:SS format
-        console.log('Base Student ID for Anecdotal Record:', baseStudentId);
-        console.log('Current Date:', currentDate);
-
-        document.getElementById('studentIdField').value = baseStudentId;
-
-        // Check if currentDate is empty or invalid date format, and provide a default value if needed
-        if (!currentDate || currentDate.trim() === '' || !isValidDate(currentDate)) {
-            // Set a default date or handle this case according to your requirements
-            currentDate = new Date().toISOString().slice(0, 19).replace('T', ' ');
-        }
-
-        // Now, assign the validated currentDate value to the form field
-        document.getElementById('dateField').value = currentDate;
-
-
-        const anecdotalRecordText = document.getElementById('anecdotalRecord').value;
-        console.log('Anecdotal Record Text:', anecdotalRecordText);
-
-        // Assign the anecdotal record text to the form field
-        document.getElementById('anecdotalRecord').setAttribute('name', 'anecdotalRecord');
-        document.getElementById('anecdotalRecord').setAttribute('value', anecdotalRecordText);
-        document.getElementById('anecdotal-form').submit();
-    });
-});
-
-
-
-    </script>
-
         <script>
             document.addEventListener('DOMContentLoaded', function() {
                 var timeout = null;
