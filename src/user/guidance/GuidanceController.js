@@ -1,7 +1,7 @@
 import { AdmissionRecord } from "../../schema/admissionrecord.js";
 import { SchoolHistory } from "../../schema/schoolhistory.js";
 import { UserController } from "../UserController.js";
-import { GuidanceModel } from "./GuidanceModel.js/index.js";
+import { GuidanceModel } from "./GuidanceModel.js";
 import { AnecdotalRecord } from "../../schema/AnecdotalRecord.js";
 import { Student } from "../../schema/student.js";
 

@@ -60,13 +60,13 @@
 
                 <form id="add-student-form" role="form" method="POST" action="/guidance/records" class="input-group-custom my-3">
                     <div class="row mx-half mb-0">
-                        <div class="col-8 px-0">
+                        <div class="col-12 px-0">
                             <div class="row mx-half mb-0 h-100">
-                                <div class="col-6 border px-0">
+                                <div class="col-5 border px-0">
                                     <input required name="student_id" type="text" id="studentId"
-                                        class="form-control rounded-0 border border-white" placeholder="New Student ID" />
+                                        class="form-control rounded-0 border border-white" placeholder="Student ID" />
                                 </div>
-                                <div class="col-6 px-0">
+                                <div class="col-3 px-0">
                                     <div class="dropdown-custom student-form btn-group col-12 px-0 h-100">
                                         <button class="checkbox-dropdown btn dropdown-toggle rounded-0 border border-white"
                                             type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -81,29 +81,29 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            </div>
                                 <div class="col-4 px-0 text-center">
                                     <button id="add_admission_record" type="submit" class="form-button-add text-center rounded-0 border w-100">
                                         <span>Add Admission Record</span>
                                     </button>
                                 </div>
+                            </div>
                         </div>
+                    </div>
                 </form>
 
                 <div class="container-fluid">
                     <div class="row mt-3 table-header">
-                        <div class="col-8 px-0">
+                        <div class="col-10 px-0">
                             <div class="row mx-half mb-0 h-100 fw-bold">
                                 <div class="col-6 border border-white p-2">
-                                    <span>Student ID</span>
+                                    <span>Student</span>
                                 </div>
                                 <div class="col-6 border border-white p-2">
                                     <span>Record</span>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-4 border border-white p-2">
+                        <div class="col-2 border border-white p-2">
                             <span></span>
                         </div>
                     </div>
@@ -112,21 +112,28 @@
                 <div class="data-table container-fluid">
                     {{#each studentRecords}}
                         <div class="row list-div">
-                            <div class="col-8">
+                            <div class="col-10">
                                 <div class="row">
-                                    <div class="col-6 border border-white p-2">
-                                        <span>{{student_id}}</span>
+                                    <div class="col-2 border border-white p-2">
+                                        <span>{{@key}}</span>
                                     </div>
+
+                                    <div class="col-4 border border-white p-2">
+                                        <span>{{lastName}}, {{firstName}}</span>
+                                    </div>
+
                                     <div class="col-6 border border-white p-2">
-                                        <span>{{recordId}}</span>
+                                    {{#each has}}
+                                        <p class="mb-0">{{this}}</p>
+                                    {{/each}}
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-4 p-2">
+                            {{!-- <div class="col-2 p-2">
                                 <div class="edit-button-div col-12 text-center rounded-0 h-100" role="button" tabindex="0">
                                     <i class="fa-solid fa-pen"></i>
                                 </div>
-                            </div>
+                            </div> --}}
                         </div>
                     {{/each}}
                 </div>
