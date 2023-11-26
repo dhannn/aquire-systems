@@ -10,6 +10,7 @@ export class PortalContoller extends UserController {
         this.createRoute('GET', '', this.viewPortal);
         this.createRoute('GET', '/login',this.viewPortal);
         this.createRoute('POST', '/login', this.loginUser);
+        this.createRoute('GET', '/logout', this.logoutUser)
     }
 
     addUserRoute(route) {
@@ -40,6 +41,11 @@ export class PortalContoller extends UserController {
         } else {
             res.render('Portal', { message: { content: 'Invalid credentials. Please try again.' } })
         }
+    }
+
+    async logoutUser(req, res) {
+        res.clearCookie('id');
+        res.redirect('/');
     }
 
     async viewPortal(req, res) {

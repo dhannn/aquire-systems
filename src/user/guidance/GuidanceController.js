@@ -32,6 +32,7 @@ export class GuidanceController extends UserController {
             const {student_id, recordTypes} = req.body;
             console.log(recordTypes);
             const result = await GuidanceModel.addStudentRecord(student_id, recordTypes);
+          
             const studentRecords = await GuidanceModel.StudentRecords();
             if(result.error){
                 res.render('Guidance', {message: {content: 'Error adding Record'}, studentRecords: studentRecords});
@@ -154,5 +155,27 @@ export class GuidanceController extends UserController {
             res.render('Guidance', { message: { content: 'Error adding Anecdotal Record' }, studentRecords });
         }
     }
+  
+    /**
+     * Updates the checklist of student records whenever a Student ID is entered in the textbox
+     * @param {Request} req 
+     * @param {Response} res 
+     */
+    async getStudentRecords(req, res) {
+        const studentId = req.body.textData;
+        try {
+            // Query the database to find records for the student
+            const records = await AdmissionRecord.findAll({
+                where: { student_id: studentId },
+                attributes: ['recordId']
+            });
     
+            // Convert to a format suitable for the frontend to process
+            const recordIds = records.map(r => r.recordId);
+            res.json({ recordIds });
+        } catch (error) {
+            console.error('Error fetching student records:', error);
+            res.status(500).send('Error processing request');
+        }
+    }
 }

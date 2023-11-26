@@ -4,20 +4,21 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Guidance</title>
+    <title>Guidance | AquiRe Systems</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
     <link rel="stylesheet" type="text/css" href="/style.css">
-
+    {{> Favicon}} 
 </head>
 
 <body>
-    {{> Navbar userRole='Guidance'}}
 
     {{#if message}}
         {{> Message message=message}}
     {{/if}}
+    
+    {{> Navbar userRole='Guidance'}}
 
     <div class="container-fluid">
         <div class="row mx-5">
@@ -72,26 +73,19 @@
                 </form>
 
                 
-
-                <div class="row my-3">
-                    <form class="d-flex" role="search">
-                        <input class="form-control rounded-0 mx-0" type="search"
-                            placeholder="Search by ID or Last Name, First Name..." aria-label="Search">
-                        <button class="button-yellow btn rounded-0 custom-width-12 pt-1 mx-0 border-0" type="submit"><i
-                                class="bi bi-search"></i></button>
-                    </form>
-                </div>
-
-                <div class="table-header container-fluid">
-                    <div class="row my-3">
-                        <div class="col-2 border border-white p-2">
-                            <span>Student ID</span>
+                <form class="form input-group-custom" role="search">
+                    <div class="row mx-half mb-0">
+                        <div class="col-11 px-0">
+                            <input class="form-control rounded-0 border" type="search" placeholder="Search"
+                                aria-label="Search by ID or Last Name, First Name...">
                         </div>
-                        <div class="col-2 border border-white p-2">
-                            <span>Record</span>
+                        <div class="col px-0">
+                            <button class="form-button-add text-center rounded-0 border w-100 display-block" type="submit">
+                                <i class="bi bi-search"></i>
+                            </button>
                         </div>
                     </div>
-                </div>
+                </form>
 
                 <form id="add-student-form" role="form" method="POST" action="/guidance/records"
                     class="input-group-custom">
@@ -111,28 +105,51 @@
                                 {{> CheckboxFormGroup checkboxName="recordTypes[]" checkboxValue="BEF" checkboxId="checkboxBEF" checkboxLabel="Basic Education Form"}}
                                 {{> CheckboxFormGroup checkboxName="recordTypes[]" checkboxValue="SHSF" checkboxId="checkboxSHSF" checkboxLabel="Senior High School Form"}}
                                 {{> CheckboxFormGroup checkboxName="recordTypes[]" checkboxValue="RF" checkboxId="checkboxRF" checkboxLabel="Recommendation Form"}}                       
+
+                            </div>
+                                <div class="col-4 px-0 text-center">
+                                    <button id="add_admission_record" type="submit" class="form-button-add text-center rounded-0 border w-100">
+                                        <span>Add Admission Record</span>
+                                    </button>
+                                </div>
+                        </div>
+                </form>
+
+                <div class="container-fluid">
+                    <div class="row mt-3 table-header">
+                        <div class="col-8 px-0">
+                            <div class="row mx-half mb-0 h-100 fw-bold">
+                                <div class="col-6 border border-white p-2">
+                                    <span>Student ID</span>
+                                </div>
+                                <div class="col-6 border border-white p-2">
+                                    <span>Record</span>
+                                </div>
                             </div>
                         </div>
-                        <div class="col-4 px-0">
-                            <div class="form-button-add text-center rounded-0 border border-white" role="button"
-                                tabindex="0">
-                                <label for="add_admission_record">Add Admission Record</label>
-                                <input class="add-button" type="submit" value="" id="add_admission_record"/>
-                            </div>
+                        <div class="col-4 border border-white p-2">
+                            <span></span>
                         </div>
                     </div>
-                </form>
-                <div id="data-table" class="data-table container-fluid my-3">
+                </div>
+
+                <div class="data-table container-fluid">
                     {{#each studentRecords}}
                         <div class="row list-div">
-                            <div class="col-3 border p-2">
-                                <span>{{student_id}}</span>
+                            <div class="col-8">
+                                <div class="row">
+                                    <div class="col-6 border border-white p-2">
+                                        <span>{{student_id}}</span>
+                                    </div>
+                                    <div class="col-6 border border-white p-2">
+                                        <span>{{recordId}}</span>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="col-6 border p-2">
-                                <span>{{recordId}}</span>
-                            </div>
-                            <div class="edit-button-div col-3 text-center rounded-0" role="button" tabindex="0">
-                                <i class="fa-solid fa-pen"></i>
+                            <div class="col-4 p-2">
+                                <div class="edit-button-div col-12 text-center rounded-0 h-100" role="button" tabindex="0">
+                                    <i class="fa-solid fa-pen"></i>
+                                </div>
                             </div>
                         </div>
                     {{/each}}
@@ -302,9 +319,6 @@
             crossorigin="anonymous"></script>
         <script src="https://kit.fontawesome.com/84cb3b7f2b.js" crossorigin="anonymous"></script>
 
-
-
-
     <script>
     document.addEventListener('DOMContentLoaded', function() {
         var timeout = null;
@@ -411,7 +425,46 @@
 
 
     </script>
-        
+
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                var timeout = null;
+
+                document.getElementById('studentId').addEventListener('keyup', function () {
+                    clearTimeout(timeout);
+                    timeout = setTimeout(function() {
+                        var textvalue = document.getElementById('studentId').value;
+                        var xhr = new XMLHttpRequest();
+                        xhr.open('POST', '/guidance', true);
+                        xhr.setRequestHeader('Content-Type', 'application/json');
+                        xhr.onload = function() {
+                            if(xhr.status === 200) {
+                                if (xhr.status === 200) {
+                                    var response = JSON.parse(xhr.responseText);
+                                    var recordIds = response.recordIds;
+
+                                    // Update checkboxes
+                                    var checkboxes = document.querySelectorAll('[name="recordTypes[]"]');
+                                    checkboxes.forEach(function(checkbox) {
+                                        if (recordIds.includes(checkbox.value)) {
+                                            checkbox.checked = true;
+                                            checkbox.classList.add('greyed-out');
+                                        } else {
+                                            checkbox.checked = false;
+                                            checkbox.classList.remove('greyed-out');
+                                        }
+                                    });
+                                }
+                            }
+                        };
+                        xhr.onerror = function() {
+                            console.error('Request Error...');
+                        };
+                        xhr.send(JSON.stringify({textData: textvalue}));
+                    }, 500);
+                });
+            });
+        </script>
 </body>
 
 </html>

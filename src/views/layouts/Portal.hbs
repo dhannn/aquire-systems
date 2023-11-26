@@ -3,15 +3,12 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    
-    <title>Login View | AquiRe</title>
+
+    <title>AquiRe Systems Portal</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <link href="/css/styles.css" rel="stylesheet" type="text/css">
-
-    <script>
-        //functions here
-    </script>
+    <link href="/style.css" rel="stylesheet" type="text/css">
+    {{> Favicon}} 
 </head>
 <body>
 
@@ -19,8 +16,8 @@
         {{> Message message=message}}
     {{/if}}
     
-    <div class="d-flex flex-column h-100 w-100 justify-content-center align-item-center">
-        <form id="login-form" action="/login" method="POST" class="p-5 border bg-light mx-auto">
+    <div class="d-flex flex-column justify-content-center align-item-center vh-100">
+        <form id="login-form" action="/login" method="POST" class="p-5 w-25 border rounded-2 bg-light mx-auto">
             <h2 class="fw-bolder fs-2 text-center"> AquiRe</h2>
             <h6 class="text-center">Aquinian Records</h6>
                 <div class= "mb-3">
@@ -34,7 +31,7 @@
                 </div>
                 
                 <div class="d-grid gap-2">
-                    <input id="login-button" class="btn btn-md btn-primary" type="submit" value="Submit"  onclick="hideAddUser()">
+                    <input id="login-button" class="btn button-yellow" type="submit" value="Log In"  onclick="hideAddUser()">
                 </div>
         </form>
     </div>
