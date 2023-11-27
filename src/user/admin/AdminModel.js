@@ -111,7 +111,7 @@ export class AdminModel {
                 console.log("Enrollment added for existing student");
                 return existingStudent;
             } else {
-                throw new Error("Student details do not match with existing records");
+                throw new Error("Student details do not match with existing records (The ID is already taken by a different student)");
             }
         }
 
