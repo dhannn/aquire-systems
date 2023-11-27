@@ -115,32 +115,36 @@ export class GuidanceModel {
     static updateStudentHealthRecord(id, gradeLevel, vision, height, weight, specialCondition){
         async function updateStudentHealthRecord(){
                 try{
-                    const existingHealthRecord = HealthRecord.findOne({student_id: id});
+                    const existingHealthRecord = await HealthRecord.findOne({where: {
+                        student_id: id,
+                        grade: gradeLevel
+                    }});
                     if(existingHealthRecord){
-                        const studentHealthRecord = gradeLevel.map(level => ({
+                        const studentHealthRecord = await HealthRecord.update({
                             student_id: id,
-                            grade: level,
+                            grade: gradeLevel,
                             vision: vision,
                             height: height,
                             weight: weight,
                             specialCondition: specialCondition
-                        }));
-                        const healthRecord = await HealthRecord.bulkCreate(studentHealthRecord, {
-                            updateOnDuplicate: ['student_id', 'grade']
+                        },{
+                            where: {
+                                student_id: id,
+                                grade: gradeLevel
+                            }
                         });
-                        return {healthRecord: healthRecord};
+                        return {healthRecord: studentHealthRecord};
                     } else {
-                        const studentHealthRecord = gradeLevel.map(level => ({
+                        const studentHealthRecord = await HealthRecord.create({
                             student_id: id,
-                            grade: level,
+                            grade: gradeLevel,
                             vision: vision,
                             height: height,
                             weight: weight,
                             specialCondition: specialCondition
-                        }));
-                        const healthRecord = await HealthRecord.bulkCreate(studentHealthRecord);
-                        console.log('Health Record updated Successfully', healthRecord);
-                        return {healthRecord: healthRecord};
+                        });
+                        console.log('Health Record updated Successfully', studentHealthRecord);
+                        return {healthRecord: studentHealthRecord};
                     }
                 } catch (error) {
                     console.log('Error updating Health Record', error)
