@@ -169,6 +169,8 @@ export class GuidanceModel {
                                 }}],
                                 raw: true,
                             });
+
+                        
                             
                             records[student].firstName = studentInfo.firstName;
                             records[student].lastName= studentInfo.lastName;
