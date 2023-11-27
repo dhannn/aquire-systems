@@ -153,31 +153,31 @@ export class GuidanceModel {
 
             studentRecords.forEach(async (record) => {
                 const student = record.student_id;
-                    if (!records[student]) {
-                        records[student] = {
-                            has: [],
-                            firstName: '',
-                            lastName: ''
-                        };
+                    try {
+                        const studentInfo = await Student.findOne({where: {student_id: student}, 
+                            attributes: ['firstName', 'lastName'],
+                            include: [{model: Enrolls, required: true, where: {
+                                schoolYear: schoolYear,
+                                grade: gradefilter,
+                            }}],
+                            raw: true,
+                        });
 
-                        try {
-                            const studentInfo = await Student.findOne({where: {student_id: student}, 
-                                attributes: ['firstName', 'lastName'],
-                                include: [{model: Enrolls, required: true, where: {
-                                    schoolYear: schoolYear,
-                                    grade: gradefilter,
-                                }}],
-                                raw: true,
-                            });
-
+                        if (!studentInfo) return;
                         
-                            
-                            records[student].firstName = studentInfo.firstName;
-                            records[student].lastName= studentInfo.lastName;
-                        } catch (error) {
-                            console.log(error.message);
+                    
+                        if (!records[student]) {
+                            records[student] = {
+                                has: [],
+                                firstName: '',
+                                lastName: ''
+                            };
                         }
                         
+                        records[student].firstName = studentInfo.firstName;
+                        records[student].lastName= studentInfo.lastName;
+                    } catch (error) {
+                        console.log(error.message);
                     }
                     records[student].has.push(record.recordId);
                 })
