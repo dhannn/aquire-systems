@@ -41,12 +41,13 @@
                         <div class="col-3 px-0">
                             {{!-- <input required name="userType" type="text"
                                 class="form-control rounded-0 border" placeholder="New Role" /> --}}
-                            <div class="form-control rounded-0">
-                            <select required name="userType" type="text" class="form-control rounded-0 border">
+                            {{!-- <div class=""> --}}
+                            <select required name="userType" type="text" class="form-control custom-select rounded-0 border">
+                                <option disabled selected class="form-control rounded-0 border" value="">Role</option>
                                 <option class="form-control rounded-0 border" value="A">Admin</option>
                                 <option class="form-control rounded-0 border" value="G">Guidance</option>
                             </select>
-                            </div>
+                            {{!-- </div> --}}
                         </div>
                         <div class="col-3 px-0">
                             <input required name="userPassword" type="password"

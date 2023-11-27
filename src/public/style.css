@@ -131,7 +131,7 @@
     }
 }
 
-.input-group-custom input.form-control, .input-group-custom textarea{
+.input-group-custom input.form-control, .input-group-custom textarea, .input-group-custom select {
     background-color: #d9d9d9;
 
     font-size: 1rem;
@@ -408,5 +408,6 @@
  #login-button{
     color: black;
     background-color: #FFD700;
+}
 }
 }
