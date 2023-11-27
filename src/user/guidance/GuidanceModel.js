@@ -140,7 +140,6 @@ export class GuidanceModel {
                 }
             }
 
-            const students = [...new Set(studentRecords.map(record => record.student_id))]
             let records = {};
 
             studentRecords.forEach(async (record) => {
