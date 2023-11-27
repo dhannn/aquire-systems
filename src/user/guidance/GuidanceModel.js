@@ -142,7 +142,29 @@ export class GuidanceModel {
             return studentRecords;
         }
 
-        // ...
+        static async fetchAnecdotalRecords(studentId) {
+
+            try {
+                const anecdotalRecords = await AnecdotalRecord.findAll({
+                    where: {
+                        student_id: studentId
+                    }, 
+                    order: [
+                        ['date', 'DESC']
+                    ],
+                    raw: true
+                });
+                
+                anecdotalRecords.forEach(record => {
+                    const current = record.date;
+                    record.date = `${current.getMonth() + 1}/${current.getDate()}/${current.getFullYear()}`
+                })
+
+                return anecdotalRecords;
+            } catch (error) {
+                console.log(error);
+            }
+        }
 
         static async addAnecdotalRecord(student_id, date, anecdotalRecord) {
             try {
