@@ -10,9 +10,26 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
     <link rel="stylesheet" type="text/css" href="/style.css">
     {{> Favicon}} 
+
+    
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
 </head>
 
-<body>
+<body style="margin-bottom: 20vh;">
 
     {{#if message}}
         {{> Message message=message}}
@@ -45,7 +62,7 @@
 
             <section class="flex-column col-6 p-0 mx-5">
                 <form class="form input-group-custom" role="search">
-                    <div class="row mx-half mb-0">
+                    <div class="row mx-half mb-4">
                         <div class="col-11 px-0">
                             <input class="form-control rounded-0 border" type="search" placeholder="Search"
                                 aria-label="Search by ID or Last Name, First Name...">
@@ -58,7 +75,7 @@
                     </div>
                 </form>
 
-                <form id="add-student-form" role="form" method="POST" action="/guidance/records" class="input-group-custom my-3">
+                <form id="add-student-form" role="form" method="POST" action="/guidance/records" class="input-group-custom mb-2">
                     <div class="row mx-half mb-0">
                         <div class="col-12 px-0">
                             <div class="row mx-half mb-0 h-100">
@@ -86,6 +103,24 @@
                                         <span>Add Admission Record</span>
                                     </button>
                                 </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </form>
+
+                
+                <form id="cummilative-anectodal-form" class="input-group-custom" action="/guidance/anecdotal">
+                    <div class="row mx-half">
+                        <div class="col-8 px-0">
+                            <input required name="student_id" type="text" id="studentId-cummilative-anecdotal"
+                                class="form-control rounded-0 border border-white" placeholder="Student ID" />  
+                        </div>
+
+                        <div class="col-4 px-0 m-button">
+                            <div class="form-button-add text-center rounded-0 border border-white" role="button" tabindex="0">
+                                <label for="add_anecdotal_record">Add Anecdotal Record</label>
+                                <input class="add-button" type="submit" value="" id="add_anecdotal_record"/>
                             </div>
                         </div>
                     </div>
@@ -135,6 +170,135 @@
             </section>
         </div>
     </div>
+
+    {{#if viewAnecdotal}}
+
+        <div class="modal fade show" id="modal_anecdotal" tabindex="-1" aria-labelledby="modal_anecdotal_title" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-scrollable modal-xl">
+            <!-- Modal content goes here -->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="modal_anecdotal_title">Add Anecdotal Record</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+            
+                <div class="modal-body">
+                    <form class="input-group-custom" id="anecdotal-form" method="POST" action="/guidance/anecdotal">
+                    <input type="hidden" name="student_id" id="studentIdField" value="{{studentId}}">
+                    <input type="hidden" name="date" id="dateField">
+
+                    <div class = "new-form p-4">
+                        
+                        <h4>NEW FORM</h4>
+
+                        <div class="form-row-ar mt-4 mb-4">
+
+                            
+                            <div class="form-group-ar mt-4 mb-4">
+                                <label for="date">Date:</label>
+                                <input required type="date" id="anecdotalDate" name="date">
+                            </div>
+
+
+                            <div class="form-group-ar mt-4 mb-4">
+                                <textarea required class="form-control" id="anecdotalRecord" name = "anecdotalRecord" placeholder="Add text here" rows="6"></textarea>
+                            </div>  
+
+                        </div>
+                    
+                    </div>
+
+                    <div class="view-form p-4 mt-4">
+                        <h4>VIEW FORM</h4>
+                        
+                        {{#if emptyAnecdotalRecords}}
+                            <p>No anecdotal records yet.</p>
+                        {{else}}
+                            {{#each anecdotalRecords}}
+                                {{> AnecdotalRecord this}}
+                            {{/each}}
+                        {{/if}}
+                        
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <input type="submit" class="btn btn-primary btn-yellow">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+            </form>
+            </div>
+        </div>
+
+        <script defer>
+            const element = document.getElementById('modal_anecdotal');
+            const modal = new bootstrap.Modal(element);
+            modal.show()
+        </script>
+    {{/if}}
+
+
+    <div class="modal fade" id="exampleModalScrollable" tabindex="-1" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable modal-xl">
+        <!-- Modal content goes here -->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalScrollableTitle">Edit Cummulative Record</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+         
+            <div class="modal-body">
+                <form id="cummulative-form" method="POST" action="/guidance/cummulative">
+                <input type="hidden" name="student_id" id="studentIdField">
+                <div class = "school-history">
+                 <p>III. SCHOOL HISTORY</p>
+                        <div class="form-row-cr">
+                            <div class="form-group-cr">
+                                <label for="enteredFrom">Entered from:</label>
+                                <input class= "SH" type="text" id="enteredFrom" name="enteredFrom"  value="" required>
+                            </div>
+                            
+                            <div class="form-group-cr">
+                                <label for="admittedInSchoolYear">Admitted in Aquinas School SY:</label>
+                                <input class= "SH" type="text" id="schoolYearAdmitted" name="schoolYearAdmitted" value="" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group-cr">
+                            <label for="gradeLevelEntered">Grade Level Entered:</label>
+                            <input  class= "SH" type="text" id="gradeLevelEntered" name="gradeLevelEntered" value="" required>
+                        </div>
+                                                
+                        <div class="form-group-cr">
+                            <label for="otherSchoolAttended">Other School Attended:</label>
+                            <input  class= "SH long"type="text" id="otherSchoolsAttended" name="otherSchoolsAttended" value="" required>
+                        </div>
+                        <!--                        
+                        <div class="form-group-cr">
+                            <label for="Name">(Name of School, Grade Level and SY)</label>
+                            <input class= "SH long"type="text" id="etc" name="Name" required>
+                        </div>
+                        -->
+                </div>
+
+
+
+
+
+
+                <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+                <p>This content should appear at the bottom after you scroll.</p>
+            </div>
+            <div class="modal-footer">
+                <input type="submit" class="btn btn-primary btn-yellow">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+        </form>
+        </div>
+    </div>
+
+
         <!-- Include Bootstrap JS (optional, for dropdown menus) -->
         <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
             integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"

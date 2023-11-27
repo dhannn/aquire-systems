@@ -4,6 +4,8 @@ import { UserController } from "../UserController.js";
 import { GuidanceModel } from "./GuidanceModel.js";
 import { AnecdotalRecord } from "../../schema/AnecdotalRecord.js";
 import { Student } from "../../schema/student.js";
+import { CurrentSchoolYear } from '../../schema/currentschoolyear.js'
+import { Enrolls } from "../../schema/enrolls.js";
 
 export class GuidanceController extends UserController {
     startingRoute = '/guidance';
@@ -18,6 +20,7 @@ export class GuidanceController extends UserController {
         this.createRoute('GET', '/cummulative', this.viewGuidancePage);
         this.createRoute('POST', '/cummulative', this.updateStudentSchoolHistory);
         this.createRoute('POST', '/cummulative-get', this.getStudentSchoolHistory);
+        this.createRoute('GET', '/anecdotal', this.viewAnecdotalRecords);
         this.createRoute('POST', '/anecdotal', this.addAnecdotalRecord);
 
     }
@@ -65,7 +68,7 @@ export class GuidanceController extends UserController {
             }
         } else {
             res.redirect('/');
-        }  
+        } 
     }
 
     async getStudentRecords(req, res) {
@@ -134,6 +137,39 @@ export class GuidanceController extends UserController {
         } catch(error) {
             console.error('Error fetching school history: ', error);
             res.status(500).send('Error processing request');
+        }
+    }
+
+    async viewAnecdotalRecords(req, res) {
+        const studentId = req.query.student_id;
+        const studentRecords = await GuidanceModel.StudentRecords();
+
+        const student = await Student.findByPk(studentId, {
+            raw: true
+        });
+
+        
+        if (student === null) {
+            return res.render('Guidance', {
+                studentRecords: studentRecords,
+                message: { content: 'The Student ID does not exist.' }
+            });
+        }
+
+        try {
+            const anecdotalRecords = await GuidanceModel.fetchAnecdotalRecords(studentId);
+            res.render('Guidance', {
+                studentRecords: studentRecords,
+                viewAnecdotal: true,
+                anecdotalRecords: anecdotalRecords,
+                emptyAnecdotalRecords: anecdotalRecords.length === 0,
+                studentId: studentId
+            });
+        } catch (error) {            
+            res.render('Guidance', {
+                studentRecords: studentRecords,
+                message: { content: 'The app cannot connect to the database.' }
+            });
         }
     }
 
