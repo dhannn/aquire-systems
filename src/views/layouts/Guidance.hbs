@@ -24,22 +24,22 @@
         <div class="row mx-5">
             <aside class="aside col-2">
                 <p class="fw-bold fs-4 mb-0">Enrolled Students</p>
-                <p>SY 2023 - 2024</p>
+                <p>SY {{schoolyear}}</p>
                 <ul class="sidebar-links nav flex-column">
-                    {{> SidebarLinks grade="Kinder" href="#"}}
-                    {{> SidebarLinks grade="Senior Kinder" href="#"}}
-                    {{> SidebarLinks grade="Grade 1" href="#"}}
-                    {{> SidebarLinks grade="Grade 2" href="#"}}
-                    {{> SidebarLinks grade="Grade 3" href="#"}}
-                    {{> SidebarLinks grade="Grade 4" href="#"}}
-                    {{> SidebarLinks grade="Grade 5" href="#"}}
-                    {{> SidebarLinks grade="Grade 6" href="#"}}
-                    {{> SidebarLinks grade="Grade 7" href="#"}}
-                    {{> SidebarLinks grade="Grade 8" href="#"}}
-                    {{> SidebarLinks grade="Grade 9" href="#"}}
-                    {{> SidebarLinks grade="Grade 10" href="#"}}
-                    {{> SidebarLinks grade="Grade 11" href="#"}}
-                    {{> SidebarLinks grade="Grade 12" href="#"}}
+                    {{> grade_list_guidance label="Kinder" current=K}}
+                    {{> grade_list_guidance label="Senior Kinder" current=SK}}
+                    {{> grade_list_guidance label="Grade 1" current=G1}}
+                    {{> grade_list_guidance label="Grade 2" current=G2}}
+                    {{> grade_list_guidance label="Grade 3" current=G3}}
+                    {{> grade_list_guidance label="Grade 4" current=G4}}
+                    {{> grade_list_guidance label="Grade 5" current=G5}}
+                    {{> grade_list_guidance label="Grade 6" current=G6}}
+                    {{> grade_list_guidance label="Grade 7" current=G7}}
+                    {{> grade_list_guidance label="Grade 8" current=G8}}
+                    {{> grade_list_guidance label="Grade 9" current=G9}}
+                    {{> grade_list_guidance label="Grade 10" current=G10}}
+                    {{> grade_list_guidance label="Grade 11" current=G11}}
+                    {{> grade_list_guidance label="Grade 12" current=G12}}
                 </ul>
             </aside>
 
@@ -110,6 +110,7 @@
                 </div>
 
                 <div class="data-table container-fluid">
+                    {{#if studentRecords}}
                     {{#each studentRecords}}
                         <div class="row list-div">
                             <div class="col-10">
@@ -136,6 +137,13 @@
                             </div> --}}
                         </div>
                     {{/each}}
+                    {{else}}
+                        <div class="row mt-3">
+                            <div class="col-12 text-center">
+                                <span>No students found.</span>
+                            </div>
+                        </div>
+                    {{/if}}
                 </div>
             </section>
         </div>

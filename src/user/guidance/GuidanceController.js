@@ -48,18 +48,26 @@ export class GuidanceController extends UserController {
 
     /**
      * Creates the view for the guidance student records and initializes all record types
-     * @param {Request} _ 
+     * @param {Request} req
      * @param {Response} res 
      */
-    async viewGuidancePage(_, res) {
+    async viewGuidancePage(req, res) {
         GuidanceModel.initializeRecordTypes();
-        const allowed = await UserController.verifyUserPermission(this.allowedUserType, _)
-        const loggedIn = UserController.checkifloggedIn(_);
+        const allowed = await UserController.verifyUserPermission(this.allowedUserType, req)
+        const loggedIn = UserController.checkifloggedIn(req);
+        var gradefilter;
+        if (req.query.grade == null) {
+            return res.redirect('/guidance?grade=Kinder');
+        } else {
+            gradefilter = req.query.grade;
+        }
 
-        const studentRecords = await GuidanceModel.StudentRecords();
+        const studentRecords = await GuidanceModel.StudentRecords(gradefilter);
+        var schoolYear = studentRecords.schoolYear;
+        delete studentRecords.schoolYear;
         if (loggedIn) {
             if (allowed) {
-                res.render('Guidance', {studentRecords: studentRecords});
+                res.render('Guidance', {studentRecords: studentRecords, schoolyear: schoolYear});
             } else {
                 res.redirect('/');
             }

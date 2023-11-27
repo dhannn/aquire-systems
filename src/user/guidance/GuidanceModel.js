@@ -5,6 +5,7 @@ import { SchoolHistory } from "../../schema/schoolhistory.js";
 
 import { AnecdotalRecord } from "../../schema/AnecdotalRecord.js";
 import { Student } from "../../schema/student.js";
+import { CurrentSchoolYear } from "../../schema/currentschoolyear.js";
 
 export class GuidanceModel {
     
@@ -116,7 +117,7 @@ export class GuidanceModel {
         return addStudentSchoolHistory();
     }
 
-    static async StudentRecords() {
+    static async StudentRecords(gradefilter) {
             const studentRecords = await AdmissionRecord.findAll({
                 attributes: ['student_id', 'recordId'],
                 order: [['student_id', 'ASC']],
@@ -143,27 +144,42 @@ export class GuidanceModel {
             const students = [...new Set(studentRecords.map(record => record.student_id))]
             let records = {};
 
+            //filter
+            const currentSchoolYear = await CurrentSchoolYear.findOne({
+                order: [["createdAt", "DESC"]],
+              });
+            const schoolYear = `${currentSchoolYear.fromYear}-${currentSchoolYear.toYear}`;
+            records['schoolYear'] = schoolYear;
+
             studentRecords.forEach(async (record) => {
                 const student = record.student_id;
-                if (!records[student]) {
-                    records[student] = {
-                        has: [],
-                        firstName: '',
-                        lastName: ''
-                    };
+                    if (!records[student]) {
+                        records[student] = {
+                            has: [],
+                            firstName: '',
+                            lastName: ''
+                        };
 
-                    const studentInfo = await Student.findByPk(student, {
-                        attributes: ['firstName', 'lastName'],
-                        raw: true
-                    });
-                    
-                    records[student].firstName = studentInfo.firstName;
-                    records[student].lastName= studentInfo.lastName;
-                }
-                
-                records[student].has.push(record.recordId);
-            })
-
+                        try {
+                            const studentInfo = await Student.findOne({where: {student_id: student}, 
+                                attributes: ['firstName', 'lastName'],
+                                include: [{model: Enrolls, required: true, where: {
+                                    schoolYear: schoolYear,
+                                    grade: gradefilter,
+                                }}],
+                                raw: true,
+                            });
+                            
+                            records[student].firstName = studentInfo.firstName;
+                            records[student].lastName= studentInfo.lastName;
+                        } catch (error) {
+                            console.log(error.message);
+                        }
+                        
+                    }
+                    records[student].has.push(record.recordId);
+                })
+            
             return records;
         }
 
