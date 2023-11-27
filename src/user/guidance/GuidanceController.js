@@ -15,7 +15,7 @@ export class GuidanceController extends UserController {
         this.createRoute('POST', '/records', this.addStudentRecord);
         this.createRoute('GET', '/cummulative', this.viewGuidancePage);
         this.createRoute('POST', '/cummulative', this.updateStudentCummulativeRecord);
-        this.createRoute('POST', '/cummulative-get', this.getStudentSchoolHistory);
+        this.createRoute('POST', '/cummulative-get', this.getStudentCummulativeRecord);
 
     }
 
@@ -85,6 +85,7 @@ export class GuidanceController extends UserController {
     async updateStudentCummulativeRecord(req, res) {
         try{
             this.updateStudentSchoolHistory(req, res);
+            this.updateStudentHealthRecord(req, res)
             const studentRecords = await GuidanceModel.StudentRecords();
             res.render('Guidance', {message: {content: 'Student Cummulative Record updated!'}, studentRecords: studentRecords})
         } catch (error) {
@@ -113,8 +114,11 @@ export class GuidanceController extends UserController {
     }
 
     async getStudentCummulativeRecord(req, res){
-        const studentCummulativeRecord = {
-            schoolHistory
+        try{
+            this.getStudentSchoolHistory();
+
+        } catch (error) {
+            console.log(error);
         }
     }
 
