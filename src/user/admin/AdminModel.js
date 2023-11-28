@@ -194,10 +194,6 @@ export class AdminModel {
 
   async updateExistingStudentInfo(id, firstName, middleName, lastName, grade, section) {
     try{
-      const currentSchoolYear = await CurrentSchoolYear.findOne({
-        order: [['createdAt', 'DESC']],
-    });
-    const schoolYear = `${currentSchoolYear.fromYear}-${currentSchoolYear.toYear}`;
       const student = await Student.update({
         firstName: firstName,
         middleInitial: middleName,
@@ -208,7 +204,6 @@ export class AdminModel {
         }
       });
       const enrolls = await Enrolls.update({
-        schoolYear: schoolYear,
         grade: grade,
         section: section,
       }, {
