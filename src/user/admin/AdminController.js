@@ -4,6 +4,8 @@ import { User } from "../../schema/user.js";
 import { CurrentSchoolYear } from "../../schema/currentschoolyear.js";
 import { Student } from "../../schema/student.js";
 import { Enrolls } from "../../schema/enrolls.js";
+import * as csv from 'csv-parser' ;
+
 
 
 export class AdminContoller extends UserController {
@@ -16,6 +18,7 @@ export class AdminContoller extends UserController {
     this.createRoute("GET", "/students", this.viewStudents);
     this.createRoute("GET", "/users", this.viewUsers);
     this.createRoute("POST", "/students", this.addStudent);
+    this.createRoute("POST", "/students/bulkEnroll", this.addStudents);
     this.createRoute("POST", "/users", this.addUser);
     this.createRoute('POST', '/startNewSchoolYear', this.startNewSchoolYear);
   }
@@ -113,6 +116,74 @@ export class AdminContoller extends UserController {
         message: { content: "Failed to fetch students: " + error.message },
         students: [],
       });
+    }
+  }
+
+  async addStudents(req, res) {
+    const {
+      ['csv-content']: csvContent,
+      ['grade-level']: gradeLevel,
+      section
+    } = req.body;
+    
+    let results = parseCSV(csvContent);
+    let errors = [];
+    results.forEach(async (student) => {
+      if (student !== null) {
+
+        const {
+          id,
+          firstName,
+          middleInitial,
+          lastName
+        } = student;
+      
+        console.log(student);
+
+        try {
+          await this.model.addStudent(
+            id, 
+            firstName, 
+            middleInitial, 
+            lastName, 
+            gradeLevel, 
+            section
+          );
+          
+        } catch(error) {
+          errors.push(`Student #${id}: ${error}\n`);
+        }
+      }
+    });
+    
+    console.log(errors + 's');
+    res.render('Admin_Student', {
+      message: {
+        content: errors.length === 0? 'All students are succesfully added': errors.join('\n').trim(),
+        isSuccess: errors.length === 0
+      }
+    })
+
+    function parseCSV(csv) {
+      const lines = csv.trim().split('<br>');
+
+      const objs = lines.map((record) => {
+        const data = record.split(',');
+        console.log(data);
+
+        if (data.length !== 4) {
+          return null;
+        }      
+
+        return {
+          id: data[0].trim(),
+          lastName: data[1].trim(),
+          firstName: data[2].trim(),
+          middleInitial: data[3].trim()
+        };
+      });
+      
+      return objs;
     }
   }
   

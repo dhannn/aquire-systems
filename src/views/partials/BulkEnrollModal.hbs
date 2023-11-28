@@ -1,0 +1,76 @@
+{{!-- <div class="modal fade" id="bulk-enroll-modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h4 class="modal-title">Enroll in bulk</h4>
+        </div>
+
+        <div class="modal-body">
+            <input type="file" />
+        </div>
+    </div>
+</div> --}}
+
+
+
+
+
+<div class="modal fade" id="bulk-enroll-modal" tabindex="-1" aria-labelledby="exampleModalLabel"
+            aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+            <div class="modal-dialog modal-centered modal-lg">
+                <div class=" modal-content p-5">
+                    <div class="modal-body border-0">
+                        <div class="container-fluid">
+                            <h1 class="modal-title fs-3">Enroll in Bulk</h1>
+                        </div>
+                        <div class="container-fluid">
+                            <p class="fs-5">Upload the CSV file of the students.</p>
+                            <p class="fs-6">Make sure it follows the format:</p>
+                            <pre class="fs-6">[Student ID],[Last Name],[First Name],[Middle Initial]</pre>
+                        </div>
+                    </div>
+                    <div class="modal-footer border-0 justify-content-center">
+                        <form action="/admin/students/bulkEnroll" method="POST">
+                            <div class="form-group mb-4">
+                                <label for="grade-level">Grade Level</label><br>
+                                <input type="text" id="grade-level" name="grade-level" placeholder="Grade 1" value="" required>
+                            </div>
+
+                            <div class="form-group mb-4">
+                                <label for="section">Section</label><br>
+                                <input type="text" id="section" name="section" value="" placeholder="Justice" required>
+                            </div>
+
+                            <div class="form-group mb-4">
+                                <label for="csv-file" class="button-gray btn rounded-0 border-0">Upload CSV</label><br>
+                                <input style="display: none;" type="file" id="csv-file" name="csv-file" accept=".csv" required>
+                                <input hidden name="csv-content" value="" id="csv-contents"/>
+                            </div>
+
+                            <button type="submit"  id="confirmStartNewSchoolYear"
+                                class="button-yellow btn rounded-0 mx-3 border-0y">Confirm</button>
+                            <button type="button" class="button-gray btn rounded-0 border-0" 
+                            data-dismiss="modal">Cancel</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+</div>
+
+<script>
+    const fileInput = document.querySelector('#csv-file');
+    fileInput.addEventListener('change', () => {
+        const selectedFile = document.getElementById("csv-file").files[0];
+        const csvContent = document.getElementById('csv-contents');
+        const fileReader = new FileReader();
+
+        fileReader.readAsText(selectedFile);
+        fileReader.addEventListener('load', (e) => {
+            console.log(e.target.result.split('\n'));
+
+            e.target.result.split('\n').forEach((line) => {
+                csvContent.value += line;
+                csvContent.value += '<br>';
+            })
+        })
+    })
+</script>

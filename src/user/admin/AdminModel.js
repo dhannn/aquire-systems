@@ -57,7 +57,7 @@ export class AdminModel {
    * @param {string} firstName
    * @param {string} middleName
    * @param {string} lastName
-   * @param {int} grade
+   * @param {string} grade
    * @param {string} section
    */
 

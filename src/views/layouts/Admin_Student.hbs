@@ -47,13 +47,15 @@
                 </ul>
             </aside>
 
+            {{> BulkEnrollModal}}
+
             <section class="flex-column col-10 p-2">
                 <div class="row my-3">
                     <div class="d-flex justify-content-end">
                             <button type="submit" id="newSYButton" class="button-yellow btn rounded-0 mx-3 border-0"
                                 onclick="handleStartNewSchoolYear()">Start new school year</button>
 
-                        <button type="button" class="col-1 button-gray btn rounded-0 p-1">Bulk enroll</button>
+                        <button type="button" class="col-1 button-gray btn rounded-0 p-1" data-toggle="modal" data-target="#bulk-enroll-modal">Bulk enroll</button>
                     </div>
                 </div>
 
