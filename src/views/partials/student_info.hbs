@@ -45,35 +45,36 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
             <form id="add-student-form" role="form" method="POST" action="/admin/students" class="input-group-custom my-3">
+            <input type="text" name="edit_student" value="true" hidden/>
                 <div class="modal-body">
                     <div class="row mx-half mb-0">
                         <div class="col-12 px-0">
                             <div class="row mx-half mb-0 h-100">
                                 <div class="col-3 px-0">
                                     <input required name="student_id" type="text"
-                                        class="form-control rounded-0 border readonly" placeholder="{{this.student_id}}" readonly/>
+                                        class="form-control rounded-0 border readonly" value="{{this.student_id}}" readonly/>
                                 </div>
                                 <div class="col-2 px-0">
                                     <input required name="lastName" type="text"
-                                        class="form-control rounded-0 border" placeholder="Last Name" />
+                                        class="form-control rounded-0 border" placeholder="Last Name" value="{{this.lastName}}" />
                                 </div>
                                 <div class="col-2 px-0">
                                     <input required name="firstName" type="text"
-                                        class="form-control rounded-0 border" placeholder="First Name" />
+                                        class="form-control rounded-0 border" placeholder="First Name" value="{{this.firstName}}" />
                                 </div>
                                 <div class="col-1 px-0">
                                     <input name="middleInitial" type="text" class="form-control rounded-0 border"
-                                        placeholder="MI" />
+                                        placeholder="MI" value="{{this.middleInitial}}" />
                                 </div>
                                 <div class="col-4">
                                     <div class="row h-100">
                                         <div class="col-4 px-0">
                                             <input required name="grade" type="text" class="form-control rounded-0 border"
-                                                placeholder="Grade" />
+                                                placeholder="Grade" value="{{lookup this 'Enrolls.grade'}}" />
                                         </div>
                                         <div class="col-8 px-0">
                                             <input required name="section" type="text"
-                                                class="form-control rounded-0 border" placeholder="Section" />
+                                                class="form-control rounded-0 border" placeholder="Section" value="{{lookup this 'Enrolls.section'}}" />
                                         </div>
                                     </div>
                                 </div>
