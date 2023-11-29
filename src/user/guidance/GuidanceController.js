@@ -17,8 +17,8 @@ export class GuidanceController extends UserController {
         this.createRoute('POST', '/', this.getStudentRecords);
         this.createRoute('GET', '/records', this.viewGuidancePage)
         this.createRoute('POST', '/records', this.addStudentRecord);
-        this.createRoute('GET', '/history', this.viewStudentSchoolHistory);
-        this.createRoute('POST', '/history', this.addStudentSchoolHistory);
+        // this.createRoute('GET', '/history', this.viewStudentSchoolHistory);
+        // this.createRoute('POST', '/history', this.addStudentSchoolHistory);
     }
     /**
         this.createRoute('GET', '/cummulative', this.viewGuidancePage);
