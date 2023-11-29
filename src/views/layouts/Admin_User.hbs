@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Admin Add Users</title>
+    <title>Admin | AquiRe System</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
@@ -16,6 +16,7 @@
     <script src="https://kit.fontawesome.com/84cb3b7f2b.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
     <link rel="stylesheet" type="text/css" href="/style.css"> 
+    {{> Favicon}} 
 </head>
 
 <body>
@@ -23,7 +24,6 @@
     {{#if message}}
         {{> Message message=message}}
     {{/if}}
-
     {{> Navbar userRole='Admin' user_page="true"}}
 
     <div class="d-flex flex-column h-100 w-100 justify-content-top align-item-center">
@@ -38,8 +38,11 @@
                                 class="form-control rounded-0 border" placeholder="New Username" />
                         </div>
                         <div class="col-3 px-0">
-                            <input required name="userType" type="text"
-                                class="form-control rounded-0 border" placeholder="New Role" />
+                            <select required name="userType" type="text" class="form-control custom-select rounded-0 border">
+                                <option disabled selected class="form-control rounded-0 border" value="">Role</option>
+                                <option class="form-control rounded-0 border" value="A">Admin</option>
+                                <option class="form-control rounded-0 border" value="G">Guidance</option>
+                            </select>
                         </div>
                         <div class="col-3 px-0">
                             <input required name="userPassword" type="password"

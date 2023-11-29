@@ -32,6 +32,7 @@ export class AdminContoller extends UserController {
       order: [["createdAt", "DESC"]],
     });
 
+    
     if (!currentSchoolYear) {
       throw new Error("Current school year is not set");
     }
@@ -117,8 +118,7 @@ export class AdminContoller extends UserController {
         raw: true,
       });
         console.log("Student Added");
-        
-      res.set({'Refresh': `3; url=/admin/students?grade=${req.body.grade}`});
+      
       res.render("Admin_Student", {
         message: message,
         students: students,
@@ -219,7 +219,8 @@ export class AdminContoller extends UserController {
           students: [],
           schoolyear: schoolYear,
           nextschoolyear: nextschoolyear,
-          
+          currgrade: gradefilter,
+
           K: gradefilter === 'Kinder',
           SK: gradefilter === 'Senior Kinder',
           G1: gradefilter === 'Grade 1',
@@ -241,6 +242,7 @@ export class AdminContoller extends UserController {
         students: students,
         schoolyear: schoolYear,
         nextschoolyear: nextschoolyear,
+        currgrade: gradefilter,
         //for current proccing
         K: gradefilter === 'Kinder',
         SK: gradefilter === 'Senior Kinder',
