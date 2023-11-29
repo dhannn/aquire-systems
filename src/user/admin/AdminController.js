@@ -84,7 +84,7 @@ export class AdminContoller extends UserController {
           req.body.firstName,
           req.body.middleInitial,
           req.body.lastName,
-          req.body.grade,
+          req.query.grade,
           req.body.section
         );
         console.log("Student Added");
@@ -119,7 +119,7 @@ export class AdminContoller extends UserController {
       });
       console.log("Student Added");
       
-      res.set({'Refresh': `3; url=/admin/students?grade=${req.body.grade}`});
+      res.set({'Refresh': `3; url=/admin/students?grade=${req.query.grade}`});
       res.render("Admin_Student", {
         message: message,
         students: students,
