@@ -2,7 +2,6 @@ import { AdmissionRecord } from "../../schema/admissionrecord.js";
 import { Record } from "../../schema/record.js";
 import { Enrolls } from "../../schema/enrolls.js";
 import { SchoolHistory } from "../../schema/schoolhistory.js";
-
 import { AnecdotalRecord } from "../../schema/AnecdotalRecord.js";
 import { Student } from "../../schema/student.js";
 
@@ -71,6 +70,7 @@ export class GuidanceModel {
     }
 
     /**
+
      * updates school history of a student
      * @param {String} id 
      * @param {String} enteredFrom 
@@ -223,10 +223,4 @@ export class GuidanceModel {
                 return { error: error.message };
             }
         }
-        
-        
-        
-
-
-
 }

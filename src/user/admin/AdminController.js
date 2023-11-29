@@ -58,23 +58,42 @@ export class AdminContoller extends UserController {
       ],
       raw: true,
     });
-    try {
-      
-      await this.model.addStudent(
-        req.body.student_id,
-        req.body.firstName,
-        req.body.middleInitial,
-        req.body.lastName,
-        req.query.grade,
-        req.body.section
+
+    if(req.body.edit_student){
+      console.log('updating student info');
+      const updateStudent = await this.model.updateExistingStudentInfo(
+          req.body.student_id,
+          req.body.firstName,
+          req.body.middleInitial,
+          req.body.lastName,
+          req.body.grade,
+          req.body.section
       );
-      console.log("Student Added");
-      message = { isSuccess: true, content: "Student added successfully!" };
-    } catch (error) {
-      console.error(error.message);
-      message = { content: error.message };
+      if(updateStudent.error){
+        console.error(updateStudent.error);
+        message = { content: updateStudent.error };
+      } else {
+        console.log("Student Updated");
+        message = { isSuccess: true, content: "Student updated successfully!" };
+      }
+    } else {
+      console.log('adding student info');
+      try {
+        await this.model.addStudent(
+          req.body.student_id,
+          req.body.firstName,
+          req.body.middleInitial,
+          req.body.lastName,
+          req.body.grade,
+          req.body.section
+        );
+        console.log("Student Added");
+        message = { isSuccess: true, content: "Student added successfully!" };
+      } catch (error) {
+        console.error(error.message);
+        message = { content: error.message };
+      }
     }
-  
     try {
       const currentSchoolYear = await CurrentSchoolYear.findOne({
         order: [["createdAt", "DESC"]],
@@ -83,7 +102,6 @@ export class AdminContoller extends UserController {
       if (!currentSchoolYear) {
         throw new Error("Current school year is not set");
       }
-  
       const schoolYear = `${currentSchoolYear.fromYear}-${currentSchoolYear.toYear}`;
       const students = await Student.findAll({
         attributes: ["student_id", "firstName", "middleInitial", "lastName"],
@@ -100,8 +118,7 @@ export class AdminContoller extends UserController {
         raw: true,
       });
         console.log("Student Added");
-        
-      res.set({'Refresh': `3; url=/admin/students?grade=${req.query.grade}`});
+      
       res.render("Admin_Student", {
         message: message,
         students: students,
@@ -203,6 +220,7 @@ export class AdminContoller extends UserController {
           schoolyear: schoolYear,
           nextschoolyear: nextschoolyear,
           currgrade: gradefilter,
+
           K: gradefilter === 'Kinder',
           SK: gradefilter === 'Senior Kinder',
           G1: gradefilter === 'Grade 1',

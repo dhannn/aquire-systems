@@ -191,4 +191,31 @@ export class AdminModel {
       throw error;
   }
 }
+
+  async updateExistingStudentInfo(id, firstName, middleName, lastName, grade, section) {
+    try{
+      const student = await Student.update({
+        firstName: firstName,
+        middleInitial: middleName,
+        lastName: lastName,
+      }, {
+        where: {
+          student_id: id
+        }
+      });
+      const enrolls = await Enrolls.update({
+        grade: grade,
+        section: section,
+      }, {
+        where:{
+          student_id: id
+        }
+      });
+      return {student: student, enrolls: enrolls};
+    } catch(error) {
+      console.error('Error updating student information')
+      return {error: error};
+    }
+  }
+}
 }

@@ -3,7 +3,7 @@
     <!-- Displaying student information -->
     <div class="col-11 px-0">
         <div class="row mx-half mb-0 h-100">
-            <div class="col-2 border border-white p-2">
+            <div class="col-3 border border-white p-2">
                 <span>{{this.student_id}}</span>
             </div>
             <div class="col-2 border border-white p-2">
@@ -25,14 +25,75 @@
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
     <!-- Edit button -->
     <div class="col border-0 border-white p-2">
         <div class="edit-button-div col-12 text-center rounded-0" role="button"
-            tabindex="0">
+            tabindex="0" data-bs-toggle="modal" data-bs-target="#studentModal">
             <i class="fa-solid fa-pen"></i>
         </div>
     </div>
 </div>
+
+<!-- Modal -->
+<div class="modal fade modal-lg" id="studentModal" tabindex="-1" aria-labelledby="studentModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="studentModalLabel">Edit Enrollment Information</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+            <form id="add-student-form" role="form" method="POST" action="/admin/students" class="input-group-custom my-3">
+            <input type="text" name="edit_student" value="true" hidden/>
+                <div class="modal-body">
+                    <div class="row mx-half mb-0">
+                        <div class="col-12 px-0">
+                            <div class="row mx-half mb-0 h-100">
+                                <div class="col-3 px-0">
+                                    <input required name="student_id" type="text"
+                                        class="form-control rounded-0 border readonly" value="{{this.student_id}}" readonly/>
+                                </div>
+                                <div class="col-2 px-0">
+                                    <input required name="lastName" type="text"
+                                        class="form-control rounded-0 border" placeholder="Last Name" value="{{this.lastName}}" />
+                                </div>
+                                <div class="col-2 px-0">
+                                    <input required name="firstName" type="text"
+                                        class="form-control rounded-0 border" placeholder="First Name" value="{{this.firstName}}" />
+                                </div>
+                                <div class="col-1 px-0">
+                                    <input name="middleInitial" type="text" class="form-control rounded-0 border"
+                                        placeholder="MI" value="{{this.middleInitial}}" />
+                                </div>
+                                <div class="col-4">
+                                    <div class="row h-100">
+                                        <div class="col-4 px-0">
+                                            <input required name="grade" type="text" class="form-control rounded-0 border"
+                                                placeholder="Grade" value="{{lookup this 'Enrolls.grade'}}" />
+                                        </div>
+                                        <div class="col-8 px-0">
+                                            <input required name="section" type="text"
+                                                class="form-control rounded-0 border" placeholder="Section" value="{{lookup this 'Enrolls.section'}}" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer border-0">
+                    <div class="modal-footer border-0">
+                        <button type="submit" class="button-yellow btn rounded-0 mx-1 border-0" data-bs-dismiss="modal">Submit</button>
+                        <button type="button" class="button-gray btn rounded-0 mx-1 border-0" data-bs-dismiss="modal">Cancel</button>
+                </div>
+            </form>
+    </div>
+  </div>
+</div>
+
+{{!--                         <div class="col px-0">
+                            <button type="submit" class="form-button-add text-center rounded-0 border w-100 display-block">
+                                <i class="fa-solid fa-plus"></i>
+                            </button>
+                        </div> --}}

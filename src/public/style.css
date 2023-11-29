@@ -400,6 +400,12 @@
   .form-check-label {
     font-size: 11px;
   }
+
+
+  .readonly::placeholder {
+    color: var(--black);
+  }
+
   
   .greyed-out {
     opacity: 0.6; 
@@ -411,3 +417,4 @@
 }
 }
 }
+
