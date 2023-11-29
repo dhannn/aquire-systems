@@ -117,8 +117,9 @@ export class AdminContoller extends UserController {
         ],
         raw: true,
       });
-        console.log("Student Added");
+      console.log("Student Added");
       
+      res.set({'Refresh': `3; url=/admin/students?grade=${req.body.grade}`});
       res.render("Admin_Student", {
         message: message,
         students: students,
