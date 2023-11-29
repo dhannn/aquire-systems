@@ -127,8 +127,9 @@ export class AdminContoller extends UserController {
     } = req.body;
     
     let results = parseCSV(csvContent);
-    let errors = [];
-    results.forEach(async (student) => {
+    let errors = await results.reduce(async (err, student) => {
+      const ret = await err;
+
       if (student !== null) {
 
         const {
@@ -137,8 +138,6 @@ export class AdminContoller extends UserController {
           middleInitial,
           lastName
         } = student;
-      
-        console.log(student);
 
         try {
           await this.model.addStudent(
@@ -151,16 +150,22 @@ export class AdminContoller extends UserController {
           );
           
         } catch(error) {
-          errors.push(`Student #${id}: ${error}\n`);
+          ret.push(`[Student #${id}] ${error}`);
         }
       }
-    });
+      return ret;
+    }, Promise.resolve([]));
+
     
-    console.log(errors + 's');
+    const currentSchoolYear = await CurrentSchoolYear.findOne({
+      order: [["createdAt", "DESC"]],
+    });
+
     res.render('Admin_Student', {
       message: {
-        content: errors.length === 0? 'All students are succesfully added': errors.join('\n').trim(),
-        isSuccess: errors.length === 0
+        content: errors.length === 0? 'All students are succesfully added': errors,
+        isSuccess: errors.length === 0,
+        bulkMessage: errors.length > 1
       }
     })
 

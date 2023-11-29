@@ -156,8 +156,8 @@
     height: 100%;
 }
 
-
 .alert {
+    z-index: 5;
     position: absolute;
     right: 10vw;
     bottom: 10vh;
@@ -168,6 +168,12 @@
     animation-delay: 2s;
     animation-duration: 0.2s;
     animation-fill-mode: forwards;
+}
+
+.alert-long {
+    top: 10vh;
+    overflow-y: scroll;
+    animation-delay: 10s;
 }
 
 @keyframes dismiss-alert {

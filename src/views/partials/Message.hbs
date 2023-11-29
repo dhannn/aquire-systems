@@ -1,14 +1,35 @@
-{{#if message.isSuccess }}
-<div class="alert">
-    <h4 class="alert-heading text-success fw-bold">Success</h4>
-    {{ message.content }}
-</div>
+{{#if message.bulkMessage}}
+        {{#if message.isSuccess }}
+            <div class="alert alert-long">
+                <h4 class="alert-heading text-success fw-bold">Success</h4>
+                {{#each message.content}}
+                {{ this }}<br>
+                {{/each}}
+            </div>
+
+            {{else}}
+            <div class="alert alert-long">
+                <h4 class="alert-heading text-danger fw-bold">Error</h4>
+                {{#each message.content}}
+                {{ this }}<br>
+                {{/each}}
+            </div>
+            {{/if}}
+    </div>
 
 {{else}}
-<div class="alert">
-    <h4 class="alert-heading text-danger fw-bold">Error</h4>
-    {{ message.content }}
-</div>
+    {{#if message.isSuccess }}
+    <div class="alert">
+        <h4 class="alert-heading text-success fw-bold">Success</h4>
+        {{ message.content }}
+    </div>
+
+    {{else}}
+    <div class="alert">
+        <h4 class="alert-heading text-danger fw-bold">Error</h4>
+        {{ message.content }}
+    </div>
+    {{/if}}
 {{/if}}
 
 {{!-- #ffcc00 --}}
