@@ -18,7 +18,7 @@ export class AdminContoller extends UserController {
     this.createRoute("POST", "/students", this.addStudent);
     this.createRoute("POST", "/users", this.addUser);
     this.createRoute('POST', '/startNewSchoolYear', this.startNewSchoolYear);
-    this.createRoute('DELETE', '/admin/users/:username', this.deleteUser);
+    this.createRoute("POST", "/admin/users/delete", this.deleteUserByUsername);
   }
 
   /**
@@ -344,22 +344,23 @@ export class AdminContoller extends UserController {
 
 
 
-    async deleteUser(req, res) {
+    async deleteUserByUsername(req, res) {
       try {
-          const usernameToDelete = req.params.username; // Retrieve the username from the request parameters
-          console.log('Username to delete:', usernameToDelete);
-          const deletedUser = await User.destroy({ where: { userName: usernameToDelete } });
+          const username  = req.query.username; 
   
-          // Handle the success or failure of deletion
+          // Perform user deletion based on the username
+          const deletedUser = await User.destroy({ where: { userName: username } });
+  
           if (deletedUser) {
-              res.status(200).send('User deleted successfully'); // Send a success response
+              console.log ("User Deleted");
+              res.status(200).send('User deleted successfully');
           } else {
-              res.status(404).send('User not found or deletion failed'); // Send a failure response
+              res.status(404).send('User not found or deletion failed');
           }
       } catch (error) {
           console.error('Error deleting user:', error);
-          res.status(500).send('Internal Server Error'); // Handle internal server error
+          res.status(500).send('Internal Server Error');
       }
   }
   
-  }
+}

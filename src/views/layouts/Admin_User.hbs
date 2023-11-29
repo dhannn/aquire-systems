@@ -116,32 +116,28 @@
         
 
 
-    <script>
-   document.addEventListener('DOMContentLoaded', () => {
+  <script>
+document.addEventListener('DOMContentLoaded', () => {
     const confirmButtons = document.querySelectorAll('[data-bs-target="#confirmationModal"]');
 
     confirmButtons.forEach(button => {
         button.addEventListener('click', async () => {
             try {
-                
                 const editButtonDiv = button.closest('[data-username]');
                 if (!editButtonDiv) {
                     throw new Error('Username data attribute not found');
                 }
 
-               
                 const usernameToDelete = editButtonDiv.dataset.username;
 
-                
                 if (!usernameToDelete) {
                     throw new Error('Username not found');
                 }
-
-                 console.log('Username to delete:', usernameToDelete);
-                const deleteURL = `/admin/users/${usernameToDelete}`;
-
+                
+                const deleteURL = `/admin/users/delete?username=${usernameToDelete}`; // Include query parameter
+                console.log(deleteURL);
                 const response = await fetch(deleteURL, {
-                    method: 'DELETE'
+                    method: 'POST' 
                 });
 
                 if (response.ok) {
@@ -155,7 +151,6 @@
         });
     });
 });
-
 </script>
 
 
