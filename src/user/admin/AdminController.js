@@ -18,6 +18,7 @@ export class AdminContoller extends UserController {
     this.createRoute("POST", "/students", this.addStudent);
     this.createRoute("POST", "/users", this.addUser);
     this.createRoute('POST', '/startNewSchoolYear', this.startNewSchoolYear);
+    this.createRoute('DELETE', '/admin/users/:username', this.deleteUser);
   }
 
   /**
@@ -339,4 +340,26 @@ export class AdminContoller extends UserController {
             res.redirect('/');
         }
     }
+
+
+
+
+    async deleteUser(req, res) {
+      try {
+          const usernameToDelete = req.params.username; // Retrieve the username from the request parameters
+          console.log('Username to delete:', usernameToDelete);
+          const deletedUser = await User.destroy({ where: { userName: usernameToDelete } });
+  
+          // Handle the success or failure of deletion
+          if (deletedUser) {
+              res.status(200).send('User deleted successfully'); // Send a success response
+          } else {
+              res.status(404).send('User not found or deletion failed'); // Send a failure response
+          }
+      } catch (error) {
+          console.error('Error deleting user:', error);
+          res.status(500).send('Internal Server Error'); // Handle internal server error
+      }
+  }
+  
   }
