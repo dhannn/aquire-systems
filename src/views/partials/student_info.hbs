@@ -30,21 +30,21 @@
     <!-- Edit button -->
     <div class="col border-0 border-white p-2">
         <div class="edit-button-div col-12 text-center rounded-0" role="button"
-            tabindex="0" data-bs-toggle="modal" data-bs-target="#studentModal">
+            tabindex="0" data-bs-toggle="modal" data-bs-target="#studentModal_{{this.student_id}}">
             <i class="fa-solid fa-pen"></i>
         </div>
     </div>
 </div>
 
 <!-- Modal -->
-<div class="modal fade modal-lg" id="studentModal" tabindex="-1" aria-labelledby="studentModalLabel" aria-hidden="true">
+<div class="modal fade modal-lg" id="studentModal_{{this.student_id}}" tabindex="-1" aria-labelledby="studentModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="studentModalLabel">Edit Enrollment Information</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-            <form id="add-student-form" role="form" method="POST" action="/admin/students" class="input-group-custom my-3">
+            <form id="add-student-form" role="form" method="POST" action="/admin/students?grade={{lookup this 'Enrolls.grade'}}" class="input-group-custom my-3">
             <input type="text" name="edit_student" value="true" hidden/>
                 <div class="modal-body">
                     <div class="row mx-half mb-0">
@@ -90,6 +90,7 @@
             </form>
     </div>
   </div>
+</div>
 </div>
 
 {{!--                         <div class="col px-0">
