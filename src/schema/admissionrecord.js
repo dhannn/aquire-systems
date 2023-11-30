@@ -37,3 +37,4 @@ export const AdmissionRecord = sequelize.define('admissionRecord', {
         }
     ]
 });
+

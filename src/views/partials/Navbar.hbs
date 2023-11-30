@@ -11,7 +11,11 @@
             modal.hide();
         });
 
-     
+        const cancelButton = document.getElementById('cancelButton');
+        cancelButton.addEventListener('click', () => {
+            modal.hide();
+        });
+
         modal.show();
     }
 </script>
@@ -69,7 +73,7 @@
                                     <div class="modal-footer border-0 justify-content-center">
                                         <a href ="/logout"><button type="button"  id="confirmLogout"
                                             class="button-yellow btn rounded-0 mx-3 border-0y">Logout</button></a>
-                                        <button type="button" class="button-gray btn rounded-0 border-0"
+                                        <button type="button" id="cancelButton" class="button-gray btn rounded-0 border-0"
                                             data-dismiss="modal">Cancel</button>
                                     </div>
                                 </div>

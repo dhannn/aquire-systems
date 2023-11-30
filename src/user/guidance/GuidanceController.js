@@ -17,11 +17,16 @@ export class GuidanceController extends UserController {
         this.createRoute('POST', '/', this.getStudentRecords);
         this.createRoute('GET', '/records', this.viewGuidancePage)
         this.createRoute('POST', '/records', this.addStudentRecord);
+        this.createRoute('GET', '/anecdotal', this.viewAnecdotalRecords);
+        this.createRoute('POST', '/anecdotal', this.addAnecdotalRecord);
+        // this.createRoute('GET', '/history', this.viewStudentSchoolHistory);
+        // this.createRoute('POST', '/history', this.addStudentSchoolHistory);
+    }
+    /**
         this.createRoute('GET', '/cummulative', this.viewGuidancePage);
         this.createRoute('POST', '/cummulative', this.updateStudentSchoolHistory);
         this.createRoute('POST', '/cummulative-get', this.getStudentSchoolHistory);
-        this.createRoute('GET', '/anecdotal', this.viewAnecdotalRecords);
-        this.createRoute('POST', '/anecdotal', this.addAnecdotalRecord);
+        
 
     }
 
@@ -58,7 +63,6 @@ export class GuidanceController extends UserController {
         GuidanceModel.initializeRecordTypes();
         const allowed = await UserController.verifyUserPermission(this.allowedUserType, _)
         const loggedIn = UserController.checkifloggedIn(_);
-
         const studentRecords = await GuidanceModel.StudentRecords();
         if (loggedIn) {
             if (allowed) {
@@ -68,7 +72,7 @@ export class GuidanceController extends UserController {
             }
         } else {
             res.redirect('/');
-        } 
+        }  
     }
 
     async getStudentRecords(req, res) {

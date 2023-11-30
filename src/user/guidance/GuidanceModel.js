@@ -2,7 +2,6 @@ import { AdmissionRecord } from "../../schema/admissionrecord.js";
 import { Record } from "../../schema/record.js";
 import { Enrolls } from "../../schema/enrolls.js";
 import { SchoolHistory } from "../../schema/schoolhistory.js";
-
 import { AnecdotalRecord } from "../../schema/AnecdotalRecord.js";
 import { Student } from "../../schema/student.js";
 
@@ -71,6 +70,7 @@ export class GuidanceModel {
     }
 
     /**
+
      * updates school history of a student
      * @param {String} id 
      * @param {String} enteredFrom 
@@ -139,7 +139,31 @@ export class GuidanceModel {
                     console.log('Database error: Record Id does not exist');
                 }
             }
-            return studentRecords;
+
+            let records = {};
+
+            studentRecords.forEach(async (record) => {
+                const student = record.student_id;
+                if (!records[student]) {
+                    records[student] = {
+                        has: [],
+                        firstName: '',
+                        lastName: ''
+                    };
+
+                    const studentInfo = await Student.findByPk(student, {
+                        attributes: ['firstName', 'lastName'],
+                        raw: true
+                    });
+                    
+                    records[student].firstName = studentInfo.firstName;
+                    records[student].lastName= studentInfo.lastName;
+                }
+                
+                records[student].has.push(record.recordId);
+            })
+
+            return records;
         }
 
         static async fetchAnecdotalRecords(studentId) {
@@ -199,10 +223,4 @@ export class GuidanceModel {
                 return { error: error.message };
             }
         }
-        
-        
-        
-
-
-
 }

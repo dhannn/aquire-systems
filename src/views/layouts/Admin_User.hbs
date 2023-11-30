@@ -24,7 +24,6 @@
     {{#if message}}
         {{> Message message=message}}
     {{/if}}
-    
     {{> Navbar userRole='Admin' user_page="true"}}
 
     <div class="d-flex flex-column h-100 w-100 justify-content-top align-item-center">
@@ -39,8 +38,11 @@
                                 class="form-control rounded-0 border" placeholder="New Username" />
                         </div>
                         <div class="col-3 px-0">
-                            <input required name="userType" type="text"
-                                class="form-control rounded-0 border" placeholder="New Role" />
+                            <select required name="userType" type="text" class="form-control custom-select rounded-0 border">
+                                <option disabled selected class="form-control rounded-0 border" value="">Role</option>
+                                <option class="form-control rounded-0 border" value="A">Admin</option>
+                                <option class="form-control rounded-0 border" value="G">Guidance</option>
+                            </select>
                         </div>
                         <div class="col-3 px-0">
                             <input required name="userPassword" type="password"

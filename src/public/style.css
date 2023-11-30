@@ -131,7 +131,7 @@
     }
 }
 
-.input-group-custom input.form-control, .input-group-custom textarea{
+.input-group-custom input.form-control, .input-group-custom textarea, .input-group-custom select {
     background-color: #d9d9d9;
 
     font-size: 1rem;
@@ -400,6 +400,12 @@
   .form-check-label {
     font-size: 11px;
   }
+
+
+  .readonly::placeholder {
+    color: var(--black);
+  }
+
   
   .greyed-out {
     opacity: 0.6; 
@@ -410,3 +416,5 @@
     background-color: #FFD700;
 }
 }
+}
+
