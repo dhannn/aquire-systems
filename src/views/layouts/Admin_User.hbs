@@ -116,42 +116,40 @@
         
 
 
-  <script>
+ 
+
+<!-- Updated script -->
+<script>
 document.addEventListener('DOMContentLoaded', () => {
-    const confirmButtons = document.querySelectorAll('[data-bs-target="#confirmationModal"]');
+    const confirmButton = document.getElementById('confirmStartNewSchoolYear'); 
 
-    confirmButtons.forEach(button => {
-        button.addEventListener('click', async () => {
-            try {
-                const editButtonDiv = button.closest('[data-username]');
-                if (!editButtonDiv) {
-                    throw new Error('Username data attribute not found');
-                }
-
-                const usernameToDelete = editButtonDiv.dataset.username;
-
-                if (!usernameToDelete) {
-                    throw new Error('Username not found');
-                }
-                
-                const deleteURL = `/admin/users/delete?username=${usernameToDelete}`; // Include query parameter
-                console.log(deleteURL);
-                const response = await fetch(deleteURL, {
-                    method: 'POST' 
-                });
-
-                if (response.ok) {
-                    window.location.reload();
-                } else {
-                    console.error('Deletion failed');
-                }
-            } catch (error) {
-                console.error('Error during deletion:', error);
+    confirmButton.addEventListener('click', async () => {
+        try {
+            const editButtonDiv = document.querySelector('[data-username]'); 
+            if (!editButtonDiv) {
+                throw new Error('Username data attribute not found');
             }
-        });
+
+            const usernameToDelete = editButtonDiv.dataset.username; 
+
+            const deleteURL = `/admin/users/delete?username=${usernameToDelete}`;
+            const response = await fetch(deleteURL, {
+                method: 'POST' 
+            });
+
+            if (response.ok) {
+                window.location.reload();
+            } else {
+                console.error('Deletion failed');
+            }
+        } catch (error) {
+            console.error('Error during deletion:', error);
+        }
     });
 });
+
 </script>
+
 
 
 </body>

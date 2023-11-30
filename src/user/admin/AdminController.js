@@ -18,7 +18,7 @@ export class AdminContoller extends UserController {
     this.createRoute("POST", "/students", this.addStudent);
     this.createRoute("POST", "/users", this.addUser);
     this.createRoute('POST', '/startNewSchoolYear', this.startNewSchoolYear);
-    this.createRoute("POST", "/admin/users/delete", this.deleteUserByUsername);
+    this.createRoute("POST", "/users/delete", this.deleteUserByUsername);
   }
 
   /**
