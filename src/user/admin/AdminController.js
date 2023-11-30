@@ -115,6 +115,7 @@ export class AdminContoller extends UserController {
             required: true,
           },
         ],
+        order: [['lastName', 'ASC']],
         raw: true,
       });
       console.log("Student Added");
@@ -207,6 +208,7 @@ export class AdminContoller extends UserController {
           required: true,
         },
       ],
+      order: [['lastName', 'ASC']],
       raw: true,
     });
 
@@ -336,6 +338,7 @@ export class AdminContoller extends UserController {
         const loggedIn = UserController.checkifloggedIn(_);
         const users = await User.findAll({
             attributes: ['userName', 'userType'],
+            order:[['userName', 'ASC']],
             raw: true
         });
 
