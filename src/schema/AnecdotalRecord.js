@@ -23,9 +23,8 @@ export const AnecdotalRecord = sequelize.define('AnecdotalRecord', {
         allowNull: true,
     },
     anecdotalRecord: {
-        type: DataTypes.STRING, 
-        allowNull: true, 
-        defaultValue: '' 
+        type: DataTypes.TEXT('long'), 
+        allowNull: true,
     },
 });
 
