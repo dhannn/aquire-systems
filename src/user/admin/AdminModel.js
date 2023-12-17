@@ -39,6 +39,10 @@ export class AdminModel {
      */
     viewUsers() {}
 
+    async getSchoolYear() {
+        return await CurrentSchoolYear.findOne();
+    }
+
   /**
    * Inserts the student tow the database
    * @param {string} id
@@ -57,9 +61,7 @@ export class AdminModel {
         }
 
         // TODO: Extract method in AdminModel
-        const currentSchoolYear = await CurrentSchoolYear.findOne({
-            order: [['createdAt', 'DESC']],
-        });
+        const currentSchoolYear = await this.getSchoolYear();
 
         if (!currentSchoolYear) {
             throw new Error("Current school year is not set");
@@ -135,9 +137,7 @@ export class AdminModel {
   async startNewSchoolYear() {
     try {
         // TODO: Extract method in AdminModel
-        const currentSchoolYear = await CurrentSchoolYear.findOne({
-            order: [['createdAt', 'DESC']],
-        });
+        const currentSchoolYear = await this.getSchoolYear();
 
         if (!currentSchoolYear) {
             throw new Error('Current school year is not set');
@@ -153,7 +153,7 @@ export class AdminModel {
 
         console.log('New school year started successfully.');
         
-        const updatedSchoolYear = await CurrentSchoolYear.findOne();
+        const updatedSchoolYear = await this.getSchoolYear();
 
         if (!updatedSchoolYear) {
             throw new Error('Failed to fetch the updated school year');

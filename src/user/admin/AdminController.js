@@ -29,9 +29,7 @@ export class AdminContoller extends UserController {
 
   async addStudent(req, res) {
     // TODO: Extract method to AdminModel
-    const currentSchoolYear = await CurrentSchoolYear.findOne({
-      order: [["createdAt", "DESC"]],
-    });
+    const currentSchoolYear = await this.model.getSchoolYear();
 
     
     if (!currentSchoolYear) {
