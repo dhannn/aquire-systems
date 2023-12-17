@@ -34,18 +34,6 @@ export class AdminModel {
         return insertUser();
     }
 
-    // // updateCurrentSchoolYear method
-    // async updateCurrentSchoolYear(fromYear, toYear) {
-    //     try {
-    //         // Update the current school year range in the CurrentSchoolYear table
-    //         await CurrentSchoolYear.create({ fromYear, toYear }, { upsert: true });
-    //         return { fromYear, toYear };
-    //     } catch (error) {
-    //         console.error('Error updating the current school year:', error);
-    //         throw error;
-    //     }
-    // }
-
     /**
      * Inserts the user to the database
      */
@@ -68,6 +56,7 @@ export class AdminModel {
             throw new Error("Middle initial should be at most two characters");
         }
 
+        // TODO: Extract method in AdminModel
         const currentSchoolYear = await CurrentSchoolYear.findOne({
             order: [['createdAt', 'DESC']],
         });
@@ -76,9 +65,10 @@ export class AdminModel {
             throw new Error("Current school year is not set");
         }
 
+        // TODO: Extract to toString() method
         const schoolYear = `${currentSchoolYear.fromYear}-${currentSchoolYear.toYear}`;
 
- 
+        // TODO: Extract method in AdminModel
         const existingStudent = await Student.findOne({
             where: { student_id: id },
             transaction: t,
@@ -89,6 +79,7 @@ export class AdminModel {
                 existingStudent.middleInitial === middleName &&
                 existingStudent.lastName === lastName) {
 
+                // TODO: Extract method in AdminModel
                 const alreadyEnrolled = await Enrolls.findOne({
                     where: {
                         student_id: id,
@@ -101,7 +92,7 @@ export class AdminModel {
                     throw new Error("Student is already enrolled for the current school year");
                 }
 
-          
+                // TODO: Extract method in AdminModel
                 await Enrolls.create({
                     student_id: id,
                     schoolYear: schoolYear,
@@ -116,6 +107,7 @@ export class AdminModel {
         }
 
         try {
+            // TODO: Extract method in AdminModel
             const newStudent = await Student.create({
                 student_id: id,
                 firstName: firstName,
@@ -142,6 +134,7 @@ export class AdminModel {
 
   async startNewSchoolYear() {
     try {
+        // TODO: Extract method in AdminModel
         const currentSchoolYear = await CurrentSchoolYear.findOne({
             order: [['createdAt', 'DESC']],
         });
@@ -152,6 +145,7 @@ export class AdminModel {
 
         console.log('Starting new school year. Current school year:', currentSchoolYear);
 
+        // TODO: Extract method to CurrentSchoolYear: `toValue()`
         const fromYear = parseInt(currentSchoolYear.fromYear) + 1;
         const toYear = parseInt(currentSchoolYear.toYear) + 1;
 
@@ -173,6 +167,7 @@ export class AdminModel {
  }
 
 
+ // TODO: Extract method to CurrentSchoolYear object
  async updateCurrentSchoolYear(fromYear, toYear) {
   try {
       // Update the current school year range in the CurrentSchoolYear table

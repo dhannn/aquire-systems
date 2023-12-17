@@ -28,6 +28,7 @@ export class AdminContoller extends UserController {
    */
 
   async addStudent(req, res) {
+    // TODO: Extract method to AdminModel
     const currentSchoolYear = await CurrentSchoolYear.findOne({
       order: [["createdAt", "DESC"]],
     });
@@ -43,7 +44,8 @@ export class AdminContoller extends UserController {
     const nexttoYear = parseInt(currentSchoolYear.toYear) + 1;
     const nextschoolyear = `${nextfromYear}-${nexttoYear}`;
     var message;
-
+    
+    // TODO: Extract method to AdminModel
     const students = await Student.findAll({
       attributes: ["student_id", "firstName", "middleInitial", "lastName"],
       include: [
@@ -59,6 +61,7 @@ export class AdminContoller extends UserController {
       raw: true,
     });
 
+    // TODO: Extract method to `editStudent()` method
     if(req.body.edit_student){
       console.log('updating student info');
       const updateStudent = await this.model.updateExistingStudentInfo(
@@ -136,15 +139,16 @@ export class AdminContoller extends UserController {
     }
   }
   
-
   async addUser(req, res) {
     const result = await this.model.addUser(
+      // TODO: Extract constants
       req.body.userName,
       req.body.userPassword,
       req.body.userType
     );
 
     if (result.error) {
+      // TODO: Simplify logic
       if (result.error.includes("duplicate key error")) {
         res.render("Admin_User", {
           message: { content: "Username already exists!" },
