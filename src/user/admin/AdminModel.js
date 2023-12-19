@@ -68,7 +68,7 @@ export class AdminModel {
         }
 
         // TODO: Extract to toString() method
-        const schoolYear = `${currentSchoolYear.fromYear}-${currentSchoolYear.toYear}`;
+        const schoolYear = await CurrentSchoolYear.toString();
 
         // TODO: Extract method in AdminModel
         const existingStudent = await Student.findOne({
@@ -134,37 +134,14 @@ export class AdminModel {
   }
 
 
-  async startNewSchoolYear() {
-    try {
-        // TODO: Extract method in AdminModel
-        const currentSchoolYear = await this.getSchoolYear();
-
-        if (!currentSchoolYear) {
-            throw new Error('Current school year is not set');
+    async startNewSchoolYear() {
+        try {
+            return await CurrentSchoolYear.next();
+        } catch (error) {
+            console.log(error);
+            return error;
         }
-
-        console.log('Starting new school year. Current school year:', currentSchoolYear);
-
-        // TODO: Extract method to CurrentSchoolYear: `toValue()`
-        const fromYear = parseInt(currentSchoolYear.fromYear) + 1;
-        const toYear = parseInt(currentSchoolYear.toYear) + 1;
-
-        await this.updateCurrentSchoolYear(fromYear.toString(), toYear.toString());
-
-        console.log('New school year started successfully.');
-        
-        const updatedSchoolYear = await this.getSchoolYear();
-
-        if (!updatedSchoolYear) {
-            throw new Error('Failed to fetch the updated school year');
-        }
-
-        return updatedSchoolYear;
-    } catch (error) {
-        console.error('Error starting new school year:', error);
-        throw error;
     }
- }
 
 
  // TODO: Extract method to CurrentSchoolYear object
