@@ -51,6 +51,31 @@ export class UserController {
         throw new Error('Implement initializeModel');
     }
 
+    loggedIn(req, res, next) {
+        const { id } = req.cookies;
+
+        if (!id) {
+            return res.redirect('/');
+        }
+
+        req.id = id;
+        next();
+    }
+
+    authenticateUser(req, res, next) {
+        const { id } = req;
+        User.findOne({ where: { userId: id }})
+            .then((user) => {
+                if (user.userType == this.allowedUserType) {
+                    next();
+                    return;
+                }
+
+                console.log('Should not be reached');
+                res.sendStatus(403);
+            });
+    }
+
     static verifyUserPermission(allowedUser, _) {
         async function allowed() {
             try {

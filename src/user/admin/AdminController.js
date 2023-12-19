@@ -11,7 +11,9 @@ export class AdminContoller extends UserController {
   allowedUserType = "A";
 
   initializeRoutes() {
-    this.createRoute("GET", "", this.viewStudents);
+    this.router.use(this.loggedIn.bind(this));
+    this.router.use(this.authenticateUser.bind(this));
+
     this.createRoute("GET", "/", this.viewStudents);
     this.createRoute("GET", "/students", this.viewStudents);
     this.createRoute("GET", "/users", this.viewUsers);
@@ -167,19 +169,6 @@ export class AdminContoller extends UserController {
   }
 
   async viewStudents(req, res) {
-    const allowed = await UserController.verifyUserPermission(
-      this.allowedUserType,
-      req
-    );
-    const loggedIn = UserController.checkifloggedIn(req);
-
-    if (!loggedIn) {
-      return res.redirect("/");
-    }
-
-    if (!allowed) {
-      return res.redirect("/");
-    }
     
     const currentSchoolYear = await CurrentSchoolYear.findOne({
       order: [["createdAt", "DESC"]],
@@ -192,6 +181,7 @@ export class AdminContoller extends UserController {
     
     var gradefilter;
     if (req.query.grade == null) {
+      
       return res.redirect('/admin/students?grade=Kinder');
     } else {
       gradefilter = req.query.grade;
