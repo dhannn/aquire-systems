@@ -49,6 +49,14 @@ export class AdminModel {
         return schoolYear;
     }
 
+    async getNextSchoolYear() {
+        const schoolYear = await CurrentSchoolYear.findOne();
+        const from = parseInt(schoolYear.fromYear) + 1;
+        const to = parseInt(schoolYear.toYear) + 1;
+
+        return CurrentSchoolYear.build({ fromYear: from, toYear: to });
+    }
+
     async getStudents(schoolYear, gradefilter) {    
         const students = await Student.findAll({
             attributes: ["student_id", "firstName", "middleInitial", "lastName"],

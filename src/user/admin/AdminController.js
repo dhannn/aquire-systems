@@ -9,7 +9,23 @@ import { Enrolls } from "../../schema/enrolls.js";
 export class AdminContoller extends UserController {
   startingRoute = "/admin";
   allowedUserType = "A";
-
+  gradeMap = {
+    'Kinder': 'K',
+    'Senior Kinder': 'SK',
+    'Grade 1':  'G1',
+    'Grade 2':  'G2',
+    'Grade 3':  'G3',
+    'Grade 4':  'G4',
+    'Grade 5':  'G5',
+    'Grade 6':  'G6',
+    'Grade 7':  'G7',
+    'Grade 8':  'G8',
+    'Grade 9':  'G9',
+    'Grade 10': 'G10',
+    'Grade 11': 'G11',
+    'Grade 12': 'G12'
+  }
+  
   initializeRoutes() {
     this.router.use(this.loggedIn.bind(this));
     this.router.use(this.authenticateUser.bind(this));
@@ -134,86 +150,18 @@ export class AdminContoller extends UserController {
   }
 
   async viewStudents(req, res) {
-    
-    const currentSchoolYear = await CurrentSchoolYear.findOne({
-      order: [["createdAt", "DESC"]],
-    });
-
     const schoolYear = await req.schoolYear.toString();
-    
-    const nextfromYear = parseInt(currentSchoolYear.fromYear) + 1;
-    const nexttoYear = parseInt(currentSchoolYear.toYear) + 1;
-    const nextschoolyear = `${nextfromYear}-${nexttoYear}`;
-    
-    var gradefilter;
-    if (req.query.grade == null) {
-
-      return res.redirect('/admin/students?grade=Kinder');
-    } else {
-      gradefilter = req.query.grade;
-    }
-
+    const nextSchoolYear = await this.model.getNextSchoolYear().toString();
     const students = req.students;
-
-    try {
-      if (!currentSchoolYear) {
-        throw new Error("Current school year is not set");
-      }
-
-      if (!students || students.length === 0) {
-        return res.render("Admin_Student", {
-          students: [],
-          schoolyear: schoolYear,
-          nextschoolyear: nextschoolyear,
-          currgrade: gradefilter,
-
-          K: gradefilter === 'Kinder',
-          SK: gradefilter === 'Senior Kinder',
-          G1: gradefilter === 'Grade 1',
-          G2: gradefilter === 'Grade 2',
-          G3: gradefilter === 'Grade 3',
-          G4: gradefilter === 'Grade 4',
-          G5: gradefilter === 'Grade 5',
-          G6: gradefilter === 'Grade 6',
-          G7: gradefilter === 'Grade 7',
-          G8: gradefilter === 'Grade 8',
-          G9: gradefilter === 'Grade 9',
-          G10: gradefilter === 'Grade 10',
-          G11: gradefilter === 'Grade 11',
-          G12: gradefilter === 'Grade 12',
-        });
-      }
-
-      res.render("Admin_Student", { 
-        students: students,
-        schoolyear: schoolYear,
-        nextschoolyear: nextschoolyear,
-        currgrade: gradefilter,
-        //for current proccing
-        K: gradefilter === 'Kinder',
-        SK: gradefilter === 'Senior Kinder',
-        G1: gradefilter === 'Grade 1',
-        G2: gradefilter === 'Grade 2',
-        G3: gradefilter === 'Grade 3',
-        G4: gradefilter === 'Grade 4',
-        G5: gradefilter === 'Grade 5',
-        G6: gradefilter === 'Grade 6',
-        G7: gradefilter === 'Grade 7',
-        G8: gradefilter === 'Grade 8',
-        G9: gradefilter === 'Grade 9',
-        G10: gradefilter === 'Grade 10',
-        G11: gradefilter === 'Grade 11',
-        G12: gradefilter === 'Grade 12',
-       });
-    } catch (error) {
-      console.error("Error fetching students:", error);
-      res.status(500).render("error", {
-        students: students,
-        error: "An error occurred while fetching the students.",
-        schoolyear: schoolYear,
-        nextschoolyear: nextschoolyear
+    const gradefilter = req.gradefilter;
+  
+    res.render("Admin_Student", { 
+      students: students,
+      schoolyear: schoolYear,
+      nextschoolyear: nextSchoolYear,
+      currgrade: gradefilter,
+      [ this.gradeMap[gradefilter] ]: true
       });
-    }
   }
   
   async addUser(req, res) {
@@ -317,6 +265,7 @@ export class AdminContoller extends UserController {
         } 
         
         let gradefilter = req.query.grade;
+        req.gradefilter = gradefilter;
         req.students = await this.model.getStudents(await schoolYear.toString(), gradefilter);
 
         next();
