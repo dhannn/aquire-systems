@@ -14,12 +14,12 @@ export class AdminContoller extends UserController {
     this.router.use(this.loggedIn.bind(this));
     this.router.use(this.authenticateUser.bind(this));
 
-    this.createRoute("GET", "/", this.viewStudents);
-    this.createRoute("GET", "/students", this.viewStudents);
+    this.createRoute("GET", "/", this.viewStudents, this.fetchStudents);
+    this.createRoute("GET", "/students", this.viewStudents, this.fetchStudents);
+    this.createRoute("POST", "/students", this.addStudent, this.fetchStudents);
+    this.createRoute('POST', '/startNewSchoolYear', this.startNewSchoolYear, this.fetchStudents);
     this.createRoute("GET", "/users", this.viewUsers);
-    this.createRoute("POST", "/students", this.addStudent);
     this.createRoute("POST", "/users", this.addUser);
-    this.createRoute('POST', '/startNewSchoolYear', this.startNewSchoolYear);
   }
 
   /**
@@ -30,8 +30,7 @@ export class AdminContoller extends UserController {
    */
 
   async addStudent(req, res) {
-    // TODO: Extract method to AdminModel
-    const currentSchoolYear = await this.model.getSchoolYear();
+    const currentSchoolYear = this.model.getSchoolYear();
 
     
     if (!currentSchoolYear) {
@@ -105,7 +104,7 @@ export class AdminContoller extends UserController {
       if (!currentSchoolYear) {
         throw new Error("Current school year is not set");
       }
-      const schoolYear = `${currentSchoolYear.fromYear}-${currentSchoolYear.toYear}`;
+      const schoolYear = req.schoolYear.toString();
       const students = await Student.findAll({
         attributes: ["student_id", "firstName", "middleInitial", "lastName"],
         include: [
@@ -173,7 +172,8 @@ export class AdminContoller extends UserController {
     const currentSchoolYear = await CurrentSchoolYear.findOne({
       order: [["createdAt", "DESC"]],
     });
-    const schoolYear = `${currentSchoolYear.fromYear}-${currentSchoolYear.toYear}`;
+
+    const schoolYear = await req.schoolYear.toString();
     
     const nextfromYear = parseInt(currentSchoolYear.fromYear) + 1;
     const nexttoYear = parseInt(currentSchoolYear.toYear) + 1;
@@ -181,7 +181,7 @@ export class AdminContoller extends UserController {
     
     var gradefilter;
     if (req.query.grade == null) {
-      
+
       return res.redirect('/admin/students?grade=Kinder');
     } else {
       gradefilter = req.query.grade;
@@ -354,5 +354,19 @@ export class AdminContoller extends UserController {
         } else {
             res.redirect('/');
         }
+    }
+
+    async fetchStudents(req, res, next) {
+      console.log('FETCHINGGGG');
+      try {
+        req.schoolYear = await this.model.getSchoolYear();
+      } catch (error) {
+        res.redirect('/');
+        return;
+      }
+
+      
+      req.students = await this.model.getStudents();
+      next();
     }
   }

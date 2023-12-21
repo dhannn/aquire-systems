@@ -40,7 +40,38 @@ export class AdminModel {
     viewUsers() {}
 
     async getSchoolYear() {
-        return await CurrentSchoolYear.findOne();
+        const schoolYear = await CurrentSchoolYear.findOne();
+
+        if (!schoolYear) {
+            throw new Error('School year not initialized. Use the script in the ./scripts directory to initialize school year.');
+        }
+
+        return schoolYear;
+    }
+
+    async getStudents() {    
+        const students = await Student.findAll({
+            attributes: ["student_id", "firstName", "middleInitial", "lastName"],
+            include: [
+                {
+                    model: Enrolls,
+                    attributes: ["grade", "section"],
+                    where: {
+                    schoolYear: schoolYear,
+                    grade: gradefilter,
+                    },
+                    required: true,
+                },
+            ],
+            order: [['lastName', 'ASC']],
+            raw: true,
+        });
+  
+        return students;
+    }
+
+    async getStudents(year) {
+
     }
 
   /**
@@ -60,15 +91,13 @@ export class AdminModel {
             throw new Error("Middle initial should be at most two characters");
         }
 
-        // TODO: Extract method in AdminModel
         const currentSchoolYear = await this.getSchoolYear();
 
         if (!currentSchoolYear) {
             throw new Error("Current school year is not set");
         }
 
-        // TODO: Extract to toString() method
-        const schoolYear = await CurrentSchoolYear.toString();
+        const schoolYear = await currentSchoolYear.toString();
 
         // TODO: Extract method in AdminModel
         const existingStudent = await Student.findOne({
@@ -142,27 +171,6 @@ export class AdminModel {
             return error;
         }
     }
-
-
- // TODO: Extract method to CurrentSchoolYear object
- async updateCurrentSchoolYear(fromYear, toYear) {
-  try {
-      // Update the current school year range in the CurrentSchoolYear table
-      const [updatedRows] = await CurrentSchoolYear.update(
-          { fromYear, toYear },
-          { where: {} }
-      );
-
-      if (updatedRows === 0) {
-          throw new Error('Failed to update the current school year');
-      }
-
-      return { fromYear, toYear };
-  } catch (error) {
-      console.error('Error updating the current school year:', error);
-      throw error;
-  }
-}
 
   async updateExistingStudentInfo(id, firstName, middleName, lastName, grade, section) {
     try{

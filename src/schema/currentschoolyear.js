@@ -31,6 +31,25 @@ CurrentSchoolYear.toString = async function() {
     return promise;
 }
 
+CurrentSchoolYear.prototype.toString = async function() {
+    let promise = new Promise(
+        (resolve, reject) => {
+            CurrentSchoolYear.findOne()
+                .then((data) => {
+                    const from = data.fromYear;
+                    const to = data.toYear;
+        
+                    resolve(`${from}-${to}`);
+                }).catch((error) => {
+                    reject(error);
+                });
+        }
+    )
+    
+    return promise;
+}
+
+
 CurrentSchoolYear.next = async function() {
     let promise = new Promise(async (resolve, reject) => {
         const schoolYear = await CurrentSchoolYear.findOne();

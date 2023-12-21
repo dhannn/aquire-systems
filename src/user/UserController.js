@@ -13,17 +13,31 @@ export class UserController {
         this.initializeRoutes();
     }
 
-    createRoute(method, route, action) {
-        switch (method) {
-            case 'GET':
-                this.router.get(route, action.bind(this));
-                break;
-            case 'POST':
-                this.router.post(route, action.bind(this));
-                break;
-        
-            default:
-                break;
+    createRoute(method, route, action, middleware) {
+        if (middleware) {
+            switch (method) {
+                case 'GET':
+                    this.router.get(route, middleware.bind(this), action.bind(this));
+                    break;
+                case 'POST':
+                    this.router.post(route, middleware.bind(this), action.bind(this));
+                    break;
+            
+                default:
+                    break;
+            }
+        } else {
+            switch (method) {
+                case 'GET':
+                    this.router.get(route, action.bind(this));
+                    break;
+                case 'POST':
+                    this.router.post(route, action.bind(this));
+                    break;
+            
+                default:
+                    break;
+            }
         }
     }
 
