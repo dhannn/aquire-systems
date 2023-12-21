@@ -49,7 +49,7 @@ export class AdminModel {
         return schoolYear;
     }
 
-    async getStudents() {    
+    async getStudents(schoolYear, gradefilter) {    
         const students = await Student.findAll({
             attributes: ["student_id", "firstName", "middleInitial", "lastName"],
             include: [
@@ -68,10 +68,6 @@ export class AdminModel {
         });
   
         return students;
-    }
-
-    async getStudents(year) {
-
     }
 
   /**

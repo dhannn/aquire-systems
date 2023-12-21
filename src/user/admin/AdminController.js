@@ -30,14 +30,7 @@ export class AdminContoller extends UserController {
    */
 
   async addStudent(req, res) {
-    const currentSchoolYear = this.model.getSchoolYear();
-
-    
-    if (!currentSchoolYear) {
-      throw new Error("Current school year is not set");
-    }
-
-    const schoolYear = `${currentSchoolYear.fromYear}-${currentSchoolYear.toYear}`;
+    const currentSchoolYear = req.schoolYear;
     
     const nextfromYear = parseInt(currentSchoolYear.fromYear) + 1;
     const nexttoYear = parseInt(currentSchoolYear.toYear) + 1;
@@ -45,20 +38,7 @@ export class AdminContoller extends UserController {
     var message;
     
     // TODO: Extract method to AdminModel
-    const students = await Student.findAll({
-      attributes: ["student_id", "firstName", "middleInitial", "lastName"],
-      include: [
-        {
-          model: Enrolls,
-          attributes: ["grade", "section"],
-          where: {
-            schoolYear: schoolYear,
-          },
-          required: true,
-        },
-      ],
-      raw: true,
-    });
+    const students = req.students;
 
     // TODO: Extract method to `editStudent()` method
     if(req.body.edit_student){
@@ -105,28 +85,14 @@ export class AdminContoller extends UserController {
         throw new Error("Current school year is not set");
       }
       const schoolYear = req.schoolYear.toString();
-      const students = await Student.findAll({
-        attributes: ["student_id", "firstName", "middleInitial", "lastName"],
-        include: [
-          {
-            model: Enrolls,
-            attributes: ["grade", "section"],
-            where: {
-              schoolYear: schoolYear,
-            },
-            required: true,
-          },
-        ],
-        order: [['lastName', 'ASC']],
-        raw: true,
-      });
+      const students = req.students;
       console.log("Student Added");
       
       res.set({'Refresh': `3; url=/admin/students?grade=${req.query.grade}`});
       res.render("Admin_Student", {
         message: message,
-        students: students,
-        schoolyear: schoolYear,
+        students: req.students,
+        schoolyear: await req.schoolYear.toString(),
         nextschoolyear: nextschoolyear
       });
     } catch (error) {
@@ -160,7 +126,7 @@ export class AdminContoller extends UserController {
     } else {
       res.render("Admin_User", {
         message: { isSuccess: true, content: "User added successfully!" },
-        students: students,
+        students: req.students,
         schoolyear: schoolYear,
         nextschoolyear: nextschoolyear
       });
@@ -187,22 +153,7 @@ export class AdminContoller extends UserController {
       gradefilter = req.query.grade;
     }
 
-    const students = await Student.findAll({
-      attributes: ["student_id", "firstName", "middleInitial", "lastName"],
-      include: [
-        {
-          model: Enrolls,
-          attributes: ["grade", "section"],
-          where: {
-            schoolYear: schoolYear,
-            grade: gradefilter,
-          },
-          required: true,
-        },
-      ],
-      order: [['lastName', 'ASC']],
-      raw: true,
-    });
+    const students = req.students;
 
     try {
       if (!currentSchoolYear) {
@@ -357,16 +308,21 @@ export class AdminContoller extends UserController {
     }
 
     async fetchStudents(req, res, next) {
-      console.log('FETCHINGGGG');
       try {
-        req.schoolYear = await this.model.getSchoolYear();
+        let schoolYear = await this.model.getSchoolYear();
+        req.schoolYear = schoolYear;   
+      
+        if (!req.query.grade) {
+          return res.redirect('/admin/students?grade=Kinder');
+        } 
+        
+        let gradefilter = req.query.grade;
+        req.students = await this.model.getStudents(await schoolYear.toString(), gradefilter);
+
+        next();
       } catch (error) {
-        res.redirect('/');
+        console.log('Error: ' + error);
         return;
       }
-
-      
-      req.students = await this.model.getStudents();
-      next();
     }
   }
