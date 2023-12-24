@@ -25,7 +25,7 @@ export class AdminContoller extends UserController {
     'Grade 11': 'G11',
     'Grade 12': 'G12'
   }
-  
+
   initializeRoutes() {
     this.router.use(this.loggedIn.bind(this));
     this.router.use(this.authenticateUser.bind(this));
@@ -38,14 +38,7 @@ export class AdminContoller extends UserController {
     this.createRoute("POST", "/users", this.addUser);
   }
 
-  /**
-   * Uses the Admin model to add a student based on the request body
-   * and re-renders the page to reflect the change
-   * @param {Request} req
-   * @param {Response} res
-   */
-
-  async addStudent(req, res) {
+  async editStudent(req, res) {
     const currentSchoolYear = req.schoolYear;
     
     const nextfromYear = parseInt(currentSchoolYear.fromYear) + 1;
@@ -74,24 +67,45 @@ export class AdminContoller extends UserController {
         console.log("Student Updated");
         message = { isSuccess: true, content: "Student updated successfully!" };
       }
-    } else {
-      console.log('adding student info');
-      try {
-        await this.model.addStudent(
-          req.body.student_id,
-          req.body.firstName,
-          req.body.middleInitial,
-          req.body.lastName,
-          req.query.grade,
-          req.body.section
-        );
-        console.log("Student Added");
-        message = { isSuccess: true, content: "Student added successfully!" };
-      } catch (error) {
-        console.error(error.message);
-        message = { content: error.message };
-      }
     }
+  }
+
+  /**
+   * Uses the Admin model to add a student based on the request body
+   * and re-renders the page to reflect the change
+   * @param {Request} req
+   * @param {Response} res
+   */
+
+  async addStudent(req, res) {
+    const currentSchoolYear = req.schoolYear;
+    
+    const nextfromYear = parseInt(currentSchoolYear.fromYear) + 1;
+    const nexttoYear = parseInt(currentSchoolYear.toYear) + 1;
+    const nextschoolyear = `${nextfromYear}-${nexttoYear}`;
+    var message;
+    
+    // TODO: Extract method to AdminModel
+    const students = req.students;
+
+    // TODO: Extract method to `editStudent()` method
+    console.log('adding student info');
+    try {
+      await this.model.addStudent({
+        id: req.body.student_id,
+        firstName: req.body.firstName,
+        middleName: req.body.middleInitial,
+        lastName: req.body.lastName,
+        grade: req.query.grade,
+        section: req.body.section
+      });
+      console.log("Student Added");
+      message = { isSuccess: true, content: "Student added successfully!" };
+    } catch (error) {
+      console.error(error.message);
+      message = { content: error.message };
+    }
+    
     try {
       const currentSchoolYear = await CurrentSchoolYear.findOne({
         order: [["createdAt", "DESC"]],
@@ -151,7 +165,7 @@ export class AdminContoller extends UserController {
 
   async viewStudents(req, res) {
     const schoolYear = await req.schoolYear.toString();
-    const nextSchoolYear = await this.model.getNextSchoolYear().toString();
+    const nextSchoolYear = await (await this.model.getNextSchoolYear()).toString();
     const students = req.students;
     const gradefilter = req.gradefilter;
   

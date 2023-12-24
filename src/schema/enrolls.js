@@ -2,7 +2,6 @@
 
 import { Sequelize, DataTypes } from 'sequelize';
 import {sequelize} from '../DBConnection.js';
-import {Student} from './student.js'
 
 
 export const Enrolls = sequelize.define('Enrolls', {
@@ -30,3 +29,24 @@ export const Enrolls = sequelize.define('Enrolls', {
     }
 });
 
+Enrolls.enroll = async function(student, enrollment, transaction) {
+    const { schoolYear, grade, section } = enrollment;
+
+    await student.createEnroll({
+        student_id: student.student_id,
+        schoolYear: schoolYear,
+        grade: grade,
+        section: section,
+    }, { transaction: transaction });
+}
+
+Enrolls.hasEnrolled = async function (student, enrollment) {
+    const { schoolYear } = enrollment;
+    const record = await Enrolls.findOne({
+        where: {
+            student_id: student.student_id,
+            schoolYear: schoolYear
+        }
+    });
+    return record != null;
+}

@@ -88,81 +88,42 @@ export class AdminModel {
    * @param {string} section
    */
 
-  addStudent(id, firstName, middleName, lastName, grade, section) {
+  addStudent({id, firstName, middleName, lastName, grade, section}) {
     return sequelize.transaction(async (t) => {
-     
-        if (middleName.length > 2) {
-            throw new Error("Middle initial should be at most two characters");
-        }
 
-        const currentSchoolYear = await this.getSchoolYear();
+        const schoolYear = await CurrentSchoolYear.toString();
 
-        if (!currentSchoolYear) {
-            throw new Error("Current school year is not set");
-        }
-
-        const schoolYear = await currentSchoolYear.toString();
-
-        // TODO: Extract method in AdminModel
-        const existingStudent = await Student.findOne({
-            where: { student_id: id },
-            transaction: t,
+        const student = Student.build({
+            student_id: id,
+            firstName: firstName,
+            middleInitial: middleName,
+            lastName: lastName
         });
 
-        if (existingStudent) {
-            if (existingStudent.firstName === firstName &&
-                existingStudent.middleInitial === middleName &&
-                existingStudent.lastName === lastName) {
-
-                // TODO: Extract method in AdminModel
-                const alreadyEnrolled = await Enrolls.findOne({
-                    where: {
-                        student_id: id,
-                        schoolYear: schoolYear,
-                    },
-                    transaction: t,
-                });
-
-                if (alreadyEnrolled) {
-                    throw new Error("Student is already enrolled for the current school year");
-                }
-
-                // TODO: Extract method in AdminModel
-                await Enrolls.create({
-                    student_id: id,
-                    schoolYear: schoolYear,
-                    grade: grade,
-                    section: section,
-                }, { transaction: t });
-                console.log("Enrollment added for existing student");
-                return existingStudent;
-            } else {
-                throw new Error("Student details do not match with existing records");
-            }
+        if (!(await student.exists())) {
+            await student.save();
         }
 
-        try {
-            // TODO: Extract method in AdminModel
-            const newStudent = await Student.create({
-                student_id: id,
-                firstName: firstName,
-                middleInitial: middleName,
-                lastName: lastName,
-            }, { transaction: t });
-
-            await newStudent.createEnroll({
-                student_id: id,
-                schoolYear: schoolYear,
-                grade: grade,
-                section: section,
-            }, { transaction: t });
-
-            console.log("Student and enrollment inserted successfully");
-            return newStudent;
-        } catch (error) {
-            console.error("Error inserting student and/or enrollment:", error);
-            throw error;
+        const enrollment = {
+            schoolYear: schoolYear,
+            grade: grade,
+            section: section
         }
+
+        if (await Enrolls.hasEnrolled(student, enrollment)) {
+            throw new Error(`Student with ID#${id} is already enrolled. Please check the existing records to avoid duplicate enrollments.`);
+        }
+
+        const record = await Student.findByPk(id);
+        
+        if (!await student.equals(record)) {
+            const { firstName, lastName, middleInitial } = record;
+            throw new Error(`Student details with the ID#${id} do not match our existing records. The current student has the name: ${lastName}, ${firstName} ${middleInitial}. Enroll with the existing student details and feel free to edit by clicking the pen icon on the student record if details are incorrect.`);
+        }
+        
+        await Enrolls.enroll(student, enrollment, t);
+
+        return { student, enrollment };
     });
   }
 

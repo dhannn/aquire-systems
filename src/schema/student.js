@@ -24,4 +24,21 @@ export const Student = sequelize.define('Student', {
 
 });
 
+Student.exists = async function (student) {
+    return (await Student.findOne({
+        where: { student_id : student.student_id}
+    })) != null;
+}
+
+Student.prototype.exists = async function () {
+    return (await Student.findOne({
+        where: { student_id : this.student_id}
+    })) != null;
+}
+
+Student.prototype.equals = async function(student) {
+    return this.firstName === student.firstName &&
+    this.middleInitial === student.middleName &&
+    this.lastName === student.lastName; 
+}
 
