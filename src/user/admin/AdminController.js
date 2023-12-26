@@ -79,59 +79,64 @@ export class AdminContoller extends UserController {
 
   async addStudent(req, res) {
     const currentSchoolYear = req.schoolYear;
+    const nextschoolyear = await this.model.getNextSchoolYear();
     
-    const nextfromYear = parseInt(currentSchoolYear.fromYear) + 1;
-    const nexttoYear = parseInt(currentSchoolYear.toYear) + 1;
-    const nextschoolyear = `${nextfromYear}-${nexttoYear}`;
-    var message;
-    
-    // TODO: Extract method to AdminModel
     const students = req.students;
+    let viewOptions = {
+      students: students,
+      schoolyear: await currentSchoolYear.toString()
+    };
 
-    // TODO: Extract method to `editStudent()` method
-    console.log('adding student info');
+    const { 
+      student_id, firstName, middleInitial, 
+      lastName, section 
+    } = req.body;
+
     try {
-      await this.model.addStudent({
-        id: req.body.student_id,
-        firstName: req.body.firstName,
-        middleName: req.body.middleInitial,
-        lastName: req.body.lastName,
-        grade: req.query.grade,
-        section: req.body.section
+      let newStudent = await this.model.addStudent({
+        id: student_id,
+        firstName: firstName,
+        middleName: middleInitial,
+        lastName: lastName,
+        grade: req.gradefilter,
+        section: section
       });
-      console.log("Student Added");
-      message = { isSuccess: true, content: "Student added successfully!" };
-    } catch (error) {
-      console.error(error.message);
-      message = { content: error.message };
-    }
-    
-    try {
-      const currentSchoolYear = await CurrentSchoolYear.findOne({
-        order: [["createdAt", "DESC"]],
+
+      newStudent.newStudent = true;
+
+      const updatedStudents = [...students, newStudent];
+
+      updatedStudents.sort((a, b) => {
+        if (a.lastName < b.lastName) return -1;
+        if (a.lastName > b.lastName) return 1;
+
+        return 0;
       });
-  
-      if (!currentSchoolYear) {
-        throw new Error("Current school year is not set");
-      }
-      const schoolYear = req.schoolYear.toString();
-      const students = req.students;
-      console.log("Student Added");
+
       
-      res.set({'Refresh': `3; url=/admin/students?grade=${req.query.grade}`});
-      res.render("Admin_Student", {
-        message: message,
-        students: req.students,
-        schoolyear: await req.schoolYear.toString(),
-        nextschoolyear: nextschoolyear
-      });
+      console.log("Student Added");
+      viewOptions = { 
+        ...viewOptions, 
+        message: { 
+          isSuccess: true, 
+          content: 
+          "Student added successfully!" 
+        },
+        students: updatedStudents
+      };
     } catch (error) {
       console.error(error.message);
-      res.render("Admin_Student", {
-        message: { content: "Failed to fetch students: " + error.message },
-        students: [],
-      });
+      viewOptions = { 
+        ...viewOptions, 
+        message: { 
+          isSuccess: false, 
+          content: error.message
+        },
+      };
     }
+      
+    res.set({'Refresh': `3; url=/admin/students?grade=${req.query.grade}`});
+    res.render("Admin_Student", viewOptions);
   }
   
   async addUser(req, res) {

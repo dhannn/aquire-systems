@@ -1,7 +1,7 @@
 {{!-- Student Info Partial for Admin_Student --}}
 <div class="row list-div">
     <!-- Displaying student information -->
-    <div class="col-11 px-0">
+    <div class="col-11 px-0" style="{{#if this.newStudent}}background-color: var(--yellow-gray){{/if}}">
         <div class="row mx-half mb-0 h-100">
             <div class="col-3 border border-white p-2">
                 <span>{{this.student_id}}</span>

@@ -38,7 +38,7 @@ Student.prototype.exists = async function () {
 
 Student.prototype.equals = async function(student) {
     return this.firstName === student.firstName &&
-    this.middleInitial === student.middleName &&
+    this.middleInitial === student.middleInitial &&
     this.lastName === student.lastName; 
 }
 

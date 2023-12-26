@@ -91,8 +91,6 @@ export class AdminModel {
   addStudent({id, firstName, middleName, lastName, grade, section}) {
     return sequelize.transaction(async (t) => {
 
-        const schoolYear = await CurrentSchoolYear.toString();
-
         const student = Student.build({
             student_id: id,
             firstName: firstName,
@@ -105,7 +103,7 @@ export class AdminModel {
         }
 
         const enrollment = {
-            schoolYear: schoolYear,
+            schoolYear: await CurrentSchoolYear.toString(),
             grade: grade,
             section: section
         }
@@ -123,7 +121,10 @@ export class AdminModel {
         
         await Enrolls.enroll(student, enrollment, t);
 
-        return { student, enrollment };
+        return { ...student.dataValues, 
+          'Enrolls.grade': enrollment.grade, 
+          'Enrolls.section': enrollment.section 
+        };
     });
   }
 
